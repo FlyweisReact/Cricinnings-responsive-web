@@ -27,15 +27,17 @@ export const showMsg = (type, title, msg) => {
   });
 };
 
-export const LoginHandler = async ({ email, setOtp }) => {
+export const LoginHandler = async ({ email, setOtpSent }) => {
   console.log(email);
   const payload = {};
   if (email) payload.email = email;
-  if (setOtp) payload.setOtp = setOtp;
+  // if (setOtpSent) payload.setOtp = setOtp;
   try {
     const res = await axios.post(`${baseUrl}user/resendOtp`, payload);
     console.log(res?.data);
     showMsg("success", "OTP Sent", res?.data?.message);
+    alert(res?.data?.message);
+    setOtpSent(true)
     return;
   } catch (error) {
     console.log(error);

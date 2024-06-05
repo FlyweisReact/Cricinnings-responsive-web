@@ -4,11 +4,13 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
 import { LoginHandler } from "./Integration/ApiIntegration";
+import OtpInput from 'react-otp-input';
 
 const Login = () => {
   const [btnChecked, setBtnChecked] = useState(false);
   const [email, setEmail] = useState("");
-  const [phone,setPhone]=useState("")
+  const [phone, setPhone] = useState("")
+  const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
 
   const handleLogin = (e) => {
@@ -17,7 +19,7 @@ const Login = () => {
     LoginHandler({
       email,
       phone,
-      setOtp,
+      setOtpSent,
     });
   };
   return (
@@ -37,12 +39,43 @@ const Login = () => {
       </div>
       <Form onSubmit={handleLogin}>
         <div className="flex justify-center mt-5">
-          <input
+          {!otpSent ? (
+            <input
+              placeholder="Email id/Mobile Number"
+              className="border h-[56px] w-[400px] rounded placeholder:pl-2"
+              onChange={(e) => setEmail(e.target.value)}
+              type="text"
+            />
+          ) : (
+            <OtpInput
+            value={otp}
+            onChange={setOtp}
+            numInputs={6}
+            separator={<span style={{ width: "8px" }}></span>}
+            isInputNum={true}
+            shouldAutoFocus={true}
+            inputStyle={{
+              border: "1px solid transparent",
+              borderRadius: "8px",
+              width: "54px",
+              height: "54px",
+              fontSize: "12px",
+              color: "#000",
+              fontWeight: "400",
+              caretColor: "blue"
+            }}
+            focusStyle={{
+              border: "1px solid #CFD3DB",
+              outline: "none"
+            }}
+          />
+          )}
+          {/* <input
             placeholder="Email id/Mobile Number"
             className="border h-[56px] w-[400px] rounded placeholder:pl-2"
             onChange={(e) => setEmail(e.target.value)}
             type="email"
-          />
+          /> */}
         </div>
         <div className="flex justify-center mt-10">
           <button
