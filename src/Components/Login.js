@@ -13,10 +13,12 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if(!btnChecked) return alert('Please')
+    if (!btnChecked) return alert("Please");
     LoginHandler({
-      email,phone
-    })
+      email,
+      phone,
+      setOtp,
+    });
   };
   return (
     <div className="h-[700px]">
@@ -38,7 +40,7 @@ const Login = () => {
           <input
             placeholder="Email id/Mobile Number"
             className="border h-[56px] w-[400px] rounded placeholder:pl-2"
-            onChange={(e)=>setEmail(e.target.value)}
+            onChange={(e) => setEmail(e.target.value)}
             type="email"
           />
         </div>
