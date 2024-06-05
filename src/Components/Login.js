@@ -3,13 +3,13 @@ import { FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Form } from "react-bootstrap";
-import { LoginHandler } from "./Integration/ApiIntegration";
-import OtpInput from 'react-otp-input';
+import { LoginHandler, VerifyOtp } from "./Integration/ApiIntegration";
+import OTPInput from "otp-input-react";
 
 const Login = () => {
   const [btnChecked, setBtnChecked] = useState(false);
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("")
+  const [phone, setPhone] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
 
@@ -21,6 +21,12 @@ const Login = () => {
       phone,
       setOtpSent,
     });
+  };
+
+  const veriFyOtp = (e) => {
+    e.preventDefault();
+    VerifyOtp({ email, otp });
+    alert(otp);
   };
   return (
     <div className="h-[700px]">
@@ -37,7 +43,7 @@ const Login = () => {
           <span className="text-[#1866DB] underline">T & C</span>{" "}
         </div>
       </div>
-      <Form onSubmit={handleLogin}>
+      <Form onSubmit={otpSent ? veriFyOtp : handleLogin}>
         <div className="flex justify-center mt-5">
           {!otpSent ? (
             <input
@@ -47,29 +53,17 @@ const Login = () => {
               type="text"
             />
           ) : (
-            <OtpInput
-            value={otp}
-            onChange={setOtp}
-            numInputs={6}
-            separator={<span style={{ width: "8px" }}></span>}
-            isInputNum={true}
-            shouldAutoFocus={true}
-            inputStyle={{
-              border: "1px solid transparent",
-              borderRadius: "8px",
-              width: "54px",
-              height: "54px",
-              fontSize: "12px",
-              color: "#000",
-              fontWeight: "400",
-              caretColor: "blue"
-            }}
-            focusStyle={{
-              border: "1px solid #CFD3DB",
-              outline: "none"
-            }}
-          />
+            <OTPInput
+              value={otp}
+              onChange={setOtp}
+              autoFocus
+              OTPLength={4}
+              otpType="number"
+              disabled={false}
+              secure
+            />
           )}
+
           {/* <input
             placeholder="Email id/Mobile Number"
             className="border h-[56px] w-[400px] rounded placeholder:pl-2"

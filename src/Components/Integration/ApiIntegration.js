@@ -36,8 +36,28 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
     const res = await axios.post(`${baseUrl}user/resendOtp`, payload);
     console.log(res?.data);
     showMsg("success", "OTP Sent", res?.data?.message);
-    alert(res?.data?.message);
-    setOtpSent(true)
+    alert(res?.data?.newOtp);
+    setOtpSent(true);
+    return;
+  } catch (error) {
+    console.log(error);
+    showMsg("error", "Error", error?.response?.data?.message);
+  }
+};
+
+export const VerifyOtp = async ({ email, otp }) => {
+  const payload = {
+    email,
+    otp,
+  };
+  try {
+    const res = await axios.post(
+      `${baseUrl}user/verifyOTPEmailOrPhone`,
+      payload,
+      auth()
+    );
+    console.log(res?.data);
+    showMsg("success", "OTP Verified", res?.data?.message);
     return;
   } catch (error) {
     console.log(error);
