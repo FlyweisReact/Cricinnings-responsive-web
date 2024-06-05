@@ -1,4 +1,3 @@
-import React from "react";
 import cric from "../Assets/Homepage/cric.svg";
 import banner from "../Assets/Homepage/banner.svg";
 import winner from "../Assets/Homepage/winner.svg";
@@ -13,6 +12,8 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import editorpick from "../Assets/Homepage/editorpick.svg";
+import { useEffect, useState } from "react";
+import { HomepageSliderData } from "../Components/Integration/ApiIntegration";
 
 const Homepage = () => {
   const CustomNextArrow = (props) => {
@@ -56,43 +57,57 @@ const Homepage = () => {
     nextArrow: <CustomNextArrow />,
     prevArrow: <CustomPrevArrow />,
   };
+  const [matches, setMatches] = useState([]);
 
+  const getAllMatchesData = () => {
+    HomepageSliderData().then((res) => {
+      console.log(res);
+      setMatches(res);
+    });
+  };
+  useEffect(() => {
+    
+    getAllMatchesData();
+  }, []);
   return (
     <div className="">
       <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
         <Slider {...settings} className="w-[1000px]">
-          <Link to="/Commenatary">
-            <div className="w-[300px] h-[170px] rounded-t-lg  bg-[white] ">
-              <div className="p-2 flex flex-col gap-2">
-                <div className="flex justify-between items-center ml-2 mr-2">
-                  <div className="text-[12px]">
-                    1st Match . Indian Premier League 2024
-                  </div>
+          {matches &&
+            matches?.map((item) => (
+              <Link to="/Commenatary">
+                <div className="w-[300px] h-[170px] rounded-t-lg  bg-[white] ">
+                  <div className="p-2 flex flex-col gap-2">
+                    <div className="flex justify-between items-center ml-2 mr-2">
+                      <div className="text-[12px]">
+                        1st Match . Indian Premier League 2024
+                      </div>
 
-                  <div className="w-[40px] bg-[black] text-[8px] text-white h-[20px] flex justify-center items-center rounded-3xl">
-                    T20
+                      <div className="w-[40px] bg-[black] text-[8px] text-white h-[20px] flex justify-center items-center rounded-3xl">
+                        T20
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <img src={chennie} alt="" />
+                      <span>Chennai Super Kings</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <img src={mumbai} alt="" />
+                      <span>Mumbai Indians</span>
+                    </div>
+                    <div className="text-[#FE9839]">Today . 7: 30</div>
+                  </div>
+                  <div className="bg-[#0F19AF] h-[35px] border-b rounded-b-lg">
+                    <div className="flex gap-2 justify-end items-center pt-2 mr-2 text-[12px]">
+                      <span className="text-white underline">Points Table</span>
+
+                      <span className="text-white underline">Schedule</span>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <img src={chennie} alt="" />
-                  <span>Chennai Super Kings</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <img src={mumbai} alt="" />
-                  <span>Mumbai Indians</span>
-                </div>
-                <div className="text-[#FE9839]">Today . 7: 30</div>
-              </div>
-              <div className="bg-[#0F19AF] h-[35px] border-b rounded-b-lg">
-                <div className="flex gap-2 justify-end items-center pt-2 mr-2 text-[12px]">
-                  <span className="text-white underline">Points Table</span>
-
-                  <span className="text-white underline">Schedule</span>
-                </div>
-              </div>
-            </div>
-          </Link>
-          <Link to="/Commenatary">
+              </Link>
+            ))}
+          {/* <Link to="/Commenatary">
             <div className="w-[300px] h-[170px]  rounded-t-lg  bg-[white]">
               <div className="p-2 flex flex-col gap-2">
                 <div className="flex justify-between items-center ml-2 mr-2">
@@ -122,11 +137,13 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
-          </Link>
-          <div className="bg-[#B3B3B3] w-[300px] h-[185px]  rounded-lg  text-white ">
-            RESPONSIVE AD’s
-          </div>
-          <Link to="/Commenatary">
+          </Link> */}
+          {matches && (
+            <div className="bg-[#B3B3B3] w-[300px] h-[185px]  rounded-lg  text-white ">
+              RESPONSIVE AD’s
+            </div>
+          )}
+          {/* <Link to="/Commenatary">
             <div className="w-[300px] h-[170px] rounded-t-lg  bg-[white] ">
               <div className="p-2 flex flex-col gap-2">
                 <div className="flex justify-between items-center ml-2 mr-2">
@@ -156,7 +173,7 @@ const Homepage = () => {
                 </div>
               </div>
             </div>
-          </Link>
+          </Link> */}
         </Slider>
       </div>
       <div className="bg-[#B3B3B3] w-[1000px] h-[96px]  text-white flex justify-center items-center">

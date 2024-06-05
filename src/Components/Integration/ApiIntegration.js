@@ -33,7 +33,7 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
   if (email) payload.email = email;
   // if (setOtpSent) payload.setOtp = setOtp;
   try {
-    const res = await axios.post(`${baseUrl}user/resendOtp`, payload);
+    const res = await axios.post(`${baseUrl}userAuth/resendOtp`, payload);
     console.log(res?.data);
     showMsg("success", "OTP Sent", res?.data?.message);
     alert(res?.data?.newOtp);
@@ -48,17 +48,29 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
 export const VerifyOtp = async ({ email, otp }) => {
   const payload = {
     email,
-    otp,
+    otp: +otp,
   };
   try {
     const res = await axios.post(
-      `${baseUrl}user/verifyOTPEmailOrPhone`,
-      payload,
-      auth()
+      `${baseUrl}userAuth/verifyOTPEmailOrPhone`,
+      payload
     );
     console.log(res?.data);
-    showMsg("success", "OTP Verified", res?.data?.message);
+    localStorage.setItem("token", res?.data?.token);
+
+    showMsg("success", "Login Successful", res?.data?.message);
     return;
+  } catch (error) {
+    console.log(error);
+    showMsg("error", "Error", error?.response?.data?.message);
+  }
+};
+
+export const HomepageSliderData = async () => {
+  try {
+    const res = await axios.get(`${baseUrl}user/competitions/2024`);
+    console.log(res?.data);
+    return res?.data;
   } catch (error) {
     console.log(error);
     showMsg("error", "Error", error?.response?.data?.message);

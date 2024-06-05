@@ -1,10 +1,10 @@
 import { FcGoogle } from "react-icons/fc";
 import { FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { LoginHandler, VerifyOtp } from "./Integration/ApiIntegration";
-import OTPInput from "otp-input-react";
+import OTPInput, { ResendOTP } from "otp-input-react";
 
 const Login = () => {
   const [btnChecked, setBtnChecked] = useState(false);
@@ -28,6 +28,16 @@ const Login = () => {
     VerifyOtp({ email, otp });
     alert(otp);
   };
+  const renderButton = (buttonProps) => {
+    return (
+      <button {...buttonProps}>
+        {buttonProps.remainingTime !== 0
+          ? `Please wait for ${buttonProps.remainingTime} sec`
+          : "Resend"}
+      </button>
+    );
+  };
+  const renderTime = () => React.Fragment;
   return (
     <div className="h-[700px]">
       <div className="text-center font-semibold text-3xl  mt-10">Log In</div>
@@ -53,15 +63,49 @@ const Login = () => {
               type="text"
             />
           ) : (
-            <OTPInput
-              value={otp}
-              onChange={setOtp}
-              autoFocus
-              OTPLength={4}
-              otpType="number"
-              disabled={false}
-              secure
-            />
+            <>
+              <div
+                style={{
+                  width: "40%",
+                  textAlign: "center",
+                  margin: "auto",
+                  display: "flex",
+                  flexDirection: "column",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <OTPInput
+                  value={otp}
+                  onChange={setOtp}
+                  autoFocus
+                  OTPLength={4}
+                  otpType="number"
+                  disabled={false}
+                  secure
+                  inputStyles={{
+                    width: "3rem",
+                    height: "3rem",
+                    margin: "7px",
+                    border: "1px solid black",
+                    borderRadius: "4px",
+                  }}
+                />
+                <br />
+                <ResendOTP
+                  maxTime={10}
+                  onResendClick={() =>
+                    LoginHandler({
+                      email,
+                      phone,
+                      setOtpSent,
+                    })
+                  }
+                  renderButton={renderButton}
+                  renderTime={renderTime}
+                />
+              </div>
+            </>
           )}
 
           {/* <input
