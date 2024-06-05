@@ -68,8 +68,13 @@ export const VerifyOtp = async ({ email, otp }) => {
 
 export const HomepageSliderData = async () => {
   try {
-    const res = await axios.get(`${baseUrl}user/competitions/2024`);
-    console.log(res?.data);
+    const res = await axios.get(
+      `${baseUrl}user/getTeamMatches/25?status=1&per_page=10&paged=1`
+    );
+    console.log(res);
+    // console.log(res?.data?.response?.items);
+    // return res?.data?.response?.items;
+    return res?.data?.matches;
     return res?.data;
   } catch (error) {
     console.log(error);

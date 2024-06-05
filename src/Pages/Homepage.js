@@ -5,8 +5,6 @@ import camp from "../Assets/Homepage/campioins.svg";
 import ipl from "../Assets/Homepage/ipl.svg";
 import premier from "../Assets/Homepage/premier.svg";
 import indianpremier from "../Assets/Homepage/indianpremier.svg";
-import chennie from "../Assets/Homepage/chennia.svg";
-import mumbai from "../Assets/Homepage/mumbai.svg";
 import { Link } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -66,9 +64,30 @@ const Homepage = () => {
     });
   };
   useEffect(() => {
-    
     getAllMatchesData();
   }, []);
+
+  const formattedDate = (date) => {
+    const d = new Date(date);
+    const today = new Date();
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    today.setHours(0, 0, 0, 0);
+    tomorrow.setHours(0, 0, 0, 0);
+    d.setHours(0, 0, 0, 0);
+
+    if (d.getTime() === today.getTime()) {
+      return "Today";
+    } else if (d.getTime() === tomorrow.getTime()) {
+      return "Tomorrow";
+    } else {
+      const day = d.getDate();
+      const month = d.getMonth() + 1;
+      const year = d.getFullYear();
+      return `${day}-${month}-${year}`;
+    }
+  };
   return (
     <div className="">
       <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
@@ -80,22 +99,44 @@ const Homepage = () => {
                   <div className="p-2 flex flex-col gap-2">
                     <div className="flex justify-between items-center ml-2 mr-2">
                       <div className="text-[12px]">
-                        1st Match . Indian Premier League 2024
+                        {/* 1st Match . Indian Premier League 2024 */}
+                        {item?.title}
                       </div>
 
-                      <div className="w-[40px] bg-[black] text-[8px] text-white h-[20px] flex justify-center items-center rounded-3xl">
-                        T20
+                      <div
+                        style={{
+                          color: "white",
+                          backgroundColor: "black",
+                          padding: "5px 10px",
+                          borderRadius: "50px",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {/* T20 */}
+
+                        {item?.competition?.category}
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <img src={chennie} alt="" />
-                      <span>Chennai Super Kings</span>
+                      <img
+                        style={{ maxWidth: "30px" }}
+                        src={item?.teama?.logo_url}
+                        alt=""
+                      />
+                      <span>{item?.teama?.name}</span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <img src={mumbai} alt="" />
-                      <span>Mumbai Indians</span>
+                      <img
+                        style={{ maxWidth: "30px" }}
+                        src={item?.teamb?.logo_url}
+                        alt=""
+                      />
+                      <span>{item?.teamb?.name}</span>
                     </div>
-                    <div className="text-[#FE9839]">Today . 7: 30</div>
+                    <div className="text-[#FE9839]">
+                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
+                      {item?.date_start?.split(" ")?.[1]}
+                    </div>
                   </div>
                   <div className="bg-[#0F19AF] h-[35px] border-b rounded-b-lg">
                     <div className="flex gap-2 justify-end items-center pt-2 mr-2 text-[12px]">
