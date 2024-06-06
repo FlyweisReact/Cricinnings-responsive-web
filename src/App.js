@@ -21,6 +21,7 @@ import Manrankingpage from "./Pages/Manrankingpage";
 import Womenrankingpage from "./Pages/Womenrankingpage";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
+import TermsPage from "./Pages/TermsPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -111,6 +112,10 @@ const router = createBrowserRouter([
       {
         path: "/Womenrankingpage",
         element: <Womenrankingpage />,
+      },
+      {
+        path: "/terms",
+        element: <TermsPage />,
       },
     ],
   },

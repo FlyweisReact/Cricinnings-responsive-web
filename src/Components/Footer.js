@@ -1,11 +1,12 @@
-import React from "react";
 import logo from "../Assets/logo.svg";
 import { FaFacebookF } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io5";
 import { FaTwitter } from "react-icons/fa";
 import { FaYoutube } from "react-icons/fa";
 import { FaWordpress } from "react-icons/fa";
+import { Link, useNavigate } from "react-router-dom";
 const Footer = () => {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#4A4A4A] lg:w-full md:min-w-[500px] ">
       <div className="flex justify-around pt-20 ">
@@ -24,9 +25,23 @@ const Footer = () => {
           <span className="text-white text-xl">Company</span>
           <ul className="mt-5 flex flex-col gap-3">
             <li className=" text-white">About</li>
-            <li className=" text-white">Careers</li>
-            <li className=" text-white">Privacy Policy</li>
-            <li className=" text-white">Terms of use</li>
+            
+              <li style={{ cursor: "pointer" }} className=" text-white">
+                Careers
+              </li>
+         
+            <li
+              style={{ cursor: "pointer" }}
+              className=" text-white"
+              onClick={() => navigate("/privacy")}
+            >
+              Privacy Policy
+            </li>
+            <Link to="/terms" className=" text-white">
+            <li onClick={() => navigate("/terms")} className=" text-white">
+              Terms of use
+            </li>
+            </Link>
             <li className=" text-white">CricInnings</li>
           </ul>
         </div>
@@ -50,13 +65,13 @@ const Footer = () => {
             <IoLogoInstagram style={{ color: "white" }} size={25} />
             <FaTwitter style={{ color: "white" }} size={25} />
             <FaYoutube style={{ color: "white" }} size={25} />
-            <FaWordpress style={{ color: "white" }} size={25}/>
+            <FaWordpress style={{ color: "white" }} size={25} />
           </div>
         </div>
       </div>
-      <hr className="mt-5"/>
+      <hr className="mt-5" />
       <div className="text-center text-sm text-white  p-5">
-      © 2024  CricInnings | All Rights Reserved
+        © 2024 CricInnings | All Rights Reserved
       </div>
     </div>
   );
