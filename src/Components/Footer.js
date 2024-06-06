@@ -25,22 +25,23 @@ const Footer = () => {
           <span className="text-white text-xl">Company</span>
           <ul className="mt-5 flex flex-col gap-3">
             <li className=" text-white">About</li>
-            
-              <li style={{ cursor: "pointer" }} className=" text-white">
-                Careers
+
+            <li style={{ cursor: "pointer" }} className=" text-white">
+              Careers
+            </li>
+            <Link to="/privacy" className=" text-white">
+              <li
+                style={{ cursor: "pointer" }}
+                className=" text-white"
+                onClick={() => navigate("/privacy")}
+              >
+                Privacy Policy
               </li>
-         
-            <li
-              style={{ cursor: "pointer" }}
-              className=" text-white"
-              onClick={() => navigate("/privacy")}
-            >
-              Privacy Policy
-            </li>
+            </Link>
             <Link to="/terms" className=" text-white">
-            <li onClick={() => navigate("/terms")} className=" text-white">
-              Terms of use
-            </li>
+              <li onClick={() => navigate("/terms")} className=" text-white">
+                Terms of use
+              </li>
             </Link>
             <li className=" text-white">CricInnings</li>
           </ul>

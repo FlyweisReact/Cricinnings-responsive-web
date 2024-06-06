@@ -11,6 +11,9 @@ export const auth = () => {
   };
 };
 
+export const AuthToken = "ec471071441bb2ac538a0ff901abd249";
+export const AuthUrl = "https://rest.entitysport.com/v2/";
+
 export const showMsg = (type, title, msg) => {
   return Store.addNotification({
     title: title,
@@ -28,19 +31,16 @@ export const showMsg = (type, title, msg) => {
 };
 
 export const LoginHandler = async ({ email, setOtpSent }) => {
-  console.log(email);
   const payload = {};
   if (email) payload.email = email;
-  // if (setOtpSent) payload.setOtp = setOtp;
   try {
     const res = await axios.post(`${baseUrl}userAuth/resendOtp`, payload);
-    console.log(res?.data);
+
     showMsg("success", "OTP Sent", res?.data?.message);
     alert(res?.data?.newOtp);
     setOtpSent(true);
     return;
   } catch (error) {
-    console.log(error);
     showMsg("error", "Error", error?.response?.data?.message);
   }
 };
@@ -55,13 +55,12 @@ export const VerifyOtp = async ({ email, otp }) => {
       `${baseUrl}userAuth/verifyOTPEmailOrPhone`,
       payload
     );
-    console.log(res?.data);
+
     localStorage.setItem("token", res?.data?.token);
 
     showMsg("success", "Login Successful", res?.data?.message);
     return;
   } catch (error) {
-    console.log(error);
     showMsg("error", "Error", error?.response?.data?.message);
   }
 };
@@ -71,13 +70,28 @@ export const HomepageSliderData = async () => {
     const res = await axios.get(
       `${baseUrl}user/getTeamMatches/25?status=1&per_page=10&paged=1`
     );
-    console.log(res);
-    // console.log(res?.data?.response?.items);
-    // return res?.data?.response?.items;
+
     return res?.data?.matches;
     return res?.data;
   } catch (error) {
-    console.log(error);
     showMsg("error", "Error", error?.response?.data?.message);
   }
+};
+
+export const GetData = async (path) => {
+  try {
+    const res = await axios.get(`${baseUrl}${path}`);
+
+    return res?.data;
+  } catch (error) {}
+};
+
+export const GetDataWithToken = async ({ path, status }) => {
+  try {
+    const res = await axios.get(
+      `${AuthUrl}${path}?token=${AuthToken}&status=${status}`
+    );
+
+    return res?.data;
+  } catch (error) {}
 };

@@ -11,7 +11,11 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import editorpick from "../Assets/Homepage/editorpick.svg";
 import { useEffect, useState } from "react";
-import { HomepageSliderData } from "../Components/Integration/ApiIntegration";
+import {
+  GetData,
+  GetDataWithToken,
+  HomepageSliderData,
+} from "../Components/Integration/ApiIntegration";
 
 const Homepage = () => {
   const CustomNextArrow = (props) => {
@@ -56,15 +60,73 @@ const Homepage = () => {
     prevArrow: <CustomPrevArrow />,
   };
   const [matches, setMatches] = useState([]);
+  const [allSeries, setAllSeries] = useState([]);
+  const [teamRankings, setTeamRankings] = useState([]);
+  const [odis, setOdis] = useState([]);
+  const [t20s, setT20s] = useState([]);
+  const [test, setTest] = useState([]);
+  const [mainCategory, setMainCategory] = useState("teams");
+  const [teamSelector, setTeamSelector] = useState("test");
+  const [odiBestman, setOdiBestman] = useState([]);
+  const [t20Bestman, setT20Bestman] = useState([]);
+  const [testBestman, setTestBestman] = useState([]);
+  const [odiBolling, setOdiBolling] = useState([]);
+  const [t20Bolling, setT20Bolling] = useState([]);
+  const [testBolling, setTestBolling] = useState([]);
+  const [odiAlr, setOdiAlr] = useState([]);
+  const [t20Alr, setT20Alr] = useState([]);
+  const [testAlr, setTestAlr] = useState([]);
+  const [feacturePosts, setFeacturePosts] = useState([]);
 
   const getAllMatchesData = () => {
     HomepageSliderData().then((res) => {
-      console.log(res);
       setMatches(res);
     });
   };
   useEffect(() => {
     getAllMatchesData();
+  }, []);
+
+  const getAllSeriesData = () => {
+    GetDataWithToken({
+      path: "competitions",
+      status: "live",
+    }).then((res) => {
+      setAllSeries(res?.response?.items);
+    });
+  };
+
+  const getAllTeamRankingsData = () => {
+    GetDataWithToken({
+      path: "iccranks",
+    }).then((res) => {
+      setOdiBestman(res?.response?.ranks?.batsmen?.odis);
+      setT20Bestman(res?.response?.ranks?.batsmen?.t20s);
+      setTestBestman(res?.response?.ranks?.batsmen?.tests);
+      setOdiBolling(res?.response?.ranks?.bowlers?.odis);
+      setT20Bolling(res?.response?.ranks?.bowlers?.t20s);
+      setTestBolling(res?.response?.ranks?.bowlers?.tests);
+      setOdiAlr(res?.response?.ranks?.["all-rounders"]?.odis || []);
+      setT20Alr(res?.response?.ranks?.["all-rounders"]?.t20s || []);
+      setTestAlr(res?.response?.ranks?.["all-rounders"]?.tests || []);
+      setOdis(res?.response?.ranks?.teams?.odis);
+      setT20s(res?.response?.ranks?.teams?.t20s);
+      setTest(res?.response?.ranks?.teams?.tests);
+      setTeamRankings(res?.response?.items);
+    });
+  };
+
+  const getAllFeacturePosts = () => {
+    GetData("userAuth/getFeaturePost").then((res) => {
+      console.log(res?.data);
+      setFeacturePosts(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    getAllSeriesData();
+    getAllTeamRankingsData();
+    getAllFeacturePosts();
   }, []);
 
   const formattedDate = (date) => {
@@ -246,176 +308,7 @@ const Homepage = () => {
                   </div>
                 </div>
               </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
 
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
               <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
                 <div className="flex gap-2">
                   <div>
@@ -646,32 +539,28 @@ const Homepage = () => {
           </div>
 
           <div className="w-[250px]  mt-10">
-            <div className="bg-[white] h-[400px] rounded-lg">
-              <span className="text-sm ml-5 font-semibold">CURRENT SERIES</span>
-              <div className="flex flex-col mt-4 gap-3 items-center">
-                <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                  Indian Premier L
-                </div>
-                <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                  Sri Lanka tour o Bangaladesh
-                </div>
-                <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                  Amritsar Premier League T20
-                </div>
-                <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                  Australia Women Tour to India
-                </div>
-                <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                  ICC Men’s T20 World Cup
+            {allSeries?.length > 0 && (
+              <div className="bg-[white] pb-3 pt-3 rounded-lg">
+                <span className="text-sm ml-5 font-semibold">
+                  CURRENT SERIES
+                </span>
+                <div className="flex flex-col mt-4 gap-3 items-center">
+                  {allSeries?.map((item) => {
+                    return (
+                      <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                        {item?.title}
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
-            </div>
+            )}
 
             <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s
             </div>
 
-            <div className="bg-[white] h-[300px] rounded-lg mt-2">
+            <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
               <div className="flex justify-between p-2">
                 <div className="text-sm font-semibold">RANKING’s</div>
                 <div>
@@ -681,24 +570,90 @@ const Homepage = () => {
                 </div>
               </div>
               <div className="flex justify-between ml-2 mr-2">
-                <button className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white">
+                <button
+                  onClick={() => setTeamSelector("test")}
+                  className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor:
+                      teamSelector === "test" ? "#0F19AF" : "black",
+                    color: teamSelector === "test" ? "white" : "black",
+                  }}
+                >
                   Test
                 </button>
-                <button className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white">
+                <button
+                  onClick={() => setTeamSelector("odi")}
+                  className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
+                    color: teamSelector === "odi" ? "white" : "black",
+                  }}
+                >
                   ODI
                 </button>
-                <button className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white">
+                <button
+                  onClick={() => setTeamSelector("t20")}
+                  className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                  style={{
+                    cursor: "pointer",
+                    backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
+                    color: teamSelector === "t20" ? "white" : "black",
+                  }}
+                >
                   T201
                 </button>
               </div>
               <div className="flex justify-between m-2">
-                <div className="text-[#0F19AF] underline">Teams</div>
-                <div>Batting</div>
-                <div>Bowling</div>
-                <div>ALR</div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    textDecoration:
+                      mainCategory === "teams" ? "underline" : "none",
+                    color: mainCategory === "teams" ? "#0F19AF" : "black",
+                  }}
+                  onClick={() => setMainCategory("teams")}
+                  className="text-[#0F19AF] underline"
+                >
+                  Teams
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    textDecoration:
+                      mainCategory === "batting" ? "underline" : "none",
+                    color: mainCategory === "batting" ? "#0F19AF" : "black",
+                  }}
+                  onClick={() => setMainCategory("batting")}
+                >
+                  Batting
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    textDecoration:
+                      mainCategory === "bowling" ? "underline" : "none",
+                    color: mainCategory === "bowling" ? "#0F19AF" : "black",
+                  }}
+                  onClick={() => setMainCategory("bowling")}
+                >
+                  Bowling
+                </div>
+                <div
+                  style={{
+                    cursor: "pointer",
+                    textDecoration:
+                      mainCategory === "alr" ? "underline" : "none",
+                    color: mainCategory === "alr" ? "#0F19AF" : "black",
+                  }}
+                  onClick={() => setMainCategory("alr")}
+                >
+                  ALR
+                </div>
               </div>
               <table>
-                <thead>
+                <thead style={{ textAlign: "center" }}>
                   <tr>
                     <th className="w-[100px]">Rank</th>
                     <th className="w-[100px]">Team</th>
@@ -706,35 +661,122 @@ const Homepage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr>
-                    <td className="text-center">1.</td>
-                    <td className="text-center">India</td>
-                    <td className="text-center">122</td>
-                  </tr>
-                  <tr>
-                    <td className="text-center">2.</td>
-                    <td className="text-center">India</td>
-                    <td className="text-center">122</td>
-                  </tr>
-                  <tr>
-                    <td className="text-center">3.</td>
-                    <td className="text-center">India</td>
-                    <td className="text-center">122</td>
-                  </tr>
-                  <tr>
-                    <td className="text-center">4.</td>
-                    <td className="text-center">India</td>
-                    <td className="text-center">122</td>
-                  </tr>
-                  <tr>
-                    <td className="text-center">5.</td>
-                    <td className="text-center">India</td>
-                    <td className="text-center">122</td>
-                  </tr>
+                  {mainCategory === "teams" && (
+                    <>
+                      {teamSelector === "test" &&
+                        test?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "t20" &&
+                        t20s?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "odi" &&
+                        odis?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                    </>
+                  )}
+                  {mainCategory === "batting" && (
+                    <>
+                      {teamSelector === "test" &&
+                        testBestman?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "t20" &&
+                        t20Bestman?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "odi" &&
+                        odiBestman?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                    </>
+                  )}
+                  {mainCategory === "bowling" && (
+                    <>
+                      {teamSelector === "test" &&
+                        testBolling?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "t20" &&
+                        t20Bolling?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "odi" &&
+                        odiBolling?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                    </>
+                  )}
+                  {mainCategory === "alr" && (
+                    <>
+                      {teamSelector === "test" &&
+                        testAlr?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "t20" &&
+                        odiAlr?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                      {teamSelector === "odi" &&
+                        odiAlr?.map((item, index) => (
+                          <tr key={index} style={{ textAlign: "center" }}>
+                            <td className="text-center">{item?.rank}</td>
+                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.rating}</td>
+                          </tr>
+                        ))}
+                    </>
+                  )}
                 </tbody>
               </table>
               <div className="text-center text-[10px] mt-2">
-                Latest Updated On 30 Mar 2024,13:30 IST
+                Latest Updated On {new Date().toLocaleDateString()}
               </div>
             </div>
             <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">

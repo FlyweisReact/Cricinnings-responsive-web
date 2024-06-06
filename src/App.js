@@ -22,6 +22,8 @@ import Womenrankingpage from "./Pages/Womenrankingpage";
 import Login from "./Components/Login";
 import Signup from "./Components/Signup";
 import TermsPage from "./Pages/TermsPage";
+import "react-quill/dist/quill.snow.css";
+import PrivacyPage from "./Pages/PrivacyPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -116,6 +118,10 @@ const router = createBrowserRouter([
       {
         path: "/terms",
         element: <TermsPage />,
+      },
+      {
+        path: "/privacy",
+        element: <PrivacyPage />,
       },
     ],
   },
