@@ -7,46 +7,12 @@ import premier from "../Assets/Homepage/premier.svg";
 import { IoCaretForwardOutline } from "react-icons/io5";
 import indiaflag from "../Assets/Homepage/indiaflag.svg";
 import usaflag from "../Assets/Homepage/usaflag.svg";
-import { GetDataWithToken } from "../Components/Integration/ApiIntegration";
-const Livescrore = () => {
+import { useParams } from "react-router";
+const LivescroreById = () => {
   const [selectedDiv, setSelectedDiv] = useState("Current Matches");
-  const [currentSeries, setCurrentSeries] = useState([]);
-  const [currentMatches, setCurrentMatches] = useState([]);
-  const [category, setCategory] = useState("international");
-
-  const getAllCurrentMatches = () => {
-    GetDataWithToken({
-      path: "matches",
-      category: category,
-      
-    })
-      .then((res) => {
-        setCurrentMatches(res?.response?.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-
-  useEffect(() => {
-    getAllCurrentMatches();
-  }, [category]);
-
-  const getAllCurrentSeries = () => {
-    GetDataWithToken({
-      path: "competitions",
-      status: "live",
-    })
-      .then((res) => {
-        setCurrentMatches(res?.response?.items);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  };
-  useEffect(() => {
-    // getAllCurrentSeries();
-  }, []);
+  const params=useParams();
+  console.log(params.id)
+ 
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
@@ -512,23 +478,27 @@ const Livescrore = () => {
                       </div>
                     </div>
                     <div className="w-[250px] flex flex-col gap-5 ">
-                      <div className="bg-[white] pt-3 pb-3 rounded-lg">
-                      {currentSeries?.length > 0 && (
-              <div className="bg-[white] pb-3 pt-3 rounded-lg">
-                <span className="text-sm ml-5 font-semibold">
-                  CURRENT SERIES
-                </span>
-                <div className="flex flex-col mt-4 gap-3 items-center">
-                  {currentSeries?.map((item) => {
-                    return (
-                      <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                        {item?.title}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+                      <div className="bg-[white] h-[400px] rounded-lg">
+                        <span className="text-sm ml-5 font-semibold">
+                          CURRENT SERIES
+                        </span>
+                        <div className="flex flex-col mt-4 gap-3 items-center">
+                          <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                            Indian Premier L
+                          </div>
+                          <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                            Sri Lanka tour o Bangaladesh
+                          </div>
+                          <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                            Amritsar Premier League T20
+                          </div>
+                          <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                            Australia Women Tour to India
+                          </div>
+                          <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                            ICC Men’s T20 World Cup
+                          </div>
+                        </div>
                       </div>
                       <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg ">
                         RESPONSIVE AD’s
@@ -1445,4 +1415,4 @@ const Livescrore = () => {
   );
 };
 
-export default Livescrore;
+export default LivescroreById;

@@ -33,7 +33,7 @@ const Nav = () => {
   const getAllMatchList = () => {
     GetDataWithToken({
       path: "matches",
-      status: "live",
+      status: "3",
 
     })
       .then((res) => {
@@ -343,17 +343,27 @@ const Nav = () => {
         </div>
       </nav>
       <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
-      <div className="UseFlexMenu">
-        <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          MATCHES
-        </div>
-
-        {matchesList.map((match) => (
-          <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]" style={{ backgroundColor: selectedMatch === match?.match_id ? "#DFDFDF" : "#767777" , color: selectedMatch === match?.match_id ? "black" : "white"}} onClick={() => handleMatchClick(match?.match_id)} >
-            <p >{match?.short_title}</p>
+        <div className="UseFlexMenu">
+          <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
+            MATCHES
           </div>
-        ))}
-      </div>
+
+          {matchesList.map((match) => (
+            <Link to={`/Livescore/${match.match_id}`}>
+              <div
+                className={`w-[100px] h-[48px] flex justify-center items-center border-white border text-[10px] cursor-pointer`}
+                style={{
+                  backgroundColor: selectedMatch !== match.match_id ? "#767777" : "#DFDFDF",
+                  color: selectedMatch !== match.match_id ? "white" : "black",
+                  fontWeight: selectedMatch !== match.match_id ? "normal" : "bold"
+                }}
+                onClick={() => handleMatchClick(match.match_id)}
+              >
+                {match.short_title}
+              </div>
+            </Link>
+          ))}
+        </div>
         {/* <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
           IND vs ENG - LIVE
         </div>

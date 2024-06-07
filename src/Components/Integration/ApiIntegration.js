@@ -83,15 +83,22 @@ export const GetData = async (path) => {
     const res = await axios.get(`${baseUrl}${path}`);
 
     return res?.data;
-  } catch (error) {}
+  } catch (error) { }
 };
 
-export const GetDataWithToken = async ({ path, status }) => {
+export const GetDataWithToken = async ({ path, status, category }) => {
   try {
-    const res = await axios.get(
-      `${AuthUrl}${path}?token=${AuthToken}&status=${status}`
-    );
+    const res = await axios.get(`${AuthUrl}${path}`, {
+      params: {
+        token: AuthToken,
+        status: status,
+        category: category,
+      }
+    });
 
     return res?.data;
-  } catch (error) {}
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return null;
+  }
 };
