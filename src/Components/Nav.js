@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Assets/logo.svg";
 import { FaAnglesRight } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
+import { GetDataWithToken } from "./Integration/ApiIntegration";
+import "../App.css";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -27,7 +29,30 @@ const Nav = () => {
   const handleiccpopupleave = () => {
     setIccpopup(false);
   };
+  const [matchesList, setMatchesList] = useState([])
+  const getAllMatchList = () => {
+    GetDataWithToken({
+      path: "matches",
+      status: "live",
 
+    })
+      .then((res) => {
+        const top10 = res?.response?.items?.slice(0, 10)
+        console.log(res?.response?.items, "Navbar")
+        setMatchesList(top10)
+        // setMatchesList(res?.data?.matches)
+      })
+  }
+
+  const [selectedMatch, setSelectedMatch] = useState(null)
+
+  useEffect(() => {
+    getAllMatchList()
+  }, [])
+
+  const handleMatchClick = (match) => {
+    setSelectedMatch(match)
+  }
   return (
     <>
       <div className="bg-[#B3B3B3] w-[1000px] h-[96px] flex items-center justify-center text-[white]">
@@ -318,10 +343,18 @@ const Nav = () => {
         </div>
       </nav>
       <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
+      <div className="UseFlexMenu">
         <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
           MATCHES
         </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
+
+        {matchesList.map((match) => (
+          <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]" style={{ backgroundColor: selectedMatch === match?.match_id ? "#DFDFDF" : "#767777" , color: selectedMatch === match?.match_id ? "black" : "white"}} onClick={() => handleMatchClick(match?.match_id)} >
+            <p >{match?.short_title}</p>
+          </div>
+        ))}
+      </div>
+        {/* <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
           IND vs ENG - LIVE
         </div>
         <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
@@ -341,7 +374,7 @@ const Nav = () => {
         </div>
         <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
           IND vs ENG - UPCOMING
-        </div>
+        </div> */}
       </div>
     </>
   );

@@ -77,6 +77,11 @@ const Homepage = () => {
   const [t20Alr, setT20Alr] = useState([]);
   const [testAlr, setTestAlr] = useState([]);
   const [feacturePosts, setFeacturePosts] = useState([]);
+  const [topStories, setTopStories] = useState([]);
+  const [middleBanner, setMiddleBanner] = useState([]);
+  const [editorpicks, setEditorpicks] = useState([]);
+  const [specialBanner, setSpecialBanner] = useState([]);
+  const [matchesList, setMatchesList] = useState([]);
 
   const getAllMatchesData = () => {
     HomepageSliderData().then((res) => {
@@ -116,17 +121,52 @@ const Homepage = () => {
     });
   };
 
+  const getAllSpecialBanners = () => {
+    GetData("userAuth/getSpecials").then((res) => {
+      // console.log(res?.data);
+      setSpecialBanner(res?.data);
+    });
+  }
+
   const getAllFeacturePosts = () => {
     GetData("userAuth/getFeaturePost").then((res) => {
       console.log(res?.data);
       setFeacturePosts(res?.data);
     });
   };
+  const getAllTopPosts = () => {
+    GetData("userAuth/getTopStories").then((res) => {
+      console.log(res?.data);
+      setTopStories(res?.data);
+    });
+  };
+
+  const getMiddleBanner = () => {
+    GetData("userAuth/getMiddleBanner").then((res) => {
+      console.log(res?.data);
+      setMiddleBanner(res?.data);
+    });
+  };
+
+  const getAllEditorsPickData = () => {
+    GetData("userAuth/getEditorPick").then((res) => {
+      console.log(res?.data);
+      setEditorpicks(res?.data);
+    });
+  };
+
+
+
+
 
   useEffect(() => {
     getAllSeriesData();
     getAllTeamRankingsData();
     getAllFeacturePosts();
+    getAllTopPosts();
+    getMiddleBanner();
+    getAllEditorsPickData();
+    getAllSpecialBanners();
   }, []);
 
   const formattedDate = (date) => {
@@ -150,6 +190,25 @@ const Homepage = () => {
       return `${day}-${month}-${year}`;
     }
   };
+  function timeAgo(createdAt) {
+    // Parse the createdAt timestamp
+    const createdTime = new Date(createdAt).getTime();
+    const currentTime = Date.now();
+    const timeDifference = currentTime - createdTime;
+
+    // Calculate the difference in hours
+    const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
+    const minutesDifference = Math.floor((timeDifference / (1000 * 60)) % 60);
+
+    // Format the result
+    if (hoursDifference > 0) {
+      return `${hoursDifference} hour${hoursDifference > 1 ? 's' : ''} ago`;
+    } else if (minutesDifference > 0) {
+      return `${minutesDifference} minute${minutesDifference > 1 ? 's' : ''} ago`;
+    } else {
+      return 'just now';
+    }
+  }
   return (
     <div className="">
       <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
@@ -291,41 +350,28 @@ const Homepage = () => {
               <div className="text-[#0F19AF] font-semibold">Sell All</div>
             </div>
             <div className="w-[650px]  bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
+              {feacturePosts?.map((item) => (
 
-                  <div className="text-sm">
+                <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
+                  <div className="flex gap-2">
                     <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
+                      <img src={cric} alt="" />
                     </div>
 
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
+                    <div className="text-sm">
+                      <div>
+                        {item?.subtitle}
+                      </div>
 
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
+                      <span className="text-[#929394]">
+                        {timeAgo(item?.createdAt)}  {item?.description}
+                      </span>
                     </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
                   </div>
                 </div>
-              </div>
+              ))}
+
+
             </div>
             <div className="bg-[#B3B3B3] mt-2 h-[96px]  text-white flex justify-center items-center">
               RESPONSIVE AD’s
@@ -335,205 +381,59 @@ const Homepage = () => {
             </div>
             <div className="text-sm mt-2 font-semibold">TOP STORIES</div>
             <div className="w-[650px]  mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
 
-                  <div className="text-sm">
+              {topStories?.map((item) => (
+
+                <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
+                  <div className="flex gap-2">
                     <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
+                      <img src={cric} alt="" />
                     </div>
 
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
+                    <div className="text-sm">
+                      <div>
+                        {item?.subtitle}
+                      </div>
 
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
+                      <span className="text-[#929394]">
+                        {timeAgo(item?.createdAt)}  {item?.description}
+                      </span>
                     </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
                   </div>
                 </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
-              <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                <div className="flex gap-2">
-                  <div>
-                    <img src={cric} alt="" />
-                  </div>
-
-                  <div className="text-sm">
-                    <div>
-                      Stats - Heinrich Klaasen's big-hitting transformation
-                    </div>
-
-                    <span className="text-[#929394]">
-                      1 hr ago Shiva Jayaraman
-                    </span>
-                  </div>
-                </div>
-              </div>
+              ))}
             </div>
+            {middleBanner?.map((item) => (
 
-            <div className="w-[650px] mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
-              <div>
-                <span className="text-sm ml-4">INDIA ( ICCI - 2024 )</span>
-                <img src={winner} alt="" />
-              </div>
-              <div className="ml-4">
-                <div className="text-xl font-semibold">
-                  Cricket Web is a well-established cricket site that attracts a
-                  global following.
+              <div className="w-[650px] mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
+                <div>
+                  <span className="text-sm ml-4">{"INDIA 2024"}</span>
+                  <img src={item?.image || winner} alt="" />
                 </div>
-                <p className="text-sm mt-2">
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis Lorem ipsum dolor sit amet
-                  consectetur. Amet mus aliquam vivamus tincidunt. Odio rhoncus
-                  pretium eu vivamus. Urna odio porta vel sed mi sagittis
-                  fermentum odio. Volutpat velit metus rhoncus enim dolor orci
-                  quis Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis Lorem ipsum dolor sit amet
-                  consectetur. Amet mus aliquam vivamus tincidunt. Odio rhoncus
-                  pretium eu vivamus. Urna
-                </p>
+                <div className="ml-4">
+                  <div className="text-xl font-semibold">
+                    {item?.subtitle}
+                  </div>
+                  <p className="text-sm mt-2">
+                    {item?.description}
+                  </p>
+                </div>
               </div>
-            </div>
+            ))}
             <div className="text-sm mt-2 font-semibold">Editors Pick</div>
             <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
               <Slider {...editorsettings}>
-                <div className="w-[466px] h-[262px] p-4 border rounded-lg">
-                  <img src={editorpick} alt="" />
-                  <div className=" font-semibold">
-                    Where does the Hundred go from here?
+                {editorpicks?.map((item) => (
+
+                  <div className="w-[466px] h-[262px] p-4 border rounded-lg">
+                    <img src={item?.image || editorpick} alt="" />
+                    <div className=" font-semibold">
+                      {item?.subtitle}
+                    </div>
+                    <div className="text-[#828383]">{item?.description}</div>
                   </div>
-                  <div className="text-[#828383]">Ben Bloom</div>
-                </div>
-                <div className="w-[466px] h-[262px] p-4 border rounded-lg">
-                  <img src={editorpick} alt="" />
-                  <div className=" font-semibold">
-                    Where does the Hundred go from here?
-                  </div>
-                  <div className="text-[#828383]">Ben Bloom</div>
-                </div>
+                ))}
+
               </Slider>
             </div>
           </div>
@@ -785,38 +685,18 @@ const Homepage = () => {
             <div className="bg-[white] rounded-lg mt-2">
               <div className="p-1">
                 <span className="font-semibold text-sm ml-4">SPECIALS</span>
-                <img src={camp} alt="" />
-                <span className="font-semibold text-sm ml-4">
-                  Mumbai Indians Champions
-                </span>
-                <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                </p>
-                <img src={ipl} alt="" />
-                <span className="font-semibold text-sm ml-4">
-                  1st Match . IPL 2024
-                </span>
-                <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                </p>
-                <img src={premier} alt="" />
-                <span className="font-semibold text-sm ml-4">
-                  1st Match . IPL 2024
-                </span>
-                <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                </p>
-                <img src={indianpremier} alt="" />
-                <span className="font-semibold text-sm ml-4">
-                  1st Match . IPL 2024
-                </span>
-                <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                </p>
+                {specialBanner?.map((item, index) => (
+                  <>
+                    <img src={item?.image} alt="" />
+                    <span className="font-semibold text-sm ml-4">
+                      {item?.subtitle}
+                    </span>
+                    <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
+                      {item?.description}
+                    </p>
+                  </>
+                ))}
+
               </div>
             </div>
           </div>
