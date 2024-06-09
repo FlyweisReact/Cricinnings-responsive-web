@@ -7,18 +7,21 @@ import premier from "../Assets/Homepage/premier.svg";
 import { IoCaretForwardOutline } from "react-icons/io5";
 import indiaflag from "../Assets/Homepage/indiaflag.svg";
 import usaflag from "../Assets/Homepage/usaflag.svg";
-import { GetDataWithToken } from "../Components/Integration/ApiIntegration";
+import {
+  GetData,
+  GetDataWithToken,
+} from "../Components/Integration/ApiIntegration";
 const Livescrore = () => {
   const [selectedDiv, setSelectedDiv] = useState("Current Matches");
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
   const [category, setCategory] = useState("international");
+  const [specialBanner, setSpecialBanner] = useState([]);
 
   const getAllCurrentMatches = () => {
     GetDataWithToken({
       path: "matches",
       category: category,
-      
     })
       .then((res) => {
         setCurrentMatches(res?.response?.items);
@@ -31,6 +34,12 @@ const Livescrore = () => {
   useEffect(() => {
     getAllCurrentMatches();
   }, [category]);
+  const getAllSpecialBanners = () => {
+    GetData("userAuth/getSpecials").then((res) => {
+      // console.log(res?.data);
+      setSpecialBanner(res?.data);
+    });
+  };
 
   const getAllCurrentSeries = () => {
     GetDataWithToken({
@@ -38,14 +47,15 @@ const Livescrore = () => {
       status: "live",
     })
       .then((res) => {
-        setCurrentMatches(res?.response?.items);
+        setCurrentSeries(res?.response?.items);
       })
       .catch((err) => {
         console.log(err);
       });
   };
   useEffect(() => {
-    // getAllCurrentSeries();
+    getAllCurrentSeries();
+    getAllSpecialBanners();
   }, []);
   return (
     <div className="">
@@ -122,9 +132,15 @@ const Livescrore = () => {
           <div>
             {selectedDiv === "Current Matches" && (
               <>
+              {currentMatches?.[0] && (
+                <>
                 <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                  AFGHANISTAN V IRELAND IN UAE, 2024
+                  {/* AFGHANISTAN V IRELAND IN UAE, 2024  */}
+                  {currentMatches?.[0]?.title}
                 </div>
+                
+                </>
+              )}
 
                 <div className="flex mt-5 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
@@ -513,22 +529,22 @@ const Livescrore = () => {
                     </div>
                     <div className="w-[250px] flex flex-col gap-5 ">
                       <div className="bg-[white] pt-3 pb-3 rounded-lg">
-                      {currentSeries?.length > 0 && (
-              <div className="bg-[white] pb-3 pt-3 rounded-lg">
-                <span className="text-sm ml-5 font-semibold">
-                  CURRENT SERIES
-                </span>
-                <div className="flex flex-col mt-4 gap-3 items-center">
-                  {currentSeries?.map((item) => {
-                    return (
-                      <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
-                        {item?.title}
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
+                        {currentSeries?.length > 0 && (
+                          <div className="bg-[white] pb-3 pt-3 rounded-lg">
+                            <span className="text-sm ml-5 font-semibold">
+                              CURRENT SERIES
+                            </span>
+                            <div className="flex flex-col mt-4 gap-3 items-center">
+                              {currentSeries?.map((item) => {
+                                return (
+                                  <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center p-2">
+                                    {item?.title}
+                                  </div>
+                                );
+                              })}
+                            </div>
+                          </div>
+                        )}
                       </div>
                       <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg ">
                         RESPONSIVE AD’s
@@ -555,33 +571,17 @@ const Livescrore = () => {
                           <span className="font-semibold text-sm ml-4">
                             SPECIALS
                           </span>
-                          <img src={camp} alt="" />
-                          <span className="font-semibold text-sm ml-4">
-                            Mumbai Indians Champions
-                          </span>
-                          <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                            Lorem ipsum dolor sit amet consectetur. Amet mus
-                            aliquam vivamus tincidunt. Odio rhoncus pretium eu
-                            vivamus.
-                          </p>
-                          <img src={ipl} alt="" />
-                          <span className="font-semibold text-sm ml-4">
-                            1st Match . IPL 2024
-                          </span>
-                          <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                            Lorem ipsum dolor sit amet consectetur. Amet mus
-                            aliquam vivamus tincidunt. Odio rhoncus pretium eu
-                            vivamus.
-                          </p>
-                          <img src={premier} alt="" />
-                          <span className="font-semibold text-sm ml-4">
-                            1st Match . IPL 2024
-                          </span>
-                          <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                            Lorem ipsum dolor sit amet consectetur. Amet mus
-                            aliquam vivamus tincidunt. Odio rhoncus pretium eu
-                            vivamus.
-                          </p>
+                          {specialBanner?.map((item, index) => (
+                            <>
+                              <img src={item?.image} alt="" />
+                              <span className="font-semibold text-sm ml-4">
+                                {item?.subtitle}
+                              </span>
+                              <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
+                                {item?.description}
+                              </p>
+                            </>
+                          ))}
                         </div>
                       </div>
                     </div>
