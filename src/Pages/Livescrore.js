@@ -129,16 +129,49 @@ const Livescrore = () => {
         </div>
         <hr className="mt-2" />
         <div className="flex gap-5 mt-2">
-          <div className="bg-[#0F19AF] w-[150px] h-[40px] text-white rounded-3xl flex justify-center items-center">
+          <div
+            onClick={() => setCategory("international")}
+            style={{
+              backgroundColor:
+                category === "international" ? "#0F19AF" : "white",
+              color: category === "international" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
             International
           </div>
-          <div className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center">
+          <div
+            style={{
+              backgroundColor: category === "league" ? "#0F19AF" : "white",
+              color: category === "league" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            onClick={() => setCategory("league")}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
             League
           </div>
-          <div className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center">
+          <div
+            style={{
+              backgroundColor: category === "domestic" ? "#0F19AF" : "white",
+              color: category === "domestic" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            onClick={() => setCategory("domestic")}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
             Domestic
           </div>
-          <div className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center">
+          <div
+            style={{
+              backgroundColor: category === "women" ? "#0F19AF" : "white",
+              color: category === "women" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            onClick={() => setCategory("women")}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
             Women
           </div>
         </div>

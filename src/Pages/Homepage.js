@@ -1,11 +1,7 @@
 import cric from "../Assets/Homepage/cric.svg";
 import banner from "../Assets/Homepage/banner.svg";
 import winner from "../Assets/Homepage/winner.svg";
-import camp from "../Assets/Homepage/campioins.svg";
-import ipl from "../Assets/Homepage/ipl.svg";
-import premier from "../Assets/Homepage/premier.svg";
-import indianpremier from "../Assets/Homepage/indianpremier.svg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -14,7 +10,6 @@ import { useEffect, useState } from "react";
 import {
   GetData,
   GetDataWithToken,
-  HomepageSliderData,
 } from "../Components/Integration/ApiIntegration";
 
 const Homepage = () => {
@@ -82,14 +77,54 @@ const Homepage = () => {
   const [editorpicks, setEditorpicks] = useState([]);
   const [specialBanner, setSpecialBanner] = useState([]);
   const [matchesList, setMatchesList] = useState([]);
+  const [homePageBanners, setHomePageBanners] = useState([]);
+  const [topBanner1, setTopBanner1] = useState("");
+  const [topBanner2, setTopBanner2] = useState("");
+  const [middleBanner1, setMiddleBanner1] = useState("");
+  const [middleBanner2, setMiddleBanner2] = useState("");
+  const [bottomBanner1, setBottomBanner1] = useState("");
+  const [bottomBanner2, setBottomBanner2] = useState("");
+  const navigate = useNavigate();
 
   const getAllMatchesData = () => {
-    HomepageSliderData().then((res) => {
-      setMatches(res);
+    GetDataWithToken({
+      path: "teams/25/matches",
+    })
+      .then((res) => {
+        console.log(res?.response?.items);
+        setMatches(res?.response?.items);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    // HomepageSliderData().then((res) => {
+    //   setMatches(res);
+    // });
+  };
+
+  const getAllHomePageBanners = () => {
+    GetData("userAuth/getPostsByPosition").then((res) => {
+      console.log(res?.data);
+      const topBanner = res?.data?.filter((item) => item?.title === "top");
+      const middleBanner = res?.data?.filter(
+        (item) => item?.title === "middle"
+      );
+      const bottomBanner = res?.data?.filter(
+        (item) => item?.title === "bottom"
+      );
+      setTopBanner1(topBanner[0]?.image);
+      setTopBanner2(topBanner[1]?.image);
+      setMiddleBanner1(middleBanner[0]?.image);
+      setMiddleBanner2(middleBanner[1]?.image);
+      setBottomBanner1(bottomBanner[0]?.image);
+      setBottomBanner2(bottomBanner[1]?.image);
+
+      setHomePageBanners(res?.data);
     });
   };
   useEffect(() => {
     getAllMatchesData();
+    getAllHomePageBanners();
   }, []);
 
   const getAllSeriesData = () => {
@@ -123,41 +158,33 @@ const Homepage = () => {
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
-      // console.log(res?.data);
+      //
       setSpecialBanner(res?.data);
     });
-  }
+  };
 
   const getAllFeacturePosts = () => {
     GetData("userAuth/getFeaturePost").then((res) => {
-      console.log(res?.data);
       setFeacturePosts(res?.data);
     });
   };
   const getAllTopPosts = () => {
     GetData("userAuth/getTopStories").then((res) => {
-      console.log(res?.data);
       setTopStories(res?.data);
     });
   };
 
   const getMiddleBanner = () => {
     GetData("userAuth/getMiddleBanner").then((res) => {
-      console.log(res?.data);
       setMiddleBanner(res?.data);
     });
   };
 
   const getAllEditorsPickData = () => {
     GetData("userAuth/getEditorPick").then((res) => {
-      console.log(res?.data);
       setEditorpicks(res?.data);
     });
   };
-
-
-
-
 
   useEffect(() => {
     getAllSeriesData();
@@ -202,11 +229,13 @@ const Homepage = () => {
 
     // Format the result
     if (hoursDifference > 0) {
-      return `${hoursDifference} hour${hoursDifference > 1 ? 's' : ''} ago`;
+      return `${hoursDifference} hour${hoursDifference > 1 ? "s" : ""} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${minutesDifference > 1 ? 's' : ''} ago`;
+      return `${minutesDifference} minute${
+        minutesDifference > 1 ? "s" : ""
+      } ago`;
     } else {
-      return 'just now';
+      return "just now";
     }
   }
   return (
@@ -300,8 +329,15 @@ const Homepage = () => {
               </div>
             </div>
           </Link> */}
-          {matches && (
+          {matches && topBanner1 && (
             <div className="bg-[#B3B3B3] w-[300px] h-[185px]  rounded-lg  text-white ">
+              {
+                <img
+                  style={{ borderRadius: "10px" }}
+                  src={topBanner1}
+                  alt="topBanner"
+                />
+              }{" "}
               RESPONSIVE AD’s
             </div>
           )}
@@ -338,20 +374,32 @@ const Homepage = () => {
           </Link> */}
         </Slider>
       </div>
-      <div className="bg-[#B3B3B3] w-[1000px] h-[96px]  text-white flex justify-center items-center">
-        RESPONSIVE AD’s
-      </div>
+      {/* {middleBanner1 && <div className="bg-[#B3B3B3] w-[1000px] h-[96px]  text-white flex justify-center items-center">
+        RESPONSIVE AD’s 
+        <img src={middleBanner1} alt="middleBanenr" />
+      </div>} */}
+      {middleBanner1 && (
+        <img
+          style={{ width: "100%", height: "96px", marginTop: "2rem" }}
+          src={middleBanner1}
+          alt="middleBanner"
+        />
+      )}
 
       <div className="bg-[#EEEEEE] pb-5  ">
         <div className="flex justify-center pt-2 gap-5 main-div">
           <div>
             <div className="flex justify-between m-2">
               <div className="font-semibold">FEATURE POSTS</div>
-              <div className="text-[#0F19AF] font-semibold">Sell All</div>
+              <div
+                className="text-[#0F19AF] font-semibold cursor-pointer"
+                onClick={() => navigate("/feature_posts")}
+              >
+                Sell All
+              </div>
             </div>
             <div className="w-[650px]  bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
               {feacturePosts?.map((item) => (
-
                 <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
                   <div className="flex gap-2">
                     <div>
@@ -359,31 +407,33 @@ const Homepage = () => {
                     </div>
 
                     <div className="text-sm">
-                      <div>
-                        {item?.subtitle}
-                      </div>
+                      <div>{item?.subtitle}</div>
 
                       <span className="text-[#929394]">
-                        {timeAgo(item?.createdAt)}  {item?.description}
+                        {timeAgo(item?.createdAt)} {item?.description}
                       </span>
                     </div>
                   </div>
                 </div>
               ))}
-
-
             </div>
-            <div className="bg-[#B3B3B3] mt-2 h-[96px]  text-white flex justify-center items-center">
+            {/* <div className="bg-[#B3B3B3] mt-2 h-[96px]  text-white flex justify-center items-center">
               RESPONSIVE AD’s
-            </div>
+            </div> */}
+            {console.log(middleBanner1)}
+            {middleBanner1 && (
+              <img
+                style={{ width: "100%", height: "96px", marginTop: "2rem" }}
+                src={middleBanner1}
+                alt="middleBanner"
+              />
+            )}
             <div className="w-[650px] mt-2">
               <img src={banner} alt="" />
             </div>
             <div className="text-sm mt-2 font-semibold">TOP STORIES</div>
             <div className="w-[650px]  mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
-
               {topStories?.map((item) => (
-
                 <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
                   <div className="flex gap-2">
                     <div>
@@ -391,12 +441,10 @@ const Homepage = () => {
                     </div>
 
                     <div className="text-sm">
-                      <div>
-                        {item?.subtitle}
-                      </div>
+                      <div>{item?.subtitle}</div>
 
                       <span className="text-[#929394]">
-                        {timeAgo(item?.createdAt)}  {item?.description}
+                        {timeAgo(item?.createdAt)} {item?.description}
                       </span>
                     </div>
                   </div>
@@ -404,19 +452,18 @@ const Homepage = () => {
               ))}
             </div>
             {middleBanner?.map((item) => (
-
               <div className="w-[650px] mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
                 <div>
                   <span className="text-sm ml-4">{"INDIA 2024"}</span>
-                  <img src={item?.image || winner} alt="" />
+                  <img
+                    src={item?.image || winner}
+                    style={{ width: "100%", height: "300px" }}
+                    alt=""
+                  />
                 </div>
                 <div className="ml-4">
-                  <div className="text-xl font-semibold">
-                    {item?.subtitle}
-                  </div>
-                  <p className="text-sm mt-2">
-                    {item?.description}
-                  </p>
+                  <div className="text-xl font-semibold">{item?.subtitle}</div>
+                  <p className="text-sm mt-2">{item?.description}</p>
                 </div>
               </div>
             ))}
@@ -424,16 +471,12 @@ const Homepage = () => {
             <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
               <Slider {...editorsettings}>
                 {editorpicks?.map((item) => (
-
                   <div className="w-[466px] h-[262px] p-4 border rounded-lg">
                     <img src={item?.image || editorpick} alt="" />
-                    <div className=" font-semibold">
-                      {item?.subtitle}
-                    </div>
+                    <div className=" font-semibold">{item?.subtitle}</div>
                     <div className="text-[#828383]">{item?.description}</div>
                   </div>
                 ))}
-
               </Slider>
             </div>
           </div>
@@ -456,9 +499,21 @@ const Homepage = () => {
               </div>
             )}
 
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+            {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s
-            </div>
+            </div> */}
+            {middleBanner2 && (
+              <img
+                style={{
+                  width: "100%",
+                  height: "550px",
+                  marginTop: "2rem",
+                  borderRadius: "10px",
+                }}
+                src={middleBanner2}
+                alt="middleBanner"
+              />
+            )}
 
             <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
               <div className="flex justify-between p-2">
@@ -679,9 +734,20 @@ const Homepage = () => {
                 Latest Updated On {new Date().toLocaleDateString()}
               </div>
             </div>
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+            {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s
-            </div>
+            </div> */}
+            {bottomBanner1 && (
+              <img
+                src={bottomBanner1}
+                style={{
+                  height: "550px",
+                  borderRadius: "10px",
+                  marginTop: "2rem",
+                }}
+                alt="images"
+              />
+            )}
             <div className="bg-[white] rounded-lg mt-2">
               <div className="p-1">
                 <span className="font-semibold text-sm ml-4">SPECIALS</span>
@@ -696,7 +762,6 @@ const Homepage = () => {
                     </p>
                   </>
                 ))}
-
               </div>
             </div>
           </div>

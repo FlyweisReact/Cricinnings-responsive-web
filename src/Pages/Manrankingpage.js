@@ -1,95 +1,1063 @@
-import React from "react";
-
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
-
 import men from "../Assets/Homepage/men.svg";
+import { useEffect, useState } from "react";
+import { GetDataWithToken } from "../Components/Integration/ApiIntegration";
+import { Table } from "react-bootstrap";
 const Manrankingpage = () => {
+  const [rank, setRank] = useState([]);
+  const [odiBestman, setOdiBestman] = useState([]);
+  const [t20Bestman, setT20Bestman] = useState([]);
+  const [testBestman, setTestBestman] = useState([]);
+  const [odiBolling, setOdiBolling] = useState([]);
+  const [t20Bolling, setT20Bolling] = useState([]);
+  const [testBolling, setTestBolling] = useState([]);
+  const [odiAlr, setOdiAlr] = useState([]);
+  const [t20Alr, setT20Alr] = useState([]);
+  const [testAlr, setTestAlr] = useState([]);
+  const [odis, setOdis] = useState([]);
+  const [t20s, setT20s] = useState([]);
+  const [test, setTest] = useState([]);
+  const [teamRankings, setTeamRankings] = useState([]);
+  const [mainCategory, setMainCategory] = useState("batting");
+  const [currentCategory, setCurrentCategory] = useState("test");
+
+  const getAllTeamRankingsData = () => {
+    GetDataWithToken({
+      path: "iccranks",
+    }).then((res) => {
+      setOdiBestman(res?.response?.ranks?.batsmen?.odis);
+      setT20Bestman(res?.response?.ranks?.batsmen?.t20s);
+      setTestBestman(res?.response?.ranks?.batsmen?.tests);
+      setOdiBolling(res?.response?.ranks?.bowlers?.odis);
+      setT20Bolling(res?.response?.ranks?.bowlers?.t20s);
+      setTestBolling(res?.response?.ranks?.bowlers?.tests);
+      setOdiAlr(res?.response?.ranks?.["all-rounders"]?.odis || []);
+      setT20Alr(res?.response?.ranks?.["all-rounders"]?.t20s || []);
+      setTestAlr(res?.response?.ranks?.["all-rounders"]?.tests || []);
+      setOdis(res?.response?.ranks?.teams?.odis);
+      setT20s(res?.response?.ranks?.teams?.t20s);
+      setTest(res?.response?.ranks?.teams?.tests);
+      setTeamRankings(res?.response?.items);
+    });
+  };
+
+  useEffect(() => {
+    getAllTeamRankingsData();
+  }, []);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-        <div className="font-semibold">ICC Cricket Rankings-Men’s Batsmen</div>
+        <div className="font-semibold">ICC Cricket Rankings-Men’s </div>
         <div className="flex gap-5 mt-3">
-          <div>Batting</div>
-          <div>Bowling</div>
-          <div>All-rounders</div>
-          <div>Teams</div>
+          <div
+            style={{
+              cursor: "pointer",
+              textDecoration: mainCategory === "batting" ? "underline" : "none",
+            }}
+            onClick={() => setMainCategory("batting")}
+          >
+            Batting
+          </div>
+          <div
+            style={{
+              cursor: "pointer",
+              textDecoration: mainCategory === "bowling" ? "underline" : "none",
+            }}
+            onClick={() => setMainCategory("bowling")}
+          >
+            Bowling
+          </div>
+          <div
+            style={{
+              cursor: "pointer",
+              textDecoration: mainCategory === "alr" ? "underline" : "none",
+            }}
+            onClick={() => setMainCategory("alr")}
+          >
+            All-rounders
+          </div>
+          <div
+            style={{
+              cursor: "pointer",
+              textDecoration: mainCategory === "teams" ? "underline" : "none",
+            }}
+            onClick={() => setMainCategory("teams")}
+          >
+            Teams
+          </div>
         </div>
         <hr className="mt-2" />
         <div className="mt-2 flex gap-5">
-          <div className="text-white w-[80px] h-[40px] flex justify-center items-center rounded bg-[#0F19AF]">
+          <div
+            onClick={() => setCurrentCategory("test")}
+            style={{
+              cursor: "pointer",
+              color: currentCategory === "test" ? "white" : "black",
+              backgroundColor: currentCategory === "test" ? "#0F19AF" : "white",
+              border:
+                currentCategory === "test"
+                  ? "1px solid #dee2e6"
+                  : "1px solid #dee2e6",
+            }}
+            className=" w-[80px] h-[40px] flex justify-center items-center rounded bg-[#0F19AF]"
+          >
             Test
           </div>
-          <div className=" w-[80px] h-[40px] flex justify-center items-center rounded border">
+          <div
+            onClick={() => setCurrentCategory("odi")}
+            style={{
+              cursor: "pointer",
+              color: currentCategory === "odi" ? "white" : "black",
+              backgroundColor: currentCategory === "odi" ? "#0F19AF" : "white",
+            }}
+            className=" w-[80px] h-[40px] flex justify-center items-center rounded border"
+          >
             ODI
           </div>
-          <div className="w-[80px] h-[40px] flex justify-center items-center rounded border">
+          <div
+            onClick={() => setCurrentCategory("t20")}
+            style={{
+              cursor: "pointer",
+              color: currentCategory === "t20" ? "white" : "black",
+              backgroundColor: currentCategory === "t20" ? "#0F19AF" : "white",
+            }}
+            className="w-[80px] h-[40px] flex justify-center items-center rounded border"
+          >
             T20
           </div>
         </div>
       </div>
       <div className="bg-white pb-5  ">
         <div className="flex justify-center pt-2 gap-5">
-          <div>
-            <div className="w-[680px] pb-5 mt-2 bg-white rounded-lg  shadow-lg ">
-              <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
-                <div className="font-semibold">Position</div>
-                <div className="font-semibold">Player</div>
-                <div className="font-semibold">Ranking</div>
+          {mainCategory === "batting" && (
+            <>
+              <div>
+                <Table style={{ textAlign: "center", marginTop: "40px" }}>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "15px 0px 0px 0px",
+                        }}
+                      >
+                        Position
+                      </th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}></th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}>
+                        Player
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "0px 15px 0px 0px",
+                        }}
+                      >
+                        Ranking
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentCategory === "test" &&
+                      testBestman?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "odi" &&
+                      odiBestman?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "t20" &&
+                      t20Bestman?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
+                <div
+                  style={{ visibility: "hidden" }}
+                  className="w-[680px] pb-5 mt-2 bg-white rounded-lg  shadow-lg "
+                >
+                  <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
+                    <div className="font-semibold">Position</div>
+                    <div className="font-semibold">Player</div>
+                    <div className="font-semibold">Ranking</div>
+                  </div>
+                  <div className="mt-5 flex flex-col gap-5">
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="mt-5 flex flex-col gap-5">
-                <div className="flex items-center justify-between ml-10 mr-10">
-                  <div>1</div>
-                  <div>-</div>
-                  <div className="flex items-center gap-4">
-                    <img src={men} alt="" className="w-[50px] h-[50px]" />
-                    <div className="flex flex-col">
-                      <span className="font-semibold">Kane Williamson</span>
-                      <span className="text-[12px]">NEW ZEALAND</span>
+            </>
+          )}
+          {mainCategory === "bowling" && (
+            <>
+              <div>
+                <Table style={{ textAlign: "center", marginTop: "40px" }}>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "15px 0px 0px 0px",
+                        }}
+                      >
+                        Position
+                      </th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}></th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}>
+                        Player
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "0px 15px 0px 0px",
+                        }}
+                      >
+                        Ranking
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentCategory === "test" &&
+                      testBolling?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "odi" &&
+                      odiBolling?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "t20" &&
+                      t20Bolling?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
+                <div
+                  style={{ visibility: "hidden" }}
+                  className="w-[680px] pb-5 mt-2 bg-white rounded-lg  shadow-lg "
+                >
+                  <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
+                    <div className="font-semibold">Position</div>
+                    <div className="font-semibold">Player</div>
+                    <div className="font-semibold">Ranking</div>
+                  </div>
+                  <div className="mt-5 flex flex-col gap-5">
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
                     </div>
                   </div>
-                  <div>650</div>
-                </div>
-                <div className="flex items-center justify-between ml-10 mr-10">
-                  <div>1</div>
-                  <div>-</div>
-                  <div className="flex items-center gap-4">
-                    <img src={men} alt="" className="w-[50px] h-[50px]" />
-                    <div className="flex flex-col">
-                      <span className="font-semibold">Kane Williamson</span>
-                      <span className="text-[12px]">NEW ZEALAND</span>
-                    </div>
-                  </div>
-                  <div>650</div>
-                </div>
-                <div className="flex items-center justify-between ml-10 mr-10">
-                  <div>1</div>
-                  <div>-</div>
-                  <div className="flex items-center gap-4">
-                    <img src={men} alt="" className="w-[50px] h-[50px]" />
-                    <div className="flex flex-col">
-                      <span className="font-semibold">Kane Williamson</span>
-                      <span className="text-[12px]">NEW ZEALAND</span>
-                    </div>
-                  </div>
-                  <div>650</div>
-                </div>
-                <div className="flex items-center justify-between ml-10 mr-10">
-                  <div>1</div>
-                  <div>-</div>
-                  <div className="flex items-center gap-4">
-                    <img src={men} alt="" className="w-[50px] h-[50px]" />
-                    <div className="flex flex-col">
-                      <span className="font-semibold">Kane Williamson</span>
-                      <span className="text-[12px]">NEW ZEALAND</span>
-                    </div>
-                  </div>
-                  <div>650</div>
                 </div>
               </div>
-            </div>
-          </div>
-
+            </>
+          )}
+          {mainCategory === "alr" && (
+            <>
+              <div>
+                <Table style={{ textAlign: "center", marginTop: "40px" }}>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "15px 0px 0px 0px",
+                        }}
+                      >
+                        Position
+                      </th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}></th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}>
+                        Player
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "0px 15px 0px 0px",
+                        }}
+                      >
+                        Ranking
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentCategory === "test" &&
+                      testAlr?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "odi" &&
+                      odiAlr?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "t20" &&
+                      t20Alr?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
+                <div
+                  style={{ visibility: "hidden" }}
+                  className="w-[680px] pb-5 mt-2 bg-white rounded-lg  shadow-lg "
+                >
+                  <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
+                    <div className="font-semibold">Position</div>
+                    <div className="font-semibold">Player</div>
+                    <div className="font-semibold">Ranking</div>
+                  </div>
+                  <div className="mt-5 flex flex-col gap-5">
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
+          {mainCategory === "teams" && (
+            <>
+              <div>
+                <Table style={{ textAlign: "center", marginTop: "40px" }}>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "15px 0px 0px 0px",
+                        }}
+                      >
+                        Position
+                      </th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}></th>
+                      <th style={{ backgroundColor: "rgb(231,231,231)" }}>
+                        Player
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "rgb(231,231,231)",
+                          borderRadius: "0px 15px 0px 0px",
+                        }}
+                      >
+                        Ranking
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {currentCategory === "test" &&
+                      test?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "odi" &&
+                      odis?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                    {currentCategory === "t20" &&
+                      t20s?.map((item, index) => (
+                        <tr key={index}>
+                          <td>
+                            <p>{index + 1}</p>
+                          </td>{" "}
+                          <td>
+                            <p> - </p>
+                          </td>
+                          <td>
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "30px",
+                                alignItems: "center",
+                                justifyContent: "left",
+                                marginLeft: "10px",
+                              }}
+                            >
+                              <span>
+                                <img
+                                  style={{ maxWidth: "100px" }}
+                                  src={men}
+                                  alt="playerImage"
+                                />
+                              </span>
+                              <span
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ fontWeight: "bold" }}>
+                                  {item.player}
+                                </span>
+                                <span style={{ fontWeight: "normal" }}>
+                                  {item.team}
+                                </span>
+                              </span>
+                            </p>
+                          </td>{" "}
+                          <td>
+                            <p>{item.rank}</p>
+                          </td>{" "}
+                        </tr>
+                      ))}
+                  </tbody>
+                </Table>
+                <div
+                  style={{ visibility: "hidden" }}
+                  className="w-[680px] pb-5 mt-2 bg-white rounded-lg  shadow-lg "
+                >
+                  <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
+                    <div className="font-semibold">Position</div>
+                    <div className="font-semibold">Player</div>
+                    <div className="font-semibold">Ranking</div>
+                  </div>
+                  <div className="mt-5 flex flex-col gap-5">
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                    <div className="flex items-center justify-between ml-10 mr-10">
+                      <div>1</div>
+                      <div>-</div>
+                      <div className="flex items-center gap-4">
+                        <img src={men} alt="" className="w-[50px] h-[50px]" />
+                        <div className="flex flex-col">
+                          <span className="font-semibold">Kane Williamson</span>
+                          <span className="text-[12px]">NEW ZEALAND</span>
+                        </div>
+                      </div>
+                      <div>650</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </>
+          )}
           <div className="w-[250px] ">
             <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s

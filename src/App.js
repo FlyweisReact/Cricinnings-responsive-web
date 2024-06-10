@@ -25,6 +25,7 @@ import TermsPage from "./Pages/TermsPage";
 import "react-quill/dist/quill.snow.css";
 import PrivacyPage from "./Pages/PrivacyPage";
 import LivescroreById from "./Pages/LiveScoresById";
+import FeacturePosts from "./Pages/FeacturePosts";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -127,6 +128,10 @@ const router = createBrowserRouter([
       {
         path: "/livescore/:id",
         element: <LivescroreById />,
+      },
+      {
+        path: "/feature_posts",
+        element: <FeacturePosts />,
       },
     ],
   },
