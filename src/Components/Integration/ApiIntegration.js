@@ -11,7 +11,7 @@ export const auth = () => {
   };
 };
 
-export const AuthToken = "411050b7feb2f4f975e130e2a1791e0a";
+export const AuthToken = "ccec173229e7fc73c8f6e5ac808c9b3c";
 export const AuthUrl = "https://rest.entitysport.com/v2/";
 
 export const showMsg = (type, title, msg) => {
@@ -83,7 +83,7 @@ export const GetData = async (path) => {
     const res = await axios.get(`${baseUrl}${path}`);
 
     return res?.data;
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const GetDataWithToken = async ({ path, status, category }) => {
@@ -93,7 +93,7 @@ export const GetDataWithToken = async ({ path, status, category }) => {
         token: AuthToken,
         status: status,
         category: category,
-      }
+      },
     });
 
     return res?.data;
