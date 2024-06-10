@@ -31,52 +31,10 @@ const Livescrore = () => {
       })
       .catch((err) => {});
   };
-  const getSubcategories = async (categoryId) => {
-    try {
-      const res = await axios.get(`${AuthUrl}/subcategories`, {
-        params: {
-          token: AuthToken,
-          categoryId: categoryId,
-        },
-      });
-      return res?.data;
-    } catch (error) {
-      console.error(
-        `Error fetching subcategories for category ${categoryId}:`,
-        error
-      );
-      return [];
-    }
-  };
 
-  const getCategoriesAndSubcategories = async () => {
-    try {
-      const categories = await getAllCompetationsType();
-
-      const categoriesWithSubcategories = await Promise.all(
-        categories.map(async (category) => {
-          const subcategories = await getSubcategories(category.id);
-          return {
-            ...category,
-            subcategories: subcategories,
-          };
-        })
-      );
-
-      return categoriesWithSubcategories;
-    } catch (error) {
-      console.error("Error fetching categories and subcategories:", error);
-      return [];
-    }
-  };
-
-  getCategoriesAndSubcategories().then((data) => {
-    console.log(data);
-  });
-
-  // useEffect(() => {
-  //   getAllCompetationsType();
-  // }, []);
+  useEffect(() => {
+    getAllCompetationsType();
+  }, []);
 
   const getAllCurrentMatches = () => {
     GetDataWithToken({
