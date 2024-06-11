@@ -8,9 +8,12 @@ import Slider from "react-slick";
 import editorpick from "../Assets/Homepage/editorpick.svg";
 import { useEffect, useState } from "react";
 import {
+  AuthToken,
+  AuthUrl,
   GetData,
   GetDataWithToken,
 } from "../Components/Integration/ApiIntegration";
+import axios from "axios";
 
 const Homepage = () => {
   const CustomNextArrow = (props) => {
@@ -86,25 +89,74 @@ const Homepage = () => {
   const [bottomBanner2, setBottomBanner2] = useState("");
   const navigate = useNavigate();
 
-  const getAllMatchesData = () => {
-    GetDataWithToken({
-      path: "teams/25/matches",
-    })
-      .then((res) => {
-        console.log(res?.response?.items);
-        setMatches(res?.response?.items);
-      })
-      .catch((err) => {
-        console.log(err);
+  const [matches1, setMatches1] = useState({
+    upcoming: [],
+    live: [],
+    completed: [],
+  });
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  const fetchMatches = async (status) => {
+    const todayDate = new Date();
+    const formattedDate = todayDate.toISOString().split("T")[0];
+    const tommarrowDate = new Date(todayDate.setDate(todayDate.getDate() + 1));
+    const formattedTommorrowDate = tommarrowDate.toISOString().split("T")[0];
+    const yesterdayDate = new Date(todayDate.setDate(todayDate.getDate() - 1));
+    const formattedYesterdayDate = yesterdayDate.toISOString().split("T")[0];
+    try {
+      const response = await axios.get(AuthUrl + "matches", {
+        params: {
+          status: status,
+          token: AuthToken,
+          per_page: 2,
+          paged: 1,
+          timezone: "+05:30",
+          date: `${formattedDate}_${formattedYesterdayDate}`,
+        },
       });
-    // HomepageSliderData().then((res) => {
-    //   setMatches(res);
-    // });
+      console.log(response?.data?.response?.items);
+      return response?.data?.response?.items;
+    } catch (err) {
+      console.error(`Error fetching matches for status ${status}:`, err);
+      setError(`Error fetching matches for status ${status}`);
+      return [];
+    }
   };
+  const getWinningTeamName = (match) => {
+    const winningTeamId = match.winning_team_id;
+    if (!winningTeamId) return "No winner yet";
+
+    if (match.teama.team_id === winningTeamId) {
+      return match.teama.name;
+    } else if (match.teamb.team_id === winningTeamId) {
+      return match.teamb.name;
+    } else {
+      return "Unknown";
+    }
+  };
+
+  useEffect(() => {
+    const fetchAllMatches = async () => {
+      setLoading(true);
+      const upcomingMatches = await fetchMatches(1);
+      const liveMatches = await fetchMatches(2);
+      const completedMatches = await fetchMatches(3);
+
+      setMatches({
+        upcoming: upcomingMatches,
+        live: liveMatches,
+        completed: completedMatches,
+      });
+
+      setLoading(false);
+    };
+
+    fetchAllMatches();
+  }, []);
 
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      console.log(res?.data);
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"
@@ -123,7 +175,6 @@ const Homepage = () => {
     });
   };
   useEffect(() => {
-    getAllMatchesData();
     getAllHomePageBanners();
   }, []);
 
@@ -217,16 +268,13 @@ const Homepage = () => {
     }
   };
   function timeAgo(createdAt) {
-    // Parse the createdAt timestamp
     const createdTime = new Date(createdAt).getTime();
     const currentTime = Date.now();
     const timeDifference = currentTime - createdTime;
 
-    // Calculate the difference in hours
     const hoursDifference = Math.floor(timeDifference / (1000 * 60 * 60));
     const minutesDifference = Math.floor((timeDifference / (1000 * 60)) % 60);
 
-    // Format the result
     if (hoursDifference > 0) {
       return `${hoursDifference} hour${hoursDifference > 1 ? "s" : ""} ago`;
     } else if (minutesDifference > 0) {
@@ -237,146 +285,269 @@ const Homepage = () => {
       return "just now";
     }
   }
+  
   return (
     <div className="">
       <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
         <Slider {...settings} className="w-[1000px]">
-          {matches &&
-            matches?.map((item) => (
+          {matches?.upcoming &&
+            matches?.upcoming?.map((item) => (
               <Link to="/Commenatary">
-                <div className="w-[300px] h-[170px] rounded-t-lg  bg-[white] ">
-                  <div className="p-2 flex flex-col gap-2">
-                    <div className="flex justify-between items-center ml-2 mr-2">
-                      <div className="text-[12px]">
-                        {/* 1st Match . Indian Premier League 2024 */}
-                        {item?.title}
-                      </div>
-
-                      <div
+                <div className="homePageSlider">
+                  <div className="pt-2 pl-2">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
+                    >
+                      <p style={{ maxWidth: "80%" }}>
+                        {item?.teama?.name} vs {item?.teamb?.name}
+                      </p>
+                      <p
                         style={{
-                          color: "white",
                           backgroundColor: "black",
-                          padding: "5px 10px",
                           borderRadius: "50px",
+                          color: "white",
+                          fontSize: "15px",
+                          padding: "5px 10px",
+                          margin: "1rem",
                           textDecoration: "none",
                         }}
                       >
-                        {/* T20 */}
-
                         {item?.competition?.category}
-                      </div>
+                      </p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <img
-                        style={{ maxWidth: "30px" }}
-                        src={item?.teama?.logo_url}
-                        alt=""
-                      />
-                      <span>{item?.teama?.name}</span>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teama?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
                     </div>
-                    <div className="flex items-center gap-2">
-                      <img
-                        style={{ maxWidth: "30px" }}
-                        src={item?.teamb?.logo_url}
-                        alt=""
-                      />
-                      <span>{item?.teamb?.name}</span>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teamb?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
                     </div>
-                    <div className="text-[#FE9839]">
+                    <p className="text-[#FE9839]">
                       {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
                       {item?.date_start?.split(" ")?.[1]}
-                    </div>
+                    </p>
                   </div>
-                  <div className="bg-[#0F19AF] h-[35px] border-b rounded-b-lg">
-                    <div className="flex gap-2 justify-end items-center pt-2 mr-2 text-[12px]">
-                      <span className="text-white underline">Points Table</span>
-
-                      <span className="text-white underline">Schedule</span>
+                  <div className="homePageSlider2">
+                    <div></div>
+                    <div>
+                      <p>Points Table</p>
+                      <p>Schedule</p>
                     </div>
                   </div>
                 </div>
+                {}
               </Link>
             ))}
-          {/* <Link to="/Commenatary">
-            <div className="w-[300px] h-[170px]  rounded-t-lg  bg-[white]">
-              <div className="p-2 flex flex-col gap-2">
-                <div className="flex justify-between items-center ml-2 mr-2">
-                  <div className="text-[12px]">
-                    18 Match . Indian Premier League 2024
+          {matches?.live &&
+            matches?.live?.map((item) => (
+              <Link to="/Commenatary">
+                <div className="homePageSlider">
+                  <div className="pt-2 pl-2">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
+                    >
+                      <p style={{ maxWidth: "80%" }}>
+                        {item?.teama?.name} vs {item?.teamb?.name}
+                      </p>
+                      <p
+                        style={{
+                          backgroundColor: "black",
+                          borderRadius: "50px",
+                          color: "white",
+                          fontSize: "15px",
+                          padding: "5px 10px",
+                          margin: "1rem",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {item?.competition?.category}
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teama?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teamb?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
+                    </div>
+                    <p className="text-[#FE9839]">
+                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
+                      {item?.date_start?.split(" ")?.[1]}
+                    </p>
                   </div>
-
-                  <div className="w-[40px] bg-[red] text-[8px] text-white h-[20px] flex justify-center items-center rounded-3xl">
-                    Test
+                  <div className="homePageSlider2">
+                    <div></div>
+                    <div>
+                      <p>Points Table</p>
+                      <p>Schedule</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <img src={chennie} alt="" />
-                  <span>Chennai Super Kings</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <img src={mumbai} alt="" />
-                  <span>Mumbai Indians</span>
-                </div>
-                <div className="text-[#FE9839]">Today . 7: 30</div>
-              </div>
-              <div className="bg-[#0F19AF] h-[35px]  border-b rounded-b-xl">
-                <div className="flex gap-2 justify-end items-center pt-2 mr-2 text-[12px] ">
-                  <span className="text-white underline">Points Table</span>
-
-                  <span className="text-white underline">Schedule</span>
-                </div>
-              </div>
-            </div>
-          </Link> */}
-          {matches && topBanner1 && (
-            <div className="bg-[#B3B3B3] w-[300px] h-[185px]  rounded-lg  text-white ">
-              {
-                <img
-                  style={{ borderRadius: "10px" }}
-                  src={topBanner1}
-                  alt="topBanner"
-                />
-              }{" "}
-              RESPONSIVE AD’s
-            </div>
-          )}
-          {/* <Link to="/Commenatary">
-            <div className="w-[300px] h-[170px] rounded-t-lg  bg-[white] ">
-              <div className="p-2 flex flex-col gap-2">
-                <div className="flex justify-between items-center ml-2 mr-2">
-                  <div className="text-[12px]">
-                    1st Match . Indian Premier League 2024
+                {}
+              </Link>
+            ))}
+          {matches?.completed &&
+            matches?.completed?.map((item) => (
+              <Link to="/Commenatary">
+                <div className="homePageSlider">
+                  <div className="pt-2 pl-2">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
+                    >
+                      <p style={{ maxWidth: "80%" }}>
+                        {item?.teama?.name} vs {item?.teamb?.name}
+                      </p>
+                      <p
+                        style={{
+                          backgroundColor: "black",
+                          borderRadius: "50px",
+                          color: "white",
+                          fontSize: "15px",
+                          padding: "5px 10px",
+                          margin: "1rem",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {item?.competition?.category}
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teama?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teamb?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
+                    </div>
+                    <p className="text-[#FE9839]">
+                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
+                      {item?.date_start?.split(" ")?.[1]}
+                    </p>
                   </div>
-
-                  <div className="w-[40px] bg-[black] text-[8px] text-white h-[20px] flex justify-center items-center rounded-3xl">
-                    T20
+                  <div className="homePageSlider2">
+                    <div></div>
+                    <div>
+                      <p>Points Table</p>
+                      <p>Schedule</p>
+                    </div>
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
-                  <img src={chennie} alt="" />
-                  <span>Chennai Super Kings</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <img src={mumbai} alt="" />
-                  <span>Mumbai Indians</span>
-                </div>
-                <div className="text-[#FE9839]">Today . 7: 30</div>
-              </div>
-              <div className="bg-[#0F19AF] h-[35px] border-b rounded-b-lg">
-                <div className="flex gap-2 justify-end items-center pt-2 mr-2 text-[12px]">
-                  <span className="text-white underline">Points Table</span>
-
-                  <span className="text-white underline">Schedule</span>
-                </div>
-              </div>
-            </div>
-          </Link> */}
+                {}
+              </Link>
+            ))}
         </Slider>
       </div>
-      {/* {middleBanner1 && <div className="bg-[#B3B3B3] w-[1000px] h-[96px]  text-white flex justify-center items-center">
-        RESPONSIVE AD’s 
-        <img src={middleBanner1} alt="middleBanenr" />
-      </div>} */}
+      {}
       {middleBanner1 && (
         <img
           style={{ width: "100%", height: "96px", marginTop: "2rem" }}
@@ -416,10 +587,8 @@ const Homepage = () => {
                 </div>
               ))}
             </div>
-            {/* <div className="bg-[#B3B3B3] mt-2 h-[96px]  text-white flex justify-center items-center">
-              RESPONSIVE AD’s
-            </div> */}
-            {console.log(middleBanner1)}
+            {}
+            {}
             {middleBanner1 && (
               <img
                 style={{ width: "100%", height: "96px", marginTop: "2rem" }}
@@ -489,7 +658,10 @@ const Homepage = () => {
                 <div className="flex flex-col mt-4 gap-3 items-center">
                   {allSeries?.map((item) => {
                     return (
-                      <div key={item?._id} className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                      <div
+                        key={item?._id}
+                        className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center"
+                      >
                         {item?.title}
                       </div>
                     );
@@ -498,9 +670,7 @@ const Homepage = () => {
               </div>
             )}
 
-            {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div> */}
+            {}
             {middleBanner2 && (
               <img
                 style={{
@@ -733,9 +903,7 @@ const Homepage = () => {
                 Latest Updated On {new Date().toLocaleDateString()}
               </div>
             </div>
-            {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div> */}
+            {}
             {bottomBanner1 && (
               <img
                 src={bottomBanner1}

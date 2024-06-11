@@ -86,13 +86,19 @@ export const GetData = async (path) => {
   } catch (error) {}
 };
 
-export const GetDataWithToken = async ({ path, status, category }) => {
+export const GetDataWithToken = async ({
+  path,
+  status,
+  category,
+  per_page,
+}) => {
   try {
     const res = await axios.get(`${AuthUrl}${path}`, {
       params: {
         token: AuthToken,
         status: status,
         category: category,
+        per_page: per_page,
       },
     });
 

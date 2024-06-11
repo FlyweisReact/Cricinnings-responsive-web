@@ -17,19 +17,75 @@ const Livescrore = () => {
   const [category, setCategory] = useState("international");
   const [specialBanner, setSpecialBanner] = useState([]);
   const [competationsType, setCompetationsType] = useState([]);
+  const getWinningTeamName = (match) => {
+    const winningTeamId = match.winning_team_id;
+    if (!winningTeamId) return "No winner yet";
 
+    if (match.teama.team_id === winningTeamId) {
+      return match.teama.name;
+    } else if (match.teamb.team_id === winningTeamId) {
+      return match.teamb.name;
+    } else {
+      return "Unknown";
+    }
+  };
   const getAllCompetationsType = () => {
     const current_year = new Date().getFullYear();
     GetDataWithToken({
       path: `seasons/${current_year}/competitions`,
       status: "live",
       category: category,
+      per_page: 20,
+    })
+      .then((res) => {
+        setCompetationsType(
+          res?.response?.items.map((competition) => ({
+            ...competition,
+            matches: [],
+          }))
+        );
+
+        res?.response?.items.forEach((competition) => {
+          getMatchesForCompetition(competition.cid);
+        });
+      })
+      .catch((err) => {});
+  };
+
+  const getMatchesForCompetition = (competitionId) => {
+    GetDataWithToken({
+      path: `competitions/${competitionId}/matches`,
     })
       .then((res) => {
         console.log(res?.response?.items);
-        setCompetationsType(res?.response?.items);
+        const liveMatches = res?.response?.items.filter(
+          (match) => match.status === 2
+        );
+        setCompetationsType((prevCompetitions) => {
+          const updatedCompetitions = prevCompetitions.map((competition) => {
+            if (competition.cid === competitionId) {
+              return {
+                ...competition,
+                matches: liveMatches,
+              };
+            }
+            return competition;
+          });
+          const hasLiveMatches = liveMatches.length > 0;
+          if (!hasLiveMatches) {
+            return updatedCompetitions.filter(
+              (competition) => competition.cid !== competitionId
+            );
+          }
+          return updatedCompetitions;
+        });
       })
-      .catch((err) => {});
+      .catch((err) => {
+        console.error(
+          `Error fetching matches for competition ${competitionId}:`,
+          err
+        );
+      });
   };
 
   useEffect(() => {
@@ -52,7 +108,6 @@ const Livescrore = () => {
   }, [category]);
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
-      //
       setSpecialBanner(res?.data);
     });
   };
@@ -179,10 +234,15 @@ const Livescrore = () => {
           <div>
             {selectedDiv === "Current Matches" && (
               <>
+                {competationsType?.length === 0 && (
+                  <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
+                    {" "}
+                    There are no matches at the moment. Please check back later.{" "}
+                  </div>
+                )}
                 {competationsType?.[0] && (
                   <>
                     <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                      {/* AFGHANISTAN V IRELAND IN UAE, 2024  */}
                       {competationsType?.[0]?.abbr}
                     </div>
                   </>
@@ -192,96 +252,63 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
                       <div className="flex flex-col gap-5">
-                        <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                          <div className="flex">
-                            <span className="font-semibold"></span>
-                            <span className="text-slate-400">3rd T20I </span>
-                          </div>
-                          <div className="text-slate-400">
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                          </div>
-                          <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                            <div className="flex items-center gap-[6rem] ">
-                              <div>
-                                <div className="flex gap-5 text-white">
-                                  <span>AFG</span>
-                                  <span>155-7(20 Ovs)</span>
-                                </div>
-                                <div className="flex gap-7 text-white">
-                                  <span>IRE</span>
-                                  <span>98-10(17.2 Ovs)</span>
-                                </div>
-                                <div className="text-slate-300">
-                                  Afghanistan won by 57 runs
+                        {competationsType[0]?.matches?.map((item, index) => {
+                          return (
+                            <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
+                              <div className="flex">
+                                <span className="font-semibold"></span>
+                                <span className="text-slate-400">
+                                  3rd T20I{" "}
+                                </span>
+                              </div>
+                              <div className="text-slate-400">
+                                {item?.date_start
+                                  ?.split("T")?.[0]
+                                  ?.split("-")
+                                  ?.reverse()
+                                  ?.join("-")}
+                                 at {item?.venue?.name}
+                                {" ,"}
+                                {item?.venue?.location}
+                              </div>
+                              <div className="bg-[#848484] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
+                                <div className="flex items-center gap-[6rem] ">
+                                  <div>
+                                    <div className="flex gap-5 text-white">
+                                      <span>{item?.teama?.name}</span>
+                                      <span>{item?.teama?.scores_full}</span>
+                                    </div>
+                                    <div className="flex gap-7 text-white">
+                                      <span>{item?.teamb?.name}</span>
+                                      <span>{item?.teamb?.scores_full}</span>
+                                    </div>
+                                    <div className="text-slate-300">
+                                      {getWinningTeamName(item)} won by{" "}
+                                      {item?.win_margin}
+                                    </div>
+                                  </div>
+                                  <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                    <IoCaretForwardOutline />
+                                  </div>
                                 </div>
                               </div>
-                              <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                <IoCaretForwardOutline />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex ">
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                              Live Score
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Scorecard
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Full Commentary
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              News
-                            </div>
-                          </div>
-                        </div>
-                        <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                          <div className="flex">
-                            <span className="font-semibold">
-                              Afghanistan vs Ireland,
-                            </span>
-                            <span className="text-slate-400">3rd T20I </span>
-                          </div>
-                          <div className="text-slate-400">
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                          </div>
-                          <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                            <div className="flex items-center gap-[6rem] ">
-                              <div>
-                                <div className="flex gap-5 text-white">
-                                  <span>AFG</span>
-                                  <span>155-7(20 Ovs)</span>
+                              <div className="flex ">
+                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
+                                  Live Score
                                 </div>
-                                <div className="flex gap-7 text-white">
-                                  <span>IRE</span>
-                                  <span>98-10(17.2 Ovs)</span>
+                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                  Scorecard
                                 </div>
-                                <div className="text-slate-300">
-                                  Afghanistan won by 57 runs
+                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                  Full Commentary
+                                </div>
+                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                  News
                                 </div>
                               </div>
-                              <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                <IoCaretForwardOutline />
-                              </div>
                             </div>
-                          </div>
-                          <div className="flex ">
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                              Live Score
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Scorecard
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Full Commentary
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              News
-                            </div>
-                          </div>
-                        </div>
+                          );
+                        })}
                       </div>
                       {competationsType?.map((item, index) => {
                         if (index === 0) {
@@ -296,7 +323,68 @@ const Livescrore = () => {
                               {item?.abbr}
                             </div>
                             <div className="flex flex-col gap-5 mt-5">
-                              <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
+                              {item?.matches?.map((item, index) => {
+                                return (
+                                  <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
+                                    <div className="flex">
+                                      <span className="font-semibold"></span>
+                                      <span className="text-slate-400">
+                                        3rd T20I{" "}
+                                      </span>
+                                    </div>
+                                    <div className="text-slate-400">
+                                      {item?.date_start
+                                        ?.split("T")?.[0]
+                                        ?.split("-")
+                                        ?.reverse()
+                                        ?.join("-")}
+                                       at {item?.venue?.name}
+                                      {" ,"}
+                                      {item?.venue?.location}
+                                    </div>
+                                    <div className="bg-[#848484] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
+                                      <div className="flex items-center gap-[6rem] ">
+                                        <div>
+                                          <div className="flex gap-5 text-white">
+                                            <span>{item?.teama?.name}</span>
+                                            <span>
+                                              {item?.teama?.scores_full}
+                                            </span>
+                                          </div>
+                                          <div className="flex gap-7 text-white">
+                                            <span>{item?.teamb?.name}</span>
+                                            <span>
+                                              {item?.teamb?.scores_full}
+                                            </span>
+                                          </div>
+                                          <div className="text-slate-300">
+                                            {getWinningTeamName(item)} won by{" "}
+                                            {item?.win_margin}
+                                          </div>
+                                        </div>
+                                        <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                          <IoCaretForwardOutline />
+                                        </div>
+                                      </div>
+                                    </div>
+                                    <div className="flex ">
+                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
+                                        Live Score
+                                      </div>
+                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                        Scorecard
+                                      </div>
+                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                        Full Commentary
+                                      </div>
+                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                        News
+                                      </div>
+                                    </div>
+                                  </div>
+                                );
+                              })}
+                              {/* <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
                                 <div className="flex">
                                   <span className="font-semibold">
                                     Afghanistan vs Ireland,
@@ -343,63 +431,15 @@ const Livescrore = () => {
                                     News
                                   </div>
                                 </div>
-                              </div>
-                              <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                                <div className="flex">
-                                  <span className="font-semibold">
-                                    Afghanistan vs Ireland,
-                                  </span>
-                                  <span className="text-slate-400">
-                                    3rd T20I{" "}
-                                  </span>
-                                </div>
-                                <div className="text-slate-400">
-                                  Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                  Stadium
-                                </div>
-                                <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                                  <div className="flex items-center gap-[6rem] ">
-                                    <div>
-                                      <div className="flex gap-5 text-white">
-                                        <span>AFG</span>
-                                        <span>155-7(20 Ovs)</span>
-                                      </div>
-                                      <div className="flex gap-7 text-white">
-                                        <span>IRE</span>
-                                        <span>98-10(17.2 Ovs)</span>
-                                      </div>
-                                      <div className="text-slate-300">
-                                        Afghanistan won by 57 runs
-                                      </div>
-                                    </div>
-                                    <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                      <IoCaretForwardOutline />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="flex ">
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                                    Live Score
-                                  </div>
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                    Scorecard
-                                  </div>
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                    Full Commentary
-                                  </div>
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                    News
-                                  </div>
-                                </div>
-                              </div>
+                              </div> */}
                             </div>
                           </>
                         );
                       })}
-                      <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
+                      {/* <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
                         INDIA vs PAKISTAN TOUR , 2024
-                      </div>
-                      <div className="flex flex-col gap-5 mt-5">
+                      </div> */}
+                      {/* <div className="flex flex-col gap-5 mt-5">
                         <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
                           <div className="flex">
                             <span className="font-semibold">
@@ -584,7 +624,7 @@ const Livescrore = () => {
                             </div>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                     <div className="w-[250px] flex flex-col gap-5 ">
                       <div className="bg-[white] pt-3 pb-3 rounded-lg">

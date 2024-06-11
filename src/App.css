@@ -37,7 +37,7 @@
   }
 }
 
-.terms_content{
+.terms_content {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -46,24 +46,21 @@
   color: white;
 }
 
-.UseFlexMenu{
+.UseFlexMenu {
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size:  10px;
+  font-size: 10px;
   color: white;
   width: 100%;
-  
-
 }
 
-.flexContainer{
+.flexContainer {
   border: 1px solid black;
   color: white;
-
 }
 
-.fantasyTips{
+.fantasyTips {
   display: grid;
   grid-template-columns: 35% 70%;
   gap: 2rem;
@@ -72,12 +69,42 @@
   row-gap: 1rem;
 }
 
-.fantasyTips>div:first-child>img{
+.fantasyTips > div:first-child > img {
   width: 100%;
   max-height: 150px;
   border-radius: 10px;
 }
 
-.boxShadowFantsyTips{
+.boxShadowFantsyTips {
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+}
+
+.homePageSlider {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  
+  background-color: white;
+  border-radius: 10px;
+}
+
+.homePageSlider > div:first-child > p:first-child {
+  color: black;
+  font-weight: bold;
+  margin-bottom: 10px;
+  font-size: 0.8rem;
+}
+.homePageSlider2 {
+  background-color: rgb(14, 24, 175);
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0 0 10px 10px;
+}
+
+.homePageSlider2 > div:nth-child(2) {
+  color: white;
+  font-size: 0.8rem;
+  display: flex;
+  gap: 20px;
+  padding: 0.2rem 0.8rem;
+  padding-top: 0.7rem;
+  padding-bottom: 0.1rem;
 }
