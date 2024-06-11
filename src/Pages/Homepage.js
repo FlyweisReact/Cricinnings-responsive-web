@@ -158,7 +158,6 @@ const Homepage = () => {
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
-      //
       setSpecialBanner(res?.data);
     });
   };
@@ -490,7 +489,7 @@ const Homepage = () => {
                 <div className="flex flex-col mt-4 gap-3 items-center">
                   {allSeries?.map((item) => {
                     return (
-                      <div className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
+                      <div key={item?._id} className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center">
                         {item?.title}
                       </div>
                     );
