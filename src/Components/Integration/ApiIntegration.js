@@ -11,7 +11,7 @@ export const auth = () => {
   };
 };
 
-export const AuthToken = "8b98902d033e258eb9b0971b188a6a63";
+export const AuthToken = "14bbbc7ffbd9635b4623e36ea2fb5129";
 export const AuthUrl = "https://rest.entitysport.com/v2/";
 
 export const showMsg = (type, title, msg) => {

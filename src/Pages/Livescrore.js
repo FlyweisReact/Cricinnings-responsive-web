@@ -59,7 +59,7 @@ const Livescrore = () => {
       .then((res) => {
         console.log(res?.response?.items);
         const liveMatches = res?.response?.items.filter(
-          (match) => match.status === 2
+          (match) => match.status === 3
         );
         setCompetationsType((prevCompetitions) => {
           const updatedCompetitions = prevCompetitions.map((competition) => {
