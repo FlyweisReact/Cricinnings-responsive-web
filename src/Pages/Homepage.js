@@ -12,6 +12,7 @@ import {
   AuthUrl,
   GetData,
   GetDataWithToken,
+  baseUrl,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 
@@ -94,6 +95,26 @@ const Homepage = () => {
     live: [],
     completed: [],
   });
+
+  const [sliderData, setSliderData] = useState([]);
+
+  const getSliderDataMatch = async () => {
+    const response = await axios.get(
+      baseUrl + "user/competitions/128414/matches?status=1&per_page=7&paged=1",
+      {
+        params: {
+          token: AuthToken,
+        },
+      }
+    );
+    console.log(response?.data?.matches);
+    setSliderData(response?.data?.matches);
+  };
+
+  useEffect(() => {
+    getSliderDataMatch();
+  }, []);
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -152,7 +173,7 @@ const Homepage = () => {
       setLoading(false);
     };
 
-    fetchAllMatches();
+    // fetchAllMatches();
   }, []);
 
   const getAllHomePageBanners = () => {
@@ -178,13 +199,22 @@ const Homepage = () => {
     getAllHomePageBanners();
   }, []);
 
-  const getAllSeriesData = () => {
-    GetDataWithToken({
-      path: "competitions",
-      status: "live",
-    }).then((res) => {
-      setAllSeries(res?.response?.items);
-    });
+  const getAllSeriesData = async () => {
+    // GetDataWithToken({
+    //   path: "competitions",
+    //   status: "live",
+    // }).then((res) => {
+    //   setAllSeries(res?.response?.items);
+    // });
+
+    try {
+      const res = await axios.get(
+        baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
+      );
+      setAllSeries(res?.data?.competitions);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getAllTeamRankingsData = () => {
@@ -285,11 +315,97 @@ const Homepage = () => {
       return "just now";
     }
   }
-  
+
   return (
     <div className="">
       <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
         <Slider {...settings} className="w-[1000px]">
+          {sliderData &&
+            sliderData?.map((item) => (
+              <Link to="/Commenatary">
+                <div className="homePageSlider">
+                  <div className="pt-2 pl-2">
+                    <div
+                      style={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        gap: "10px",
+                      }}
+                    >
+                      <p style={{ maxWidth: "80%" }}>
+                        {item?.teama?.name} vs {item?.teamb?.name}
+                      </p>
+                      <p
+                        style={{
+                          backgroundColor: "black",
+                          borderRadius: "50px",
+                          color: "white",
+                          fontSize: "15px",
+                          padding: "5px 10px",
+                          margin: "1rem",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {item?.competition?.category}
+                      </p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teama?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
+                    </div>
+                    <div
+                      style={{
+                        display: "flex",
+                        gap: "10px",
+                        alignItems: "center",
+                      }}
+                    >
+                      <p>
+                        <img
+                          style={{
+                            maxWidth: "30px",
+                            maxHeight: "30px",
+                            borderRadius: "50%",
+                          }}
+                          src={item?.teamb?.logo_url}
+                          alt="team"
+                        />
+                      </p>
+                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
+                    </div>
+                    <p className="text-[#FE9839]">
+                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
+                      {item?.date_start?.split(" ")?.[1]}
+                    </p>
+                  </div>
+                  <div className="homePageSlider2">
+                    <div></div>
+                    <div>
+                      <p>Points Table</p>
+                      <p>Schedule</p>
+                    </div>
+                  </div>
+                </div>
+                {}
+              </Link>
+            ))}
+
           {matches?.upcoming &&
             matches?.upcoming?.map((item) => (
               <Link to="/Commenatary">
@@ -587,8 +703,7 @@ const Homepage = () => {
                 </div>
               ))}
             </div>
-            {}
-            {}
+
             {middleBanner1 && (
               <img
                 style={{ width: "100%", height: "96px", marginTop: "2rem" }}
@@ -655,7 +770,7 @@ const Homepage = () => {
                 <span className="text-sm ml-5 font-semibold">
                   CURRENT SERIES
                 </span>
-                <div className="flex flex-col mt-4 gap-3 items-center">
+                <div className="flex flex-col mt-4 gap-3 items-center text-center">
                   {allSeries?.map((item) => {
                     return (
                       <div
