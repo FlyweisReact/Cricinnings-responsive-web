@@ -9,7 +9,9 @@ import usaflag from "../Assets/Homepage/usaflag.svg";
 import {
   GetData,
   GetDataWithToken,
+  baseUrl,
 } from "../Components/Integration/ApiIntegration";
+import axios from "axios";
 const Livescrore = () => {
   const [selectedDiv, setSelectedDiv] = useState("Current Matches");
   const [currentSeries, setCurrentSeries] = useState([]);
@@ -29,36 +31,42 @@ const Livescrore = () => {
       return "Unknown";
     }
   };
-  const getAllCompetationsType = () => {
+  const getAllCompetationsType = async () => {
     const current_year = new Date().getFullYear();
-    GetDataWithToken({
-      path: `seasons/${current_year}/competitions`,
-      status: "live",
-      category: category,
-      per_page: 20,
-    })
+    // GetDataWithToken({
+    //   path: `seasons/${current_year}/competitions`,
+    //   status: "live",
+    //   category: category,
+    //   per_page: 20,
+    // })
+    const res = await axios
+      .get(
+        `${baseUrl}user/getCompetitionsByCategory?per_page=30&paged=1&category=${category}&status=live`
+      )
       .then((res) => {
         setCompetationsType(
-          res?.response?.items.map((competition) => ({
+          res?.data?.competitions.map((competition) => ({
             ...competition,
             matches: [],
           }))
         );
 
-        res?.response?.items.forEach((competition) => {
+        res?.data?.competitions?.forEach((competition) => {
           getMatchesForCompetition(competition.cid);
         });
       })
       .catch((err) => {});
   };
 
-  const getMatchesForCompetition = (competitionId) => {
-    GetDataWithToken({
-      path: `competitions/${competitionId}/matches`,
-    })
+  const getMatchesForCompetition = async (competitionId) => {
+    // GetDataWithToken({
+    //   path: `competitions/${competitionId}/matches`,
+    // })
+    const res = await axios
+      .get(`${baseUrl}user/competitions/${competitionId}/matches`)
       .then((res) => {
-        console.log(res?.response?.items);
-        const liveMatches = res?.response?.items.filter(
+        console.log(res?.data?.matches);
+        const liveMatches = res?.data?.matches.filter(
           (match) => match.status === 3
         );
         setCompetationsType((prevCompetitions) => {
@@ -90,7 +98,7 @@ const Livescrore = () => {
 
   useEffect(() => {
     getAllCompetationsType();
-  }, []);
+  }, [category]);
 
   const getAllCurrentMatches = () => {
     GetDataWithToken({
@@ -104,8 +112,9 @@ const Livescrore = () => {
   };
 
   useEffect(() => {
-    getAllCurrentMatches();
-  }, [category]);
+    // getAllCurrentMatches();
+  }, []);
+
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
       setSpecialBanner(res?.data);
@@ -198,11 +207,11 @@ const Livescrore = () => {
           </div>
           <div
             style={{
-              backgroundColor: category === "league" ? "#0F19AF" : "white",
-              color: category === "league" ? "white" : "black",
+              backgroundColor: category === "youth" ? "#0F19AF" : "white",
+              color: category === "youth" ? "white" : "black",
               cursor: "pointer",
             }}
-            onClick={() => setCategory("league")}
+            onClick={() => setCategory("youth")}
             className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
           >
             League

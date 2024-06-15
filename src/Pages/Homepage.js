@@ -1031,7 +1031,7 @@ const Homepage = () => {
                 Latest Updated On {new Date().toLocaleDateString()}
               </div>
             </div>
-            {}
+            
             {bottomBanner1 && (
               <img
                 src={bottomBanner1}
