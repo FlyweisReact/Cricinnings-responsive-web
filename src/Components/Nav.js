@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../Assets/logo.svg";
 import { FaAnglesRight } from "react-icons/fa6";
 import { FaSearch } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
-import { GetDataWithToken } from "./Integration/ApiIntegration";
+import { AuthToken, GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
+import axios from "axios";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -23,41 +24,80 @@ const Nav = () => {
   };
 
   const [iccpopuup, setIccpopup] = useState(false);
+  const [topMatches, setTopMatches] = useState([]);
   const handleiccpopupenter = () => {
     setIccpopup(true);
   };
   const handleiccpopupleave = () => {
     setIccpopup(false);
   };
-  const [matchesList, setMatchesList] = useState([])
+  const [matchesList, setMatchesList] = useState([]);
+  const getTopMatches = async () => {
+    const response = await axios.get(
+      baseUrl + "user/competitions/128414/matches?status=3&per_page=7&paged=1",
+      {
+        params: {
+          token: AuthToken,
+        },
+      }
+    );
+    console.log(response?.data?.matches);
+    setMatchesList(response?.data?.matches);
+  };
   const getAllMatchList = () => {
     GetDataWithToken({
       path: "matches",
       status: "3",
+    }).then((res) => {
+      const top10 = res?.response?.items?.slice(0, 10);
+      console.log(res?.response?.items, "Navbar");
+      setMatchesList(top10);
+      // setMatchesList(res?.data?.matches)
+    });
+  };
 
-    })
-      .then((res) => {
-        const top10 = res?.response?.items?.slice(0, 10)
-        console.log(res?.response?.items, "Navbar")
-        setMatchesList(top10)
-        // setMatchesList(res?.data?.matches)
-      })
-  }
-
-  const [selectedMatch, setSelectedMatch] = useState(null)
+  const [selectedMatch, setSelectedMatch] = useState(null);
 
   useEffect(() => {
-    getAllMatchList()
-  }, [])
+    // getAllMatchList();
+    getTopMatches();
+  }, []);
 
   const handleMatchClick = (match) => {
-    setSelectedMatch(match)
-  }
+    setSelectedMatch(match);
+  };
+  const [topBanner1, setTopBanner1] = useState("");
+  const [topBanner2, setTopBanner2] = useState("");
+  const [middleBanner1, setMiddleBanner1] = useState("");
+  const [middleBanner2, setMiddleBanner2] = useState("");
+  const [bottomBanner1, setBottomBanner1] = useState("");
+  const [bottomBanner2, setBottomBanner2] = useState("");
+  const [homePageBanners, setHomePageBanners] = useState([]);
+  const baseUrl = "https://vipin-jha-cricbuzz.vercel.app/";
+  const getAllHomePageBanners = async () => {
+    const res = await axios.get(`${baseUrl}userAuth/getPostsByPosition`);
+    const banner = res?.data?.data?.filter((item) => item.title === "top")?.[0]
+      ?.image;
+
+    setTopBanner1(banner);
+  };
+  useEffect(() => {
+    getAllHomePageBanners();
+  }, []);
   return (
     <>
-      <div className="bg-[#B3B3B3] w-[1000px] h-[96px] flex items-center justify-center text-[white]">
+      {/* <div className="bg-[#B3B3B3] w-[1000px] h-[96px] flex items-center justify-center text-[white]">
         RESPONSIVE AD’s
-      </div>
+      </div> */}
+      {topBanner1 && (
+        <div>
+          <img
+            src={topBanner1}
+            className="w-[1000px] h-[96px]"
+            alt="topBanner"
+          />
+        </div>
+      )}
 
       <nav className="bg-[#0F19AF] w-[1000px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
@@ -353,9 +393,11 @@ const Nav = () => {
               <div
                 className={`w-[100px] h-[48px] flex justify-center items-center border-white border text-[10px] cursor-pointer`}
                 style={{
-                  backgroundColor: selectedMatch !== match.match_id ? "#767777" : "#DFDFDF",
+                  backgroundColor:
+                    selectedMatch !== match.match_id ? "#767777" : "#DFDFDF",
                   color: selectedMatch !== match.match_id ? "white" : "black",
-                  fontWeight: selectedMatch !== match.match_id ? "normal" : "bold"
+                  fontWeight:
+                    selectedMatch !== match.match_id ? "normal" : "bold",
                 }}
                 onClick={() => handleMatchClick(match.match_id)}
               >

@@ -108,3 +108,20 @@
   padding-top: 0.7rem;
   padding-bottom: 0.1rem;
 }
+
+
+.navbar{
+  max-width: 980px;
+  margin:0 auto;
+  border: 1px solid black;
+}
+
+.navbar-top-banner{
+  max-height: 96px;
+  background-color: #B3B3B3;
+  
+}
+
+.navbar-top-banner-image{
+  max-height: 96px;
+}

@@ -11,7 +11,6 @@ import {
   AuthToken,
   AuthUrl,
   GetData,
-  GetDataWithToken,
   baseUrl,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
@@ -97,6 +96,20 @@ const Homepage = () => {
   });
 
   const [sliderData, setSliderData] = useState([]);
+  const [topMatches, setTopMatches] = useState([]);
+
+  const getTopMatches = async () => {
+    const response = await axios.get(
+      baseUrl + "user/competitions/128414/matches?status=3&per_page=7&paged=1",
+      {
+        params: {
+          token: AuthToken,
+        },
+      }
+    );
+    console.log(response?.data?.matches);
+    setTopMatches(response?.data?.matches);
+  };
 
   const getSliderDataMatch = async () => {
     const response = await axios.get(
@@ -211,30 +224,30 @@ const Homepage = () => {
       const res = await axios.get(
         baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
       );
+
+      console.log(res?.data?.competitions);
       setAllSeries(res?.data?.competitions);
     } catch (error) {
       console.log(error);
     }
   };
 
-  const getAllTeamRankingsData = () => {
-    GetDataWithToken({
-      path: "iccranks",
-    }).then((res) => {
-      setOdiBestman(res?.response?.ranks?.batsmen?.odis);
-      setT20Bestman(res?.response?.ranks?.batsmen?.t20s);
-      setTestBestman(res?.response?.ranks?.batsmen?.tests);
-      setOdiBolling(res?.response?.ranks?.bowlers?.odis);
-      setT20Bolling(res?.response?.ranks?.bowlers?.t20s);
-      setTestBolling(res?.response?.ranks?.bowlers?.tests);
-      setOdiAlr(res?.response?.ranks?.["all-rounders"]?.odis || []);
-      setT20Alr(res?.response?.ranks?.["all-rounders"]?.t20s || []);
-      setTestAlr(res?.response?.ranks?.["all-rounders"]?.tests || []);
-      setOdis(res?.response?.ranks?.teams?.odis);
-      setT20s(res?.response?.ranks?.teams?.t20s);
-      setTest(res?.response?.ranks?.teams?.tests);
-      setTeamRankings(res?.response?.items);
-    });
+  const getAllTeamRankingsData = async () => {
+    const res = await axios.get(baseUrl + "user/getRankings");
+    console.log(res?.data?.rankings);
+    setOdiBestman(res?.data?.rankings?.batsmen?.odis);
+    setT20Bestman(res?.data?.rankings?.batsmen?.t20s);
+    setTestBestman(res?.data?.rankings?.batsmen?.tests);
+    setOdiBolling(res?.data?.rankings?.bowlers?.odis);
+    setT20Bolling(res?.data?.rankings?.bowlers?.t20s);
+    setTestBolling(res?.data?.rankings?.bowlers?.tests);
+    setOdiAlr(res?.data?.rankings?.["all-rounders"]?.odis || []);
+    setT20Alr(res?.data?.rankings?.["all-rounders"]?.t20s || []);
+    setTestAlr(res?.data?.rankings?.["all-rounders"]?.tests || []);
+    setOdis(res?.data?.rankings?.teams?.odis);
+    setT20s(res?.data?.rankings?.teams?.t20s);
+    setTest(res?.data?.rankings?.teams?.tests);
+    setTeamRankings(res?.response?.items);
   };
 
   const getAllSpecialBanners = () => {
@@ -406,7 +419,7 @@ const Homepage = () => {
               </Link>
             ))}
 
-          {matches?.upcoming &&
+          {/* {matches?.upcoming &&
             matches?.upcoming?.map((item) => (
               <Link to="/Commenatary">
                 <div className="homePageSlider">
@@ -490,8 +503,8 @@ const Homepage = () => {
                 </div>
                 {}
               </Link>
-            ))}
-          {matches?.live &&
+            ))} */}
+          {/* {matches?.live &&
             matches?.live?.map((item) => (
               <Link to="/Commenatary">
                 <div className="homePageSlider">
@@ -660,7 +673,7 @@ const Homepage = () => {
                 </div>
                 {}
               </Link>
-            ))}
+            ))} */}
         </Slider>
       </div>
       {}
