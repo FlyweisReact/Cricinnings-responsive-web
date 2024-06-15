@@ -51,9 +51,9 @@ const Livescrore = () => {
           }))
         );
 
-        res?.data?.competitions?.forEach((competition) => {
-          getMatchesForCompetition(competition.cid);
-        });
+        // res?.data?.competitions?.forEach((competition) => {
+        //   getMatchesForCompetition(competition.cid);
+        // });
       })
       .catch((err) => {});
   };
@@ -132,7 +132,7 @@ const Livescrore = () => {
       .catch((err) => {});
   };
   useEffect(() => {
-    getAllCurrentSeries();
+    // getAllCurrentSeries();
     getAllSpecialBanners();
   }, []);
   return (
@@ -252,7 +252,7 @@ const Livescrore = () => {
                 {competationsType?.[0] && (
                   <>
                     <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                      {competationsType?.[0]?.abbr}
+                      {competationsType?.[0]?.title}
                     </div>
                   </>
                 )}
@@ -329,7 +329,8 @@ const Livescrore = () => {
                               key={index}
                               className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
                             >
-                              {item?.abbr}
+                              {console.log(item)}
+                              {item?.title}
                             </div>
                             <div className="flex flex-col gap-5 mt-5">
                               {item?.matches?.map((item, index) => {

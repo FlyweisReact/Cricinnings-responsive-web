@@ -294,7 +294,7 @@ const Pitchreport = () => {
                 />
               )}
 
-              <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
+              {/* <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
                 <div className="flex justify-between p-2">
                   <div className="text-sm font-semibold">RANKING’s</div>
                   <div>
@@ -514,7 +514,7 @@ const Pitchreport = () => {
                 <div className="text-center text-[10px] mt-2">
                   Latest Updated On {new Date().toLocaleDateString()}
                 </div>
-              </div>
+              </div> */}
               {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s
             </div> */}

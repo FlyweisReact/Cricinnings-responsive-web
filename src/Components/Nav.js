@@ -55,6 +55,30 @@ const Nav = () => {
       // setMatchesList(res?.data?.matches)
     });
   };
+  const [allSeries, setAllSeries] = useState([]);
+  const getAllSeriesData = async () => {
+    // GetDataWithToken({
+    //   path: "competitions",
+    //   status: "live",
+    // }).then((res) => {
+    //   setAllSeries(res?.response?.items);
+    // });
+
+    try {
+      const res = await axios.get(
+        baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
+      );
+
+      console.log(res?.data?.competitions);
+      setAllSeries(res?.data?.competitions?.slice(0, 5));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllSeriesData();
+  }, []);
 
   const [selectedMatch, setSelectedMatch] = useState(null);
 
@@ -146,7 +170,14 @@ const Nav = () => {
                         onMouseLeave={handleMouseLeave}
                         className="absolute bg-white w-[300px] h-[260px] font-semibold p-2 flex flex-col gap-3   z-10"
                       >
-                        <li>
+                        {console.log(allSeries)}
+                        {allSeries?.map((item) => (
+                          <Link to={"/Iccseriesschedule"}>
+                            {console.log(item)}
+                            {item?.title}
+                          </Link>
+                        ))}
+                        {/* <li>
                           <Link to="/Iccseriesschedule">
                             Indian Premier League 2024
                           </Link>
@@ -169,7 +200,7 @@ const Nav = () => {
                         </li>
                         <li>
                           <Link to="/series2">Bangladesh tour of USA,2024</Link>
-                        </li>
+                        </li> */}
                         <span className="text-[#0F19AF] underline flex items-center">
                           Allseries <FaAnglesRight />
                         </span>
@@ -312,6 +343,8 @@ const Nav = () => {
                     onMouseLeave={handleMouseLeave}
                     className="absolute bg-white w-[300px] h-[260px] font-semibold p-2 flex flex-col gap-3   z-10"
                   >
+                    {console.log("series", allSeries)}
+
                     <li>
                       <Link to="/Iccseriesschedule">
                         Indian Premier League 2024
