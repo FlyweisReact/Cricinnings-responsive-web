@@ -1,9 +1,11 @@
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import men from "../Assets/Homepage/men.svg";
+import women from "../Assets/Homepage/women.jpg";
 import { useEffect, useState } from "react";
-import { GetDataWithToken } from "../Components/Integration/ApiIntegration";
+import { GetDataWithToken, baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
+import axios from "axios";
 const Womenrankingpage = () => {
   const [rank, setRank] = useState([]);
   const [odiBestman, setOdiBestman] = useState([]);
@@ -22,26 +24,24 @@ const Womenrankingpage = () => {
   const [mainCategory, setMainCategory] = useState("batting");
   const [currentCategory, setCurrentCategory] = useState("test");
 
-  const getAllTeamRankingsData = () => {
-    GetDataWithToken({
-      path: "iccranks",
-    }).then((res) => {
-      console.log(res?.response?.women_ranks);
-      setOdiBestman(res?.response?.women_ranks?.batsmen?.odis);
-      setT20Bestman(res?.response?.women_ranks?.batsmen?.t20s);
-      setTestBestman(res?.response?.women_ranks?.batsmen?.tests);
-      setOdiBolling(res?.response?.women_ranks?.bowlers?.odis);
-      setT20Bolling(res?.response?.women_ranks?.bowlers?.t20s);
-      setTestBolling(res?.response?.women_ranks?.bowlers?.tests);
-      setOdiAlr(res?.response?.women_ranks?.["all-rounders"]?.odis || []);
-      setT20Alr(res?.response?.women_ranks?.["all-rounders"]?.t20s || []);
-      setTestAlr(res?.response?.women_ranks?.["all-rounders"]?.tests || []);
-      setOdis(res?.response?.women_ranks?.teams?.odis);
-      setT20s(res?.response?.women_ranks?.teams?.t20s);
-      setTest(res?.response?.women_ranks?.teams?.tests);
-      setTeamRankings(res?.response?.items);
-    });
+  const getAllTeamRankingsData = async () => {
+    const res = await axios.get(baseUrl + "user/getRankings");
+    console.log(res?.data?.rankings);
+    setOdiBestman(res?.data?.rankings?.batsmen?.odis);
+    setT20Bestman(res?.data?.rankings?.batsmen?.t20s);
+    setTestBestman(res?.data?.rankings?.batsmen?.tests);
+    setOdiBolling(res?.data?.rankings?.bowlers?.odis);
+    setT20Bolling(res?.data?.rankings?.bowlers?.t20s);
+    setTestBolling(res?.data?.rankings?.bowlers?.tests);
+    setOdiAlr(res?.data?.rankings?.["all-rounders"]?.odis || []);
+    setT20Alr(res?.data?.rankings?.["all-rounders"]?.t20s || []);
+    setTestAlr(res?.data?.rankings?.["all-rounders"]?.tests || []);
+    setOdis(res?.data?.rankings?.teams?.odis);
+    setT20s(res?.data?.rankings?.teams?.t20s);
+    setTest(res?.data?.rankings?.teams?.tests);
+    setTeamRankings(res?.response?.items);
   };
+
 
   useEffect(() => {
     getAllTeamRankingsData();
@@ -184,7 +184,7 @@ const Womenrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={women}
                                   alt="playerImage"
                                 />
                               </span>
