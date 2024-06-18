@@ -16,6 +16,7 @@ const Commenatary = () => {
   const getMatchDetails = async () => {
     axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
       setMatchData(res?.data?.data);
+      console.log(res?.data?.data);
     })
   };
 

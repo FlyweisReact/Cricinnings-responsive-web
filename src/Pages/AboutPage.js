@@ -6,7 +6,7 @@ import { GetData } from "../Components/Integration/ApiIntegration";
 const AboutPage = () => {
   const [terms, setTerms] = useState([]);
   const getAllTermsData = () => {
-    GetData("userAuth/getAllPrivacyAndPolicy").then((res) => {
+    GetData("userAuth/user/getAllAbout").then((res) => {
       setTerms(res?.data);
       console.log(res?.data);
     });
@@ -17,11 +17,8 @@ const AboutPage = () => {
   }, []);
   return (
     <div className="">
-      <div
-        className="container_terms"
-        style={{  width: "95%", margin: "auto" }}
-      >
-        <h1>Privacy and Policy</h1>
+      <div className="container_terms" style={{ width: "95%", margin: "auto" }}>
+        <h1>About</h1>
         <div
           className="terms_content"
           style={{ borderRight: "1px solid gray" }}

@@ -1,7 +1,6 @@
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
-// import men from "../Assets/Homepage/men.svg";
-import men from "../Assets/Homepage/women.jpg";
+import men from "../Assets/Homepage/men.svg";
 import { useEffect, useState } from "react";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
@@ -26,7 +25,7 @@ const Womenrankingpage = () => {
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    console.log(res?.data?.rankingData?.women_ranks);
+    console.log(res?.data?.rankingData);
     setOdiBestman(res?.data?.rankingData?.women_ranks?.batsmen?.odis);
     setT20Bestman(res?.data?.rankingData?.women_ranks?.batsmen?.t20s);
     setTestBestman(res?.data?.rankingData?.women_ranks?.batsmen?.tests);
@@ -169,7 +168,7 @@ const Womenrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -185,20 +184,20 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
                               <span>
-                                <img
+                                {/* <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
-                                />
+                                /> */}
                               </span>
                               <span
                                 style={{
@@ -216,7 +215,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -231,21 +230,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -262,7 +261,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -277,21 +276,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -308,7 +307,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -401,7 +400,7 @@ const Womenrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -417,21 +416,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -448,7 +447,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -463,21 +462,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -494,7 +493,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -509,21 +508,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -633,7 +632,7 @@ const Womenrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -649,21 +648,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -680,7 +679,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -695,21 +694,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -726,7 +725,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -741,21 +740,21 @@ const Womenrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -772,7 +771,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -857,7 +856,7 @@ const Womenrankingpage = () => {
                       </th>
                       <th style={{ backgroundColor: "rgb(231,231,231)" }}></th>
                       <th style={{ backgroundColor: "rgb(231,231,231)" }}>
-                        Player
+                        Team
                       </th>
                       <th
                         style={{
@@ -865,7 +864,7 @@ const Womenrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -912,7 +911,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -958,7 +957,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -1004,7 +1003,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -1017,7 +1016,7 @@ const Womenrankingpage = () => {
                   <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
                     <div className="font-semibold">Position</div>
                     <div className="font-semibold">Player</div>
-                    <div className="font-semibold">Ranking</div>
+                    <div className="font-semibold">Rating</div>
                   </div>
                   <div className="mt-5 flex flex-col gap-5">
                     <div className="flex items-center justify-between ml-10 mr-10">

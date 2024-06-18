@@ -47,7 +47,16 @@ const Manrankingpage = () => {
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-        <div className="font-semibold">ICC Cricket Rankings-Men’s {mainCategory==='batting' ? 'Batsmen' : mainCategory==='bowling' ? 'Bowling' : mainCategory==='alr' ? 'All-rounders' : 'Team'} </div>
+        <div className="font-semibold">
+          ICC Cricket Rankings-Men’s{" "}
+          {mainCategory === "batting"
+            ? "Batsmen"
+            : mainCategory === "bowling"
+            ? "Bowling"
+            : mainCategory === "alr"
+            ? "All-rounders"
+            : "Team"}{" "}
+        </div>
         <div className="flex gap-5 mt-3">
           <div
             style={{
@@ -153,7 +162,7 @@ const Manrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -169,20 +178,20 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
                               <span>
-                                <img
+                                {/* <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
-                                />
+                                /> */}
                               </span>
                               <span
                                 style={{
@@ -200,7 +209,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -215,21 +224,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -246,7 +255,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -261,21 +270,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -292,7 +301,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -385,7 +394,7 @@ const Manrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -401,21 +410,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -432,7 +441,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -447,21 +456,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -478,7 +487,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -493,21 +502,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -617,7 +626,7 @@ const Manrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -633,21 +642,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -664,7 +673,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -679,21 +688,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -710,7 +719,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -725,21 +734,21 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                              style={{
-                                display: "flex",
-                                gap: "30px",
-                                alignItems: "center",
-                                justifyContent: "left",
-                                marginLeft: "10px",
-                              }}
+                            // style={{
+                            //   display: "flex",
+                            //   gap: "30px",
+                            //   alignItems: "center",
+                            //   justifyContent: "left",
+                            //   marginLeft: "10px",
+                            // }}
                             >
-                              <span>
+                              {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
                                   src={men}
                                   alt="playerImage"
                                 />
-                              </span>
+                              </span> */}
                               <span
                                 style={{
                                   display: "flex",
@@ -756,7 +765,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -841,7 +850,7 @@ const Manrankingpage = () => {
                       </th>
                       <th style={{ backgroundColor: "rgb(231,231,231)" }}></th>
                       <th style={{ backgroundColor: "rgb(231,231,231)" }}>
-                        Player
+                        Team
                       </th>
                       <th
                         style={{
@@ -849,7 +858,7 @@ const Manrankingpage = () => {
                           borderRadius: "0px 15px 0px 0px",
                         }}
                       >
-                        Ranking
+                        Rating
                       </th>
                     </tr>
                   </thead>
@@ -858,7 +867,6 @@ const Manrankingpage = () => {
                       test?.map((item, index) => (
                         <tr key={index}>
                           <td>
-                            {console.log(item)}
                             <p>{index + 1}</p>
                           </td>{" "}
                           <td>
@@ -897,7 +905,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -943,7 +951,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -989,7 +997,7 @@ const Manrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
@@ -1002,7 +1010,7 @@ const Manrankingpage = () => {
                   <div className="h-[70px] bg-[#E7E7E7] flex justify-between items-center pl-5 pr-5">
                     <div className="font-semibold">Position</div>
                     <div className="font-semibold">Player</div>
-                    <div className="font-semibold">Ranking</div>
+                    <div className="font-semibold">Rating</div>
                   </div>
                   <div className="mt-5 flex flex-col gap-5">
                     <div className="flex items-center justify-between ml-10 mr-10">

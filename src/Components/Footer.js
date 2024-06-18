@@ -24,7 +24,9 @@ const Footer = () => {
         <div>
           <span className="text-white text-xl">Company</span>
           <ul className="mt-5 flex flex-col gap-3">
-            <li className=" text-white">About</li>
+            <Link to="/about" className=" text-white">
+              <li className=" text-white">About</li>
+            </Link>
 
             <li style={{ cursor: "pointer" }} className=" text-white">
               Careers

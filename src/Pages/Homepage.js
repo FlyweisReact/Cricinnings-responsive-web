@@ -234,19 +234,19 @@ const Homepage = () => {
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    console.log(res?.data?.rankings);
-    setOdiBestman(res?.data?.rankings?.batsmen?.odis);
-    setT20Bestman(res?.data?.rankings?.batsmen?.t20s);
-    setTestBestman(res?.data?.rankings?.batsmen?.tests);
-    setOdiBolling(res?.data?.rankings?.bowlers?.odis);
-    setT20Bolling(res?.data?.rankings?.bowlers?.t20s);
-    setTestBolling(res?.data?.rankings?.bowlers?.tests);
-    setOdiAlr(res?.data?.rankings?.["all-rounders"]?.odis || []);
-    setT20Alr(res?.data?.rankings?.["all-rounders"]?.t20s || []);
-    setTestAlr(res?.data?.rankings?.["all-rounders"]?.tests || []);
-    setOdis(res?.data?.rankings?.teams?.odis);
-    setT20s(res?.data?.rankings?.teams?.t20s);
-    setTest(res?.data?.rankings?.teams?.tests);
+    console.log(res?.data?.rankingData);
+    setOdiBestman(res?.data?.rankingData?.ranks?.batsmen?.odis);
+    setT20Bestman(res?.data?.rankingData?.ranks?.batsmen?.t20s);
+    setTestBestman(res?.data?.rankingData?.ranks?.batsmen?.tests);
+    setOdiBolling(res?.data?.rankingData?.ranks?.bowlers?.odis);
+    setT20Bolling(res?.data?.rankingData?.ranks?.bowlers?.t20s);
+    setTestBolling(res?.data?.rankingData?.ranks?.bowlers?.tests);
+    setOdiAlr(res?.data?.rankingData?.ranks?.["all-rounders"]?.odis || []);
+    setT20Alr(res?.data?.rankingData?.ranks?.["all-rounders"]?.t20s || []);
+    setTestAlr(res?.data?.rankingData?.ranks?.["all-rounders"]?.tests || []);
+    setOdis(res?.data?.rankingData?.ranks?.teams?.odis);
+    setT20s(res?.data?.rankingData?.ranks?.teams?.t20s);
+    setTest(res?.data?.rankingData?.ranks?.teams?.tests);
     setTeamRankings(res?.response?.items);
   };
 
@@ -784,7 +784,8 @@ const Homepage = () => {
                   CURRENT SERIES
                 </span>
                 <div className="flex flex-col mt-4 gap-3 items-center text-center">
-                  {allSeries?.map((item) => {
+                  {allSeries?.map((item, index) => {
+                    if (index >= 4) return null;
                     return (
                       <div
                         key={item?._id}
@@ -816,8 +817,8 @@ const Homepage = () => {
               <div className="flex justify-between p-2">
                 <div className="text-sm font-semibold">RANKING’s</div>
                 <div>
-                  <button className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white">
-                    Viewall
+                  <button onClick={()=>navigate("/Manrankingpage")} className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white">
+                    View all
                   </button>
                 </div>
               </div>
@@ -916,7 +917,7 @@ const Homepage = () => {
                   {mainCategory === "teams" && (
                     <>
                       {teamSelector === "test" &&
-                        test?.map((item, index) => (
+                        test?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -924,15 +925,16 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "t20" &&
-                        t20s?.map((item, index) => (
+                        t20s?.slice(0, 6).map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
+
                       {teamSelector === "odi" &&
-                        odis?.map((item, index) => (
+                        odis?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -944,7 +946,7 @@ const Homepage = () => {
                   {mainCategory === "batting" && (
                     <>
                       {teamSelector === "test" &&
-                        testBestman?.map((item, index) => (
+                        testBestman?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -952,7 +954,7 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "t20" &&
-                        t20Bestman?.map((item, index) => (
+                        t20Bestman?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -960,7 +962,7 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "odi" &&
-                        odiBestman?.map((item, index) => (
+                        odiBestman?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -972,7 +974,7 @@ const Homepage = () => {
                   {mainCategory === "bowling" && (
                     <>
                       {teamSelector === "test" &&
-                        testBolling?.map((item, index) => (
+                        testBolling?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -980,7 +982,7 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "t20" &&
-                        t20Bolling?.map((item, index) => (
+                        t20Bolling?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -988,7 +990,7 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "odi" &&
-                        odiBolling?.map((item, index) => (
+                        odiBolling?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -1000,7 +1002,7 @@ const Homepage = () => {
                   {mainCategory === "alr" && (
                     <>
                       {teamSelector === "test" &&
-                        testAlr?.map((item, index) => (
+                        testAlr?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -1008,7 +1010,7 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "t20" &&
-                        odiAlr?.map((item, index) => (
+                        odiAlr?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>
@@ -1016,7 +1018,7 @@ const Homepage = () => {
                           </tr>
                         ))}
                       {teamSelector === "odi" &&
-                        odiAlr?.map((item, index) => (
+                        odiAlr?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
                             <td className="text-center">{item?.team}</td>

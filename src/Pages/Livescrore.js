@@ -31,43 +31,100 @@ const Livescrore = () => {
       return "Unknown";
     }
   };
+
+  const [newMatchData, setNewMatchData] = useState([]);
+  function convertDateTime(dateTimeStr) {
+    const dateObj = new Date(dateTimeStr);
+    const months = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+    const month = months[dateObj.getMonth()];
+    const day = dateObj.getDate();
+    const hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes().toString().padStart(2, "0");
+    return `${month} ${day}  •  ${hours}:${minutes}`;
+  }
+  function convertToOrdinal(day) {
+    const suffixes = ["th", "st", "nd", "rd"];
+    const remainder = day % 100;
+
+    const suffix =
+      suffixes[(remainder - 20) % 10] || suffixes[remainder] || suffixes[0];
+
+    return `${day}${suffix}`;
+  }
+  function convertDate1(dateStr) {
+    const dateObj = new Date(dateStr);
+    const days = ["SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"];
+    const months = [
+      "JAN",
+      "FEB",
+      "MAR",
+      "APR",
+      "MAY",
+      "JUN",
+      "JUL",
+      "AUG",
+      "SEP",
+      "OCT",
+      "NOV",
+      "DEC",
+    ];
+    const dayOfWeek = days[dateObj.getUTCDay()];
+    const month = months[dateObj.getUTCMonth()];
+    const day = dateObj.getUTCDate();
+    const year = dateObj.getUTCFullYear();
+    return `${dayOfWeek}, ${month} ${day} ${year}`;
+  }
+  const getAllNewMatches = async () => {
+    const res = await axios
+      .get(
+        `${baseUrl}user/getCompetitionsAndMatches?token=7971ecfda0c915c1573e11d0d8032c9a&per_page=10&paged=1&include_matches=true&category=${category}`
+      )
+      .then((res) => {
+        console.log(res?.data?.competitions);
+        setNewMatchData(res?.data?.competitions);
+      })
+      .catch((err) => {});
+  };
+
+  useEffect(() => {
+    getAllNewMatches();
+  }, [category]);
   const getAllCompetationsType = async () => {
     const current_year = new Date().getFullYear();
-    // GetDataWithToken({
-    //   path: `seasons/${current_year}/competitions`,
-    //   status: "live",
-    //   category: category,
-    //   per_page: 20,
-    // })
     const res = await axios
       .get(
         `${baseUrl}user/getCompetitionsAndMatches?status=live&per_page=10&paged=1&include_matches=true&category=${category}`
       )
       .then((res) => {
-        console.log(res?.data?.competitions);
         setCompetationsType(res?.data?.competitions);
-        // setCompetationsType(
-        //   res?.data?.competitions.map((competition) => ({
-        //     ...competition,
-        //     matches: [],
-        //   }))
-        // );
-
-        // res?.data?.competitions?.forEach((competition) => {
-        //   getMatchesForCompetition(competition.cid);
-        // });
       })
       .catch((err) => {});
   };
+  const formatDate = (dateString) => {
+    if (!dateString) return "";
 
+    const date = new Date(dateString);
+    const options = { year: "numeric", month: "long" }; // Full month name and year
+
+    return date.toLocaleDateString(undefined, options);
+  };
   const getMatchesForCompetition = async (competitionId) => {
-    // GetDataWithToken({
-    //   path: `competitions/${competitionId}/matches`,
-    // })
     const res = await axios
       .get(`${baseUrl}user/competitions/${competitionId}/matches`)
       .then((res) => {
-        console.log(res?.data?.matches);
         const liveMatches = res?.data?.matches.filter(
           (match) => match.status === 3
         );
@@ -113,9 +170,7 @@ const Livescrore = () => {
       .catch((err) => {});
   };
 
-  useEffect(() => {
-    // getAllCurrentMatches();
-  }, []);
+  useEffect(() => {}, []);
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
@@ -134,7 +189,6 @@ const Livescrore = () => {
       .catch((err) => {});
   };
   useEffect(() => {
-    // getAllCurrentSeries();
     getAllSpecialBanners();
   }, []);
   return (
@@ -182,7 +236,7 @@ const Livescrore = () => {
           >
             Teams
           </div>
-          <div
+          {/* <div
             className={`cursor-pointer ${
               selectedDiv === "Series Archive"
                 ? "underline text-[#0F19AF] underline-offset-8"
@@ -191,7 +245,7 @@ const Livescrore = () => {
             onClick={() => setSelectedDiv("Series Archive")}
           >
             Series Archive
-          </div>
+          </div> */}
         </div>
         <hr className="mt-2" />
         <div className="flex gap-5 mt-2">
@@ -269,7 +323,11 @@ const Livescrore = () => {
                               <div className="flex">
                                 <span className="font-semibold"></span>
                                 <span className="text-slate-400">
-                                  3rd T20I{" "}
+                                  {convertToOrdinal(
+                                    item?.subtitle?.split(" ")?.[1]
+                                  )}{" "}
+                                  {item?.format_str}
+                                  {/* 3rd T20I{" "} */}
                                 </span>
                               </div>
                               <div className="text-slate-400">
@@ -331,7 +389,7 @@ const Livescrore = () => {
                               key={index}
                               className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
                             >
-                              {console.log(item)}
+                              {}
                               {item?.title}
                             </div>
                             <div className="flex flex-col gap-5 mt-5">
@@ -340,9 +398,7 @@ const Livescrore = () => {
                                   <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
                                     <div className="flex">
                                       <span className="font-semibold"></span>
-                                      <span className="text-slate-400">
-                                        {/* 3rd T20I{" "} */}
-                                      </span>
+                                      <span className="text-slate-400">{}</span>
                                     </div>
                                     <div className="text-slate-400">
                                       {item?.date_start
@@ -396,247 +452,11 @@ const Livescrore = () => {
                                   </div>
                                 );
                               })}
-                              {/* <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                                <div className="flex">
-                                  <span className="font-semibold">
-                                    Afghanistan vs Ireland,
-                                  </span>
-                                  <span className="text-slate-400">
-                                    3rd T20I{" "}
-                                  </span>
-                                </div>
-                                <div className="text-slate-400">
-                                  Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                  Stadium
-                                </div>
-                                <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                                  <div className="flex items-center gap-[6rem] ">
-                                    <div>
-                                      <div className="flex gap-5 text-white">
-                                        <span>AFG</span>
-                                        <span>155-7(20 Ovs)</span>
-                                      </div>
-                                      <div className="flex gap-7 text-white">
-                                        <span>IRE</span>
-                                        <span>98-10(17.2 Ovs)</span>
-                                      </div>
-                                      <div className="text-slate-300">
-                                        Afghanistan won by 57 runs
-                                      </div>
-                                    </div>
-                                    <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                      <IoCaretForwardOutline />
-                                    </div>
-                                  </div>
-                                </div>
-                                <div className="flex ">
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                                    Live Score
-                                  </div>
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                    Scorecard
-                                  </div>
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                    Full Commentary
-                                  </div>
-                                  <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                    News
-                                  </div>
-                                </div>
-                              </div> */}
+                              {}
                             </div>
                           </>
                         );
                       })}
-                      {/* <div className="bg-[#E7E7E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                        INDIA vs PAKISTAN TOUR , 2024
-                      </div> */}
-                      {/* <div className="flex flex-col gap-5 mt-5">
-                        <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                          <div className="flex">
-                            <span className="font-semibold">
-                              Afghanistan vs Ireland,
-                            </span>
-                            <span className="text-slate-400">3rd T20I </span>
-                          </div>
-                          <div className="text-slate-400">
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                          </div>
-                          <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                            <div className="flex items-center gap-[6rem] ">
-                              <div>
-                                <div className="flex gap-5 text-white">
-                                  <span>AFG</span>
-                                  <span>155-7(20 Ovs)</span>
-                                </div>
-                                <div className="flex gap-7 text-white">
-                                  <span>IRE</span>
-                                  <span>98-10(17.2 Ovs)</span>
-                                </div>
-                                <div className="text-slate-300">
-                                  Afghanistan won by 57 runs
-                                </div>
-                              </div>
-                              <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                <IoCaretForwardOutline />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex ">
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                              Live Score
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Scorecard
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Full Commentary
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              News
-                            </div>
-                          </div>
-                        </div>
-                        <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                          <div className="flex">
-                            <span className="font-semibold">
-                              Afghanistan vs Ireland,
-                            </span>
-                            <span className="text-slate-400">3rd T20I </span>
-                          </div>
-                          <div className="text-slate-400">
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                          </div>
-                          <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                            <div className="flex items-center gap-[6rem] ">
-                              <div>
-                                <div className="flex gap-5 text-white">
-                                  <span>AFG</span>
-                                  <span>155-7(20 Ovs)</span>
-                                </div>
-                                <div className="flex gap-7 text-white">
-                                  <span>IRE</span>
-                                  <span>98-10(17.2 Ovs)</span>
-                                </div>
-                                <div className="text-slate-300">
-                                  Afghanistan won by 57 runs
-                                </div>
-                              </div>
-                              <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                <IoCaretForwardOutline />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex ">
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                              Live Score
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Scorecard
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Full Commentary
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              News
-                            </div>
-                          </div>
-                        </div>
-                        <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                          <div className="flex">
-                            <span className="font-semibold">
-                              Afghanistan vs Ireland,
-                            </span>
-                            <span className="text-slate-400">3rd T20I </span>
-                          </div>
-                          <div className="text-slate-400">
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                          </div>
-                          <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                            <div className="flex items-center gap-[6rem] ">
-                              <div>
-                                <div className="flex gap-5 text-white">
-                                  <span>AFG</span>
-                                  <span>155-7(20 Ovs)</span>
-                                </div>
-                                <div className="flex gap-7 text-white">
-                                  <span>IRE</span>
-                                  <span>98-10(17.2 Ovs)</span>
-                                </div>
-                                <div className="text-slate-300">
-                                  Afghanistan won by 57 runs
-                                </div>
-                              </div>
-                              <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                <IoCaretForwardOutline />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex ">
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                              Live Score
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Scorecard
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Full Commentary
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              News
-                            </div>
-                          </div>
-                        </div>
-                        <div className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
-                          <div className="flex">
-                            <span className="font-semibold">
-                              Afghanistan vs Ireland,
-                            </span>
-                            <span className="text-slate-400">3rd T20I </span>
-                          </div>
-                          <div className="text-slate-400">
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                          </div>
-                          <div className="bg-[#E6E6E6] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                            <div className="flex items-center gap-[6rem] ">
-                              <div>
-                                <div className="flex gap-5 text-white">
-                                  <span>AFG</span>
-                                  <span>155-7(20 Ovs)</span>
-                                </div>
-                                <div className="flex gap-7 text-white">
-                                  <span>IRE</span>
-                                  <span>98-10(17.2 Ovs)</span>
-                                </div>
-                                <div className="text-slate-300">
-                                  Afghanistan won by 57 runs
-                                </div>
-                              </div>
-                              <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                <IoCaretForwardOutline />
-                              </div>
-                            </div>
-                          </div>
-                          <div className="flex ">
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                              Live Score
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Scorecard
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              Full Commentary
-                            </div>
-                            <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                              News
-                            </div>
-                          </div>
-                        </div>
-                      </div> */}
                     </div>
                     <div className="w-[250px] flex flex-col gap-5 ">
                       <div className="bg-[white] pt-3 pb-3 rounded-lg">
@@ -712,106 +532,21 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
                       <div className="flex flex-col gap-5">
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
+                        {console.log("currentSeries", competationsType)}
+                        {competationsType?.map((item) => (
+                          <div className="flex gap-[10rem]">
+                            <div className="font-semibold">
+                              {formatDate(item?.datestart)?.split(" ")?.[0]}{" "}
+                              {item?.datestart?.slice(0, 4)}
+                            </div>
+                            <div className="text-slate-400">
+                              {item?.title}
+                              <br />
+                              {convertDate1(item?.datestart)}
+                              <hr className="mt-2" />
+                            </div>
                           </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                        <div className="flex gap-[10rem]">
-                          <div className="font-semibold">February 2024</div>
-                          <div className="text-slate-400">
-                            ICC Circket World Cup Leauge Two 2024-28
-                            <br />
-                            Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                            Stadium
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
+                        ))}
                       </div>
                     </div>
                     <div className="w-[250px] flex flex-col gap-5 ">
@@ -880,246 +615,45 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
                       <div className="flex flex-col gap-5">
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
+                        {newMatchData?.map((item) => (
+                          <div className="  flex flex-col gap-5">
+                            <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
+                              {convertDate1(item?.datestart)}
                             </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
+                            <div className="flex   justify-between">
+                              <div className="w-[150px] font-semibold">
+                                {item?.title}
+                              </div>
+                              <div className="w-[325px]">
+                                {item?.matches &&
+                                  item?.matches
+                                    ?.filter((m) => m?.status === 2)
+                                    ?.map((item) => (
+                                      <div className="mb-3">
+                                        <span className="text-slate-400">
+                                          {item?.title}
+                                        </span>
+                                        <br />
+                                        <span className="text-slate-300">
+                                          {convertDateTime(item?.date_start)}{" "}
+                                           at {item?.venue?.name}
+                                        </span>
+                                      </div>
+                                    ))}
+                              </div>
+                              {/* <div className="w-[150px]">
+                                <span className="text-slate-400">
+                                  {" "}
+                                  Mar 18  •  9:30 PM
+                                </span>
+                                <span className="text-slate-300">
+                                  {" "}
+                                  9:30 PM GMT/Local
+                                </span>
+                              </div> */}
                             </div>
                           </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="h-[200px]  flex flex-col gap-5">
-                          <div className="bg-[#E7E7E7] h-[70px] font-semibold flex justify-start items-center pl-2">
-                            SAT,MAR 30 2024
-                          </div>
-                          <div className="flex   justify-between">
-                            <div className="w-[150px] font-semibold">
-                              Sri Lanka tour of Bangladesh,2024
-                            </div>
-                            <div className="w-[325px]">
-                              <span className="text-slate-400">
-                                Bangladesh vs Srilanka,2nd Test , Day 01
-                              </span>
-                              <br />
-                              <span className="text-slate-300">
-                                Mar 18  •  9:30 PM at Sharjah, Sharjah Cricket
-                                Stadium
-                              </span>
-                            </div>
-                            <div className="w-[150px]">
-                              <span className="text-slate-400">
-                                {" "}
-                                Mar 18  •  9:30 PM
-                              </span>
-                              <span className="text-slate-300">
-                                {" "}
-                                9:30 PM GMT/Local
-                              </span>
-                            </div>
-                          </div>
-                        </div>
+                        ))}
                       </div>
                     </div>
                     <div className="w-[250px] flex flex-col gap-5 ">
