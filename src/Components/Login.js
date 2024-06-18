@@ -57,7 +57,7 @@ const Login = () => {
         <div className="flex justify-center mt-5">
           {!otpSent ? (
             <input
-              placeholder="Email id/Mobile Number"
+              placeholder="Email id"
               className="border h-[56px] w-[400px] rounded placeholder:pl-2"
               onChange={(e) => setEmail(e.target.value)}
               type="text"

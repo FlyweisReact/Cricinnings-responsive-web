@@ -41,15 +41,17 @@ const Livescrore = () => {
     // })
     const res = await axios
       .get(
-        `${baseUrl}user/getCompetitionsByCategory?per_page=30&paged=1&category=${category}&status=live`
+        `${baseUrl}user/getCompetitionsAndMatches?status=live&per_page=10&paged=1&include_matches=true&category=${category}`
       )
       .then((res) => {
-        setCompetationsType(
-          res?.data?.competitions.map((competition) => ({
-            ...competition,
-            matches: [],
-          }))
-        );
+        console.log(res?.data?.competitions);
+        setCompetationsType(res?.data?.competitions);
+        // setCompetationsType(
+        //   res?.data?.competitions.map((competition) => ({
+        //     ...competition,
+        //     matches: [],
+        //   }))
+        // );
 
         // res?.data?.competitions?.forEach((competition) => {
         //   getMatchesForCompetition(competition.cid);
@@ -339,7 +341,7 @@ const Livescrore = () => {
                                     <div className="flex">
                                       <span className="font-semibold"></span>
                                       <span className="text-slate-400">
-                                        3rd T20I{" "}
+                                        {/* 3rd T20I{" "} */}
                                       </span>
                                     </div>
                                     <div className="text-slate-400">

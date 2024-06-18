@@ -335,7 +335,7 @@ const Homepage = () => {
         <Slider {...settings} className="w-[1000px]">
           {sliderData &&
             sliderData?.map((item) => (
-              <Link to="/Commenatary">
+              <Link to={`/match/${item?.match_id}/commentary`}>
                 <div className="homePageSlider">
                   <div className="pt-2 pl-2">
                     <div
@@ -1031,7 +1031,7 @@ const Homepage = () => {
                 Latest Updated On {new Date().toLocaleDateString()}
               </div>
             </div>
-            
+
             {bottomBanner1 && (
               <img
                 src={bottomBanner1}

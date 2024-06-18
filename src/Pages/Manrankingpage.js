@@ -47,7 +47,7 @@ const Manrankingpage = () => {
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-        <div className="font-semibold">ICC Cricket Rankings-Men’s </div>
+        <div className="font-semibold">ICC Cricket Rankings-Men’s {mainCategory==='batting' ? 'Batsmen' : mainCategory==='bowling' ? 'Bowling' : mainCategory==='alr' ? 'All-rounders' : 'Team'} </div>
         <div className="flex gap-5 mt-3">
           <div
             style={{

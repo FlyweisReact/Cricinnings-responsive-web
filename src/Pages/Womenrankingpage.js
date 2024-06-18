@@ -22,7 +22,7 @@ const Womenrankingpage = () => {
   const [test, setTest] = useState([]);
   const [teamRankings, setTeamRankings] = useState([]);
   const [mainCategory, setMainCategory] = useState("batting");
-  const [currentCategory, setCurrentCategory] = useState("test");
+  const [currentCategory, setCurrentCategory] = useState("odi");
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
@@ -54,7 +54,16 @@ const Womenrankingpage = () => {
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-        <div className="font-semibold">ICC Cricket Rankings-Men’s </div>
+        <div className="font-semibold">
+          ICC Cricket Rankings-Women's{" "}
+          {mainCategory === "batting"
+            ? "Batsmen"
+            : mainCategory === "bowling"
+            ? "Bowling"
+            : mainCategory === "alr"
+            ? "All-rounders"
+            : "Team"}{" "}
+        </div>
         <div className="flex gap-5 mt-3">
           <div
             style={{
