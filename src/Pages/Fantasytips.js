@@ -3,8 +3,10 @@ import ipl from "../Assets/Homepage/ipl.svg";
 import {
   GetData,
   GetDataWithToken,
+  baseUrl,
 } from "../Components/Integration/ApiIntegration";
 import { useEffect, useState } from "react";
+import axios from "axios";
 const Fantasytips = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
   const getAllData = async () => {
@@ -111,13 +113,23 @@ const Fantasytips = () => {
     getAllHomePageBanners();
   }, []);
 
-  const getAllSeriesData = () => {
-    GetDataWithToken({
-      path: "competitions",
-      status: "live",
-    }).then((res) => {
-      setAllSeries(res?.response?.items);
-    });
+  const getAllSeriesData = async () => {
+    // GetDataWithToken({
+    //   path: "competitions",
+    //   status: "live",
+    // }).then((res) => {
+    //   setAllSeries(res?.response?.items);
+    // });
+    try {
+      const res = await axios.get(
+        baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
+      );
+
+      console.log(res?.data?.competitions);
+      setAllSeries(res?.data?.competitions);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const getAllTeamRankingsData = () => {

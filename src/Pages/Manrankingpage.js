@@ -2,7 +2,7 @@ import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import men from "../Assets/Homepage/men.svg";
 import { useEffect, useState } from "react";
-import { GetDataWithToken, baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
 const Manrankingpage = () => {
@@ -25,19 +25,19 @@ const Manrankingpage = () => {
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    console.log(res?.data?.rankings);
-    setOdiBestman(res?.data?.rankings?.batsmen?.odis);
-    setT20Bestman(res?.data?.rankings?.batsmen?.t20s);
-    setTestBestman(res?.data?.rankings?.batsmen?.tests);
-    setOdiBolling(res?.data?.rankings?.bowlers?.odis);
-    setT20Bolling(res?.data?.rankings?.bowlers?.t20s);
-    setTestBolling(res?.data?.rankings?.bowlers?.tests);
-    setOdiAlr(res?.data?.rankings?.["all-rounders"]?.odis || []);
-    setT20Alr(res?.data?.rankings?.["all-rounders"]?.t20s || []);
-    setTestAlr(res?.data?.rankings?.["all-rounders"]?.tests || []);
-    setOdis(res?.data?.rankings?.teams?.odis);
-    setT20s(res?.data?.rankings?.teams?.t20s);
-    setTest(res?.data?.rankings?.teams?.tests);
+    console.log(res?.data?.rankingData);
+    setOdiBestman(res?.data?.rankingData?.ranks?.batsmen?.odis);
+    setT20Bestman(res?.data?.rankingData?.ranks?.batsmen?.t20s);
+    setTestBestman(res?.data?.rankingData?.ranks?.batsmen?.tests);
+    setOdiBolling(res?.data?.rankingData?.ranks?.bowlers?.odis);
+    setT20Bolling(res?.data?.rankingData?.ranks?.bowlers?.t20s);
+    setTestBolling(res?.data?.rankingData?.ranks?.bowlers?.tests);
+    setOdiAlr(res?.data?.rankingData?.ranks?.["all-rounders"]?.odis || []);
+    setT20Alr(res?.data?.rankingData?.ranks?.["all-rounders"]?.t20s || []);
+    setTestAlr(res?.data?.rankingData?.ranks?.["all-rounders"]?.tests || []);
+    setOdis(res?.data?.rankingData?.ranks?.teams?.odis);
+    setT20s(res?.data?.rankingData?.ranks?.teams?.t20s);
+    setTest(res?.data?.rankingData?.ranks?.teams?.tests);
     setTeamRankings(res?.response?.items);
   };
 
@@ -858,6 +858,7 @@ const Manrankingpage = () => {
                       test?.map((item, index) => (
                         <tr key={index}>
                           <td>
+                            {console.log(item)}
                             <p>{index + 1}</p>
                           </td>{" "}
                           <td>
@@ -876,7 +877,7 @@ const Manrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={item?.logo_url}
                                   alt="playerImage"
                                 />
                               </span>
@@ -922,7 +923,7 @@ const Manrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={item?.logo_url}
                                   alt="playerImage"
                                 />
                               </span>
@@ -968,7 +969,7 @@ const Manrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={item?.logo_url}
                                   alt="playerImage"
                                 />
                               </span>

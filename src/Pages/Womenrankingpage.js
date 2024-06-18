@@ -1,9 +1,9 @@
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
-import men from "../Assets/Homepage/men.svg";
-import women from "../Assets/Homepage/women.jpg";
+// import men from "../Assets/Homepage/men.svg";
+import men from "../Assets/Homepage/women.jpg";
 import { useEffect, useState } from "react";
-import { GetDataWithToken, baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
 const Womenrankingpage = () => {
@@ -26,22 +26,27 @@ const Womenrankingpage = () => {
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    console.log(res?.data?.rankings);
-    setOdiBestman(res?.data?.rankings?.batsmen?.odis);
-    setT20Bestman(res?.data?.rankings?.batsmen?.t20s);
-    setTestBestman(res?.data?.rankings?.batsmen?.tests);
-    setOdiBolling(res?.data?.rankings?.bowlers?.odis);
-    setT20Bolling(res?.data?.rankings?.bowlers?.t20s);
-    setTestBolling(res?.data?.rankings?.bowlers?.tests);
-    setOdiAlr(res?.data?.rankings?.["all-rounders"]?.odis || []);
-    setT20Alr(res?.data?.rankings?.["all-rounders"]?.t20s || []);
-    setTestAlr(res?.data?.rankings?.["all-rounders"]?.tests || []);
-    setOdis(res?.data?.rankings?.teams?.odis);
-    setT20s(res?.data?.rankings?.teams?.t20s);
-    setTest(res?.data?.rankings?.teams?.tests);
+    console.log(res?.data?.rankingData?.women_ranks);
+    setOdiBestman(res?.data?.rankingData?.women_ranks?.batsmen?.odis);
+    setT20Bestman(res?.data?.rankingData?.women_ranks?.batsmen?.t20s);
+    setTestBestman(res?.data?.rankingData?.women_ranks?.batsmen?.tests);
+    setOdiBolling(res?.data?.rankingData?.women_ranks?.bowlers?.odis);
+    setT20Bolling(res?.data?.rankingData?.women_ranks?.bowlers?.t20s);
+    setTestBolling(res?.data?.rankingData?.women_ranks?.bowlers?.tests);
+    setOdiAlr(
+      res?.data?.rankingData?.women_ranks?.["all-rounders"]?.odis || []
+    );
+    setT20Alr(
+      res?.data?.rankingData?.women_ranks?.["all-rounders"]?.t20s || []
+    );
+    setTestAlr(
+      res?.data?.rankingData?.women_ranks?.["all-rounders"]?.tests || []
+    );
+    setOdis(res?.data?.rankingData?.women_ranks?.teams?.odis);
+    setT20s(res?.data?.rankingData?.women_ranks?.teams?.t20s);
+    setTest(res?.data?.rankingData?.women_ranks?.teams?.tests);
     setTeamRankings(res?.response?.items);
   };
-
 
   useEffect(() => {
     getAllTeamRankingsData();
@@ -49,9 +54,7 @@ const Womenrankingpage = () => {
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-        <div className="font-semibold">
-          ICC Cricket Rankings-Women's
-        </div>
+        <div className="font-semibold">ICC Cricket Rankings-Men’s </div>
         <div className="flex gap-5 mt-3">
           <div
             style={{
@@ -184,7 +187,7 @@ const Womenrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={women}
+                                  src={men}
                                   alt="playerImage"
                                 />
                               </span>
@@ -880,7 +883,7 @@ const Womenrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={item?.logo_url}
                                   alt="playerImage"
                                 />
                               </span>
@@ -926,7 +929,7 @@ const Womenrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={item?.logo_url}
                                   alt="playerImage"
                                 />
                               </span>
@@ -972,7 +975,7 @@ const Womenrankingpage = () => {
                               <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
-                                  src={men}
+                                  src={item?.logo_url}
                                   alt="playerImage"
                                 />
                               </span>
