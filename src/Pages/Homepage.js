@@ -1,6 +1,5 @@
 import cric from "../Assets/Homepage/cric.svg";
 import banner from "../Assets/Homepage/banner.svg";
-import winner from "../Assets/Homepage/winner.svg";
 import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -318,12 +317,47 @@ const Homepage = () => {
       return "just now";
     }
   }
+  const CustomNextArrow1 = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: "block",
+          background: "#0F19AF",
+          color: "white",
+          marginRight: "2rem",
+        }}
+        onClick={onClick}
+      />
+    );
+  };
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const CustomPrevArrow1 = (props) => {
+    const { className, style, onClick } = props;
+    return (
+      <div
+        className={className}
+        style={{
+          ...style,
+          display: "block",
+          background: "#0F19AF",
+          marginLeft: "2rem",
+        }}
+        onClick={onClick}
+      />
+    );
+  };
   const settings1 = {
     dots: false,
     infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
+    nextArrow: <CustomNextArrow1 />,
+    prevArrow: <CustomPrevArrow1 />,
   };
 
   return (
@@ -336,7 +370,14 @@ const Homepage = () => {
                 <div key={index} className="top_slider_card">
                   <div className="top_slider_card_div1">
                     <div className="top_slider_card_div1_text">
-                      <p>
+                      <p
+                        style={{
+                          width: "80%",
+                          overflow: "hidden",
+                          whiteSpace: "nowrap",
+                          textOverflow: "ellipsis",
+                        }}
+                      >
                         {item?.subtitle}{" "}
                         <Icon
                           icon="radix-icons:dot-filled"
@@ -344,12 +385,40 @@ const Homepage = () => {
                           height="1.2rem"
                           style={{ color: "gray" }}
                         />{" "}
-                        {item?.competition?.title} {console.log(item)}
+                        {item?.competition?.title}
                       </p>
                       <p>{item?.format_str}</p>
                     </div>
+                    <div className="top_slider_card_div2">
+                      <div className="top_slider_card_div2_text">
+                        <p>
+                          <img
+                            className="top_slider_card_div2_img"
+                            src={item?.teama?.logo_url}
+                            alt="logo"
+                          />
+                        </p>
+                        <p>{item?.teama?.name}</p>
+                      </div>
+                      <div className="top_slider_card_div2_text">
+                        <p>
+                          <img
+                            className="top_slider_card_div2_img"
+                            src={item?.teamb?.logo_url}
+                            alt="logo"
+                          />
+                        </p>
+                        <p>{item?.teamb?.name}</p>
+                      </div>
+                    </div>
                   </div>
-                  <div></div>
+                  <div className="top_slider_card_div2_text11">
+                    <div></div>
+                    <div className="top_slider_card_div2_text11_text23">
+                      <p>Points Table</p>
+                      <p>Schedule</p>
+                    </div>
+                  </div>
                 </div>
               ))}
           </Slider>
@@ -465,12 +534,12 @@ const Homepage = () => {
                 className="text-[#0F19AF] font-semibold cursor-pointer"
                 onClick={() => navigate("/feature_posts")}
               >
-                Sell All
+                SEE ALL
               </div>
             </div>
-            <div className="w-[650px]  bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
+            <div className="feacturePosts">
               {feacturePosts?.map((item) => (
-                <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
+                <div className="feacturePosts_div">
                   <div className="flex gap-2">
                     <div>
                       <img src={cric} alt="" />
@@ -498,39 +567,46 @@ const Homepage = () => {
             <div className="w-[650px] mt-2">
               <img src={banner} alt="" />
             </div>
-            <div className="text-sm mt-2 font-semibold">TOP STORIES</div>
-            <div className="w-[650px]  mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
-              {topStories?.map((item) => (
-                <div className="w-[270px] h-[100px] bg-[white] shadow flex justify-center p-2 items-center">
-                  <div className="flex gap-2">
-                    <div>
-                      <img src={cric} alt="" />
-                    </div>
+            <div className="flex justify-between m-2">
+              <div className="font-semibold mt-2">TOP STORIES</div>
+              <div
+                className="text-[#0F19AF] font-semibold cursor-pointer"
+                onClick={() => navigate("/feature_posts")}
+              >
+                {/* Sell All */}
+              </div>
+            </div>
+            <div className="feacturePosts">
+              {topStories &&
+                topStories?.map((item) => (
+                  <div className="feacturePosts_div">
+                    <div className="flex gap-2">
+                      <div>
+                        <img src={cric} alt="" />
+                      </div>
 
-                    <div className="text-sm">
-                      <div>{item?.subtitle}</div>
+                      <div className="text-sm">
+                        <div>{item?.subtitle}</div>
 
-                      <span className="text-[#929394]">
-                        {timeAgo(item?.createdAt)} {item?.description}
-                      </span>
+                        <span className="text-[#929394]">
+                          {timeAgo(item?.createdAt)} {item?.description}
+                        </span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
             </div>
             {middleBanner?.map((item) => (
-              <div className="w-[650px] mt-2 bg-white rounded-lg  shadow-lg flex justify-center flex-wrap gap-5 pt-5 pb-5">
+              <div className="middleBannerBig">
+                <p>INDIA (ICC - 2024 )</p>
                 <div>
-                  <span className="text-sm ml-4">{"INDIA 2024"}</span>
-                  <img
-                    src={item?.image || winner}
-                    style={{ width: "100%", height: "300px" }}
-                    alt=""
-                  />
-                </div>
-                <div className="ml-4">
-                  <div className="text-xl font-semibold">{item?.subtitle}</div>
-                  <p className="text-sm mt-2">{item?.description}</p>
+                  <p className="middleBannerImage">
+                    <img src={item?.image} alt="middleBanner" />
+                  </p>
+                  <p className="middleBannerText">
+                    <p>{item?.subtitle}</p>
+                    <p>{item?.description}</p>
+                  </p>
                 </div>
               </div>
             ))}
@@ -539,10 +615,39 @@ const Homepage = () => {
             <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
               <Slider {...editorsettings}>
                 {editorpicks?.map((item) => (
-                  <div className="w-[466px] h-[262px] p-4 border rounded-lg">
-                    <img src={item?.image || editorpick} alt="" />
-                    <div className=" font-semibold">{item?.subtitle}</div>
-                    <div className="text-[#828383]">{item?.description}</div>
+                  <div className="editorPick">
+                    <img
+                      style={{
+                        width: "100%",
+                        height: "200px",
+                        borderRadius: "10px 10px 0 0",
+                        overflow: "hidden",
+                      }}
+                      src={item?.image || editorpick}
+                      alt=""
+                    />
+                    <div
+                      style={{
+                        width: "90%",
+                        margin: "auto",
+                        lineHeight: "normal",
+                        fontSize: "12px",
+                      }}
+                    >
+                      <p
+                        style={{
+                          fontWeight: "bold",
+                          color: "black",
+                          paddingTop: "0.2rem",
+                          lineHeight: "normal",
+                        }}
+                      >
+                        {item?.subtitle}
+                      </p>
+                      <p style={{ color: "gray", fontSize: "10px" }}>
+                        {item?.description}
+                      </p>
+                    </div>
                   </div>
                 ))}
               </Slider>
@@ -551,8 +656,15 @@ const Homepage = () => {
 
           <div className="w-[250px]  mt-10">
             {allSeries?.length > 0 && (
-              <div className="bg-[white] pb-3 pt-3 rounded-lg">
-                <span className="text-sm ml-5 font-semibold">
+              <div className="bg-[white] pb-3 pt-3 rounded-lg mb-3">
+                <span
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "12px",
+                    paddingLeft: "10px",
+                  }}
+                >
                   CURRENT SERIES
                 </span>
                 <div className="flex flex-col mt-4 gap-3 items-center text-center">
@@ -561,9 +673,20 @@ const Homepage = () => {
                     return (
                       <div
                         key={item?._id}
-                        className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center"
+                        style={{
+                          display: "grid",
+                          placeItems: "center",
+                          justifyContent: "center",
+                          width: "90%",
+                          margin: "auto",
+                          boxShadow:
+                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                          textAlign: "center",
+                          paddingTop: "0.5rem",
+                          borderRadius: "4px",
+                        }}
                       >
-                        {item?.title}
+                        <p>{item?.title}</p>
                       </div>
                     );
                   })}
@@ -571,15 +694,14 @@ const Homepage = () => {
               </div>
             )}
 
-            {}
             {middleBanner2 && (
               <img
                 style={{
                   width: "100%",
                   height: "550px",
-                  marginTop: "2rem",
                   borderRadius: "10px",
                 }}
+                className="mb-3"
                 src={middleBanner2}
                 alt="middleBanner"
               />
@@ -587,7 +709,12 @@ const Homepage = () => {
 
             <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
               <div className="flex justify-between p-2">
-                <div className="text-sm font-semibold">RANKING’s</div>
+                <div
+                  className="text-sm font-semibold"
+                  style={{ fontSize: "12px" }}
+                >
+                  RANKING’s
+                </div>
                 <div>
                   <button
                     onClick={() => navigate("/Manrankingpage")}
@@ -606,6 +733,7 @@ const Homepage = () => {
                     backgroundColor:
                       teamSelector === "test" ? "#0F19AF" : "black",
                     color: teamSelector === "test" ? "white" : "black",
+                    fontWeight: teamSelector === "test" ? "bold" : "normal",
                   }}
                 >
                   Test
@@ -617,6 +745,7 @@ const Homepage = () => {
                     cursor: "pointer",
                     backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
                     color: teamSelector === "odi" ? "white" : "black",
+                    fontWeight: teamSelector === "odi" ? "bold" : "normal",
                   }}
                 >
                   ODI
@@ -628,9 +757,10 @@ const Homepage = () => {
                     cursor: "pointer",
                     backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
                     color: teamSelector === "t20" ? "white" : "black",
+                    fontWeight: teamSelector === "t20" ? "bold" : "normal",
                   }}
                 >
-                  T201
+                  T20
                 </button>
               </div>
               <div className="flex justify-between m-2">
@@ -639,10 +769,12 @@ const Homepage = () => {
                     cursor: "pointer",
                     textDecoration:
                       mainCategory === "teams" ? "underline" : "none",
-                    color: mainCategory === "teams" ? "#0F19AF" : "black",
+                    fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                    color: "black",
+                    textDecorationColor: "#0F19AF",
                   }}
                   onClick={() => setMainCategory("teams")}
-                  className="text-[#0F19AF] underline"
+                  className="text-[#0F19AF]"
                 >
                   Teams
                 </div>
@@ -651,7 +783,9 @@ const Homepage = () => {
                     cursor: "pointer",
                     textDecoration:
                       mainCategory === "batting" ? "underline" : "none",
-                    color: mainCategory === "batting" ? "#0F19AF" : "black",
+                    fontWeight: mainCategory === "batting" ? "bold" : "normal",
+
+                    textDecorationColor: "#0F19AF",
                   }}
                   onClick={() => setMainCategory("batting")}
                 >
@@ -662,7 +796,9 @@ const Homepage = () => {
                     cursor: "pointer",
                     textDecoration:
                       mainCategory === "bowling" ? "underline" : "none",
-                    color: mainCategory === "bowling" ? "#0F19AF" : "black",
+                    fontWeight: mainCategory === "bowling" ? "bold" : "normal",
+
+                    textDecorationColor: "#0F19AF",
                   }}
                   onClick={() => setMainCategory("bowling")}
                 >
@@ -673,7 +809,9 @@ const Homepage = () => {
                     cursor: "pointer",
                     textDecoration:
                       mainCategory === "alr" ? "underline" : "none",
-                    color: mainCategory === "alr" ? "#0F19AF" : "black",
+                    fontWeight: mainCategory === "alr" ? "bold" : "normal",
+
+                    textDecorationColor: "#0F19AF",
                   }}
                   onClick={() => setMainCategory("alr")}
                 >

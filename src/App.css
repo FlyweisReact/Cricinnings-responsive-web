@@ -225,6 +225,7 @@
   border-radius: 10px;
   /* background-color: green; */
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  overflow: hidden;
 }
 .top_slider_card_div1 {
   padding: 12px;
@@ -264,4 +265,119 @@
   text-decoration-style: solid;
   text-decoration-thickness: auto;
   line-height: 20px;
+}
+
+.top_slider_card_div2_img {
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+}
+
+.top_slider_card_div2_text {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 10px;
+}
+
+.top_slider_card_div2_text11 {
+  background-color: #0f19af;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-radius: 0 0 10px 10px;
+  overflow: hidden;
+}
+.top_slider_card_div2_text11_text23 {
+  display: flex;
+  gap: 10px;
+}
+.top_slider_card_div2_text11_text23 > p {
+  color: white;
+  font-size: 10px;
+  font-weight: bold;
+  padding: 0.2rem;
+}
+
+.feacturePosts {
+  width: 650px;
+  padding: 10px;
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 10px;
+  background-color: white;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  margin-top: 1rem;
+}
+
+.feacturePosts_div {
+  box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+  border-radius: 4px;
+}
+
+.middleBannerBig {
+  width: 650px;
+  background-color: white;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.middleBannerImage {
+  padding: 10px;
+  width: 90%;
+  margin: auto;
+}
+
+.middleBannerImage > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  max-height: 239px;
+}
+
+.middleBannerText {
+  width: 90%;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.middleBannerText > p:first-child {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  color: #000;
+}
+
+.middleBannerText > p:last-child {
+  font-size: 14px;
+  color: #929394;
+}
+
+.editorPick {
+  /* border: 1px solid rgb(235, 235, 235); */
+  border-radius: 10px;
+}
+
+.matchList {
+  border: 1px solid white;
+  text-align: center;
+  height: 48px;
+  padding: 0 0.4rem;
+  
+}
+
+.matchList:hover{
+  background-color: #aca2a2;
+  cursor: pointer;
+}
+
+.matchList>p{
+  font-size: 14px;
+  padding-top: 0.7rem;
+  font-weight: 500;
 }

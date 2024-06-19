@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthToken, GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
@@ -44,7 +44,8 @@ const Nav = () => {
   const [matchesList, setMatchesList] = useState([]);
   const getTopMatches = async () => {
     const response = await axios.get(
-      baseUrl + "user/competitions/128414/matches?status=3&per_page=7&paged=1",
+      baseUrl +
+        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
       {
         params: {
           token: AuthToken,
@@ -52,7 +53,7 @@ const Nav = () => {
       }
     );
 
-    setMatchesList(response?.data?.matches);
+    setMatchesList(response?.data?.competitions?.[0]?.matches);
   };
   const getAllMatchList = () => {
     GetDataWithToken({
@@ -493,22 +494,18 @@ const Nav = () => {
             MATCHES
           </div>
 
-          {matchesList.map((match) => (
-            <Link to={`/Livescore/${match.match_id}`}>
-              <div
-                className={`w-[100px] h-[48px] flex justify-center items-center border-white border text-[10px] cursor-pointer`}
-                style={{
-                  backgroundColor:
-                    selectedMatch !== match.match_id ? "#767777" : "#DFDFDF",
-                  color: selectedMatch !== match.match_id ? "white" : "black",
-                  fontWeight:
-                    selectedMatch !== match.match_id ? "normal" : "bold",
-                }}
-                onClick={() => handleMatchClick(match.match_id)}
-              >
-                {match.short_title}
-              </div>
-            </Link>
+          {matchesList?.slice(0, 5).map((match) => (
+            <div
+              onClick={() => navigate(`/Livescore/${match.match_id}`)}
+              className="matchList"
+            >
+              <p>
+                {match?.short_title}
+                {match?.status === 2
+                  ? `- ${match?.result?.split(" ")?.[0]} WON `
+                  : ""}
+              </p>
+            </div>
           ))}
         </div>
         {}
