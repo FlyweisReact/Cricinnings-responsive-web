@@ -1,7 +1,7 @@
 import cric from "../Assets/Homepage/cric.svg";
 import banner from "../Assets/Homepage/banner.svg";
 import winner from "../Assets/Homepage/winner.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
@@ -14,6 +14,7 @@ import {
   baseUrl,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
+import { Icon } from "@iconify/react/dist/iconify.js";
 
 const Homepage = () => {
   const CustomNextArrow = (props) => {
@@ -107,21 +108,22 @@ const Homepage = () => {
         },
       }
     );
-    console.log(response?.data?.matches);
+
     setTopMatches(response?.data?.matches);
   };
 
   const getSliderDataMatch = async () => {
     const response = await axios.get(
-      baseUrl + "user/competitions/128414/matches?status=1&per_page=7&paged=1",
+      baseUrl +
+        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
       {
         params: {
           token: AuthToken,
         },
       }
     );
-    console.log(response?.data?.matches);
-    setSliderData(response?.data?.matches);
+    // console.log(response?.data?.competitions)
+    setSliderData(response?.data?.competitions?.[0]?.matches);
   };
 
   useEffect(() => {
@@ -149,7 +151,7 @@ const Homepage = () => {
           date: `${formattedDate}_${formattedYesterdayDate}`,
         },
       });
-      console.log(response?.data?.response?.items);
+
       return response?.data?.response?.items;
     } catch (err) {
       console.error(`Error fetching matches for status ${status}:`, err);
@@ -185,8 +187,6 @@ const Homepage = () => {
 
       setLoading(false);
     };
-
-    // fetchAllMatches();
   }, []);
 
   const getAllHomePageBanners = () => {
@@ -213,28 +213,18 @@ const Homepage = () => {
   }, []);
 
   const getAllSeriesData = async () => {
-    // GetDataWithToken({
-    //   path: "competitions",
-    //   status: "live",
-    // }).then((res) => {
-    //   setAllSeries(res?.response?.items);
-    // });
-
     try {
       const res = await axios.get(
         baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
       );
 
-      console.log(res?.data?.competitions);
       setAllSeries(res?.data?.competitions);
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    console.log(res?.data?.rankingData);
+
     setOdiBestman(res?.data?.rankingData?.ranks?.batsmen?.odis);
     setT20Bestman(res?.data?.rankingData?.ranks?.batsmen?.t20s);
     setTestBestman(res?.data?.rankingData?.ranks?.batsmen?.tests);
@@ -328,10 +318,44 @@ const Homepage = () => {
       return "just now";
     }
   }
+  const settings1 = {
+    dots: false,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 4,
+    slidesToScroll: 1,
+  };
 
   return (
     <div className="">
-      <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
+      <div className="homePageSlider">
+        <div className="slider-container">
+          <Slider {...settings1}>
+            {sliderData &&
+              sliderData?.map((item, index) => (
+                <div key={index} className="top_slider_card">
+                  <div className="top_slider_card_div1">
+                    <div className="top_slider_card_div1_text">
+                      <p>
+                        {item?.subtitle}{" "}
+                        <Icon
+                          icon="radix-icons:dot-filled"
+                          width="1.2rem"
+                          height="1.2rem"
+                          style={{ color: "gray" }}
+                        />{" "}
+                        {item?.competition?.title} {console.log(item)}
+                      </p>
+                      <p>{item?.format_str}</p>
+                    </div>
+                  </div>
+                  <div></div>
+                </div>
+              ))}
+          </Slider>
+        </div>
+      </div>
+      {/* <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
         <Slider {...settings} className="w-[1000px]">
           {sliderData &&
             sliderData?.map((item) => (
@@ -419,263 +443,10 @@ const Homepage = () => {
               </Link>
             ))}
 
-          {/* {matches?.upcoming &&
-            matches?.upcoming?.map((item) => (
-              <Link to="/Commenatary">
-                <div className="homePageSlider">
-                  <div className="pt-2 pl-2">
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                      }}
-                    >
-                      <p style={{ maxWidth: "80%" }}>
-                        {item?.teama?.name} vs {item?.teamb?.name}
-                      </p>
-                      <p
-                        style={{
-                          backgroundColor: "black",
-                          borderRadius: "50px",
-                          color: "white",
-                          fontSize: "15px",
-                          padding: "5px 10px",
-                          margin: "1rem",
-                          textDecoration: "none",
-                        }}
-                      >
-                        {item?.competition?.category}
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teama?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teamb?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
-                    </div>
-                    <p className="text-[#FE9839]">
-                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
-                      {item?.date_start?.split(" ")?.[1]}
-                    </p>
-                  </div>
-                  <div className="homePageSlider2">
-                    <div></div>
-                    <div>
-                      <p>Points Table</p>
-                      <p>Schedule</p>
-                    </div>
-                  </div>
-                </div>
-                {}
-              </Link>
-            ))} */}
-          {/* {matches?.live &&
-            matches?.live?.map((item) => (
-              <Link to="/Commenatary">
-                <div className="homePageSlider">
-                  <div className="pt-2 pl-2">
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                      }}
-                    >
-                      <p style={{ maxWidth: "80%" }}>
-                        {item?.teama?.name} vs {item?.teamb?.name}
-                      </p>
-                      <p
-                        style={{
-                          backgroundColor: "black",
-                          borderRadius: "50px",
-                          color: "white",
-                          fontSize: "15px",
-                          padding: "5px 10px",
-                          margin: "1rem",
-                          textDecoration: "none",
-                        }}
-                      >
-                        {item?.competition?.category}
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teama?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teamb?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
-                    </div>
-                    <p className="text-[#FE9839]">
-                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
-                      {item?.date_start?.split(" ")?.[1]}
-                    </p>
-                  </div>
-                  <div className="homePageSlider2">
-                    <div></div>
-                    <div>
-                      <p>Points Table</p>
-                      <p>Schedule</p>
-                    </div>
-                  </div>
-                </div>
-                {}
-              </Link>
-            ))}
-          {matches?.completed &&
-            matches?.completed?.map((item) => (
-              <Link to="/Commenatary">
-                <div className="homePageSlider">
-                  <div className="pt-2 pl-2">
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                      }}
-                    >
-                      <p style={{ maxWidth: "80%" }}>
-                        {item?.teama?.name} vs {item?.teamb?.name}
-                      </p>
-                      <p
-                        style={{
-                          backgroundColor: "black",
-                          borderRadius: "50px",
-                          color: "white",
-                          fontSize: "15px",
-                          padding: "5px 10px",
-                          margin: "1rem",
-                          textDecoration: "none",
-                        }}
-                      >
-                        {item?.competition?.category}
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teama?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teamb?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
-                    </div>
-                    <p className="text-[#FE9839]">
-                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
-                      {item?.date_start?.split(" ")?.[1]}
-                    </p>
-                  </div>
-                  <div className="homePageSlider2">
-                    <div></div>
-                    <div>
-                      <p>Points Table</p>
-                      <p>Schedule</p>
-                    </div>
-                  </div>
-                </div>
-                {}
-              </Link>
-            ))} */}
+          {}
+          {}
         </Slider>
-      </div>
+      </div> */}
       {}
       {middleBanner1 && (
         <img
@@ -764,6 +535,7 @@ const Homepage = () => {
               </div>
             ))}
             <div className="text-sm mt-2 font-semibold">Editors Pick</div>
+
             <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
               <Slider {...editorsettings}>
                 {editorpicks?.map((item) => (
@@ -817,7 +589,10 @@ const Homepage = () => {
               <div className="flex justify-between p-2">
                 <div className="text-sm font-semibold">RANKING’s</div>
                 <div>
-                  <button onClick={()=>navigate("/Manrankingpage")} className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white">
+                  <button
+                    onClick={() => navigate("/Manrankingpage")}
+                    className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                  >
                     View all
                   </button>
                 </div>

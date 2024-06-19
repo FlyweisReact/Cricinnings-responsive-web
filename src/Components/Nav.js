@@ -1,17 +1,27 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import logo from "../Assets/logo.svg";
-import { FaAnglesRight } from "react-icons/fa6";
-import { FaSearch } from "react-icons/fa";
-import { FaRegUserCircle } from "react-icons/fa";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthToken, GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
+import { Icon } from "@iconify/react/dist/iconify.js";
+import { Dropdown } from "react-bootstrap";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
+  };
+  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown1, setShowDropdown1] = useState(false);
+  const dropdownRef = useRef(null);
+  const dropdownRef1 = useRef(null);
+
+  const handleToggle = () => {
+    setShowDropdown(!showDropdown);
+  };
+  const handleToggle1 = () => {
+    setShowDropdown1(!showDropdown1);
   };
 
   const [isSeriesOpen, setIsSeriesOpen] = useState(false);
@@ -41,7 +51,7 @@ const Nav = () => {
         },
       }
     );
-    console.log(response?.data?.matches);
+
     setMatchesList(response?.data?.matches);
   };
   const getAllMatchList = () => {
@@ -50,30 +60,19 @@ const Nav = () => {
       status: "3",
     }).then((res) => {
       const top10 = res?.response?.items?.slice(0, 10);
-      console.log(res?.response?.items, "Navbar");
+
       setMatchesList(top10);
-      // setMatchesList(res?.data?.matches)
     });
   };
   const [allSeries, setAllSeries] = useState([]);
   const getAllSeriesData = async () => {
-    // GetDataWithToken({
-    //   path: "competitions",
-    //   status: "live",
-    // }).then((res) => {
-    //   setAllSeries(res?.response?.items);
-    // });
-
     try {
       const res = await axios.get(
         baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
       );
 
-      console.log(res?.data?.competitions);
       setAllSeries(res?.data?.competitions?.slice(0, 5));
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -83,7 +82,6 @@ const Nav = () => {
   const [selectedMatch, setSelectedMatch] = useState(null);
 
   useEffect(() => {
-    // getAllMatchList();
     getTopMatches();
   }, []);
 
@@ -108,22 +106,119 @@ const Nav = () => {
   useEffect(() => {
     getAllHomePageBanners();
   }, []);
+
   return (
     <>
-      {/* <div className="bg-[#B3B3B3] w-[1000px] h-[96px] flex items-center justify-center text-[white]">
-        RESPONSIVE AD’s
-      </div> */}
+      {}
       {topBanner1 && (
-        <div>
+        <div
+          style={{
+            width: "800px",
+            height: "96px",
+            margin: "auto",
+            marginBottom: "10px",
+            marginTop: "10px",
+          }}
+        >
           <img
             src={topBanner1}
-            className="w-[1000px] h-[96px]"
+            style={{ width: "100%", height: "96px" }}
             alt="topBanner"
           />
         </div>
       )}
+      <nav>
+        <div className="navBar">
+          <div className="navBar_content">
+            <div>
+              <img
+                onClick={() => navigate("/")}
+                className="logo"
+                src="/logo.png"
+                alt="logo"
+              />
+            </div>
+            <div className="navBar_links">
+              <p onClick={() => navigate("/Livescrore")}>Live Scores</p>
+              <p onClick={() => navigate("/Schedule")}>Schedule</p>
+              <p onClick={() => navigate("/Fantasytips")}>Fantasy Tips</p>
+              <p>
+                <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
+                  Series
+                </p>
+                <Dropdown
+                  className="dropdown_nav"
+                  show={showDropdown1}
+                  onToggle={(isOpen) => setShowDropdown1(isOpen)}
+                >
+                  <Dropdown.Menu
+                    className="no-border-radius"
+                    show={showDropdown1}
+                    ref={dropdownRef1}
+                  >
+                    {allSeries?.slice(0, 5)?.map((item) => (
+                      <Dropdown.Item
+                        onClick={() => navigate("/Manrankingpage")}
+                        className="no-border-radius-text"
+                      >
+                        {item?.title}
+                      </Dropdown.Item>
+                    ))}
+                    <Dropdown.Item
+                      className="no-border-radius-text1"
+                      onClick={() => navigate("/Iccseriesschedule")}
+                    >
+                      All Series {">>"}
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </p>
+              <p onClick={() => navigate("/Cricketnews")}>Cricket News</p>
+              <p>
+                <p onClick={handleToggle} style={{ cursor: "pointer" }}>
+                  ICC Ranking
+                </p>
+                <Dropdown
+                  className="dropdown_nav"
+                  show={showDropdown}
+                  onToggle={(isOpen) => setShowDropdown(isOpen)}
+                >
+                  <Dropdown.Menu
+                    className="no-border-radius"
+                    show={showDropdown}
+                    ref={dropdownRef}
+                  >
+                    <Dropdown.Item
+                      onClick={() => navigate("/Manrankingpage")}
+                      className="no-border-radius-text"
+                    >
+                      ICC - Men's Ranking
+                    </Dropdown.Item>
+                    <Dropdown.Item
+                      className="no-border-radius-text"
+                      onClick={() => navigate("/Womenrankingpage")}
+                    >
+                      ICC - Women's Ranking
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </p>
+              <p onClick={() => navigate("/Cricspecial")}>Cricspecial</p>
+              <p onClick={() => navigate("/Pitchreport")}>Pitch Report</p>
+            </div>
+            <div className="navBar_icons">
+              <p>
+                <Icon icon="iconamoon:search" />
+              </p>
+              <p>
+                <Icon onClick={() => navigate("/login")} icon="gg:profile" />
+              </p>
+            </div>
+          </div>
+        </div>
+      </nav>
 
-      <nav className="bg-[#0F19AF] w-[1000px]">
+      {/* <nav className="bg-[#0F19AF] w-[1000px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
           <div className="flex items-center justify-between h-16">
             <div className="flex items-center">
@@ -170,37 +265,14 @@ const Nav = () => {
                         onMouseLeave={handleMouseLeave}
                         className="absolute bg-white w-[300px] h-[260px] font-semibold p-2 flex flex-col gap-3   z-10"
                       >
-                        {console.log(allSeries)}
+                        {}
                         {allSeries?.map((item) => (
                           <Link to={"/Iccseriesschedule"}>
-                            {console.log(item)}
+                            {}
                             {item?.title}
                           </Link>
                         ))}
-                        {/* <li>
-                          <Link to="/Iccseriesschedule">
-                            Indian Premier League 2024
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/series2">ICC Mens T20 World Cup 2024</Link>
-                        </li>
-                        <li>
-                          <Link to="/series2">Women Premier League 2024</Link>
-                        </li>
-                        <li>
-                          <Link to="/series2">
-                            Newzland tour of Pakistan,2024
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/series2">
-                            Sri Lanka tour of Bangladesh,2024
-                          </Link>
-                        </li>
-                        <li>
-                          <Link to="/series2">Bangladesh tour of USA,2024</Link>
-                        </li> */}
+                        {}
                         <span className="text-[#0F19AF] underline flex items-center">
                           Allseries <FaAnglesRight />
                         </span>
@@ -343,7 +415,7 @@ const Nav = () => {
                     onMouseLeave={handleMouseLeave}
                     className="absolute bg-white w-[300px] h-[260px] font-semibold p-2 flex flex-col gap-3   z-10"
                   >
-                    {console.log("series", allSeries)}
+                    {}
 
                     <li>
                       <Link to="/Iccseriesschedule">
@@ -414,7 +486,7 @@ const Nav = () => {
             </ul>
           </div>
         </div>
-      </nav>
+      </nav> */}
       <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
         <div className="UseFlexMenu">
           <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
@@ -439,27 +511,7 @@ const Nav = () => {
             </Link>
           ))}
         </div>
-        {/* <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - LIVE
-        </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - LIVE
-        </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - RESULT
-        </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - RESULT
-        </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - UPCOMING
-        </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - UPCOMING
-        </div>
-        <div className="w-[155px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
-          IND vs ENG - UPCOMING
-        </div> */}
+        {}
       </div>
     </>
   );
