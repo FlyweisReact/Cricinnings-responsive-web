@@ -367,7 +367,7 @@ const Homepage = () => {
           <Slider {...settings1}>
             {sliderData &&
               sliderData?.map((item, index) => (
-                <div key={index} className="top_slider_card">
+                <div onClick={()=>navigate(`/match/${item?.match_id}`)} key={index} className="top_slider_card">
                   <div className="top_slider_card_div1">
                     <div className="top_slider_card_div1_text">
                       <p

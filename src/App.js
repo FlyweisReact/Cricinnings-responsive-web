@@ -62,8 +62,12 @@ const router = createBrowserRouter([
         element: <Highlights />,
       },
 
+      // {
+      //   path: "/Fullcommentary",
+      //   element: <Fullcommentary />,
+      // },
       {
-        path: "/Fullcommentary",
+        path: "/match/:matchId",
         element: <Fullcommentary />,
       },
       {
@@ -104,6 +108,10 @@ const router = createBrowserRouter([
       },
       {
         path: "/Livescrore",
+        element: <Livescrore />,
+      },
+      {
+        path: "/Livescrore/:category",
         element: <Livescrore />,
       },
       {

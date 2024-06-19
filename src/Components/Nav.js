@@ -141,7 +141,7 @@ const Nav = () => {
             </div>
             <div className="navBar_links">
               <p onClick={() => navigate("/Livescrore")}>Live Scores</p>
-              <p onClick={() => navigate("/Schedule")}>Schedule</p>
+              <p onClick={() => navigate("/Livescrore/Schedule")}>Schedule</p>
               <p onClick={() => navigate("/Fantasytips")}>Fantasy Tips</p>
               <p>
                 <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
@@ -167,9 +167,9 @@ const Nav = () => {
                     ))}
                     <Dropdown.Item
                       className="no-border-radius-text1"
-                      onClick={() => navigate("/Iccseriesschedule")}
+                      onClick={() => navigate("/Livescrore/Allseries")}
                     >
-                      All Series {">>"}
+                      All Series {">>"} 
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
