@@ -1,10 +1,3 @@
-import React from "react";
-
-import videoframe from "../Assets/Homepage/videoframe.svg";
-import ipl from "../Assets/Homepage/ipl.svg";
-import camp from "../Assets/Homepage/campioins.svg";
-import premier from "../Assets/Homepage/premier.svg";
-
 import Commentarynavbar from "../Components/Commentarynavbar";
 const Overs = () => {
   return (
@@ -16,7 +9,10 @@ const Overs = () => {
 
         </div>
         <div className="flex mt-2 justify-center pb-5">
-          <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
+        <div style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}>
+                    <p>Comming Soon ...</p>
+                  </div>
+          {/* <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="left w-[700px]  shadow-2xl">
               <div className="flex gap-4 m-5">
                 <div className="w-[150px] h-[40px] bg-[#0F19AF] text-white  flex justify-center items-center rounded">
@@ -333,7 +329,7 @@ const Overs = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

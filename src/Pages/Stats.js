@@ -1,82 +1,22 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import videoframe from "../Assets/Homepage/videoframe.svg";
-import ipl from "../Assets/Homepage/ipl.svg";
-import camp from "../Assets/Homepage/campioins.svg";
-import premier from "../Assets/Homepage/premier.svg";
-import newsimg from "../Assets/Homepage/newsimg.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 const Stats = () => {
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
-        <Commentarynavbar/>
-        
-        <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-        RESPONSIVE AD’s
+        <Commentarynavbar />
 
-        </div>
+        {/* <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
+          RESPONSIVE AD’s
+        </div> */}
         <div className="flex mt-2 justify-center pb-5">
-          <div className="w-[950px]  pb-5 bg-[white] flex justify-center gap-5 pt-5">
+          <div
+            style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}
+          >
+            <p>Comming Soon ...</p>
+          </div>
+          {/* <div className="w-[950px]  pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="flex flex-col ">
-              {/* <div className="left w-[700px] h-[700px] shadow-2xl">
-                <div className="ml-5 mr-5">
-                  <div className="font-semibold mt-5 mb-5">IPL 2024 Stats</div>
-                  <div className="text-slate-400">
-                    Arguably the world’s greatest franchise cricket league, the
-                    Indian Premier League (IPL) is all set to make its return in
-                    2024. This will be the 17th edition of the marquee
-                    tournament and it could be interesting to see which side
-                    comes out on top after the season.
-                  </div>
-                  <div className="text-slate-400 mt-2">
-                    Arguably the world’s greatest franchise cricket league, the
-                    Indian Premier League (IPL) is all set to make its return in
-                    2024. This will be the 17th edition of the marquee
-                    tournament and it could be interesting to see which side
-                    comes out on top after the season.
-                  </div>
-
-                  <div className="text-slate-400 mt-2">
-                    Arguably the world’s greatest franchise cricket league, the
-                    Indian Premier League (IPL) is all set to make its return in
-                    2024. This will be the 17th edition of the marquee
-                    tournament and it could be interesting to see which side
-                    comes out on top after the season.
-                  </div>
-                  <div className="mt-2 text-slate-400">
-                    Calm' has been the buzzword right through RCB's
-                    title-winning campaign and their captain was its perfect
-                    personification on the red-letter day
-                  </div>
-                  <div className="mt-2 text-slate-400">
-                    Calm' has been the buzzword right through RCB's
-                    title-winning campaign and their captain was its perfect
-                    personification on the red-letter day
-                  </div>
-                  <div className="text-slate-400 mt-2">
-                    Arguably the world’s greatest franchise cricket league, the
-                    Indian Premier League (IPL) is all set to make its return in
-                    2024. This will be the 17th edition of the marquee
-                    tournament and it could be interesting to see which side
-                    comes out on top after the season.
-                  </div>
-                  <div className="text-slate-400 mt-2">
-                    Arguably the world’s greatest franchise cricket league, the
-                    Indian Premier League (IPL) is all set to make its return in
-                    2024. This will be the 17th edition of the marquee
-                    tournament and it could be interesting to see which side
-                    comes out on top after the season.
-                  </div>
-                  <div className="text-slate-400 mt-2">
-                    Arguably the world’s greatest franchise cricket league, the
-                    Indian Premier League (IPL) is all set to make its return in
-                    2024. This will be the 17th edition of the marquee
-                    tournament and it could be interesting to see which side
-                    comes out on top after the season.
-                  </div>
-                </div>
-              </div> */}
+          
               <div className="mt-10 flex gap-5">
                 <div className="bg-[white] w-[220px] border pb-4 rounded-lg">
                   <div className="flex flex-col mt-4 gap-3 items-center">
@@ -192,7 +132,7 @@ const Stats = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

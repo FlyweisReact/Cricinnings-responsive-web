@@ -1,18 +1,16 @@
-import React from "react";
-
-
-import topnews from "../Assets/Homepage/topnews.svg";
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 
 const Highlights = () => {
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-     <Commentarynavbar/>
+        <Commentarynavbar />
       </div>
       <div className="bg-white pb-5  ">
-        <div className="flex justify-center pt-2 gap-5">
+      <div style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}>
+                    <p>Comming Soon ...</p>
+                  </div>
+        {/* <div className="flex justify-center pt-2 gap-5">
           <div>
             <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
               <div className="bg-[#0F19AF] flex  items-center shadow-2xl  rounded-t-lg w-full h-[45px] text-white">
@@ -308,7 +306,7 @@ const Highlights = () => {
               RESPONSIVE AD’s
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

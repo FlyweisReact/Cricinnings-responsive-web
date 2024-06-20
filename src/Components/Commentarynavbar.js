@@ -92,7 +92,10 @@ const Commentarynavbar = () => {
 
       <div className="topBarCommentary">
         <p
-          onClick={() => navigate(`/match/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/match/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/match/") ? "white" : "black",
             fontWeight: "bold",
@@ -105,7 +108,10 @@ const Commentarynavbar = () => {
           Commentary
         </p>
         <p
-          onClick={() => navigate(`/Scorecard/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Scorecard/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Scorecard/") ? "white" : "black",
             fontWeight: "bold",
@@ -118,7 +124,10 @@ const Commentarynavbar = () => {
           ScoreCard
         </p>
         <p
-          onClick={() => navigate(`/Squads/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Squads/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Squads/") ? "white" : "black",
             fontWeight: "bold",
@@ -131,7 +140,10 @@ const Commentarynavbar = () => {
           Squads
         </p>
         <p
-          onClick={() => navigate(`/Highlights/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Highlights/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Highlights/") ? "white" : "black",
             fontWeight: "bold",
@@ -144,7 +156,10 @@ const Commentarynavbar = () => {
           Highlights
         </p>
         <p
-          onClick={() => navigate(`/match/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/match/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/match/") ? "white" : "black",
             fontWeight: "bold",
@@ -157,7 +172,10 @@ const Commentarynavbar = () => {
           Full Commentary
         </p>
         <p
-          onClick={() => navigate(`/Overs/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Overs/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Overs/") ? "white" : "black",
             fontWeight: "bold",
@@ -170,7 +188,10 @@ const Commentarynavbar = () => {
           Overs
         </p>
         <p
-          onClick={() => navigate(`/Pointtable/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Pointtable/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Pointtable/") ? "white" : "black",
             fontWeight: "bold",
@@ -183,7 +204,10 @@ const Commentarynavbar = () => {
           Point Table
         </p>
         <p
-          onClick={() => navigate(`/Matchinfo/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Matchinfo/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Matchinfo/") ? "white" : "black",
             fontWeight: "bold",
@@ -196,7 +220,10 @@ const Commentarynavbar = () => {
           Match Info
         </p>
         <p
-          onClick={() => navigate(`/News/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/News/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/News/") ? "white" : "black",
             fontWeight: "bold",
@@ -209,7 +236,10 @@ const Commentarynavbar = () => {
           News
         </p>
         <p
-          onClick={() => navigate(`/Stats/${matchDetails?.match_id}`)}
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(`/Stats/${matchDetails?.match_id}`);
+          }}
           style={{
             color: pathname.startsWith("/Stats/") ? "white" : "black",
             fontWeight: "bold",
@@ -257,7 +287,10 @@ const Commentarynavbar = () => {
       </div> */}
 
       <div
-        style={{ fontSize: "14px", paddingLeft: "30px" }}
+        style={{
+          fontSize: "14px",
+          paddingLeft: "30px",
+        }}
         className=" text-[#0F19AF] mt-2"
       >
         <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>

@@ -1,6 +1,3 @@
-import qualifiedfinal from "../Assets/Homepage/qualifiedfinal.svg";
-import topnews from "../Assets/Homepage/topnews.svg";
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 const Commenatary = () => {
   return (
@@ -11,7 +8,12 @@ const Commenatary = () => {
         <div className="text-xl">Suresh Raina</div>
       </div>
       <div className="bg-white pb-5  ">
-        <div className="flex justify-center pt-2 gap-5">
+        <div
+          style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}
+        >
+          <p>Comming Soon ...</p>
+        </div>
+        {/* <div className="flex justify-center pt-2 gap-5">
           <div>
             <div className="">
               <div className="font-semibold">Match Info</div>
@@ -352,7 +354,7 @@ const Commenatary = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
