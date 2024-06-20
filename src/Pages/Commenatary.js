@@ -1,29 +1,8 @@
 import qualifiedfinal from "../Assets/Homepage/qualifiedfinal.svg";
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
-import { useParams } from "react-router-dom";
 import Commentarynavbar from "../Components/Commentarynavbar";
-import { useEffect, useState } from "react";
-import axios from "axios";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
 const Commenatary = () => {
-  const params = useParams();
-  const { matchId, commentary } = params;
-  const [matchData, setMatchData] = useState([]);
-
-  console.log(matchId);
-
-  const getMatchDetails = async () => {
-    axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
-      setMatchData(res?.data?.data);
-      console.log(res?.data?.data);
-    })
-  };
-
-  useEffect(() => {
-    getMatchDetails();
-  }, []);
-
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">

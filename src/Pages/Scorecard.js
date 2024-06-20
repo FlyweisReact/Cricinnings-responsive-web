@@ -1,5 +1,3 @@
-import React from "react";
-
 import { IoCaretForwardOutline } from "react-icons/io5";
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";

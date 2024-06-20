@@ -62,6 +62,14 @@ const router = createBrowserRouter([
         element: <Squads />,
       },
       {
+        path: "/Squads/:matchId",
+        element: <Squads />,
+      },
+      {
+        path: "/Highlights/:matchId",
+        element: <Highlights />,
+      },
+      {
         path: "/Highlights",
         element: <Highlights />,
       },
@@ -79,6 +87,14 @@ const router = createBrowserRouter([
         element: <Overs />,
       },
       {
+        path: "/Overs/:matchId",
+        element: <Overs />,
+      },
+      {
+        path: "/Pointtable/:matchId",
+        element: <Pointtable />,
+      },
+      {
         path: "/Pointtable",
         element: <Pointtable />,
       },
@@ -87,8 +103,20 @@ const router = createBrowserRouter([
         element: <Matchinfo />,
       },
       {
+        path: "/Matchinfo/:matchId",
+        element: <Matchinfo />,
+      },
+      {
+        path: "/News/:matchId",
+        element: <News />,
+      },
+      {
         path: "/News",
         element: <News />,
+      },
+      {
+        path: "/Stats/:matchId",
+        element: <Stats />,
       },
       {
         path: "/Stats",

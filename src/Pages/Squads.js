@@ -1,16 +1,28 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import channie from "../Assets/Homepage/chennia.svg";
 import topnews from "../Assets/Homepage/topnews.svg";
-import mumbai from "../Assets/Homepage/mumbai.svg";
-import playerpic from "../Assets/Homepage/playerpic.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { useEffect, useState } from "react";
 const Squads = () => {
+  const { matchId } = useParams();
+  const [squadData, setSquadData] = useState();
+
+  const getSquadData = async () => {
+    axios.get(baseUrl + "user/matchSquad/" + matchId).then((res) => {
+      setSquadData(res?.data);
+      console.log(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    getSquadData();
+  }, []);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
-       <Commentarynavbar/>
+        <Commentarynavbar />
       </div>
       <div className="bg-white pb-5  ">
         <div className="flex justify-center pt-2 gap-5">
@@ -19,13 +31,41 @@ const Squads = () => {
               <div className="bg-[#0F19AF] flex  items-center shadow-2xl justify-between  rounded-t-lg w-full h-[45px] text-white">
                 <div className="ml-2 flex items-center gap-2">
                   {" "}
-                  <img src={channie} alt="" />
-                  Chennai Super Kings
+                  <img
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      borderRadius: "50%",
+                    }}
+                    src={
+                      squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                        ? squadData?.teams?.[1]?.thumb_url
+                        : squadData?.teams?.[0]?.thumb_url
+                    }
+                    alt=""
+                  />
+                  {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                    ? squadData?.teams?.[1]?.alt_name
+                    : squadData?.teams?.[0]?.alt_name}
                 </div>
                 <div className="mr-2 flex items-center gap-2">
                   {" "}
-                  <img src={mumbai} alt="" />
-                  Mumbai Indians
+                  <img
+                    style={{
+                      width: "25px",
+                      height: "25px",
+                      borderRadius: "50%",
+                    }}
+                    src={
+                      squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                        ? squadData?.teams?.[0]?.thumb_url
+                        : squadData?.teams?.[1]?.thumb_url
+                    }
+                    alt=""
+                  />
+                  {squadData?.teama?.team_id === squadData?.teams?.[1]?.tid
+                    ? squadData?.teams?.[0]?.alt_name
+                    : squadData?.teams?.[1]?.alt_name}
                 </div>
               </div>
               <div>
@@ -34,138 +74,57 @@ const Squads = () => {
                 </div>
                 <div className="flex justify-center">
                   <div className="w-[300px]">
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
+                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                      ? squadData?.teama?.squads
+                          ?.filter((item) => item?.playing11 === "true")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                      : squadData?.teamb?.squads
+                          ?.filter((item) => item?.playing11 === "true")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
 
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
+                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
                       <div>
                         <img
                           src={playerpic}
@@ -174,14 +133,14 @@ const Squads = () => {
                         />
                       </div>
                       <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
+                        <span className="font-semibold">Yasirqasdds Khan</span>
                         <span className="text-slate-400">Batter</span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="w-[300px]">
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
+                    {/* <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
                       <div className="flex flex-col">
                         <span className="font-semibold">Yasir Khan</span>
                         <span className="text-slate-400">Batter</span>
@@ -193,12 +152,58 @@ const Squads = () => {
                           className="w-[50px] h-[50px]"
                         />
                       </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
+                    </div> */}
+                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                      ? squadData?.teamb?.squads
+                          ?.filter((item) => item?.playing11 === "true")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                      : squadData?.teama?.squads
+                          ?.filter((item) => item?.playing11 === "true")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+
+                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
                       <div>
                         <img
                           src={playerpic}
@@ -206,266 +211,72 @@ const Squads = () => {
                           className="w-[50px] h-[50px]"
                         />
                       </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
                       <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
+                        <span className="font-semibold">Yasirqasdds Khan</span>
                         <span className="text-slate-400">Batter</span>
                       </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
 
               <div>
-                <div className="font-semibold text-center mt-10 text-xl">
+                <div className="font-semibold text-center mt-5 text-xl">
                   Bench
                 </div>
                 <div className="flex justify-center">
                   <div className="w-[300px]">
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div>
+                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                      ? squadData?.teama?.squads
+                          ?.filter((item) => item?.playing11 === "false")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                      : squadData?.teamb?.squads
+                          ?.filter((item) => item?.playing11 === "false")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
 
-                    <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
+                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
                       <div>
                         <img
                           src={playerpic}
@@ -474,14 +285,14 @@ const Squads = () => {
                         />
                       </div>
                       <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
+                        <span className="font-semibold">Yasirqasdds Khan</span>
                         <span className="text-slate-400">Batter</span>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
 
                   <div className="w-[300px]">
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
+                    {/* <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
                       <div className="flex flex-col">
                         <span className="font-semibold">Yasir Khan</span>
                         <span className="text-slate-400">Batter</span>
@@ -493,12 +304,58 @@ const Squads = () => {
                           className="w-[50px] h-[50px]"
                         />
                       </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
+                    </div> */}
+                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
+                      ? squadData?.teamb?.squads
+                          ?.filter((item) => item?.playing11 === "false")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))
+                      : squadData?.teama?.squads
+                          ?.filter((item) => item?.playing11 === "false")
+                          ?.map((item, index) => (
+                            <div
+                              key={index}
+                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
+                            >
+                              {/* <div>
+                              <img
+                                src={item?.playerpic || "defaultPlayerPic.jpg"}
+                                alt={item?.name || "Player"}
+                                className="w-[50px] h-[50px]"
+                              />
+                            </div> */}
+                              <div className="flex flex-col">
+                                <span className="font-semibold">
+                                  {item?.name || "Player Name"}
+                                </span>
+                                <span className="text-slate-400">
+                                  {item?.role || "Role"}
+                                </span>
+                              </div>
+                            </div>
+                          ))}
+
+                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
                       <div>
                         <img
                           src={playerpic}
@@ -506,124 +363,11 @@ const Squads = () => {
                           className="w-[50px] h-[50px]"
                         />
                       </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
                       <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
+                        <span className="font-semibold">Yasirqasdds Khan</span>
                         <span className="text-slate-400">Batter</span>
                       </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
-                    <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </div>
