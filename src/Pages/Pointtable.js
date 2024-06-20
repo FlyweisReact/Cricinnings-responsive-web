@@ -1,28 +1,100 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import ipl from "../Assets/Homepage/ipl.svg";
 import camp from "../Assets/Homepage/campioins.svg";
 import premier from "../Assets/Homepage/premier.svg";
-import { IoCaretDownSharp } from "react-icons/io5";
-import chennai from "../Assets/Homepage/chennia.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
+import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
+import axios from "axios";
+import { Table } from "react-bootstrap";
 const Pointtable = () => {
+  const { matchId } = useParams();
+  const [squadData, setSquadData] = useState({});
+
+  const [matchData, setMatchData] = useState();
+  const [compId, setCompId] = useState("");
+  const [title, setTitle] = useState("");
+
+  const getMatchData = async () => {
+    axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
+      setTitle(res?.data?.match?.competition?.title);
+      setCompId(res?.data?.match?.competition?.cid);
+    });
+  };
+
+  useEffect(() => {
+    getMatchData();
+  }, []);
+
+  const getSquadData = async () => {
+    axios.get(baseUrl + "user/getpoints/" + compId).then((res) => {
+      setSquadData(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    getSquadData();
+  }, [compId]);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
-     <Commentarynavbar/>
-     <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-        RESPONSIVE AD’s
-
+        <Commentarynavbar />
+        <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
+          RESPONSIVE AD’s
         </div>
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="left w-[700px] h-[700px] shadow-2xl">
-              <div className="font-semibold m-5">
-                Indian Premier League 2024 - Points Table
+              <div
+                style={{
+                  fontSize: "20px",
+                  fontWeight: "900",
+                  margin: "2rem",
+                  color: "black",
+                }}
+              >
+                <p>Indian Premier League 2024 - Points Table</p>
               </div>
-              <table className="ml-2 table-auto">
+              <Table className="w-full">
+                <thead>
+                  <tr className="bg-[#0F19AF] text-white">
+                    <th className="text-left pl-3">Team</th>
+                    <th className="text-left">Mat</th>
+                    <th className="text-left">Won</th>
+                    <th className="text-left">Lost</th>
+                    <th className="text-left">Tied</th>
+                    <th className="text-left">NR</th>
+                    <th className="text-left">Pts</th>
+                    <th className="text-left">NRR</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {Array.isArray(squadData?.standings) &&
+                    squadData.standings.map((item, index) => (
+                      <React.Fragment key={index}>
+                        <tr className="border-b bg-gray-200">
+                          <td colSpan="8" className="font-bold text-center">
+                            {item?.round?.name}
+                          </td>
+                        </tr>
+                        {item.standings?.map((team, teamIndex) => (
+                          <tr key={teamIndex} className="border-b">
+                            <td>{team?.team?.name}</td>
+                            <td>{team.mat}</td>
+                            <td>{team.won}</td>
+                            <td>{team.lost}</td>
+                            <td>{team.tied}</td>
+                            <td>{team.nr}</td>
+                            <td>{team.pts}</td>
+                            <td>{team.nrr}</td>
+                          </tr>
+                        ))}
+                      </React.Fragment>
+                    ))}
+                </tbody>
+              </Table>
+              {/* <table className="ml-2 table-auto">
                 <thead>
                   <tr>
                     <th className="w-[300px] text-left">Team</th>
@@ -118,7 +190,7 @@ const Pointtable = () => {
                     </td>
                   </tr>
                 </tbody>
-              </table>
+              </table> */}
             </div>
             <div className="w-[250px] ">
               <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">

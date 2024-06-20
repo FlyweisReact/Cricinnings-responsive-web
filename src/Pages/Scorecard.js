@@ -142,84 +142,64 @@ const Scorecard = () => {
                 </tbody>
               </table>
             </div>
-
-            {/* <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-              <table className=" ">
-                <thead>
-                  <tr className="rounded-t-lg bg-[#0F19AF]  h-[45px] text-white">
-                    <th className="w-[200px] text-left ">Fall Of Wicktes</th>
-                    <th className="w-[300px] text-left">O</th>
-                    <th className="w-[100px] text-left">Score</th>
-                    <th className="w-[100px] text-left">Over</th>
+            <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
+              <table className="w-full">
+                <thead className="border-b">
+                  <tr
+                    className="bg-[#0F19AF] w-full h-[45px] text-white"
+                    style={{ borderRadius: "10px 10px 0 0" }}
+                  >
+                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                      Powerplays
+                    </th>
+                    <th className="w-[150px] text-left">Start Over</th>
+                    <th className="w-[150px] text-left">End Over</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
+                    <td></td>
+                    <td className="pl-3">
+                      {console.log(squadData?.innings?.[0]?.powerplay)}
+                      {squadData?.innings?.[0]?.powerplay?.p1?.startover}
                     </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
+                    <td className="text-[#0F19AF] pt-2 pl-3">
+                      {squadData?.innings?.[0]?.powerplay?.p1?.endover}
                     </td>
                   </tr>
                 </tbody>
               </table>
-            </div> */}
+            </div>
+            <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
+              <table className="w-full">
+                <thead className="border-b">
+                  <tr
+                    className="bg-[#0F19AF] w-full h-[45px] text-white"
+                    style={{ borderRadius: "10px 10px 0 0" }}
+                  >
+                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                      Fall Of Wickets
+                    </th>
+                    <th className="w-[150px] text-left">Score</th>
+                    <th className="w-[150px] text-left">Over</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {squadData?.innings?.[0]?.fows?.map((item, index) => (
+                    <tr className="border-b">
+                      <td>
+                        {item?.name} {item?.dismissal}
+                      </td>
+                      <td className="pl-3">{item?.score_at_dismissal}</td>
+                      <td className="text-[#0F19AF] pt-2 pl-3">
+                        {item?.overs_at_dismissal}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
             <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
               <div className="bg-[#0F19AF] flex justify-between items-center  rounded-t-lg w-full h-[45px] text-white">
                 <div className="ml-2">{squadData?.innings?.[1]?.name}</div>
