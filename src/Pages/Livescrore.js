@@ -454,7 +454,7 @@ const Livescrore = () => {
                       <div className="flex flex-col gap-5">
                         {competationsType[0]?.matches?.map((item, index) => {
                           return (
-                            <div key={index} style={{ borderRadius: "10px" }} className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2">
+                            <div  onClick={() => navigate(`/match/${item?.match_id}`)}  key={index} style={{ borderRadius: "10px" }} className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer">
                               <div className="flex">
                                 <span className="font-semibold"></span>
                                 <span className="text-slate-400">
@@ -493,16 +493,16 @@ const Livescrore = () => {
                                 </div>
                               </div>
                               <div className="flex ">
-                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
+                                <div  onClick={() => navigate(`/match/${item?.match_id}`)}  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer">
                                   Live Score
                                 </div>
-                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                <div onClick={() => navigate(`/Scorecard/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
                                   Scorecard
                                 </div>
-                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                <div onClick={() => navigate(`/match/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
                                   Full Commentary
                                 </div>
-                                <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
+                                <div onClick={() => navigate(`/News/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
                                   News
                                 </div>
                               </div>

@@ -8,6 +8,8 @@ import React, { useEffect, useState } from "react";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { Table } from "react-bootstrap";
+
+import topnews from "../Assets/Homepage/topnews.svg";
 const Pointtable = () => {
   const { matchId } = useParams();
   const [squadData, setSquadData] = useState({});
@@ -26,7 +28,22 @@ const Pointtable = () => {
   useEffect(() => {
     getMatchData();
   }, []);
+  const [banner1, setBanner1] = useState();
+  const [banner2, setBanner2] = useState();
+  const [banner3, setBanner3] = useState();
+  const getAllBanner = async () => {
+    axios.get(baseUrl + "admin/getAllPosts").then((res) => {
+      const banner = res?.data?.data
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
+      console.log(banner)
+    })
+  }
 
+  useEffect(() => {
+    getAllBanner()
+  }, [])
   const getSquadData = async () => {
     axios.get(baseUrl + "user/getpoints/" + compId).then((res) => {
       setSquadData(res?.data);
@@ -34,7 +51,10 @@ const Pointtable = () => {
   };
 
   useEffect(() => {
-    getSquadData();
+    if (compId) {
+
+      getSquadData();
+    }
   }, [compId]);
   return (
     <div className="">
@@ -193,13 +213,11 @@ const Pointtable = () => {
               </table> */}
             </div>
             <div className="w-[250px] ">
-              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-                RESPONSIVE AD’s
-              </div>
+              {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img src={banner1?.image} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
+              </div>}
               <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
-                <div className="text-sm p-3 font-semibold">
-                  FEATURE VIDEOS !!
-                </div>
+                <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
                 <img src={videoframe} alt="" />
                 <img src={videoframe} alt="" />
                 <img src={videoframe} alt="" />
@@ -209,36 +227,77 @@ const Pointtable = () => {
                   </button>
                 </div>
               </div>
-
-              <div className="bg-[white] rounded-lg mt-2 pb-5 border">
+              {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img src={banner2?.image} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
+              </div>}
+              <div className="bg-[white] rounded-lg mt-2 shadow-2xl">
                 <div className="p-1">
-                  <span className="font-semibold text-sm ml-4">SPECIALS</span>
-                  <img src={camp} alt="" />
-                  <span className="font-semibold text-sm ml-4">
-                    Mumbai Indians Champions
-                  </span>
-                  <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                    Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                    vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                  </p>
-                  <img src={ipl} alt="" />
-                  <span className="font-semibold text-sm ml-4">
-                    1st Match . IPL 2024
-                  </span>
-                  <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                    Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                    vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                  </p>
-                  <img src={premier} alt="" />
-                  <span className="font-semibold text-sm ml-4">
-                    1st Match . IPL 2024
-                  </span>
-                  <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                    Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                    vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                  </p>
+                  <span className="font-semibold text-sm ml-4">TOP NEWS</span>
+                  <div className="flex mt-5">
+                    <div className="w-[200px]">
+                      <img src={topnews} alt="" />
+                    </div>
+
+                    <div>
+                      <div className="text-[12px] font-bold">
+                        Wankhade Stadium likely to host Ranji Final
+                      </div>
+                      <div className="text-slate-400 text-[10px]">
+                        Mon,Mar03 2024
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-[12px] text-slate-400">
+                    Lorem ipsum dolor sit amet consectetur. Elit eget mauris
+                    egestas viverra urna sit. Tincidunt proin nulla dolor amet
+                    purus adipiscing at ut. Nulla duis lorem venenatis mi dui
+                    risus.
+                  </div>
+                  <div className="flex mt-5">
+                    <div className="w-[200px]">
+                      <img src={topnews} alt="" />
+                    </div>
+
+                    <div>
+                      <div className="text-[12px] font-bold">
+                        I found a 2007 study on effects of hand sanitizers
+                      </div>
+                      <div className="text-slate-400 text-[10px]">
+                        Mon,Mar03 2024
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-[12px] text-slate-400">
+                    Lorem ipsum dolor sit amet consectetur. Elit eget mauris
+                    egestas viverra urna sit. Tincidunt proin nulla dolor amet
+                    purus adipiscing at ut. Nulla duis lorem venenatis mi dui
+                    risus.
+                  </div>
+                  <div className="flex mt-5">
+                    <div className="w-[200px]">
+                      <img src={topnews} alt="" />
+                    </div>
+
+                    <div>
+                      <div className="text-[12px] font-bold">
+                        The study was repeated with three brands of hand
+                      </div>
+                      <div className="text-slate-400 text-[10px]">
+                        Mon,Mar03 2024
+                      </div>
+                    </div>
+                  </div>
+                  <div className="text-[12px] text-slate-400">
+                    Lorem ipsum dolor sit amet consectetur. Elit eget mauris
+                    egestas viverra urna sit. Tincidunt proin nulla dolor amet
+                    purus adipiscing at ut. Nulla duis lorem venenatis mi dui
+                    risus.
+                  </div>
                 </div>
               </div>
+              {banner3 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img src={banner3?.image} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
+              </div>}
             </div>
           </div>
         </div>

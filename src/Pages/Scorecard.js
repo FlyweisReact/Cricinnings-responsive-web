@@ -9,6 +9,22 @@ import { baseUrl } from "../Components/Integration/ApiIntegration";
 const Scorecard = () => {
   const { matchId } = useParams();
   const [squadData, setSquadData] = useState();
+  const [banner1, setBanner1] = useState();
+  const [banner2, setBanner2] = useState();
+  const [banner3, setBanner3] = useState();
+  const getAllBanner = async () => {
+    axios.get(baseUrl + "admin/getAllPosts").then((res) => {
+      const banner = res?.data?.data
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
+      console.log(banner)
+    })
+  }
+
+  useEffect(() => {
+    getAllBanner()
+  }, [])
 
   const getSquadData = async () => {
     axios.get(baseUrl + "user/scorecard/" + matchId).then((res) => {
@@ -503,9 +519,9 @@ const Scorecard = () => {
           </div>
 
           <div className="w-[250px] ">
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div>
+            {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner1?.image} style={{ width: "100%",height:"100%",borderRadius:"10px"   }} alt="" />
+            </div>}
             <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
               <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
               <img src={videoframe} alt="" />
@@ -517,7 +533,9 @@ const Scorecard = () => {
                 </button>
               </div>
             </div>
-
+            {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner2?.image} style={{ width: "100%",height:"100%"  ,borderRadius:"10px" }} alt="" />
+            </div>}
             <div className="bg-[white] rounded-lg mt-2 shadow-2xl">
               <div className="p-1">
                 <span className="font-semibold text-sm ml-4">TOP NEWS</span>
@@ -583,9 +601,9 @@ const Scorecard = () => {
                 </div>
               </div>
             </div>
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div>
+            {banner3 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner3?.image} style={{ width: "100%",height:"100%",borderRadius:"10px"   }} alt="" />
+            </div>}
           </div>
         </div>
       </div>

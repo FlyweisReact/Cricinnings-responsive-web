@@ -87,6 +87,14 @@ const Homepage = () => {
   const [middleBanner2, setMiddleBanner2] = useState("");
   const [bottomBanner1, setBottomBanner1] = useState("");
   const [bottomBanner2, setBottomBanner2] = useState("");
+  const [hompageBanner1, setHompageBanner1] = useState("");
+  const [hompageBanner2, setHompageBanner2] = useState("");
+  const [hompageBanner3, setHompageBanner3] = useState("");
+  const [hompageBanner4, setHompageBanner4] = useState("");
+  const [hompageBanner5, setHompageBanner5] = useState("");
+  const [hompageBanner6, setHompageBanner6] = useState("");
+  const [hompageBanner7, setHompageBanner7] = useState("");
+  const [hompageBanner8, setHompageBanner8] = useState("");
   const navigate = useNavigate();
 
   const [matches1, setMatches1] = useState({
@@ -114,7 +122,7 @@ const Homepage = () => {
   const getSliderDataMatch = async () => {
     const response = await axios.get(
       baseUrl +
-        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
+      "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
       {
         params: {
           token: AuthToken,
@@ -188,15 +196,14 @@ const Homepage = () => {
     };
   }, []);
 
-  const getAllHomePageBanners = () => {
-    GetData("userAuth/getPostsByPosition").then((res) => {
-      const topBanner = res?.data?.filter((item) => item?.title === "top");
-      const middleBanner = res?.data?.filter(
-        (item) => item?.title === "middle"
-      );
-      const bottomBanner = res?.data?.filter(
-        (item) => item?.title === "bottom"
-      );
+  const getAllHomePageBanners = async () => {
+    try {
+      const res1 = await GetData("userAuth/getPostsByPosition");
+
+      const topBanner = res1?.data?.filter((item) => item?.title === "top");
+      const middleBanner = res1?.data?.filter((item) => item?.title === "middle");
+      const bottomBanner = res1?.data?.filter((item) => item?.title === "bottom");
+
       setTopBanner1(topBanner[0]?.image);
       setTopBanner2(topBanner[1]?.image);
       setMiddleBanner1(middleBanner[0]?.image);
@@ -204,9 +211,24 @@ const Homepage = () => {
       setBottomBanner1(bottomBanner[0]?.image);
       setBottomBanner2(bottomBanner[1]?.image);
 
-      setHomePageBanners(res?.data);
-    });
+      setHomePageBanners(res1?.data);
+
+      // Fetch data from the second endpoint
+      const res2 = await axios.get(`${baseUrl}admin/getAllPosts`);
+
+      // Extract and set banners from the second response
+      setHompageBanner2(res2?.data?.data?.find((item) => item.title === "hompageBanner2")?.image);
+      setHompageBanner3(res2?.data?.data?.find((item) => item.title === "hompageBanner3")?.image);
+      setHompageBanner4(res2?.data?.data?.find((item) => item.title === "hompageBanner4")?.image);
+      setHompageBanner5(res2?.data?.data?.find((item) => item.title === "hompageBanner5")?.image);
+      setHompageBanner6(res2?.data?.data?.find((item) => item.title === "hompageBanner6"));
+      setHompageBanner7(res2?.data?.data?.find((item) => item.title === "hompageBanner7"));
+      setHompageBanner8(res2?.data?.data?.find((item) => item.title === "hompageBanner8"));
+    } catch (error) {
+      console.error("Error fetching homepage banners:", error);
+    }
   };
+
   useEffect(() => {
     getAllHomePageBanners();
   }, []);
@@ -218,7 +240,7 @@ const Homepage = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getAllTeamRankingsData = async () => {
@@ -310,9 +332,8 @@ const Homepage = () => {
     if (hoursDifference > 0) {
       return `${hoursDifference} hour${hoursDifference > 1 ? "s" : ""} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference > 1 ? "s" : ""
-      } ago`;
+      return `${minutesDifference} minute${minutesDifference > 1 ? "s" : ""
+        } ago`;
     } else {
       return "just now";
     }
@@ -352,7 +373,7 @@ const Homepage = () => {
   };
   const settings1 = {
     dots: false,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
@@ -362,69 +383,76 @@ const Homepage = () => {
 
   return (
     <div className="">
-      <div className="homePageSlider">
-        <div className="slider-container">
-          <Slider {...settings1}>
-            {sliderData &&
-              sliderData?.map((item, index) => (
-                <div onClick={()=>navigate(`/match/${item?.match_id}`)} key={index} className="top_slider_card">
-                  <div className="top_slider_card_div1">
-                    <div className="top_slider_card_div1_text">
-                      <p
-                        style={{
-                          width: "80%",
-                          overflow: "hidden",
-                          whiteSpace: "nowrap",
-                          textOverflow: "ellipsis",
-                        }}
-                      >
-                        {item?.subtitle}{" "}
-                        <Icon
-                          icon="radix-icons:dot-filled"
-                          width="1.2rem"
-                          height="1.2rem"
-                          style={{ color: "gray" }}
-                        />{" "}
-                        {item?.competition?.title}
-                      </p>
-                      <p>{item?.format_str}</p>
-                    </div>
-                    <div className="top_slider_card_div2">
-                      <div className="top_slider_card_div2_text">
-                        <p>
-                          <img
-                            className="top_slider_card_div2_img"
-                            src={item?.teama?.logo_url}
-                            alt="logo"
-                          />
+      {sliderData &&
+
+        <div className="homePageSlider">
+          <div className="slider-container">
+            <Slider {...settings1}>
+              {sliderData &&
+                sliderData?.map((item, index) => (
+                  <div  key={index} className="top_slider_card">
+                    <div className="top_slider_card_div1">
+                      <div onClick={() => navigate(`/Scorecard/${item?.match_id}`)} className="top_slider_card_div1_text">
+                        <p
+                          style={{
+                            width: "80%",
+                            overflow: "hidden",
+                            whiteSpace: "nowrap",
+                            textOverflow: "ellipsis",
+                          }}
+                        >
+                          {item?.subtitle}{" "}
+                          <Icon
+                            icon="radix-icons:dot-filled"
+                            width="1.2rem"
+                            height="1.2rem"
+                            style={{ color: "gray" }}
+                          />{" "}
+                          {item?.competition?.title}
                         </p>
-                        <p>{item?.teama?.name}</p>
+                        <p>{item?.format_str}</p>
                       </div>
-                      <div className="top_slider_card_div2_text">
-                        <p>
-                          <img
-                            className="top_slider_card_div2_img"
-                            src={item?.teamb?.logo_url}
-                            alt="logo"
-                          />
-                        </p>
-                        <p>{item?.teamb?.name}</p>
+                      <div className="top_slider_card_div2">
+                        <div className="top_slider_card_div2_text">
+                          <p>
+                            <img
+                              className="top_slider_card_div2_img"
+                              src={item?.teama?.logo_url}
+                              alt="logo"
+                            />
+                          </p>
+                          <p>{item?.teama?.name}</p>
+                        </div>
+                        <div className="top_slider_card_div2_text">
+                          <p>
+                            <img
+                              className="top_slider_card_div2_img"
+                              src={item?.teamb?.logo_url}
+                              alt="logo"
+                            />
+                          </p>
+                          <p>{item?.teamb?.name}</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="top_slider_card_div2_text11">
+                      <div></div>
+                      <div className="top_slider_card_div2_text11_text23">
+                        <p style={{ cursor: "pointer" }} onClick={() => navigate(`/Pointtable/${item?.match_id}`)}>Points Table</p>
+                        <p style={{ cursor: "pointer" }} onClick={() => navigate(`/Matchinfo/${item?.match_id}`)}>Schedule</p>
                       </div>
                     </div>
                   </div>
-                  <div className="top_slider_card_div2_text11">
-                    <div></div>
-                    <div className="top_slider_card_div2_text11_text23">
-                      <p>Points Table</p>
-                      <p>Schedule</p>
-                    </div>
-                  </div>
+                ))}
+              {hompageBanner2 && sliderData?.length >= 1 && <div className="top_slider_card">
+                <div className="top_slider_card_div1">
+                  <img src={hompageBanner2} style={{ width: "100%", height: "100%" }} alt="banner" />
                 </div>
-              ))}
-          </Slider>
+              </div>}
+            </Slider>
+          </div>
         </div>
-      </div>
-      {/* <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
+      }{/* <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
         <Slider {...settings} className="w-[1000px]">
           {sliderData &&
             sliderData?.map((item) => (
@@ -516,11 +544,11 @@ const Homepage = () => {
           {}
         </Slider>
       </div> */}
-      {}
-      {middleBanner1 && (
+      { }
+      {hompageBanner3 && (
         <img
           style={{ width: "100%", height: "96px", marginTop: "2rem" }}
-          src={middleBanner1}
+          src={hompageBanner3}
           alt="middleBanner"
         />
       )}
@@ -557,16 +585,16 @@ const Homepage = () => {
               ))}
             </div>
 
-            {middleBanner1 && (
+            {hompageBanner4 && (
               <img
                 style={{ width: "100%", height: "96px", marginTop: "2rem" }}
-                src={middleBanner1}
+                src={hompageBanner4}
                 alt="middleBanner"
               />
             )}
-            <div className="w-[650px] mt-2">
-              <img src={banner} alt="" />
-            </div>
+            {hompageBanner5 && <div className="w-[650px] mt-2">
+              <img src={hompageBanner5} style={{ width: "100%", height: "150px" }} alt="" />
+            </div>}
             <div className="flex justify-between m-2">
               <div className="font-semibold mt-2">TOP STORIES</div>
               <div
@@ -596,20 +624,23 @@ const Homepage = () => {
                   </div>
                 ))}
             </div>
-            {middleBanner?.map((item) => (
+            {console.log(hompageBanner6)}
+            {hompageBanner6 && (
+
               <div className="middleBannerBig">
-                <p>INDIA (ICC - 2024 )</p>
+                <p>{hompageBanner6?.name}</p>
                 <div>
                   <p className="middleBannerImage">
-                    <img src={item?.image} alt="middleBanner" />
+                    <img src={hompageBanner6?.image} alt="middleBanner" />
                   </p>
                   <p className="middleBannerText">
-                    <p>{item?.subtitle}</p>
-                    <p>{item?.description}</p>
+                    <p>{hompageBanner6?.subtitle}</p>
+                    <p>{hompageBanner6?.description}</p>
                   </p>
                 </div>
               </div>
-            ))}
+            )}
+
             <div className="text-sm mt-2 font-semibold">Editors Pick</div>
 
             <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
@@ -693,8 +724,8 @@ const Homepage = () => {
                 </div>
               </div>
             )}
-
-            {middleBanner2 && (
+            {console.log(hompageBanner7)}
+            {hompageBanner7?.image && (
               <img
                 style={{
                   width: "100%",
@@ -702,7 +733,7 @@ const Homepage = () => {
                   borderRadius: "10px",
                 }}
                 className="mb-3"
-                src={middleBanner2}
+                src={hompageBanner7?.image}
                 alt="middleBanner"
               />
             )}
@@ -947,9 +978,9 @@ const Homepage = () => {
               </div>
             </div>
 
-            {bottomBanner1 && (
+            {hompageBanner8?.image && (
               <img
-                src={bottomBanner1}
+                src={hompageBanner8?.image}
                 style={{
                   height: "550px",
                   borderRadius: "10px",

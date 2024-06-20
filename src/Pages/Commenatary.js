@@ -4,8 +4,8 @@ const Commenatary = () => {
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
         <Commentarynavbar />
-        <div className="text-xl text-slate-500">Player Of The Match</div>
-        <div className="text-xl">Suresh Raina</div>
+        {/* <div className="text-xl text-slate-500">Player Of The Match</div>
+        <div className="text-xl">Suresh Raina</div> */}
       </div>
       <div className="bg-white pb-5  ">
         <div

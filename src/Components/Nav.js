@@ -45,7 +45,7 @@ const Nav = () => {
   const getTopMatches = async () => {
     const response = await axios.get(
       baseUrl +
-        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
+      "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
       {
         params: {
           token: AuthToken,
@@ -73,7 +73,7 @@ const Nav = () => {
       );
 
       setAllSeries(res?.data?.competitions?.slice(0, 5));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -98,10 +98,10 @@ const Nav = () => {
   const [homePageBanners, setHomePageBanners] = useState([]);
   const baseUrl = "https://vipin-jha-cricbuzz.vercel.app/";
   const getAllHomePageBanners = async () => {
-    const res = await axios.get(`${baseUrl}userAuth/getPostsByPosition`);
-    const banner = res?.data?.data?.filter((item) => item.title === "top")?.[0]
+    const res = await axios.get(`${baseUrl}admin/getAllPosts`);
+    const banner = res?.data?.data?.filter((item) => item.title === "hompageBanner1")?.[0]
       ?.image;
-
+    console.log(res?.data)
     setTopBanner1(banner);
   };
   useEffect(() => {
@@ -122,7 +122,7 @@ const Nav = () => {
         >
           <img
             src={topBanner1}
-            style={{ width: "100%", height: "96px" }}
+            style={{ width: "100%", height: "96px", objectFit: "cover" }}
             alt="topBanner"
           />
         </div>
@@ -168,7 +168,7 @@ const Nav = () => {
                       className="no-border-radius-text1"
                       onClick={() => navigate("/Livescrore/Allseries")}
                     >
-                      All Series {">>"} 
+                      All Series {">>"}
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -495,7 +495,7 @@ const Nav = () => {
 
           {matchesList?.slice(0, 5).map((match) => (
             <div
-              onClick={() => navigate(`/Livescore/${match.match_id}`)}
+            onClick={() => navigate(`/Scorecard/${match?.match_id}`)} 
               className="matchList"
             >
               <p>
