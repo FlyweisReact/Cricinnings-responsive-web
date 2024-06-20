@@ -2,7 +2,23 @@ import { IoCaretForwardOutline } from "react-icons/io5";
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
 const Scorecard = () => {
+  const { matchId } = useParams();
+  const [squadData, setSquadData] = useState();
+
+  const getSquadData = async () => {
+    axios.get(baseUrl + "user/scorecard/" + matchId).then((res) => {
+      setSquadData(res?.data?.scorecard);
+    });
+  };
+
+  useEffect(() => {
+    getSquadData();
+  }, []);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
@@ -11,16 +27,18 @@ const Scorecard = () => {
       <div className="bg-white pb-5  ">
         <div className="flex justify-center pt-2 gap-5">
           <div>
-            <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
+            <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
               <div className="bg-[#0F19AF] flex justify-between items-center  rounded-t-lg w-full h-[45px] text-white">
-                <div className="ml-2">Chennai Super Kings Innings</div>
-                <div className="mr-2">146-7 (20 Ov)</div>
+                <div className="ml-2">{squadData?.innings?.[0]?.name}</div>
+                <div className="mr-2">
+                  {squadData?.innings?.[0]?.scores_full}
+                </div>
               </div>
 
               <table className="m-2">
                 <thead>
                   <tr className="border-b">
-                    <th className="w-[150px] text-left">Better</th>
+                    <th className="w-[150px] text-left">Batter</th>
                     <th className="w-[300px]"></th>
                     <th className="w-[50px] text-left">R</th>
                     <th className="w-[50px] text-left">B</th>
@@ -30,140 +48,102 @@ const Scorecard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
+                  {squadData?.innings?.[0]?.batsmen?.map((item, index) => (
+                    <tr key={index} className="border-b">
+                      <td className="text-[#0F19AF]">{item.name}</td>
+                      <td>{item.dismissal}</td>
+                      <td>{item.runs}</td>
+                      <td>{item.balls}</td>
+                      <td>{item.fours}</td>
+                      <td>{item.sixes}</td>
+                      <td className="flex items-center">
+                        {item.strike_rate} <IoCaretForwardOutline />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
               <div className="border-b  ml-2 mr-2">
                 <div className="flex justify-between w-[550px]">
                   <div className="text-slate-400">EXTRAS</div>
                   <div className="text-slate-400 flex">
-                    9 (b 0, lb 3, w 1, nb 0, p 5)
+                    {squadData?.innings?.[0]?.extra_runs &&
+                      Object.entries(squadData.innings[0].extra_runs).map(
+                        ([key, value]) => (
+                          <div key={key} className="flex items-center gap-2">
+                            <span className="font-semibold">{key}:</span>
+                            <span>{value}</span>
+                          </div>
+                        )
+                      )}
                   </div>
                 </div>
               </div>
               <div className="border-b ml-2 mr-2">
                 <div className="flex  justify-between w-[550px]">
                   <div className="text-slate-400">TOTAL</div>
-                  <div className=" flex">146 (7 wkts, 20 Ov)</div>
+                  <div className=" flex">
+                    {squadData?.innings?.[0]?.scores_full}
+                  </div>
                 </div>
               </div>
 
               <div className="flex ml-2 justify-between w-[400px]">
-                <div className="text-slate-400">Didn’t Bat</div>
-                <div className=" text-[#0F19AF]">Suresh Yadav , Sam Curran</div>
+                <div className="text-slate-400 pr-14">Didn’t Bat</div>
+                <div className="text-[#0F19AF]">
+                  <div className="flex gap-2 flex-wrap">
+                    {squadData?.innings?.[0]?.did_not_bat?.map(
+                      (player, index) => (
+                        <span key={index}>{player?.name}</span>
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
+              <table className=" ">
+                <thead className="border-b">
+                  <tr
+                    style={{ borderRadius: "10px 0 10px 0" }}
+                    className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
+                  >
+                    <th
+                      style={{ overflow: "hidden" }}
+                      className="w-[350px] pl-3 text-left"
+                    >
+                      Bowler
+                    </th>
+                    <th className="w-[50px] text-left">O</th>
+                    <th className="w-[50px] text-left">M</th>
+                    <th className="w-[50px] text-left">R</th>
+                    <th className="w-[50px] text-left">W</th>
+                    <th className="w-[50px] text-left">NB</th>
+                    <th className="w-[50px] text-left">WD</th>
+                    <th className="w-[50px] text-left">ECO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {squadData?.innings?.[0]?.bowlers?.map((item, index) => (
+                    <tr>
+                      {console.log(item)}
+                      <td className="text-[#0F19AF]  pt-2">{item.name}</td>
+                      <td>{item.overs}</td>
+                      <td>{item.maidens}</td>
+                      <td>{item.run0}</td>
+                      <td>{item.wickets}</td>
+                      <td>{item.noballs}</td>
+                      <td>{item.wides}</td>
+                      <td>{item.econ}</td>
+                      <td>{item.zeros}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
               <table className=" ">
                 <thead>
                   <tr className="rounded-t-lg bg-[#0F19AF]  h-[45px] text-white">
@@ -239,134 +219,19 @@ const Scorecard = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-              <table className=" ">
-                <thead>
-                  <tr className="rounded-t-lg bg-[#0F19AF]  h-[45px] text-white">
-                    <th className="w-[350px] text-left ">Bowler</th>
-                    <th className="w-[50px] text-left">O</th>
-                    <th className="w-[50px] text-left">M</th>
-                    <th className="w-[50px] text-left">R</th>
-                    <th className="w-[50px] text-left">W</th>
-                    <th className="w-[50px] text-left">NB</th>
-
-                    <th className="w-[50px] text-left">WD </th>
-                    <th className="w-[50px] text-left">ECO </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div className="mt-5">
-              <div className="flex justify-between pl-2 pr-2 bg-[#0F19AF] h-[45px] items-center text-white">
-                <div>Powerplays</div>
-                <div>Overs</div>
-                <div>Runs</div>
-              </div>
-              <div className="flex justify-between pl-2 pr-2  h-[45px] items-center border">
-                <div>Mandatory</div>
-                <div>0.1-6</div>
-                <div>51</div>
-              </div>
-            </div>
-
-            <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
+            </div> */}
+            <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
               <div className="bg-[#0F19AF] flex justify-between items-center  rounded-t-lg w-full h-[45px] text-white">
-                <div className="ml-2">Chennai Super Kings Innings</div>
-                <div className="mr-2">146-7 (20 Ov)</div>
+                <div className="ml-2">{squadData?.innings?.[1]?.name}</div>
+                <div className="mr-2">
+                  {squadData?.innings?.[1]?.scores_full}
+                </div>
               </div>
 
               <table className="m-2">
                 <thead>
                   <tr className="border-b">
-                    <th className="w-[150px] text-left">Better</th>
+                    <th className="w-[150px] text-left">Batter</th>
                     <th className="w-[300px]"></th>
                     <th className="w-[50px] text-left">R</th>
                     <th className="w-[50px] text-left">B</th>
@@ -376,140 +241,102 @@ const Scorecard = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-                    <td>c Yasir Khan b Willey</td>
-                    <td>1</td>
-                    <td>4</td>
-                    <td>0</td>
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
+                  {squadData?.innings?.[1]?.batsmen?.map((item, index) => (
+                    <tr key={index} className="border-b">
+                      <td className="text-[#0F19AF]">{item.name}</td>
+                      <td>{item.dismissal}</td>
+                      <td>{item.runs}</td>
+                      <td>{item.balls}</td>
+                      <td>{item.fours}</td>
+                      <td>{item.sixes}</td>
+                      <td className="flex items-center">
+                        {item.strike_rate} <IoCaretForwardOutline />
+                      </td>
+                    </tr>
+                  ))}
                 </tbody>
               </table>
               <div className="border-b  ml-2 mr-2">
                 <div className="flex justify-between w-[550px]">
                   <div className="text-slate-400">EXTRAS</div>
                   <div className="text-slate-400 flex">
-                    9 (b 0, lb 3, w 1, nb 0, p 5)
+                    {squadData?.innings?.[0]?.extra_runs &&
+                      Object.entries(squadData.innings[0].extra_runs).map(
+                        ([key, value]) => (
+                          <div key={key} className="flex items-center gap-2">
+                            <span className="font-semibold">{key}:</span>
+                            <span>{value}</span>
+                          </div>
+                        )
+                      )}
                   </div>
                 </div>
               </div>
               <div className="border-b ml-2 mr-2">
                 <div className="flex  justify-between w-[550px]">
                   <div className="text-slate-400">TOTAL</div>
-                  <div className=" flex">146 (7 wkts, 20 Ov)</div>
+                  <div className=" flex">
+                    {squadData?.innings?.[1]?.scores_full}
+                  </div>
                 </div>
               </div>
 
               <div className="flex ml-2 justify-between w-[400px]">
-                <div className="text-slate-400">Didn’t Bat</div>
-                <div className=" text-[#0F19AF]">Suresh Yadav , Sam Curran</div>
+                <div className="text-slate-400 pr-14">Didn’t Bat</div>
+                <div className="text-[#0F19AF]">
+                  <div className="flex gap-2 flex-wrap">
+                    {squadData?.innings?.[1]?.did_not_bat?.map(
+                      (player, index) => (
+                        <span key={index}>{player?.name}</span>
+                      )
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
 
             <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
+              <table className=" ">
+                <thead className="border-b">
+                  <tr
+                    style={{ borderRadius: "10px 0 10px 0" }}
+                    className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
+                  >
+                    <th
+                      style={{ overflow: "hidden" }}
+                      className="w-[350px] pl-3 text-left"
+                    >
+                      Bowler
+                    </th>
+                    <th className="w-[50px] text-left">O</th>
+                    <th className="w-[50px] text-left">M</th>
+                    <th className="w-[50px] text-left">R</th>
+                    <th className="w-[50px] text-left">W</th>
+                    <th className="w-[50px] text-left">NB</th>
+                    <th className="w-[50px] text-left">WD</th>
+                    <th className="w-[50px] text-left">ECO</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {squadData?.innings?.[1]?.bowlers?.map((item, index) => (
+                    <tr>
+                      {console.log(item)}
+                      <td className="text-[#0F19AF]  pt-2">{item.name}</td>
+                      <td>{item.overs}</td>
+                      <td>{item.maidens}</td>
+                      <td>{item.run0}</td>
+                      <td>{item.wickets}</td>
+                      <td>{item.noballs}</td>
+                      <td>{item.wides}</td>
+                      <td>{item.econ}</td>
+                      <td>{item.zeros}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+
+            {/* <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
               <table className=" ">
                 <thead>
                   <tr className="rounded-t-lg bg-[#0F19AF]  h-[45px] text-white">
@@ -585,193 +412,112 @@ const Scorecard = () => {
                   </tr>
                 </tbody>
               </table>
-            </div>
-            <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-              <table className=" ">
-                <thead>
-                  <tr className="rounded-t-lg bg-[#0F19AF]  h-[45px] text-white">
-                    <th className="w-[350px] text-left ">Bowler</th>
-                    <th className="w-[50px] text-left">O</th>
-                    <th className="w-[50px] text-left">M</th>
-                    <th className="w-[50px] text-left">R</th>
-                    <th className="w-[50px] text-left">W</th>
-                    <th className="w-[50px] text-left">NB</th>
+            </div> */}
 
-                    <th className="w-[50px] text-left">WD </th>
-                    <th className="w-[50px] text-left">ECO </th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Sami Ayub </td>
-
-                    <td>16</td>
-                    <td>0</td>
-                    <td>32</td>
-                    <td>4</td>
-                    <td>0</td>
-
-                    <td>0</td>
-                    <td className="flex items-center">
-                      25.00 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <div className="mt-5">
-              <div className="flex justify-between pl-2 pr-2 bg-[#0F19AF] h-[45px] items-center text-white">
-                <div>Powerplays</div>
-                <div>Overs</div>
-                <div>Runs</div>
-              </div>
-              <div className="flex justify-between pl-2 pr-2  h-[45px] items-center border">
-                <div>Mandatory</div>
-                <div>0.1-6</div>
-                <div>51 </div>
-              </div>
-            </div>
             <div className="mt-5 shadow-2xl">
               <div className="bg-[#0F19AF] h-[45px] flex items-center text-white pl-2">
                 Match Info
               </div>
+
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Match
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.innings?.[0]?.name} {" Vs"}
+                  {squadData?.innings?.[1]?.name}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Series
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.competition?.title}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Date
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.competition?.datestart
+                    ?.split(" ")[0]
+                    ?.split("-")
+                    ?.reverse()
+                    ?.join("-")}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Time
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.date_start?.split(" ")[1]}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Toss
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.toss?.text}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Venue
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.venue?.name}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Umpires
+                </div>
+                <div className="text-slate-400 mr-2">{squadData?.umpires}</div>
+              </div>
+              <div className="flex justify-between border-b">
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  3rd Umpire
+                </div>
                 <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                  {squadData?.umpires?.split(",")[2]}
                 </div>
               </div>
               <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
-                <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
+                <div
+                  className="text-slate-400 ml-2"
+                  style={{ color: "black", fontWeight: "bold" }}
+                >
+                  Referee
                 </div>
-              </div>
-              <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
-                <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
-                </div>
-              </div>
-              <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
-                <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
-                </div>
-              </div>
-              <div className="flex justify-between border-b">
-                <div className="text-slate-400 ml-2">Match</div>
-                <div className="text-slate-400 mr-2">
-                  CSK vs MI, Qualifier (1 v 2), Indian Premier League, 2024
-                </div>
+                <div className="text-slate-400 mr-2">{squadData?.referee}</div>
               </div>
             </div>
           </div>

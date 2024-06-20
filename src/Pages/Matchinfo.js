@@ -1,20 +1,31 @@
-import React from "react";
-import { Link } from "react-router-dom";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import ipl from "../Assets/Homepage/ipl.svg";
 import camp from "../Assets/Homepage/campioins.svg";
 import premier from "../Assets/Homepage/premier.svg";
-
-import chennai from "../Assets/Homepage/chennia.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
 const Matchinfo = () => {
+  const { matchId } = useParams();
+  const [squadData, setSquadData] = useState();
+
+  const getSquadData = async () => {
+    axios.get(baseUrl + "user/scorecard/" + matchId).then((res) => {
+      setSquadData(res?.data?.scorecard);
+    });
+  };
+
+  useEffect(() => {
+    getSquadData();
+  }, []);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
-       <Commentarynavbar/>
-       <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-        RESPONSIVE AD’s
-
+        <Commentarynavbar />
+        <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
+          RESPONSIVE AD’s
         </div>
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
@@ -26,22 +37,24 @@ const Matchinfo = () => {
                 <div className="mt-2">
                   <span className="font-semibold">Match:</span>
                   <div className="">
-                    DCW vs RCBW, Final, Womens Premier League 2024
+                    {squadData?.innings?.[0]?.name} {" Vs"}
+                    {squadData?.innings?.[1]?.name}
                   </div>
                   <span className="font-semibold">Toss:</span>
-                  <div className="">
-                    Delhi Capitals Women won the toss and opt to bat
-                  </div>
+                  <div className="">{squadData?.toss?.text}</div>
                   <span className="font-semibold">Time:</span>
-                  <div className=""> 7:30 PM</div>
+                  <div className="">
+                    {" "}
+                    {squadData?.date_start?.split(" ")[1]}
+                  </div>
                   <span className="font-semibold">Venue:</span>
-                  <div className=""> Arun Jaitley Stadium, Delhi</div>
+                  <div className=""> {squadData?.venue?.name}</div>
                   <span className="font-semibold">Umpires:</span>
-                  <div className=""> Parashar Joshi Match</div>
+                  <div className=""> {squadData?.umpires}</div>
                   <span className="font-semibold"> Third Umpires:</span>
-                  <div className=""> GS Lakshmi Mumbai Indians</div>
+                  <div className=""> {squadData?.umpires?.split(",")[2]}</div>
                   <span className="font-semibold"> Match Referee:</span>
-                  <div className=""> GS Lakshmi Mumbai Indians</div>
+                  {/* <div className=""> {squadData?.referee}</div>
                   <span className="font-semibold">Mumbai Indians Squad:</span>
                   <span>Playing</span>
                   <div className="">
@@ -52,7 +65,7 @@ const Matchinfo = () => {
                     Pandey, Minnu Mani Bench: Meg Lanning (c), Shafali
                     Verma, Alice Capsey, Jemimah Rodrigues, Annabel
                     Sutherland, Laura Harris
-                  </div>
+                  </div> */}
                 </div>
               </div>
               <div className="mt-10 ml-4">
@@ -61,15 +74,22 @@ const Matchinfo = () => {
                 </div>
                 <div className="mt-5">
                   <span className="font-semibold">Stadium:</span>
-                  <div className="">new delhi</div>
+                  <div className=""> {squadData?.venue?.name}</div>
                   <span className="font-semibold">City:</span>
-                  <div className="">delhi</div>
+                  <div className=""> {squadData?.venue?.country}</div>
                   <span className="font-semibold">Capacity:</span>
                   <div className="">480000</div>
                   <span className="font-semibold">End:</span>
-                  <div className="">End dsfdsklfms</div>
+                  <div className="">
+                    {" "}
+                    {squadData?.date_end_ist
+                      ?.split(" ")[0]
+                      ?.split("-")
+                      ?.reverse()
+                      ?.join("-")}
+                  </div>
                   <span className="font-semibold">Hosts to:</span>
-                  <div className="">Delhi</div>
+                  <div className="">{squadData?.venue?.country}</div>
                 </div>
               </div>
               <div className="mt-10 ml-4">
