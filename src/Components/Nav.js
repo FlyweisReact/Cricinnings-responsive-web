@@ -110,7 +110,6 @@ const Nav = () => {
 
   return (
     <>
-      {}
       {topBanner1 && (
         <div
           style={{
@@ -508,7 +507,6 @@ const Nav = () => {
             </div>
           ))}
         </div>
-        {}
       </div>
     </>
   );
