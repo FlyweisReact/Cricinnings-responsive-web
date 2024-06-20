@@ -1,12 +1,27 @@
-import React from "react";
-
+import { useEffect, useState } from "react";
 import Commentarynavbar from "../Components/Commentarynavbar";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Fullcommentary = () => {
+  const [matchDetails, setMatchDetails] = useState({});
+  const { matchId } = useParams();
+
+  const getMatchDetails = async () => {
+    axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
+      setMatchDetails(res?.data?.match);
+    });
+  };
+
+  useEffect(() => {
+    getMatchDetails();
+  }, []);
+
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
-    <Commentarynavbar/>
+            <Commentarynavbar matchDetails={matchDetails} />
         <div className="flex justify-center">
           <div className="w-[950px] mb-5 pb-5 shadow-2xl bg-white flex justify-center gap-3 mt-5 pt-5 ">
             <div className="border w-[250px] h-[400px]">

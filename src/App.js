@@ -52,6 +52,10 @@ const router = createBrowserRouter([
         path: "/Scorecard",
         element: <Scorecard />,
       },
+      {
+        path: "/Scorecard/:matchId",
+        element: <Scorecard />,
+      },
 
       {
         path: "/Squads",

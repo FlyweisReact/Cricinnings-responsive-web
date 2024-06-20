@@ -381,3 +381,21 @@
   padding-top: 0.7rem;
   font-weight: 500;
 }
+
+
+.topBarCommentary{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
+  margin-top: 3rem;
+  gap: 1rem;
+}
+
+.topBarCommentary > p{
+  font-size: 14px;
+  font-weight: 500;
+  color: #0f19af;
+  cursor: pointer;
+  border-radius:  4px;
+}
