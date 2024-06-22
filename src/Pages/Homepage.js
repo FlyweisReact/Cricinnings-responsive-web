@@ -28,7 +28,29 @@ const Homepage = () => {
       </div>
     );
   };
+  function dateUpdate(dateString) {
+    const date = new Date(dateString);
 
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+
+    const dayOfWeek = daysOfWeek[date.getUTCDay()];
+    const day = date.getUTCDate();
+    const month = months[date.getUTCMonth()];
+
+    let hours = date.getUTCHours();
+    let minutes = date.getUTCMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    minutes = minutes < 10 ? '0' + minutes : minutes;
+
+    const formattedDate = `${dayOfWeek}, ${day} ${month}, ${hours}:${minutes} ${ampm}`;
+
+    return formattedDate;
+  }
   const CustomPrevArrow = (props) => {
     const { className, style, onClick } = props;
     return (
@@ -390,7 +412,7 @@ const Homepage = () => {
             <Slider {...settings1}>
               {sliderData &&
                 sliderData?.map((item, index) => (
-                  <div  key={index} className="top_slider_card">
+                  <div key={index} className="top_slider_card">
                     <div className="top_slider_card_div1">
                       <div onClick={() => navigate(`/Scorecard/${item?.match_id}`)} className="top_slider_card_div1_text">
                         <p
@@ -412,8 +434,9 @@ const Homepage = () => {
                         </p>
                         <p>{item?.format_str}</p>
                       </div>
-                      <div className="top_slider_card_div2">
+                      <div style={{ lineHeight: "0" }} className="top_slider_card_div2">
                         <div className="top_slider_card_div2_text">
+
                           <p>
                             <img
                               className="top_slider_card_div2_img"
@@ -421,7 +444,10 @@ const Homepage = () => {
                               alt="logo"
                             />
                           </p>
-                          <p>{item?.teama?.name}</p>
+                          <p style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "space-between" }}>
+                            <span>{item?.teama?.name?.split(" ")?.slice(0, 2)?.join(" ")}</span>
+                            <span>{item?.teama?.scores_full}</span>
+                            </p>
                         </div>
                         <div className="top_slider_card_div2_text">
                           <p>
@@ -431,8 +457,18 @@ const Homepage = () => {
                               alt="logo"
                             />
                           </p>
-                          <p>{item?.teamb?.name}</p>
+                          <p style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "space-between" }}>
+                            <span>{item?.teamb?.name.split(" ")?.slice(0, 2)?.join(" ")}</span>
+                            <span>{item?.teamb?.scores_full}</span>
+                            </p>
                         </div>
+                        <span>
+
+                          {item?.status === 1 && <span onClick={() => console.log(item)} style={{ fontSize: "12px", color: "rgb(163, 101, 1)" }}>{dateUpdate(item?.date_start)}</span>}
+                          {item?.status === 2 && <span onClick={() => console.log(item)} style={{
+                            fontSize: "12px", color: "rgb(24, 102, 219)"
+                          }}>{item?.result}</span>}
+                        </span>
                       </div>
                     </div>
                     <div className="top_slider_card_div2_text11">

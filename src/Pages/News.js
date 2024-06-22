@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import ipl from "../Assets/Homepage/ipl.svg";
@@ -6,141 +6,97 @@ import camp from "../Assets/Homepage/campioins.svg";
 import premier from "../Assets/Homepage/premier.svg";
 import newsimg from "../Assets/Homepage/newsimg.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
+import axios from "axios";
+import { GetData, baseUrl } from "../Components/Integration/ApiIntegration";
 
 const News = () => {
+  const [banner1, setBanner1] = useState();
+  const [banner2, setBanner2] = useState();
+  const [banner3, setBanner3] = useState();
+  const getAllBanner = async () => {
+    axios.get(baseUrl + "admin/getAllPosts").then((res) => {
+      const banner = res?.data?.data
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
+      console.log(banner)
+    })
+  }
+
+  useEffect(() => {
+    getAllBanner()
+  }, [])
+
+  function timeAgo(dateString) {
+    const date = new Date(dateString);
+    const now = new Date();
+    const diffInSeconds = Math.floor((now - date) / 1000);
+  
+    const intervals = {
+      year: 31536000,
+      month: 2592000,
+      week: 604800,
+      day: 86400,
+      hour: 3600,
+      minute: 60,
+      second: 1
+    };
+  
+    for (const interval in intervals) {
+      const intervalSeconds = intervals[interval];
+      const count = Math.floor(diffInSeconds / intervalSeconds);
+  
+      if (count >= 1) {
+        return `${count} ${interval}${count !== 1 ? 's' : ''} ago`;
+      }
+    }
+  
+    return 'just now';
+  }
+
+  const [fantasyBanner, setFantasyBanner] = useState([]);
+  const getAllData = async () => {
+    GetData("userAuth/getPostByTitle/CRICKET_NEWS").then((res) => {
+      setFantasyBanner(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    getAllData();
+  }, []);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <Commentarynavbar />
+        <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
+
+          <img style={{ height: "96px", width: "100%" }} src={banner1?.image} alt="" />
+        </div>
         <div className="flex mt-5 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="left w-[700px]  shadow-2xl">
               <div className="flex justify-center mt-5 flex-col items-center gap-5">
-                <div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
+                {fantasyBanner?.map((item, index) => (<div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
                   <div>
-                    <img alt="" src={newsimg} className="w-[250px]" />
+                    <img alt="" src={item?.image} className="w-[250px]" />
                   </div>
                   <div className="w-[500px] flex flex-col gap-1">
-                    <div className="text-slate-400">IPL 2024 - FINAL</div>
+                    <div className="text-slate-400">{item?.title}</div>
                     <div className="text-[#0F19AF] font-semibold ">
-                      The Claim Call MS Dhoni -->Thaliva
+                      {item?.subtitle}
                     </div>
                     <div className="text-slate-400 ">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
+                      {item?.description}
                     </div>
-                    <div className="text-slate-400">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="flex">
-                      <span className="text-slate-400">1 day ago . </span>
-                      <span className="text-black">vishal bansali</span>
+                    <br/>
+                    <div className="flex gap-1">
+                      <span className="text-slate-400">{timeAgo(item?.createdAt)} </span>
+                      <span className="text-black">{item?.uploadedBy}</span>
                     </div>
                   </div>
-                </div>
-                <div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
-                  <div>
-                    <img alt="" src={newsimg} className="w-[250px]" />
-                  </div>
-                  <div className="w-[500px] flex flex-col gap-1">
-                    <div className="text-slate-400">IPL 2024 - FINAL</div>
-                    <div className="text-[#0F19AF] font-semibold ">
-                      The Claim Call MS Dhoni -->Thaliva
-                    </div>
-                    <div className="text-slate-400 ">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="text-slate-400">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="flex">
-                      <span className="text-slate-400">1 day ago . </span>
-                      <span className="text-black">vishal bansali</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
-                  <div>
-                    <img alt="" src={newsimg} className="w-[250px]" />
-                  </div>
-                  <div className="w-[500px] flex flex-col gap-1">
-                    <div className="text-slate-400">IPL 2024 - FINAL</div>
-                    <div className="text-[#0F19AF] font-semibold ">
-                      The Claim Call MS Dhoni -->Thaliva
-                    </div>
-                    <div className="text-slate-400 ">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="text-slate-400">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="flex">
-                      <span className="text-slate-400">1 day ago . </span>
-                      <span className="text-black">vishal bansali</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
-                  <div>
-                    <img alt="" src={newsimg} className="w-[250px]" />
-                  </div>
-                  <div className="w-[500px] flex flex-col gap-1">
-                    <div className="text-slate-400">IPL 2024 - FINAL</div>
-                    <div className="text-[#0F19AF] font-semibold ">
-                      The Claim Call MS Dhoni -->Thaliva
-                    </div>
-                    <div className="text-slate-400 ">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="text-slate-400">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="flex">
-                      <span className="text-slate-400">1 day ago . </span>
-                      <span className="text-black">vishal bansali</span>
-                    </div>
-                  </div>
-                </div>
-                <div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
-                  <div>
-                    <img alt="" src={newsimg} className="w-[250px]" />
-                  </div>
-                  <div className="w-[500px] flex flex-col gap-1">
-                    <div className="text-slate-400">IPL 2024 - FINAL</div>
-                    <div className="text-[#0F19AF] font-semibold ">
-                      The Claim Call MS Dhoni -->Thaliva
-                    </div>
-                    <div className="text-slate-400 ">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="text-slate-400">
-                      Calm' has been the buzzword right through RCB's
-                      title-winning campaign and their captain was its perfect
-                      personification on the red-letter day
-                    </div>
-                    <div className="flex">
-                      <span className="text-slate-400">1 day ago . </span>
-                      <span className="text-black">vishal bansali</span>
-                    </div>
-                  </div>
-                </div>
+                </div>))}
+
+
               </div>
             </div>
             <div className="w-[250px] ">

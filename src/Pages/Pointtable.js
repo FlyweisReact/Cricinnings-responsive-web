@@ -56,58 +56,74 @@ const Pointtable = () => {
       getSquadData();
     }
   }, [compId]);
+
+
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <Commentarynavbar />
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          RESPONSIVE AD’s
+          
+          <img style={{ height: "96px" ,width:"100%"}} src={banner1?.image} alt="" />
         </div>
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="left w-[700px] h-[700px] shadow-2xl">
               <div
                 style={{
-                  fontSize: "20px",
-                  fontWeight: "900",
-                  margin: "2rem",
-                  color: "black",
+                  fontSize: "24px",
+                  fontWeight: "bold",
+                  color: "#rgb(34, 34, 34)",
+                  padding: "10px",
                 }}
               >
-                <p>Indian Premier League 2024 - Points Table</p>
+                <p> {title}</p>
               </div>
               <Table className="w-full">
                 <thead>
-                  <tr className="bg-[#0F19AF] text-white">
-                    <th className="text-left pl-3">Team</th>
-                    <th className="text-left">Mat</th>
-                    <th className="text-left">Won</th>
-                    <th className="text-left">Lost</th>
-                    <th className="text-left">Tied</th>
-                    <th className="text-left">NR</th>
-                    <th className="text-left">Pts</th>
-                    <th className="text-left">NRR</th>
-                  </tr>
+
                 </thead>
                 <tbody>
                   {Array.isArray(squadData?.standings) &&
                     squadData.standings.map((item, index) => (
                       <React.Fragment key={index}>
                         <tr className="border-b bg-gray-200">
-                          <td colSpan="8" className="font-bold text-center">
+                          <td style={{ fontSize: "12px" }} className="font-bold text-center">
                             {item?.round?.name}
                           </td>
+                          <td></td>
+                          <td>Mat</td>
+                          <td>Won</td>
+                          <td>Lost</td>
+                          <td>Tied</td>
+                          <td>NR</td>
+                          <td>Pts</td>
+                          <td>NRR</td>
                         </tr>
-                        {item.standings?.map((team, teamIndex) => (
+                        {item?.standings?.map((team, teamIndex) => (
                           <tr key={teamIndex} className="border-b">
-                            <td>{team?.team?.name}</td>
-                            <td>{team.mat}</td>
-                            <td>{team.won}</td>
-                            <td>{team.lost}</td>
-                            <td>{team.tied}</td>
-                            <td>{team.nr}</td>
-                            <td>{team.pts}</td>
-                            <td>{team.nrr}</td>
+
+                            <td>
+                              <div className="flex gap-2">
+                                <span>
+                                  <img src={team?.team?.logo_url} alt="" className="w-[30px] h-[30px]" />
+                                </span>
+                                <span>
+
+                                  {team?.team?.alt_name}
+                                </span>
+
+                              </div>
+                            </td>
+                            <td></td>
+                            <td>{team?.played}</td>
+                            <td>{team?.win}</td>
+                            <td>{team?.loss}</td>
+                            <td>{team?.draw}</td>
+                            <td>{team?.nr}</td>
+                            <td>{team?.points}</td>
+                            <td>{team?.netrr}</td>
+
                           </tr>
                         ))}
                       </React.Fragment>
