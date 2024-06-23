@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AuthToken, GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
@@ -139,9 +139,21 @@ const Nav = () => {
               />
             </div>
             <div className="navBar_links">
-              <p onClick={() => navigate("/Livescrore")}>Live Scores</p>
-              <p onClick={() => navigate("/Livescrore/Schedule")}>Schedule</p>
-              <p onClick={() => navigate("/Fantasytips")}>Fantasy Tips</p>
+              <a href="/Livescrore">
+              <p 
+              // onClick={() => navigate("/Livescrore")}
+              >Live Scores</p>
+              </a>
+              <a href="/Livescrore/Schedule">
+              <p
+              //  onClick={() => navigate("/Livescrore/Schedule")}
+              >Schedule</p>
+              </a>
+              {/* <a href="/Livescrore/Allseries"> */}
+              <p 
+              onClick={() => navigate("/Fantasytips")}
+              >Fantasy Tips</p>
+              {/* </a> */}
               <p>
                 <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
                   Series
@@ -158,22 +170,26 @@ const Nav = () => {
                   >
                     {allSeries?.slice(0, 5)?.map((item) => (
                       <Dropdown.Item
-                        onClick={() => navigate("/Manrankingpage")}
+                        onClick={() => navigate("/Livescrore/Allseries")}
                         className="no-border-radius-text"
                       >
                         {item?.title}
                       </Dropdown.Item>
                     ))}
+                    <a className="no1" href="/Livescrore/Allseries">
                     <Dropdown.Item
                       className="no-border-radius-text1"
                       onClick={() => navigate("/Livescrore/Allseries")}
                     >
                       All Series {">>"}
                     </Dropdown.Item>
+                    </a>
                   </Dropdown.Menu>
                 </Dropdown>
               </p>
-              <p onClick={() => navigate("/Cricketnews")}>Cricket News</p>
+              <p
+               onClick={() => navigate("/Cricketnews")}
+               >Cricket News</p>
               <p>
                 <p onClick={handleToggle} style={{ cursor: "pointer" }}>
                   ICC Ranking
@@ -494,8 +510,9 @@ const Nav = () => {
           </div>
 
           {matchesList?.slice(0, 5).map((match) => (
+            <a style={{ textDecoration: "none", color: "white" }} href={`/Scorecard/${match?.match_id}`}>
             <div
-            onClick={() => navigate(`/Scorecard/${match?.match_id}`)} 
+            // onClick={() => navigate(`/Scorecard/${match?.match_id}`)} 
               className="matchList"
             >
               <p>
@@ -505,6 +522,7 @@ const Nav = () => {
                   : ""}
               </p>
             </div>
+            </a>
           ))}
         </div>
       </div>

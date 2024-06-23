@@ -175,6 +175,14 @@
   font-size: 0.8rem;
   font-weight: bold;
 }
+.navBar_links>a,.no1{
+  
+  cursor: pointer;
+  padding-top: 1.8rem;
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+}
 
 .navBar_links > p {
   cursor: pointer;
@@ -300,6 +308,11 @@
   padding: 0.2rem;
 }
 
+.top_slider_card_div2_text11_text23 > p:hover {
+  text-decoration: underline;
+  text-decoration-color: white;
+}
+
 .feacturePosts {
   width: 650px;
   padding: 10px;
@@ -399,3 +412,4 @@
   cursor: pointer;
   border-radius:  4px;
 }
+

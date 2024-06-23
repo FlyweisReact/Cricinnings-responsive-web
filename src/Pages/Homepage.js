@@ -458,14 +458,14 @@ const Homepage = () => {
                             />
                           </p>
                           <p style={{ display: "flex", alignItems: "center", gap: "8px", justifyContent: "space-between" }}>
-                            <span>{item?.teamb?.name.split(" ")?.slice(0, 2)?.join(" ")}</span>
+                            <span >{item?.teamb?.name.split(" ")?.slice(0, 2)?.join(" ")}</span>
                             <span>{item?.teamb?.scores_full}</span>
                             </p>
                         </div>
                         <span>
 
-                          {item?.status === 1 && <span onClick={() => console.log(item)} style={{ fontSize: "12px", color: "rgb(163, 101, 1)" }}>{dateUpdate(item?.date_start)}</span>}
-                          {item?.status === 2 && <span onClick={() => console.log(item)} style={{
+                          {item?.status === 1 && <span  style={{ fontSize: "12px", color: "rgb(163, 101, 1)" }} >{dateUpdate(item?.date_start)}</span>}
+                          {item?.status === 2 && <span  style={{
                             fontSize: "12px", color: "rgb(24, 102, 219)"
                           }}>{item?.result}</span>}
                         </span>
@@ -660,7 +660,6 @@ const Homepage = () => {
                   </div>
                 ))}
             </div>
-            {console.log(hompageBanner6)}
             {hompageBanner6 && (
 
               <div className="middleBannerBig">

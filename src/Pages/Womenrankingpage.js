@@ -2,7 +2,7 @@ import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import men from "../Assets/Homepage/men.svg";
 import { useEffect, useState } from "react";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { GetData, baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
 const Womenrankingpage = () => {
@@ -22,7 +22,34 @@ const Womenrankingpage = () => {
   const [teamRankings, setTeamRankings] = useState([]);
   const [mainCategory, setMainCategory] = useState("batting");
   const [currentCategory, setCurrentCategory] = useState("odi");
+  const [fantasyBanner, setFantasyBanner] = useState([]);
+  const getAllData = async () => {
+    GetData("userAuth/getPostByTitle/CRICKET_NEWS").then((res) => {
+      setFantasyBanner(res?.data);
+    });
+  };
 
+  useEffect(() => {
+    getAllData();
+  }, []);
+  const [banner1, setBanner1] = useState("");
+  const [banner2, setBanner2] = useState("");
+  const getAllHomePageBanners = async () => {
+    try {
+     
+
+      const res2 = await axios.get(`${baseUrl}admin/getAllPosts`);
+
+      setBanner1(res2?.data?.data?.filter((item) => item.title === "rankingPageBanner1")?.image);
+      setBanner2(res2?.data?.data?.filter((item) => item.title === "rankingPageBanner2")?.image);
+       } catch (error) {
+      console.error("Error fetching homepage banners:", error);
+    }
+  };
+
+  useEffect(() => {
+    getAllHomePageBanners();
+  }, []);
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
     console.log(res?.data?.rankingData);
@@ -58,10 +85,10 @@ const Womenrankingpage = () => {
           {mainCategory === "batting"
             ? "Batsmen"
             : mainCategory === "bowling"
-            ? "Bowling"
-            : mainCategory === "alr"
-            ? "All-rounders"
-            : "Team"}{" "}
+              ? "Bowling"
+              : mainCategory === "alr"
+                ? "All-rounders"
+                : "Team"}{" "}
         </div>
         <div className="flex gap-5 mt-3">
           <div
@@ -1073,9 +1100,9 @@ const Womenrankingpage = () => {
             </>
           )}
           <div className="w-[250px] ">
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div>
+            {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner1} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
+            </div>}
             <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
               <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
               <img src={videoframe} alt="" />
@@ -1087,10 +1114,9 @@ const Womenrankingpage = () => {
                 </button>
               </div>
             </div>
-
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div>
+            {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner2} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
+            </div>}
             <div className="bg-[white] rounded-lg mt-2 shadow-2xl">
               <div className="p-1">
                 <span className="font-semibold text-sm ml-4">TOP NEWS</span>
@@ -1114,49 +1140,11 @@ const Womenrankingpage = () => {
                   purus adipiscing at ut. Nulla duis lorem venenatis mi dui
                   risus.
                 </div>
-                <div className="flex mt-5">
-                  <div className="w-[200px]">
-                    <img src={topnews} alt="" />
-                  </div>
-
-                  <div>
-                    <div className="text-[12px] font-bold">
-                      I found a 2007 study on effects of hand sanitizers
-                    </div>
-                    <div className="text-slate-400 text-[10px]">
-                      Mon,Mar03 2024
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[12px] text-slate-400">
-                  Lorem ipsum dolor sit amet consectetur. Elit eget mauris
-                  egestas viverra urna sit. Tincidunt proin nulla dolor amet
-                  purus adipiscing at ut. Nulla duis lorem venenatis mi dui
-                  risus.
-                </div>
-                <div className="flex mt-5">
-                  <div className="w-[200px]">
-                    <img src={topnews} alt="" />
-                  </div>
-
-                  <div>
-                    <div className="text-[12px] font-bold">
-                      The study was repeated with three brands of hand
-                    </div>
-                    <div className="text-slate-400 text-[10px]">
-                      Mon,Mar03 2024
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[12px] text-slate-400">
-                  Lorem ipsum dolor sit amet consectetur. Elit eget mauris
-                  egestas viverra urna sit. Tincidunt proin nulla dolor amet
-                  purus adipiscing at ut. Nulla duis lorem venenatis mi dui
-                  risus.
-                </div>
+              
               </div>
             </div>
           </div>
+
         </div>
       </div>
     </div>

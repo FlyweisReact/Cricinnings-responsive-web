@@ -22,7 +22,7 @@ const Livescrore = () => {
     : location.pathname === "/Livescrore/Allseries"
       ? "Current & Future Series"
       : "Current Matches";
-      console.log(location.pathname)
+  console.log(location.pathname)
   const [selectedDiv, setSelectedDiv] = useState(initialLocation);
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
@@ -57,6 +57,16 @@ const Livescrore = () => {
   const [middleBanner2, setMiddleBanner2] = useState("");
   const [bottomBanner1, setBottomBanner1] = useState("");
   const [bottomBanner2, setBottomBanner2] = useState("");
+  const [hompageBanner2, setHompageBanner2] = useState("");
+  const [hompageBanner3, setHompageBanner3] = useState("");
+  const [hompageBanner4, setHompageBanner4] = useState("");
+  const [hompageBanner5, setHompageBanner5] = useState("");
+  const [hompageBanner6, setHompageBanner6] = useState("");
+  const [hompageBanner7, setHompageBanner7] = useState("");
+  const [hompageBanner8, setHompageBanner8] = useState("");
+  const [scorePageBanner1, setScorePageBanner1] = useState("");
+  const [scorePageBanner2, setScorePageBanner2] = useState("");
+  const [scorePageBanner3, setScorePageBanner3] = useState("");
   const navigate = useNavigate();
   const getWinningTeamName = (match) => {
     const winningTeamId = match.winning_team_id;
@@ -95,15 +105,14 @@ const Livescrore = () => {
     } catch (error) { }
   };
 
-  const getAllHomePageBanners = () => {
-    GetData("userAuth/getPostsByPosition").then((res) => {
-      const topBanner = res?.data?.filter((item) => item?.title === "top");
-      const middleBanner = res?.data?.filter(
-        (item) => item?.title === "middle"
-      );
-      const bottomBanner = res?.data?.filter(
-        (item) => item?.title === "bottom"
-      );
+  const getAllHomePageBanners = async () => {
+    try {
+      const res1 = await GetData("userAuth/getPostsByPosition");
+
+      const topBanner = res1?.data?.filter((item) => item?.title === "top");
+      const middleBanner = res1?.data?.filter((item) => item?.title === "middle");
+      const bottomBanner = res1?.data?.filter((item) => item?.title === "bottom");
+
       setTopBanner1(topBanner[0]?.image);
       setTopBanner2(topBanner[1]?.image);
       setMiddleBanner1(middleBanner[0]?.image);
@@ -111,8 +120,22 @@ const Livescrore = () => {
       setBottomBanner1(bottomBanner[0]?.image);
       setBottomBanner2(bottomBanner[1]?.image);
 
-      setHomePageBanners(res?.data);
-    });
+      setHomePageBanners(res1?.data);
+
+      // Fetch data from the second endpoint
+      const res2 = await axios.get(`${baseUrl}admin/getAllPosts`);
+
+      // Extract and set banners from the second response
+      setHompageBanner2(res2?.data?.data?.find((item) => item.title === "scorePageBanner1")?.image);
+      setHompageBanner3(res2?.data?.data?.find((item) => item.title === "scorePageBanner2")?.image);
+      setHompageBanner4(res2?.data?.data?.find((item) => item.title === "scorePageBanner3")?.image);
+      setHompageBanner5(res2?.data?.data?.find((item) => item.title === "hompageBanner5")?.image);
+      setHompageBanner6(res2?.data?.data?.find((item) => item.title === "hompageBanner6"));
+      setHompageBanner7(res2?.data?.data?.find((item) => item.title === "hompageBanner7"));
+      setHompageBanner8(res2?.data?.data?.find((item) => item.title === "hompageBanner8"));
+    } catch (error) {
+      console.error("Error fetching homepage banners:", error);
+    }
   };
   useEffect(() => {
     getAllHomePageBanners();
@@ -454,7 +477,7 @@ const Livescrore = () => {
                       <div className="flex flex-col gap-5">
                         {competationsType[0]?.matches?.map((item, index) => {
                           return (
-                            <div  onClick={() => navigate(`/match/${item?.match_id}`)}  key={index} style={{ borderRadius: "10px" }} className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer">
+                            <div onClick={() => navigate(`/match/${item?.match_id}`)} key={index} style={{ borderRadius: "10px" }} className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer">
                               <div className="flex">
                                 <span className="font-semibold"></span>
                                 <span className="text-slate-400">
@@ -493,7 +516,7 @@ const Livescrore = () => {
                                 </div>
                               </div>
                               <div className="flex ">
-                                <div  onClick={() => navigate(`/match/${item?.match_id}`)}  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer">
+                                <div onClick={() => navigate(`/match/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer">
                                   Live Score
                                 </div>
                                 <div onClick={() => navigate(`/Scorecard/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
@@ -1866,16 +1889,16 @@ const Livescrore = () => {
                       </div>
                     </div>
 
-                    <div className="w-[250px]">
+
+                    <div className="w-[250px]  mt-10">
                       {allSeries?.length > 0 && (
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] pb-3 rounded-lg mb-3">
+                        <div className="bg-[white] pb-3 pt-3 rounded-lg mb-3">
                           <span
                             style={{
                               color: "black",
                               fontWeight: "bold",
                               fontSize: "12px",
                               paddingLeft: "10px",
-                              paddingTop: "10px",
                             }}
                           >
                             CURRENT SERIES
@@ -1906,8 +1929,7 @@ const Livescrore = () => {
                           </div>
                         </div>
                       )}
-
-                      {middleBanner2 && (
+                      {hompageBanner2?.image && (
                         <img
                           style={{
                             width: "100%",
@@ -1915,13 +1937,13 @@ const Livescrore = () => {
                             borderRadius: "10px",
                           }}
                           className="mb-3"
-                          src={middleBanner2}
+                          src={hompageBanner2?.image}
                           alt="middleBanner"
                         />
                       )}
 
                       <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", padding: "10px" }} className="flex justify-between p-2">
+                        <div className="flex justify-between p-2">
                           <div
                             className="text-sm font-semibold"
                             style={{ fontSize: "12px" }}
@@ -2160,9 +2182,9 @@ const Livescrore = () => {
                         </div>
                       </div>
 
-                      {bottomBanner1 && (
+                      {hompageBanner3?.image && (
                         <img
-                          src={bottomBanner1}
+                          src={hompageBanner3?.image}
                           style={{
                             height: "550px",
                             borderRadius: "10px",
@@ -2171,7 +2193,7 @@ const Livescrore = () => {
                           alt="images"
                         />
                       )}
-                      <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] rounded-lg mt-2 mb-3">
+                      <div className="bg-[white] rounded-lg mt-2">
                         <div className="p-1">
                           <span className="font-semibold text-sm ml-4">SPECIALS</span>
                           {specialBanner?.map((item, index) => (

@@ -53,7 +53,7 @@ const Matchinfo = () => {
                 <div className="mt-2">
                   <span className="font-semibold">Match:</span>
                   <div className="">
-                    {squadData?.innings?.[0]?.name} {" Vs"}
+                    {squadData?.innings?.[0]?.name} {squadData?.innings?.[0]?.name && squadData?.innings?.[1]?.name && " Vs"}
                     {squadData?.innings?.[1]?.name}
                   </div>
                   <span className="font-semibold">Toss:</span>
@@ -121,53 +121,25 @@ const Matchinfo = () => {
               </div>
             </div>
             <div className="w-[250px] ">
-              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-                RESPONSIVE AD’s
-              </div>
-              <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
-                <div className="text-sm p-3 font-semibold">
-                  FEATURE VIDEOS !!
-                </div>
-                <img src={videoframe} alt="" />
-                <img src={videoframe} alt="" />
-                <img src={videoframe} alt="" />
-                <div className="flex justify-center pb-5">
-                  <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
-                    More Videos
-                  </button>
-                </div>
-              </div>
-
-              <div className="bg-[white] rounded-lg mt-2 pb-5 border">
-                <div className="p-1">
-                  <span className="font-semibold text-sm ml-4">SPECIALS</span>
-                  <img src={camp} alt="" />
-                  <span className="font-semibold text-sm ml-4">
-                    Mumbai Indians Champions
-                  </span>
-                  <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                    Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                    vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                  </p>
-                  <img src={ipl} alt="" />
-                  <span className="font-semibold text-sm ml-4">
-                    1st Match . IPL 2024
-                  </span>
-                  <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                    Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                    vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                  </p>
-                  <img src={premier} alt="" />
-                  <span className="font-semibold text-sm ml-4">
-                    1st Match . IPL 2024
-                  </span>
-                  <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                    Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                    vivamus tincidunt. Odio rhoncus pretium eu vivamus.
-                  </p>
-                </div>
+            {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner1?.image} style={{ width: "100%",height:"100%",borderRadius:"10px"   }} alt="" />
+            </div>}
+            <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
+              <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
+              <img src={videoframe} alt="" />
+              <img src={videoframe} alt="" />
+              <img src={videoframe} alt="" />
+              <div className="flex justify-center pb-5">
+                <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
+                  More Videos
+                </button>
               </div>
             </div>
+            {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+              <img src={banner2?.image} style={{ width: "100%",height:"100%"  ,borderRadius:"10px" }} alt="" />
+            </div>}
+           
+          </div>
           </div>
         </div>
       </div>
