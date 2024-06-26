@@ -1,5 +1,4 @@
 import { IoCaretForwardOutline } from "react-icons/io5";
-import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { useParams } from "react-router-dom";
@@ -14,23 +13,37 @@ const Scorecard = () => {
   const [banner3, setBanner3] = useState();
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
-      const banner = res?.data?.data
-      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
-      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
-      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
-      console.log(banner)
-    })
-  }
+      const banner = res?.data?.data;
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
+      console.log(banner);
+    });
+  };
 
   useEffect(() => {
-    getAllBanner()
-  }, [])
+    getAllBanner();
+  }, []);
 
   const getSquadData = async () => {
     axios.get(baseUrl + "user/scorecard/" + matchId).then((res) => {
       setSquadData(res?.data?.scorecard);
     });
   };
+
+  function formatExtraRuns(extraRuns) {
+    if (!extraRuns) return "";
+
+    const formattedValues = [
+      `b ${extraRuns.byes || 0}`,
+      `lb ${extraRuns.legbyes || 0}`,
+      `w ${extraRuns.wides || 0}`,
+      `nb ${extraRuns.noballs || 0}`,
+      `p ${extraRuns.penalty || 0}`,
+    ];
+
+    return `${extraRuns.total} (${formattedValues.join(", ")})`;
+  }
 
   useEffect(() => {
     getSquadData();
@@ -40,8 +53,11 @@ const Scorecard = () => {
       <div className="bg-[white] pl-2 pt-2">
         <Commentarynavbar />
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          
-          <img style={{ height: "96px" ,width:"100%"}} src={banner1?.image} alt="" />
+          <img
+            style={{ height: "96px", width: "100%" }}
+            src={banner1?.image}
+            alt=""
+          />
         </div>
       </div>
 
@@ -72,9 +88,9 @@ const Scorecard = () => {
                   {squadData?.innings?.[0]?.batsmen?.map((item, index) => (
                     <tr key={index} className="border-b">
                       <td className="text-[#0F19AF]">{item.name}</td>
-                      <td>{item.dismissal}</td>
+                      <td>{item.how_out}</td>
                       <td>{item.runs}</td>
-                      <td>{item.balls}</td>
+                      <td>{item.balls_faced}</td>
                       <td>{item.fours}</td>
                       <td>{item.sixes}</td>
                       <td className="flex items-center">
@@ -88,7 +104,8 @@ const Scorecard = () => {
                 <div className="flex justify-between w-[550px]">
                   <div className="text-slate-400">EXTRAS</div>
                   <div className="text-slate-400 flex">
-                    {squadData?.innings?.[0]?.extra_runs &&
+                    {formatExtraRuns(squadData?.innings?.[0]?.extra_runs)}
+                    {/* {squadData?.innings?.[0]?.extra_runs &&
                       Object.entries(squadData.innings[0].extra_runs).map(
                         ([key, value]) => (
                           <div key={key} className="flex items-center gap-2">
@@ -96,7 +113,7 @@ const Scorecard = () => {
                             <span>{value}</span>
                           </div>
                         )
-                      )}
+                      )} */}
                   </div>
                 </div>
               </div>
@@ -209,7 +226,10 @@ const Scorecard = () => {
                   {squadData?.innings?.[0]?.fows?.map((item, index) => (
                     <tr className="border-b">
                       <td>
-                        {item?.name} {item?.dismissal}
+                        {item?.name}{" "}
+                        <span style={{ paddingRight: "1.5rem" }}>
+                          {item?.how_out}
+                        </span>
                       </td>
                       <td className="pl-3">{item?.score_at_dismissal}</td>
                       <td className="text-[#0F19AF] pt-2 pl-3">
@@ -524,9 +544,19 @@ const Scorecard = () => {
           </div>
 
           <div className="w-[250px] ">
-            {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              <img src={banner1?.image} style={{ width: "100%",height:"100%",borderRadius:"10px"   }} alt="" />
-            </div>}
+            {banner1 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner1?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
             <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
               <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
               <img src={videoframe} alt="" />
@@ -538,10 +568,19 @@ const Scorecard = () => {
                 </button>
               </div>
             </div>
-            {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              <img src={banner2?.image} style={{ width: "100%",height:"100%"  ,borderRadius:"10px" }} alt="" />
-            </div>}
-           
+            {banner2 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner2?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
