@@ -11,6 +11,51 @@ const Scorecard = () => {
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
+
+  function formatDate11(dateString) {
+    // Parse the input date string
+    const date = new Date(dateString);
+  
+    // Get the components of the date
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const months = [
+      "January", "February", "March", "April", "May", "June",
+      "July", "August", "September", "October", "November", "December"
+    ];
+  
+    const dayOfWeek = daysOfWeek[date.getUTCDay()];
+    const month = months[date.getUTCMonth()];
+    const day = date.getUTCDate();
+    const year = date.getUTCFullYear();
+  
+    // Format the final date string
+    const formattedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
+  
+    return formattedDate;
+  }
+
+  function formatDateTime(dateString) {
+    // Parse the input date string
+    const date = new Date(dateString);
+  
+    // Get the components of the date and time
+    const day = date.getUTCDate();
+    const month = date.toLocaleString('default', { month: 'short' });
+    const hours = date.getUTCHours();
+    const minutes = date.getUTCMinutes();
+  
+    // Format hours to 12-hour format and determine AM/PM
+    const period = hours >= 12 ? 'PM' : 'AM';
+    const formattedHours = hours % 12 || 12; // Convert 0 to 12 for midnight
+  
+    // Pad minutes with leading zero if necessary
+    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
+  
+    // Format the final date and time string
+    const formattedDateTime = `${formattedHours}:${formattedMinutes} ${period} (${month} ${day})`;
+  
+    return formattedDateTime;
+  }
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
       const banner = res?.data?.data;
@@ -166,7 +211,7 @@ const Scorecard = () => {
                   {squadData?.innings?.[0]?.bowlers?.map((item, index) => (
                     <tr>
                       {console.log(item)}
-                      <td className="text-[#0F19AF]  pt-2">{item.name}</td>
+                      <td className="text-[#0F19AF]  pl-3">{item.name}</td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
                       <td>{item.run0}</td>
@@ -218,6 +263,7 @@ const Scorecard = () => {
                     <th className="w-[350px] pl-3 text-left overflow-hidden">
                       Fall Of Wickets
                     </th>
+                    <th className="w-[150px] text-left"></th>
                     <th className="w-[150px] text-left">Score</th>
                     <th className="w-[150px] text-left">Over</th>
                   </tr>
@@ -225,11 +271,14 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[0]?.fows?.map((item, index) => (
                     <tr className="border-b">
-                      <td>
+                      <td className="pl-3">
                         {item?.name}{" "}
-                        <span style={{ paddingRight: "1.5rem" }}>
-                          {item?.how_out}
-                        </span>
+
+
+                      </td>
+                      <td className="pr-3">
+                        {item?.how_out}
+
                       </td>
                       <td className="pl-3">{item?.score_at_dismissal}</td>
                       <td className="text-[#0F19AF] pt-2 pl-3">
@@ -265,9 +314,9 @@ const Scorecard = () => {
                   {squadData?.innings?.[1]?.batsmen?.map((item, index) => (
                     <tr key={index} className="border-b">
                       <td className="text-[#0F19AF]">{item.name}</td>
-                      <td>{item.dismissal}</td>
+                      <td>{item.how_out}</td>
                       <td>{item.runs}</td>
-                      <td>{item.balls}</td>
+                      <td>{item.balls_faced}</td>
                       <td>{item.fours}</td>
                       <td>{item.sixes}</td>
                       <td className="flex items-center">
@@ -281,7 +330,9 @@ const Scorecard = () => {
                 <div className="flex justify-between w-[550px]">
                   <div className="text-slate-400">EXTRAS</div>
                   <div className="text-slate-400 flex">
-                    {squadData?.innings?.[0]?.extra_runs &&
+                    {formatExtraRuns(squadData?.innings?.[1]?.extra_runs)}
+
+                    {/* {squadData?.innings?.[0]?.extra_runs &&
                       Object.entries(squadData.innings[0].extra_runs).map(
                         ([key, value]) => (
                           <div key={key} className="flex items-center gap-2">
@@ -289,7 +340,7 @@ const Scorecard = () => {
                             <span>{value}</span>
                           </div>
                         )
-                      )}
+                      )} */}
                   </div>
                 </div>
               </div>
@@ -342,7 +393,7 @@ const Scorecard = () => {
                   {squadData?.innings?.[1]?.bowlers?.map((item, index) => (
                     <tr>
                       {console.log(item)}
-                      <td className="text-[#0F19AF]  pt-2">{item.name}</td>
+                      <td className="text-[#0F19AF]  pl-3">{item.name}</td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
                       <td>{item.run0}</td>
@@ -448,8 +499,7 @@ const Scorecard = () => {
                   Match
                 </div>
                 <div className="text-slate-400 mr-2">
-                  {squadData?.innings?.[0]?.name} {" Vs"}
-                  {squadData?.innings?.[1]?.name}
+                  {squadData?.short_title}{","}{squadData?.subtitle}{","}{squadData?.competition?.title}
                 </div>
               </div>
               <div className="flex justify-between border-b">
@@ -471,11 +521,7 @@ const Scorecard = () => {
                   Date
                 </div>
                 <div className="text-slate-400 mr-2">
-                  {squadData?.competition?.datestart
-                    ?.split(" ")[0]
-                    ?.split("-")
-                    ?.reverse()
-                    ?.join("-")}
+                  {formatDate11(squadData?.date_start)}
                 </div>
               </div>
               <div className="flex justify-between border-b">
@@ -486,7 +532,7 @@ const Scorecard = () => {
                   Time
                 </div>
                 <div className="text-slate-400 mr-2">
-                  {squadData?.date_start?.split(" ")[1]}
+                  {formatDateTime(squadData?.date_start)}
                 </div>
               </div>
               <div className="flex justify-between border-b">
@@ -508,7 +554,7 @@ const Scorecard = () => {
                   Venue
                 </div>
                 <div className="text-slate-400 mr-2">
-                  {squadData?.venue?.name}
+                  {squadData?.venue?.name} {","}{squadData?.venue?.location}
                 </div>
               </div>
               <div className="flex justify-between border-b">
@@ -518,7 +564,7 @@ const Scorecard = () => {
                 >
                   Umpires
                 </div>
-                <div className="text-slate-400 mr-2">{squadData?.umpires}</div>
+                <div className="text-slate-400 mr-2">{squadData?.umpires?.split(",")[0]}{","}{squadData?.umpires?.split(",")[1]}</div>
               </div>
               <div className="flex justify-between border-b">
                 <div
