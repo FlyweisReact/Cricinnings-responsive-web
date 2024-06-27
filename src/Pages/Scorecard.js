@@ -13,47 +13,89 @@ const Scorecard = () => {
   const [banner3, setBanner3] = useState();
 
   function formatDate11(dateString) {
-    // Parse the input date string
     const date = new Date(dateString);
-  
-    // Get the components of the date
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-    const months = [
-      "January", "February", "March", "April", "May", "June",
-      "July", "August", "September", "October", "November", "December"
+
+    const daysOfWeek = [
+      "Sunday",
+      "Monday",
+      "Tuesday",
+      "Wednesday",
+      "Thursday",
+      "Friday",
+      "Saturday",
     ];
-  
+    const months = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December",
+    ];
+
     const dayOfWeek = daysOfWeek[date.getUTCDay()];
     const month = months[date.getUTCMonth()];
     const day = date.getUTCDate();
     const year = date.getUTCFullYear();
-  
-    // Format the final date string
+
     const formattedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
-  
+
     return formattedDate;
+  }
+  function extractPowerplayData2(matchNotes) {
+    if (!matchNotes || !matchNotes.length) return null;
+
+    for (const note of matchNotes[1]) {
+      if (note.startsWith("Powerplay 1")) {
+        const match = note.match(/Powerplay 1 \((.*?)\) Run (\d+), wicket \d+/);
+        if (match) {
+          return {
+            over: match[1],
+            run: match[2],
+          };
+        }
+      }
+    }
+    return null;
+  }
+  function extractPowerplayData1(matchNotes) {
+    if (!matchNotes || !matchNotes.length) return null;
+
+    for (const note of matchNotes[0]) {
+      if (note.startsWith("Powerplay 1")) {
+        const match = note.match(/Powerplay 1 \((.*?)\) Run (\d+), wicket \d+/);
+        if (match) {
+          return {
+            over: match[1],
+            run: match[2],
+          };
+        }
+      }
+    }
+    return null;
   }
 
   function formatDateTime(dateString) {
-    // Parse the input date string
     const date = new Date(dateString);
-  
-    // Get the components of the date and time
+
     const day = date.getUTCDate();
-    const month = date.toLocaleString('default', { month: 'short' });
+    const month = date.toLocaleString("default", { month: "short" });
     const hours = date.getUTCHours();
     const minutes = date.getUTCMinutes();
-  
-    // Format hours to 12-hour format and determine AM/PM
-    const period = hours >= 12 ? 'PM' : 'AM';
-    const formattedHours = hours % 12 || 12; // Convert 0 to 12 for midnight
-  
-    // Pad minutes with leading zero if necessary
-    const formattedMinutes = minutes < 10 ? '0' + minutes : minutes;
-  
-    // Format the final date and time string
+
+    const period = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+
+    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+
     const formattedDateTime = `${formattedHours}:${formattedMinutes} ${period} (${month} ${day})`;
-  
+
     return formattedDateTime;
   }
   const getAllBanner = async () => {
@@ -150,15 +192,7 @@ const Scorecard = () => {
                   <div className="text-slate-400">EXTRAS</div>
                   <div className="text-slate-400 flex">
                     {formatExtraRuns(squadData?.innings?.[0]?.extra_runs)}
-                    {/* {squadData?.innings?.[0]?.extra_runs &&
-                      Object.entries(squadData.innings[0].extra_runs).map(
-                        ([key, value]) => (
-                          <div key={key} className="flex items-center gap-2">
-                            <span className="font-semibold">{key}:</span>
-                            <span>{value}</span>
-                          </div>
-                        )
-                      )} */}
+                    {}
                   </div>
                 </div>
               </div>
@@ -186,7 +220,7 @@ const Scorecard = () => {
             </div>
 
             <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-              <table className=" ">
+              <table className="p-2">
                 <thead className="border-b">
                   <tr
                     style={{ borderRadius: "10px 0 10px 0" }}
@@ -209,8 +243,9 @@ const Scorecard = () => {
                 </thead>
                 <tbody>
                   {squadData?.innings?.[0]?.bowlers?.map((item, index) => (
-                    <tr>
-                      {console.log(item)}
+                    <tr
+                      style={{ borderBottom: "1px solid rgb(126, 127, 126)" }}
+                    >
                       <td className="text-[#0F19AF]  pl-3">{item.name}</td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
@@ -235,19 +270,21 @@ const Scorecard = () => {
                     <th className="w-[350px] pl-3 text-left overflow-hidden">
                       Powerplays
                     </th>
-                    <th className="w-[150px] text-left">Start Over</th>
-                    <th className="w-[150px] text-left">End Over</th>
+                    <th className="w-[150px] text-left"> Over</th>
+                    <th className="w-[150px] text-left">Runs</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b">
                     <td></td>
                     <td className="pl-3">
-                      {console.log(squadData?.innings?.[0]?.powerplay)}
-                      {squadData?.innings?.[0]?.powerplay?.p1?.startover}
+                      {extractPowerplayData1(squadData?.match_notes)?.over}
                     </td>
-                    <td className="text-[#0F19AF] pt-2 pl-3">
-                      {squadData?.innings?.[0]?.powerplay?.p1?.endover}
+                    <td
+                      style={{ textDecoration: "none" }}
+                      className="text-[#0F19AF] pt-2 pl-3"
+                    >
+                      {extractPowerplayData1(squadData?.match_notes)?.run}
                     </td>
                   </tr>
                 </tbody>
@@ -271,15 +308,8 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[0]?.fows?.map((item, index) => (
                     <tr className="border-b">
-                      <td className="pl-3">
-                        {item?.name}{" "}
-
-
-                      </td>
-                      <td className="pr-3">
-                        {item?.how_out}
-
-                      </td>
+                      <td className="pl-3">{item?.name} </td>
+                      <td className="pr-3">{item?.how_out}</td>
                       <td className="pl-3">{item?.score_at_dismissal}</td>
                       <td className="text-[#0F19AF] pt-2 pl-3">
                         {item?.overs_at_dismissal}
@@ -332,15 +362,7 @@ const Scorecard = () => {
                   <div className="text-slate-400 flex">
                     {formatExtraRuns(squadData?.innings?.[1]?.extra_runs)}
 
-                    {/* {squadData?.innings?.[0]?.extra_runs &&
-                      Object.entries(squadData.innings[0].extra_runs).map(
-                        ([key, value]) => (
-                          <div key={key} className="flex items-center gap-2">
-                            <span className="font-semibold">{key}:</span>
-                            <span>{value}</span>
-                          </div>
-                        )
-                      )} */}
+                    {}
                   </div>
                 </div>
               </div>
@@ -391,8 +413,9 @@ const Scorecard = () => {
                 </thead>
                 <tbody>
                   {squadData?.innings?.[1]?.bowlers?.map((item, index) => (
-                    <tr>
-                      {console.log(item)}
+                    <tr
+                      style={{ borderBottom: "1px solid rgb(126, 127, 126)" }}
+                    >
                       <td className="text-[#0F19AF]  pl-3">{item.name}</td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
@@ -407,84 +430,65 @@ const Scorecard = () => {
                 </tbody>
               </table>
             </div>
-
-            {/* <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-              <table className=" ">
-                <thead>
-                  <tr className="rounded-t-lg bg-[#0F19AF]  h-[45px] text-white">
-                    <th className="w-[200px] text-left ">Fall Of Wicktes</th>
-                    <th className="w-[300px] text-left">O</th>
-                    <th className="w-[100px] text-left">Score</th>
-                    <th className="w-[100px] text-left">Over</th>
+            <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
+              <table className="w-full">
+                <thead className="border-b">
+                  <tr
+                    className="bg-[#0F19AF] w-full h-[45px] text-white"
+                    style={{ borderRadius: "10px 10px 0 0" }}
+                  >
+                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                      Powerplays
+                    </th>
+                    <th className="w-[150px] text-left"> Over</th>
+                    <th className="w-[150px] text-left">Runs</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
+                    <td></td>
+                    <td className="pl-3">
+                      {extractPowerplayData2(squadData?.match_notes)?.over}
                     </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
-                    </td>
-                  </tr>
-                  <tr className="border-b">
-                    <td className="text-[#0F19AF]">Mahmudul Hasan Joy </td>
-
-                    <td>b L Kumara</td>
-                    <td>1-47</td>
-                    <td className="flex  items-center">
-                      12.3 <IoCaretForwardOutline />
+                    <td
+                      style={{ textDecoration: "none" }}
+                      className="text-[#0F19AF] pt-2 pl-3"
+                    >
+                      {extractPowerplayData2(squadData?.match_notes)?.run}
                     </td>
                   </tr>
                 </tbody>
               </table>
-            </div> */}
+            </div>
+            <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
+              <table className="w-full">
+                <thead className="border-b">
+                  <tr
+                    className="bg-[#0F19AF] w-full h-[45px] text-white"
+                    style={{ borderRadius: "10px 10px 0 0" }}
+                  >
+                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                      Fall Of Wickets
+                    </th>
+                    <th className="w-[150px] text-left"></th>
+                    <th className="w-[150px] text-left">Score</th>
+                    <th className="w-[150px] text-left">Over</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {squadData?.innings?.[1]?.fows?.map((item, index) => (
+                    <tr className="border-b">
+                      <td className="pl-3">{item?.name} </td>
+                      <td className="pr-3">{item?.how_out}</td>
+                      <td className="pl-3">{item?.score_at_dismissal}</td>
+                      <td className="text-[#0F19AF] pt-2 pl-3">
+                        {item?.overs_at_dismissal}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
             <div className="mt-5 shadow-2xl">
               <div className="bg-[#0F19AF] h-[45px] flex items-center text-white pl-2">
@@ -499,7 +503,11 @@ const Scorecard = () => {
                   Match
                 </div>
                 <div className="text-slate-400 mr-2">
-                  {squadData?.short_title}{","}{squadData?.subtitle}{","}{squadData?.competition?.title}
+                  {squadData?.short_title}
+                  {","}
+                  {squadData?.subtitle}
+                  {","}
+                  {squadData?.competition?.title}
                 </div>
               </div>
               <div className="flex justify-between border-b">
@@ -554,7 +562,8 @@ const Scorecard = () => {
                   Venue
                 </div>
                 <div className="text-slate-400 mr-2">
-                  {squadData?.venue?.name} {","}{squadData?.venue?.location}
+                  {squadData?.venue?.name} {","}
+                  {squadData?.venue?.location}
                 </div>
               </div>
               <div className="flex justify-between border-b">
@@ -564,7 +573,11 @@ const Scorecard = () => {
                 >
                   Umpires
                 </div>
-                <div className="text-slate-400 mr-2">{squadData?.umpires?.split(",")[0]}{","}{squadData?.umpires?.split(",")[1]}</div>
+                <div className="text-slate-400 mr-2">
+                  {squadData?.umpires?.split(",")[0]}
+                  {","}
+                  {squadData?.umpires?.split(",")[1]}
+                </div>
               </div>
               <div className="flex justify-between border-b">
                 <div
