@@ -413,3 +413,73 @@
   border-radius:  4px;
 }
 
+.player-name{
+  font-size: 40px;
+line-height: 42px;
+margin: 0px;
+color: rgb(34, 34, 34);
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
+}
+
+.player-country{
+  font-size: 18px;
+line-height: 24px;
+margin: 0px;
+color: rgb(102, 102, 102);
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
+}
+
+.player-profile{
+ display: flex;
+ gap: 2rem;
+
+}
+
+.left-container{
+  width: 323.391px;
+box-sizing: border-box;
+display: block;
+float: left;
+min-height: 1px;
+color: rgb(34, 34, 34);
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+font-size: 14px;
+line-height: 21px;
+background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245);
+font-weight: 700;
+font-size: 16px;
+margin-top: 2rem;
+padding: 2rem;
+}
+
+.left-text{
+  width: 117.344px;
+box-sizing: border-box;
+display: block;
+float: left;
+min-height: 1px;
+padding: 10px 0px 5px;
+font-weight: 700;
+color: rgb(34, 34, 34);
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+font-size: 14px;
+line-height: 21px;
+background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245);
+color: #000;
+}
+
+.right-text{
+  width: 176.031px;
+box-sizing: border-box;
+display: block;
+float: left;
+min-height: 1px;
+padding: 10px 0px 5px;
+color: rgb(34, 34, 34);
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+font-size: 14px;
+line-height: 21px;
+background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245);
+}

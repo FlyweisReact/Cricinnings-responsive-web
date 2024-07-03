@@ -27,6 +27,7 @@ import PrivacyPage from "./Pages/PrivacyPage";
 import LivescroreById from "./Pages/LiveScoresById";
 import FeacturePosts from "./Pages/FeacturePosts";
 import AboutPage from "./Pages/AboutPage";
+import PlayerProfile from "./Pages/PlayerProfile";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
       {
         path: "/Squads",
         element: <Squads />,
+      },
+      {
+        path: "/profile/:playerId/:playerName",
+        element: <PlayerProfile />,
       },
       {
         path: "/Squads/:matchId",
