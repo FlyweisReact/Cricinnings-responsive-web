@@ -83,6 +83,10 @@ const Matchinfo = () => {
                   <div className="">
                     {formatDateTime(squadData?.date_start)}
                   </div>
+                  <span className="font-semibold">Indian Local Time:</span>
+                  <div className="">
+                 {squadData?.date_start?.slice(0, 10)?.split("-").reverse().join("-")}   {(squadData?.date_start?.slice(11, 16) + " " + "IST")}
+                  </div>
                   <span className="font-semibold">Venue:</span>
                   <div className="">
                     {squadData?.venue?.name} {","}
@@ -105,30 +109,23 @@ const Matchinfo = () => {
                 <div className="text-[#0F19AF] underline font-semibold">
                   Venue Guide
                 </div>
-                <div className="mt-5">
+                <div className="mt-2">
                   <span className="font-semibold">Stadium:</span>
                   <div className=""> {squadData?.venue?.name}</div>
                   <span className="font-semibold">City:</span>
                   <div className=""> {squadData?.venue?.country}</div>
-                  <span className="font-semibold">Capacity:</span>
-                  <div className="">480000</div>
+                  
                   <span className="font-semibold">End:</span>
                   <div className="">{formatDateTime(squadData?.date_end)}</div>
-                  <span className="font-semibold">Hosts to:</span>
-                  <div className="">{squadData?.venue?.country}</div>
+                  <span className="font-semibold">Indian Local Time:</span>
+                  <div className="">
+                 {squadData?.date_end?.slice(0, 10)?.split("-").reverse().join("-")}   {(squadData?.date_end?.slice(11, 16) + " " + "IST")}
+                  </div>
+                    <span className="font-semibold">Hosts to:</span>
+                    <div className="">{squadData?.venue?.country}</div>
                 </div>
               </div>
-              <div className="mt-10 ml-4">
-                <div className="text-[#0F19AF] underline font-semibold">
-                  Broadcast Guide
-                </div>
-                <div className="mt-5">
-                  <span className="font-semibold"> Streaming:</span>
-                  <div className="">Jio Cinema</div>
-                  <span className="font-semibold">Tv:</span>
-                  <div className="">Sports 18 Network</div>
-                </div>
-              </div>
+              
             </div>
             <div className="w-[250px] ">
               {banner1 && (

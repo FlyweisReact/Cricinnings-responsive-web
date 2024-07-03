@@ -14,15 +14,15 @@ import {
 import axios from "axios";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 const Livescrore = () => {
-
   const location = useLocation();
 
-  const initialLocation = location.pathname === "/Livescrore/Schedule"
-    ? "Match Day By Day"
-    : location.pathname === "/Livescrore/Allseries"
+  const initialLocation =
+    location.pathname === "/Livescrore/Schedule"
+      ? "Match Day By Day"
+      : location.pathname === "/Livescrore/Allseries"
       ? "Current & Future Series"
       : "Current Matches";
-  console.log(location.pathname)
+  console.log(location.pathname);
   const [selectedDiv, setSelectedDiv] = useState(initialLocation);
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
@@ -82,12 +82,25 @@ const Livescrore = () => {
   };
   function formatDateString1(dateString) {
     const originalDate = new Date(dateString.replace(" ", "T"));
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
     const month = monthNames[originalDate.getMonth()];
     const day = originalDate.getDate();
     let hours = originalDate.getHours();
-    const minutes = originalDate.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
+    const minutes = originalDate.getMinutes().toString().padStart(2, "0");
+    const ampm = hours >= 12 ? "PM" : "AM";
     hours = hours % 12;
     hours = hours ? hours : 12;
     const formattedDate = `${month} ${day} ${hours}:${minutes}${ampm}`;
@@ -102,7 +115,7 @@ const Livescrore = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getAllHomePageBanners = async () => {
@@ -110,8 +123,12 @@ const Livescrore = () => {
       const res1 = await GetData("userAuth/getPostsByPosition");
 
       const topBanner = res1?.data?.filter((item) => item?.title === "top");
-      const middleBanner = res1?.data?.filter((item) => item?.title === "middle");
-      const bottomBanner = res1?.data?.filter((item) => item?.title === "bottom");
+      const middleBanner = res1?.data?.filter(
+        (item) => item?.title === "middle"
+      );
+      const bottomBanner = res1?.data?.filter(
+        (item) => item?.title === "bottom"
+      );
 
       setTopBanner1(topBanner[0]?.image);
       setTopBanner2(topBanner[1]?.image);
@@ -126,13 +143,30 @@ const Livescrore = () => {
       const res2 = await axios.get(`${baseUrl}admin/getAllPosts`);
 
       // Extract and set banners from the second response
-      setHompageBanner2(res2?.data?.data?.find((item) => item.title === "scorePageBanner1")?.image);
-      setHompageBanner3(res2?.data?.data?.find((item) => item.title === "scorePageBanner2")?.image);
-      setHompageBanner4(res2?.data?.data?.find((item) => item.title === "scorePageBanner3")?.image);
-      setHompageBanner5(res2?.data?.data?.find((item) => item.title === "hompageBanner5")?.image);
-      setHompageBanner6(res2?.data?.data?.find((item) => item.title === "hompageBanner6"));
-      setHompageBanner7(res2?.data?.data?.find((item) => item.title === "hompageBanner7"));
-      setHompageBanner8(res2?.data?.data?.find((item) => item.title === "hompageBanner8"));
+      setHompageBanner2(
+        res2?.data?.data?.find((item) => item.title === "scorePageBanner1")
+          ?.image
+      );
+      setHompageBanner3(
+        res2?.data?.data?.find((item) => item.title === "scorePageBanner2")
+          ?.image
+      );
+      setHompageBanner4(
+        res2?.data?.data?.find((item) => item.title === "scorePageBanner3")
+          ?.image
+      );
+      setHompageBanner5(
+        res2?.data?.data?.find((item) => item.title === "hompageBanner5")?.image
+      );
+      setHompageBanner6(
+        res2?.data?.data?.find((item) => item.title === "hompageBanner6")
+      );
+      setHompageBanner7(
+        res2?.data?.data?.find((item) => item.title === "hompageBanner7")
+      );
+      setHompageBanner8(
+        res2?.data?.data?.find((item) => item.title === "hompageBanner8")
+      );
     } catch (error) {
       console.error("Error fetching homepage banners:", error);
     }
@@ -158,8 +192,6 @@ const Livescrore = () => {
     setTest(res?.data?.rankingData?.ranks?.teams?.tests);
     setTeamRankings(res?.response?.items);
   };
-
-
 
   const getAllFeacturePosts = () => {
     GetData("userAuth/getFeaturePost").then((res) => {
@@ -257,7 +289,7 @@ const Livescrore = () => {
         console.log(res?.data?.competitions);
         setNewMatchData(res?.data?.competitions);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -272,7 +304,7 @@ const Livescrore = () => {
       .then((res) => {
         setCompetationsType(res?.data?.competitions);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
   const formatDate = (dateString) => {
     if (!dateString) return "";
@@ -328,10 +360,10 @@ const Livescrore = () => {
       .then((res) => {
         setCurrentMatches(res?.response?.items);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
-  useEffect(() => { }, []);
+  useEffect(() => {}, []);
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
@@ -347,7 +379,7 @@ const Livescrore = () => {
       .then((res) => {
         setCurrentSeries(res?.response?.items);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
   useEffect(() => {
     getAllSpecialBanners();
@@ -359,37 +391,41 @@ const Livescrore = () => {
         <div className="font-semibold">Live Cricket Score</div>
         <div className="flex  gap-5 mt-2">
           <div
-            className={`cursor-pointer ${selectedDiv === "Current Matches"
-              ? "underline text-[#0F19AF] underline-offset-8"
-              : ""
-              }`}
+            className={`cursor-pointer ${
+              selectedDiv === "Current Matches"
+                ? "underline text-[#0F19AF] underline-offset-8"
+                : ""
+            }`}
             onClick={() => setSelectedDiv("Current Matches")}
           >
             Current Matches
           </div>
           <div
-            className={`cursor-pointer ${selectedDiv === "Current & Future Series"
-              ? "underline text-[#0F19AF] underline-offset-8"
-              : ""
-              }`}
+            className={`cursor-pointer ${
+              selectedDiv === "Current & Future Series"
+                ? "underline text-[#0F19AF] underline-offset-8"
+                : ""
+            }`}
             onClick={() => setSelectedDiv("Current & Future Series")}
           >
             Current & Future Series
           </div>
           <div
-            className={`cursor-pointer ${selectedDiv === "Match Day By Day"
-              ? "underline text-[#0F19AF] underline-offset-8"
-              : ""
-              }`}
+            className={`cursor-pointer ${
+              selectedDiv === "Match Day By Day"
+                ? "underline text-[#0F19AF] underline-offset-8"
+                : ""
+            }`}
             onClick={() => setSelectedDiv("Match Day By Day")}
           >
             Match Day By Day
           </div>
           <div
-            className={`cursor-pointer ${selectedDiv === "Teams"
-              ? "underline text-[#0F19AF] underline-offset-8"
-              : ""
-              }`}
+            className={`cursor-pointer ${
+              selectedDiv === "Teams"
+                ? "underline text-[#0F19AF] underline-offset-8"
+                : ""
+            }`}
             onClick={() => setSelectedDiv("Teams")}
           >
             Teams
@@ -406,7 +442,10 @@ const Livescrore = () => {
           </div> */}
         </div>
         <hr className="mt-2" />
-        <div style={{ display: selectedDiv === "Teams" ? "none" : "flex" }} className="flex gap-5 mt-2">
+        <div
+          style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
+          className="flex gap-5 mt-2"
+        >
           <div
             onClick={() => setCategory("international")}
             style={{
@@ -477,7 +516,14 @@ const Livescrore = () => {
                       <div className="flex flex-col gap-5">
                         {competationsType[0]?.matches?.map((item, index) => {
                           return (
-                            <div onClick={() => navigate(`/match/${item?.match_id}`)} key={index} style={{ borderRadius: "10px" }} className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer">
+                            <div
+                              onClick={() =>
+                                navigate(`/match/${item?.match_id}`)
+                              }
+                              key={index}
+                              style={{ borderRadius: "10px" }}
+                              className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer"
+                            >
                               <div className="flex">
                                 <span className="font-semibold"></span>
                                 <span className="text-slate-400">
@@ -495,7 +541,10 @@ const Livescrore = () => {
                                 {item?.venue?.location}
                               </div>
                               <div className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                                <div style={{ padding: "0.5rem 1rem" }} className="flex items-center gap-[6rem] ">
+                                <div
+                                  style={{ padding: "0.5rem 1rem" }}
+                                  className="flex items-center gap-[6rem] "
+                                >
                                   <div>
                                     <div className="flex gap-5 text-white">
                                       <span>{item?.teama?.name}</span>
@@ -516,16 +565,36 @@ const Livescrore = () => {
                                 </div>
                               </div>
                               <div className="flex ">
-                                <div onClick={() => navigate(`/match/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer">
+                                <div
+                                  onClick={() =>
+                                    navigate(`/match/${item?.match_id}`)
+                                  }
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
+                                >
                                   Live Score
                                 </div>
-                                <div onClick={() => navigate(`/Scorecard/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
+                                <div
+                                  onClick={() =>
+                                    navigate(`/Scorecard/${item?.match_id}`)
+                                  }
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
+                                >
                                   Scorecard
                                 </div>
-                                <div onClick={() => navigate(`/match/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
+                                <div
+                                  onClick={() =>
+                                    navigate(`/match/${item?.match_id}`)
+                                  }
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
+                                >
                                   Full Commentary
                                 </div>
-                                <div onClick={() => navigate(`/News/${item?.match_id}`)} className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer">
+                                <div
+                                  onClick={() =>
+                                    navigate(`/News/${item?.match_id}`)
+                                  }
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
+                                >
                                   News
                                 </div>
                               </div>
@@ -543,16 +612,24 @@ const Livescrore = () => {
                               key={index}
                               className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
                             >
-                              { }
+                              {}
                               {item?.title}
                             </div>
                             <div className="flex flex-col gap-5 mt-5">
                               {item?.matches?.map((item, index) => {
                                 return (
-                                  <div key={index} style={{ borderRadius: "10px", boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className=" h-[300px] pt-2 pl-2  flex flex-col gap-2">
+                                  <div
+                                    key={index}
+                                    style={{
+                                      borderRadius: "10px",
+                                      boxShadow:
+                                        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                                    }}
+                                    className=" h-[300px] pt-2 pl-2  flex flex-col gap-2"
+                                  >
                                     <div className="flex">
                                       <span className="font-semibold"></span>
-                                      <span className="text-slate-400">{ }</span>
+                                      <span className="text-slate-400">{}</span>
                                     </div>
                                     <div className="text-slate-400">
                                       {item?.date_start
@@ -606,7 +683,7 @@ const Livescrore = () => {
                                   </div>
                                 );
                               })}
-                              { }
+                              {}
                             </div>
                           </>
                         );
@@ -615,7 +692,13 @@ const Livescrore = () => {
 
                     <div className="w-[250px]">
                       {allSeries?.length > 0 && (
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] pb-3 rounded-lg mb-3">
+                        <div
+                          style={{
+                            boxShadow:
+                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                          }}
+                          className="bg-[white] pb-3 rounded-lg mb-3"
+                        >
                           <span
                             style={{
                               color: "black",
@@ -668,7 +751,14 @@ const Livescrore = () => {
                       )}
 
                       <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", padding: "10px" }} className="flex justify-between p-2">
+                        <div
+                          style={{
+                            boxShadow:
+                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                            padding: "10px",
+                          }}
+                          className="flex justify-between p-2"
+                        >
                           <div
                             className="text-sm font-semibold"
                             style={{ fontSize: "12px" }}
@@ -692,8 +782,10 @@ const Livescrore = () => {
                               cursor: "pointer",
                               backgroundColor:
                                 teamSelector === "test" ? "#0F19AF" : "black",
-                              color: teamSelector === "test" ? "white" : "black",
-                              fontWeight: teamSelector === "test" ? "bold" : "normal",
+                              color:
+                                teamSelector === "test" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "test" ? "bold" : "normal",
                             }}
                           >
                             Test
@@ -703,9 +795,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "odi" ? "#0F19AF" : null,
                               color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight: teamSelector === "odi" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "odi" ? "bold" : "normal",
                             }}
                           >
                             ODI
@@ -715,9 +809,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "t20" ? "#0F19AF" : null,
                               color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight: teamSelector === "t20" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "t20" ? "bold" : "normal",
                             }}
                           >
                             T20
@@ -729,7 +825,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "teams" ? "underline" : "none",
-                              fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "teams" ? "bold" : "normal",
                               color: "black",
                               textDecorationColor: "#0F19AF",
                             }}
@@ -742,8 +839,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "batting" ? "underline" : "none",
-                              fontWeight: mainCategory === "batting" ? "bold" : "normal",
+                                mainCategory === "batting"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "batting" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -755,8 +855,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "bowling" ? "underline" : "none",
-                              fontWeight: mainCategory === "bowling" ? "bold" : "normal",
+                                mainCategory === "bowling"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "bowling" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -769,7 +872,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "alr" ? "underline" : "none",
-                              fontWeight: mainCategory === "alr" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "alr" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -791,27 +895,54 @@ const Livescrore = () => {
                               <>
                                 {teamSelector === "test" &&
                                   test?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   t20s?.slice(0, 6).map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
 
                                 {teamSelector === "odi" &&
                                   odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -819,83 +950,176 @@ const Livescrore = () => {
                             {mainCategory === "batting" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "bowling" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "alr" && (
                               <>
                                 {teamSelector === "test" &&
                                   testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "odi" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -918,9 +1142,17 @@ const Livescrore = () => {
                           alt="images"
                         />
                       )}
-                      <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] rounded-lg mt-2 mb-3">
+                      <div
+                        style={{
+                          boxShadow:
+                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                        }}
+                        className="bg-[white] rounded-lg mt-2 mb-3"
+                      >
                         <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">SPECIALS</span>
+                          <span className="font-semibold text-sm ml-4">
+                            SPECIALS
+                          </span>
                           {specialBanner?.map((item, index) => (
                             <>
                               <img src={item?.image} alt="" />
@@ -951,7 +1183,6 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
                       <div className="flex flex-col gap-5">
-                        {console.log("currentSeries", competationsType)}
                         {competationsType?.map((item) => (
                           <div className="flex gap-[10rem]">
                             <div className="font-semibold">
@@ -970,7 +1201,13 @@ const Livescrore = () => {
                     </div>
                     <div className="w-[250px]">
                       {allSeries?.length > 0 && (
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] pb-3 rounded-lg mb-3">
+                        <div
+                          style={{
+                            boxShadow:
+                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                          }}
+                          className="bg-[white] pb-3 rounded-lg mb-3"
+                        >
                           <span
                             style={{
                               color: "black",
@@ -1023,7 +1260,14 @@ const Livescrore = () => {
                       )}
 
                       <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", padding: "10px" }} className="flex justify-between p-2">
+                        <div
+                          style={{
+                            boxShadow:
+                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                            padding: "10px",
+                          }}
+                          className="flex justify-between p-2"
+                        >
                           <div
                             className="text-sm font-semibold"
                             style={{ fontSize: "12px" }}
@@ -1047,8 +1291,10 @@ const Livescrore = () => {
                               cursor: "pointer",
                               backgroundColor:
                                 teamSelector === "test" ? "#0F19AF" : "black",
-                              color: teamSelector === "test" ? "white" : "black",
-                              fontWeight: teamSelector === "test" ? "bold" : "normal",
+                              color:
+                                teamSelector === "test" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "test" ? "bold" : "normal",
                             }}
                           >
                             Test
@@ -1058,9 +1304,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "odi" ? "#0F19AF" : null,
                               color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight: teamSelector === "odi" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "odi" ? "bold" : "normal",
                             }}
                           >
                             ODI
@@ -1070,9 +1318,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "t20" ? "#0F19AF" : null,
                               color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight: teamSelector === "t20" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "t20" ? "bold" : "normal",
                             }}
                           >
                             T20
@@ -1084,7 +1334,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "teams" ? "underline" : "none",
-                              fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "teams" ? "bold" : "normal",
                               color: "black",
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1097,8 +1348,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "batting" ? "underline" : "none",
-                              fontWeight: mainCategory === "batting" ? "bold" : "normal",
+                                mainCategory === "batting"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "batting" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1110,8 +1364,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "bowling" ? "underline" : "none",
-                              fontWeight: mainCategory === "bowling" ? "bold" : "normal",
+                                mainCategory === "bowling"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "bowling" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1124,7 +1381,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "alr" ? "underline" : "none",
-                              fontWeight: mainCategory === "alr" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "alr" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1146,27 +1404,54 @@ const Livescrore = () => {
                               <>
                                 {teamSelector === "test" &&
                                   test?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   t20s?.slice(0, 6).map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
 
                                 {teamSelector === "odi" &&
                                   odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -1174,83 +1459,176 @@ const Livescrore = () => {
                             {mainCategory === "batting" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "bowling" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "alr" && (
                               <>
                                 {teamSelector === "test" &&
                                   testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "odi" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -1273,9 +1651,17 @@ const Livescrore = () => {
                           alt="images"
                         />
                       )}
-                      <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] rounded-lg mt-2 mb-3">
+                      <div
+                        style={{
+                          boxShadow:
+                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                        }}
+                        className="bg-[white] rounded-lg mt-2 mb-3"
+                      >
                         <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">SPECIALS</span>
+                          <span className="font-semibold text-sm ml-4">
+                            SPECIALS
+                          </span>
                           {specialBanner?.map((item, index) => (
                             <>
                               <img src={item?.image} alt="" />
@@ -1320,8 +1706,8 @@ const Livescrore = () => {
                                         </span>
                                         <br />
                                         <span className="text-slate-300">
-                                          {convertDateTime(item?.date_start)}{" "}
-                                          at {item?.venue?.name}
+                                          {convertDateTime(item?.date_start)} at{" "}
+                                          {item?.venue?.name}
                                         </span>
                                       </div>
                                     ))}
@@ -1340,9 +1726,16 @@ const Livescrore = () => {
                           </div>
                         ))}
                       </div>
-                    </div><div className="w-[250px]">
+                    </div>
+                    <div className="w-[250px]">
                       {allSeries?.length > 0 && (
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] pb-3 rounded-lg mb-3">
+                        <div
+                          style={{
+                            boxShadow:
+                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                          }}
+                          className="bg-[white] pb-3 rounded-lg mb-3"
+                        >
                           <span
                             style={{
                               color: "black",
@@ -1395,7 +1788,14 @@ const Livescrore = () => {
                       )}
 
                       <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px", padding: "10px" }} className="flex justify-between p-2">
+                        <div
+                          style={{
+                            boxShadow:
+                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                            padding: "10px",
+                          }}
+                          className="flex justify-between p-2"
+                        >
                           <div
                             className="text-sm font-semibold"
                             style={{ fontSize: "12px" }}
@@ -1419,8 +1819,10 @@ const Livescrore = () => {
                               cursor: "pointer",
                               backgroundColor:
                                 teamSelector === "test" ? "#0F19AF" : "black",
-                              color: teamSelector === "test" ? "white" : "black",
-                              fontWeight: teamSelector === "test" ? "bold" : "normal",
+                              color:
+                                teamSelector === "test" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "test" ? "bold" : "normal",
                             }}
                           >
                             Test
@@ -1430,9 +1832,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "odi" ? "#0F19AF" : null,
                               color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight: teamSelector === "odi" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "odi" ? "bold" : "normal",
                             }}
                           >
                             ODI
@@ -1442,9 +1846,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "t20" ? "#0F19AF" : null,
                               color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight: teamSelector === "t20" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "t20" ? "bold" : "normal",
                             }}
                           >
                             T20
@@ -1456,7 +1862,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "teams" ? "underline" : "none",
-                              fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "teams" ? "bold" : "normal",
                               color: "black",
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1469,8 +1876,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "batting" ? "underline" : "none",
-                              fontWeight: mainCategory === "batting" ? "bold" : "normal",
+                                mainCategory === "batting"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "batting" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1482,8 +1892,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "bowling" ? "underline" : "none",
-                              fontWeight: mainCategory === "bowling" ? "bold" : "normal",
+                                mainCategory === "bowling"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "bowling" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1496,7 +1909,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "alr" ? "underline" : "none",
-                              fontWeight: mainCategory === "alr" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "alr" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -1518,27 +1932,54 @@ const Livescrore = () => {
                               <>
                                 {teamSelector === "test" &&
                                   test?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   t20s?.slice(0, 6).map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
 
                                 {teamSelector === "odi" &&
                                   odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -1546,83 +1987,176 @@ const Livescrore = () => {
                             {mainCategory === "batting" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "bowling" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "alr" && (
                               <>
                                 {teamSelector === "test" &&
                                   testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "odi" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -1645,9 +2179,17 @@ const Livescrore = () => {
                           alt="images"
                         />
                       )}
-                      <div style={{ boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px" }} className="bg-[white] rounded-lg mt-2 mb-3">
+                      <div
+                        style={{
+                          boxShadow:
+                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
+                        }}
+                        className="bg-[white] rounded-lg mt-2 mb-3"
+                      >
                         <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">SPECIALS</span>
+                          <span className="font-semibold text-sm ml-4">
+                            SPECIALS
+                          </span>
                           {specialBanner?.map((item, index) => (
                             <>
                               <img src={item?.image} alt="" />
@@ -1669,7 +2211,13 @@ const Livescrore = () => {
             {selectedDiv === "Teams" && (
               <>
                 <div className="flex mt-2 justify-center pb-5">
-                  <div style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}>
+                  <div
+                    style={{
+                      display: "grid",
+                      placeItems: "center",
+                      marginTop: "4rem",
+                    }}
+                  >
                     <p>Comming Soon ...</p>
                   </div>
                   {/* <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
@@ -1889,7 +2437,6 @@ const Livescrore = () => {
                       </div>
                     </div>
 
-
                     <div className="w-[250px]  mt-10">
                       {allSeries?.length > 0 && (
                         <div className="bg-[white] pb-3 pt-3 rounded-lg mb-3">
@@ -1967,8 +2514,10 @@ const Livescrore = () => {
                               cursor: "pointer",
                               backgroundColor:
                                 teamSelector === "test" ? "#0F19AF" : "black",
-                              color: teamSelector === "test" ? "white" : "black",
-                              fontWeight: teamSelector === "test" ? "bold" : "normal",
+                              color:
+                                teamSelector === "test" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "test" ? "bold" : "normal",
                             }}
                           >
                             Test
@@ -1978,9 +2527,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "odi" ? "#0F19AF" : null,
                               color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight: teamSelector === "odi" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "odi" ? "bold" : "normal",
                             }}
                           >
                             ODI
@@ -1990,9 +2541,11 @@ const Livescrore = () => {
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             style={{
                               cursor: "pointer",
-                              backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
+                              backgroundColor:
+                                teamSelector === "t20" ? "#0F19AF" : null,
                               color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight: teamSelector === "t20" ? "bold" : "normal",
+                              fontWeight:
+                                teamSelector === "t20" ? "bold" : "normal",
                             }}
                           >
                             T20
@@ -2004,7 +2557,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "teams" ? "underline" : "none",
-                              fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "teams" ? "bold" : "normal",
                               color: "black",
                               textDecorationColor: "#0F19AF",
                             }}
@@ -2017,8 +2571,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "batting" ? "underline" : "none",
-                              fontWeight: mainCategory === "batting" ? "bold" : "normal",
+                                mainCategory === "batting"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "batting" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -2030,8 +2587,11 @@ const Livescrore = () => {
                             style={{
                               cursor: "pointer",
                               textDecoration:
-                                mainCategory === "bowling" ? "underline" : "none",
-                              fontWeight: mainCategory === "bowling" ? "bold" : "normal",
+                                mainCategory === "bowling"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "bowling" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -2044,7 +2604,8 @@ const Livescrore = () => {
                               cursor: "pointer",
                               textDecoration:
                                 mainCategory === "alr" ? "underline" : "none",
-                              fontWeight: mainCategory === "alr" ? "bold" : "normal",
+                              fontWeight:
+                                mainCategory === "alr" ? "bold" : "normal",
 
                               textDecorationColor: "#0F19AF",
                             }}
@@ -2066,27 +2627,54 @@ const Livescrore = () => {
                               <>
                                 {teamSelector === "test" &&
                                   test?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   t20s?.slice(0, 6).map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
 
                                 {teamSelector === "odi" &&
                                   odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -2094,83 +2682,176 @@ const Livescrore = () => {
                             {mainCategory === "batting" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBestman?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "bowling" && (
                               <>
                                 {teamSelector === "test" &&
-                                  testBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  testBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "t20" &&
-                                  t20Bolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  t20Bolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                                 {teamSelector === "odi" &&
-                                  odiBolling?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
-                                    </tr>
-                                  ))}
+                                  odiBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
                               </>
                             )}
                             {mainCategory === "alr" && (
                               <>
                                 {teamSelector === "test" &&
                                   testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                                 {teamSelector === "odi" &&
                                   odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr key={index} style={{ textAlign: "center" }}>
-                                      <td className="text-center">{item?.rank}</td>
-                                      <td className="text-center">{item?.team}</td>
-                                      <td className="text-center">{item?.rating}</td>
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
                                     </tr>
                                   ))}
                               </>
@@ -2195,7 +2876,9 @@ const Livescrore = () => {
                       )}
                       <div className="bg-[white] rounded-lg mt-2">
                         <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">SPECIALS</span>
+                          <span className="font-semibold text-sm ml-4">
+                            SPECIALS
+                          </span>
                           {specialBanner?.map((item, index) => (
                             <>
                               <img src={item?.image} alt="" />

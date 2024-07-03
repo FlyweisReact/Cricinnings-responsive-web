@@ -208,10 +208,10 @@ const Scorecard = () => {
               <div className="flex ml-2 justify-between w-[400px]">
                 <div className="text-slate-400 pr-14">Didn’t Bat</div>
                 <div className="text-[#0F19AF]">
-                  <div className="flex gap-2 flex-wrap">
+                <div className="flex gap-2 overflow-x-auto whitespace-wrap">
                     {squadData?.innings?.[0]?.did_not_bat?.map(
                       (player, index) => (
-                        <span key={index}>{player?.name}</span>
+                        <span key={index}>{player?.name+","}</span>
                       )
                     )}
                   </div>
@@ -378,10 +378,10 @@ const Scorecard = () => {
               <div className="flex ml-2 justify-between w-[400px]">
                 <div className="text-slate-400 pr-14">Didn’t Bat</div>
                 <div className="text-[#0F19AF]">
-                  <div className="flex gap-2 flex-wrap">
+                  <div className="flex gap-2 overflow-x-auto whitespace-wrap">
                     {squadData?.innings?.[1]?.did_not_bat?.map(
                       (player, index) => (
-                        <span key={index}>{player?.name}</span>
+                        <span key={index}>{player?.name+","}</span>
                       )
                     )}
                   </div>

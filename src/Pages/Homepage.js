@@ -389,7 +389,7 @@ const Homepage = () => {
           background: "#0F19AF",
           marginLeft: "2rem",
         }}
-        onClick={onClick}
+        onClick={onClick  }
       />
     );
   };
@@ -400,7 +400,7 @@ const Homepage = () => {
     slidesToShow: 4,
     slidesToScroll: 1,
     nextArrow: <CustomNextArrow1 />,
-    prevArrow: <CustomPrevArrow1 />,
+    prevArrow: <CustomPrevArrow />,
   };
 
   return (
@@ -413,8 +413,8 @@ const Homepage = () => {
               {sliderData &&
                 sliderData?.map((item, index) => (
                   <div key={index} className="top_slider_card">
-                    <div className="top_slider_card_div1">
-                      <div onClick={() => navigate(`/Scorecard/${item?.match_id}`)} className="top_slider_card_div1_text">
+                    <div  onClick={() => navigate(`/match/${item?.match_id}`)} style={{cursor:"pointer"}} className="top_slider_card_div1">
+                      <div className="top_slider_card_div1_text">
                         <p
                           style={{
                             width: "80%",
@@ -737,7 +737,7 @@ const Homepage = () => {
                   {allSeries?.map((item, index) => {
                     if (index >= 4) return null;
                     return (
-                      <div
+                      <div onClick={() => navigate(`/Livescrore/Allseries`)}
                         key={item?._id}
                         style={{
                           display: "grid",
@@ -759,7 +759,6 @@ const Homepage = () => {
                 </div>
               </div>
             )}
-            {console.log(hompageBanner7)}
             {hompageBanner7?.image && (
               <img
                 style={{
@@ -886,11 +885,27 @@ const Homepage = () => {
               </div>
               <table>
                 <thead style={{ textAlign: "center" }}>
-                  <tr>
+                { mainCategory === "teams" &&  <tr>
                     <th className="w-[100px]">Rank</th>
                     <th className="w-[100px]">Team</th>
                     <th className="w-[100px]">Rating</th>
-                  </tr>
+                  </tr>}
+
+                  {mainCategory === "batting" && <tr>
+                    <th className="w-[100px]">Rank</th>
+                    <th className="w-[100px]">Player</th>
+                    <th className="w-[100px]">Rating</th>
+                  </tr>}
+                  {mainCategory === "bowling" && <tr>
+                    <th className="w-[100px]">Rank</th>
+                    <th className="w-[100px]">Player</th>
+                    <th className="w-[100px]">Rating</th>
+                  </tr>}
+                  {mainCategory === "alr" && <tr>
+                    <th className="w-[100px]">Rank</th>
+                    <th className="w-[100px]">Player</th>
+                    <th className="w-[100px]">Rating</th>
+                  </tr>}
                 </thead>
                 <tbody>
                   {mainCategory === "teams" && (
@@ -928,7 +943,7 @@ const Homepage = () => {
                         testBestman?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -936,7 +951,7 @@ const Homepage = () => {
                         t20Bestman?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -944,7 +959,7 @@ const Homepage = () => {
                         odiBestman?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -956,7 +971,7 @@ const Homepage = () => {
                         testBolling?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -964,7 +979,7 @@ const Homepage = () => {
                         t20Bolling?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -972,7 +987,7 @@ const Homepage = () => {
                         odiBolling?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -984,7 +999,7 @@ const Homepage = () => {
                         testAlr?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -992,7 +1007,7 @@ const Homepage = () => {
                         odiAlr?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}
@@ -1000,7 +1015,7 @@ const Homepage = () => {
                         odiAlr?.slice(0, 6)?.map((item, index) => (
                           <tr key={index} style={{ textAlign: "center" }}>
                             <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
+                            <td className="text-center">{item?.player}</td>
                             <td className="text-center">{item?.rating}</td>
                           </tr>
                         ))}

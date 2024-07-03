@@ -46,6 +46,7 @@ const Commentarynavbar = () => {
   const { matchId, commentary } = params;
   const [matchData, setMatchData] = useState([]);
   const [matchDetails, setMatchDetails] = useState({});
+  const [squadData, setSquadData] = useState({});
 
   const getMatchDetails = async () => {
     axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
@@ -53,7 +54,15 @@ const Commentarynavbar = () => {
     });
   };
 
+  const getSquadData = async () => {
+    axios.get(baseUrl + "user/scorecard/" + matchId).then((res) => {
+      console.log(res?.data?.scorecard);
+      setSquadData(res?.data?.scorecard);
+    });
+  };
+
   useEffect(() => {
+    getSquadData();
     getMatchDetails();
   }, []);
   return (
@@ -69,8 +78,8 @@ const Commentarynavbar = () => {
         </p>
       </div>
       <div className="flex justify-between mt-3">
-        <div
-          style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
+        <div onClick={() => navigate(`/Livescrore/Allseries`)}
+          style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E",cursor:"pointer" }}
           className="text-slate-500"
         >
           Series: {matchDetails?.competition?.title}
@@ -312,11 +321,28 @@ const Commentarynavbar = () => {
           </span>
         </p>
       </div>
-      <div
-        style={{ fontSize: "14px" }}
-        className="underline text-[#0F19AF] mt-2"
-      >
+      <div>
         {matchDetails?.status === 2 && matchDetails?.status_note}
+        <div className="d-flex gap-2">
+          {squadData?.man_of_the_match && (
+            <p className="CommentartyData1">
+              Man of the match :{" "}
+              <span className="CommentartyData2">
+                {" "}
+                {squadData?.man_of_the_match?.name}
+              </span>
+            </p>
+          )}
+          {squadData?.man_of_the_series && (
+            <p className="CommentartyData1">
+              Man of the series :{" "}
+              <span className="CommentartyData2">
+                {" "}
+                {squadData?.man_of_the_series?.name}
+              </span>
+            </p>
+          )}
+        </div>
       </div>
     </div>
   );

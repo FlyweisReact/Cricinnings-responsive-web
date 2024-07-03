@@ -13,17 +13,17 @@ const Squads = () => {
   const [banner3, setBanner3] = useState();
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
-      const banner = res?.data?.data
-      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
-      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
-      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
-      console.log(banner)
-    })
-  }
+      const banner = res?.data?.data;
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
+      console.log(banner);
+    });
+  };
 
   useEffect(() => {
-    getAllBanner()
-  }, [])
+    getAllBanner();
+  }, []);
   const getSquadData = async () => {
     axios.get(baseUrl + "user/matchSquad/" + matchId).then((res) => {
       setSquadData(res?.data);
@@ -39,8 +39,11 @@ const Squads = () => {
       <div className="bg-[white] pl-2 pt-2">
         <Commentarynavbar />
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          
-          <img style={{ height: "96px" ,width:"100%"}} src={banner1?.image} alt="" />
+          <img
+            style={{ height: "96px", width: "100%" }}
+            src={banner1?.image}
+            alt=""
+          />
         </div>
       </div>
       <div className="bg-white pb-5  ">
@@ -187,10 +190,14 @@ const Squads = () => {
                                 className="w-[50px] h-[50px]"
                               />
                             </div> */}
-                              <div className="flex flex-col">
+                              <div
+                                style={{ width: "200px", textAlign: "left" }}
+                                //  className="flex flex-col"
+                              >
                                 <span className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
+                                <br />
                                 <span className="text-slate-400">
                                   {item?.role || "Role"}
                                 </span>
@@ -204,15 +211,8 @@ const Squads = () => {
                               key={index}
                               className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
                             >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              <div className="flex flex-col">
-                                <span className="font-semibold">
+                              <div className="abc">
+                                <span className="font-semibold mr-2">
                                   {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
@@ -260,10 +260,11 @@ const Squads = () => {
                                 className="w-[50px] h-[50px]"
                               />
                             </div> */}
-                              <div className="flex flex-col">
+                              <div>
                                 <span className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
+                                <br />
                                 <span className="text-slate-400">
                                   {item?.role || "Role"}
                                 </span>
@@ -284,11 +285,17 @@ const Squads = () => {
                                 className="w-[50px] h-[50px]"
                               />
                             </div> */}
-                              <div className="flex flex-col">
-                                <span className="font-semibold">
+                              <div
+                              >
+                                <span
+                                  className="font-semibold"
+                                >
                                   {item?.name || "Player Name"}
                                 </span>
-                                <span className="text-slate-400">
+                                <span
+                                  style={{ width: "200px", textAlign: "left" }}
+                                  className="text-slate-400"
+                                >
                                   {item?.role || "Role"}
                                 </span>
                               </div>
@@ -339,10 +346,11 @@ const Squads = () => {
                                 className="w-[50px] h-[50px]"
                               />
                             </div> */}
-                              <div className="flex flex-col">
-                                <span className="font-semibold">
+                              <div style={{width: "200px", textAlign: "left"}}>
+                              <span className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
+                                <br/>
                                 <span className="text-slate-400">
                                   {item?.role || "Role"}
                                 </span>
@@ -394,9 +402,19 @@ const Squads = () => {
           </div>
 
           <div className="w-[250px] ">
-            {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              <img src={banner1?.image} style={{ width: "100%",height:"100%",borderRadius:"10px"   }} alt="" />
-            </div>}
+            {banner1 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner1?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
             <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
               <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
               <img src={videoframe} alt="" />
@@ -408,10 +426,19 @@ const Squads = () => {
                 </button>
               </div>
             </div>
-            {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              <img src={banner2?.image} style={{ width: "100%",height:"100%"  ,borderRadius:"10px" }} alt="" />
-            </div>}
-          
+            {banner2 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner2?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>
