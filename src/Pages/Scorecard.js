@@ -208,10 +208,10 @@ const Scorecard = () => {
               <div className="flex ml-2 justify-between w-[400px]">
                 <div className="text-slate-400 pr-14">Didn’t Bat</div>
                 <div className="text-[#0F19AF]">
-                <div className="flex gap-2 overflow-x-auto whitespace-wrap">
+                  <div className="flex gap-2 overflow-x-auto whitespace-wrap">
                     {squadData?.innings?.[0]?.did_not_bat?.map(
                       (player, index) => (
-                        <span key={index}>{player?.name+","}</span>
+                        <span key={index}>{player?.name + ","}</span>
                       )
                     )}
                   </div>
@@ -227,7 +227,7 @@ const Scorecard = () => {
                     className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
                   >
                     <th
-                      style={{ overflow: "hidden" }}
+                      style={{ borderRadius: "10px 0 0 0" }}
                       className="w-[350px] pl-3 text-left"
                     >
                       Bowler
@@ -238,14 +238,17 @@ const Scorecard = () => {
                     <th className="w-[50px] text-left">W</th>
                     <th className="w-[50px] text-left">NB</th>
                     <th className="w-[50px] text-left">WD</th>
-                    <th className="w-[50px] text-left">ECO</th>
+                    <th
+                      style={{ borderRadius: "0 10px 0 0" }}
+                      className="w-[50px] text-left"
+                    >
+                      ECO
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {squadData?.innings?.[0]?.bowlers?.map((item, index) => (
-                    <tr
-                      style={{ borderBottom: "1px solid rgb(126, 127, 126)" }}
-                    >
+                    <tr style={{ borderBottom: "1px solid #E5E7EB" }}>
                       <td className="text-[#0F19AF]  pl-3">{item.name}</td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
@@ -267,11 +270,19 @@ const Scorecard = () => {
                     className="bg-[#0F19AF] w-full h-[45px] text-white"
                     style={{ borderRadius: "10px 10px 0 0" }}
                   >
-                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                    <th
+                      style={{ borderRadius: "10px 0 0 0" }}
+                      className="w-[350px] pl-3 text-left overflow-hidden"
+                    >
                       Powerplays
                     </th>
                     <th className="w-[150px] text-left"> Over</th>
-                    <th className="w-[150px] text-left">Runs</th>
+                    <th
+                      style={{ borderRadius: "0 10px 0 0" }}
+                      className="w-[150px] text-left"
+                    >
+                      Runs
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -381,7 +392,7 @@ const Scorecard = () => {
                   <div className="flex gap-2 overflow-x-auto whitespace-wrap">
                     {squadData?.innings?.[1]?.did_not_bat?.map(
                       (player, index) => (
-                        <span key={index}>{player?.name+","}</span>
+                        <span key={index}>{player?.name + ","}</span>
                       )
                     )}
                   </div>
@@ -397,7 +408,7 @@ const Scorecard = () => {
                     className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
                   >
                     <th
-                      style={{ overflow: "hidden" }}
+                      style={{ borderRadius: "10px 0 0 0" }}
                       className="w-[350px] pl-3 text-left"
                     >
                       Bowler
@@ -408,14 +419,17 @@ const Scorecard = () => {
                     <th className="w-[50px] text-left">W</th>
                     <th className="w-[50px] text-left">NB</th>
                     <th className="w-[50px] text-left">WD</th>
-                    <th className="w-[50px] text-left">ECO</th>
+                    <th
+                      style={{ borderRadius: "0 10px 0 0" }}
+                      className="w-[50px] text-left"
+                    >
+                      ECO
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {squadData?.innings?.[1]?.bowlers?.map((item, index) => (
-                    <tr
-                      style={{ borderBottom: "1px solid rgb(126, 127, 126)" }}
-                    >
+                    <tr style={{ borderBottom: "1px solid #E5E7EB" }}>
                       <td className="text-[#0F19AF]  pl-3">{item.name}</td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
@@ -437,11 +451,19 @@ const Scorecard = () => {
                     className="bg-[#0F19AF] w-full h-[45px] text-white"
                     style={{ borderRadius: "10px 10px 0 0" }}
                   >
-                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                    <th
+                      style={{ borderRadius: "10px 0 0 0" }}
+                      className="w-[350px] pl-3 text-left overflow-hidden"
+                    >
                       Powerplays
                     </th>
                     <th className="w-[150px] text-left"> Over</th>
-                    <th className="w-[150px] text-left">Runs</th>
+                    <th
+                      style={{ borderRadius: "0 10px 0 0" }}
+                      className="w-[150px] text-left"
+                    >
+                      Runs
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -467,12 +489,20 @@ const Scorecard = () => {
                     className="bg-[#0F19AF] w-full h-[45px] text-white"
                     style={{ borderRadius: "10px 10px 0 0" }}
                   >
-                    <th className="w-[350px] pl-3 text-left overflow-hidden">
+                    <th
+                      style={{ borderRadius: "10px 0 0 0" }}
+                      className="w-[350px] pl-3 text-left overflow-hidden"
+                    >
                       Fall Of Wickets
                     </th>
                     <th className="w-[150px] text-left"></th>
                     <th className="w-[150px] text-left">Score</th>
-                    <th className="w-[150px] text-left">Over</th>
+                    <th
+                      style={{ borderRadius: "0 10px 0 0" }}
+                      className="w-[150px] text-left"
+                    >
+                      Over
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
@@ -491,7 +521,10 @@ const Scorecard = () => {
             </div>
 
             <div className="mt-5 shadow-2xl">
-              <div className="bg-[#0F19AF] h-[45px] flex items-center text-white pl-2">
+              <div
+                style={{ borderRadius: "10px 10px 0 0" }}
+                className="bg-[#0F19AF] h-[45px] flex items-center text-white pl-2"
+              >
                 Match Info
               </div>
 

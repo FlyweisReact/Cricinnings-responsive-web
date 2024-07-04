@@ -526,3 +526,17 @@
   width: 236.7px;
   text-align: left;
 }
+
+
+.right-container{
+  padding: 15px;
+line-height: 24px;
+color: rgb(34, 34, 34);
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+font-size: 14px;
+background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
+}
+
+.lef-con{
+  
+}

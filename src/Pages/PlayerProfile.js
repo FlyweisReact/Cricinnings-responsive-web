@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import Commentarynavbar from "../Components/Commentarynavbar";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
-
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import { useParams } from "react-router-dom";
 import { Table } from "react-bootstrap";
 const PlayerProfile = () => {
@@ -50,7 +47,7 @@ const PlayerProfile = () => {
 
   useEffect(() => {
     if (competitionId) {
-    //   getStatesData(competitionId);
+      //   getStatesData(competitionId);
     }
   }, [filterByData]);
 
@@ -62,15 +59,21 @@ const PlayerProfile = () => {
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <div className="w-[950px] p-2">
           <div className="player-profile">
-          {playerData?.thumb_url &&  <div
-              style={{ height: "200px", width: "150px", borderRadius: "10px" }}
-            >
-              <img
-                style={{ height: "100%", width: "100%" }}
-                src={playerData?.thumb_url }
-                alt=""
-              />
-            </div>}
+            {playerData?.thumb_url && (
+              <div
+                style={{
+                  height: "200px",
+                  width: "150px",
+                  borderRadius: "10px",
+                }}
+              >
+                <img
+                  style={{ height: "100%", width: "100%" }}
+                  src={playerData?.thumb_url}
+                  alt=""
+                />
+              </div>
+            )}
             <div className="mt-[120px]">
               <p className="player-name">{playerData?.title}</p>
               <p className="player-country">{playerData?.country}</p>
@@ -82,7 +85,13 @@ const PlayerProfile = () => {
               <div>
                 <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Born</span>
-                  <span className="right-text">{playerData?.birthdate?.split("T")?.[0]?.split("-")?.reverse()?.join("-")}</span>
+                  <span className="right-text">
+                    {playerData?.birthdate
+                      ?.split("T")?.[0]
+                      ?.split("-")
+                      ?.reverse()
+                      ?.join("-")}
+                  </span>
                 </p>
                 <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Birth Place</span>
@@ -98,17 +107,40 @@ const PlayerProfile = () => {
                 </p>
                 <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Batting Style</span>
-                  <span className="right-text">{playerData?.batting_style}</span>
+                  <span className="right-text">
+                    {playerData?.batting_style}
+                  </span>
                 </p>
                 <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Bowling Style</span>
-                  <span className="right-text">{playerData?.bowling_style}</span>
+                  <span className="right-text">
+                    {playerData?.bowling_style}
+                  </span>
                 </p>
-               
               </div>
             </div>
             <div className="right-container">
-                </div>
+              <p className="lef-con"></p>
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Username</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>1</td>
+                    <td>Mark</td>
+                    <td>Otto</td>
+                    <td>@mdo</td>
+                  </tr>
+                
+                </tbody>
+              </Table>
+            </div>
           </div>
         </div>
       </div>
