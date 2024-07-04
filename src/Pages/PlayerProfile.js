@@ -13,6 +13,7 @@ const PlayerProfile = () => {
   const [competitionData, setCompetitionData] = useState([]);
   const [initialCondition, setInitialCondition] = useState("batting");
   const [playerData, setPlayerData] = useState({});
+  const [playerData1, setPlayerData1] = useState({});
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
       const banner = res?.data?.data;
@@ -27,8 +28,10 @@ const PlayerProfile = () => {
   console.log(playerId);
   const getPlayerDataById = async () => {
     axios.get(baseUrl + "user/getPlayerStats/" + playerId).then((res) => {
-      console.log(res?.data);
+     
       setPlayerData(res?.data?.player);
+      setPlayerData1(res?.data?.player);
+      console.log(res?.data);
     });
   };
 
@@ -120,24 +123,47 @@ const PlayerProfile = () => {
               </div>
             </div>
             <div className="right-container">
-              <p className="lef-con"></p>
-              <Table striped bordered hover>
+              <p className="lef-con">Batting Career Summary</p>
+              <Table style={{ width: "600px" }} striped bordered hover>
                 <thead>
                   <tr>
                     <th>#</th>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Username</th>
+                    <th>M</th>
+                    <th>Inn</th>
+                    <th>NO</th>
+                    <th>Runs</th>
+                    <th>HS</th>
+                    <th>Avg</th>
+                    <th>BF</th>
+                    <th>SR</th>
+                    <th>100</th>
+                    <th>50</th>
+                    <th>4s</th>
+                    <th>6s</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>1</td>
-                    <td>Mark</td>
-                    <td>Otto</td>
-                    <td>@mdo</td>
+                    <td>Test</td>
+                    {console.log(playerData)}
+                    <td>{playerData1?.batting?.test?.matches}</td>
+                    <td>{playerData1?.batting?.test?.innings}</td>
+                    <td>{playerData1?.batting?.test?.notout}</td>
+                    <td>{playerData1?.batting?.test?.runs}</td>
+                    <td>{playerData1?.batting?.test?.highest}</td>
+                    <td>{playerData1?.batting?.test?.average}</td>
+                    <td>{playerData1?.batting?.test?.balls}</td>
+                    <td>{playerData1?.batting?.test?.strike}</td>
+                    <td>{playerData1?.batting?.test?.run100}</td>
+                    <td>{playerData1?.batting?.test?.run50}</td>
+                    <td>{playerData1?.batting?.test?.run4}</td>
+                    <td>{playerData1?.batting?.test?.run6}</td>
                   </tr>
-                
+                  <tr>
+                    <td>T20</td>
+                    <td>{playerData1?.batting?.t20?.matches}</td>
+                    <td>{playerData1?.batting?.t20?.innings}</td>
+                  </tr>
                 </tbody>
               </Table>
             </div>
