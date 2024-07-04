@@ -22,8 +22,8 @@ const AboutPage = () => {
         <div
           className="terms_content"
           style={{ borderRight: "1px solid gray" }}
-        >
-          <div dangerouslySetInnerHTML={{ __html: terms[0]?.content }}></div>
+        >{terms[0]?.content &&
+          <div dangerouslySetInnerHTML={{ __html: terms[0]?.content }}></div>}
         </div>
       </div>
     </div>

@@ -285,11 +285,8 @@ const Squads = () => {
                                 className="w-[50px] h-[50px]"
                               />
                             </div> */}
-                              <div
-                              >
-                                <span
-                                  className="font-semibold"
-                                >
+                              <div>
+                                <span className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
                                 <span
@@ -346,11 +343,13 @@ const Squads = () => {
                                 className="w-[50px] h-[50px]"
                               />
                             </div> */}
-                              <div style={{width: "200px", textAlign: "left"}}>
-                              <span className="font-semibold">
+                              <div
+                                style={{ width: "200px", textAlign: "left" }}
+                              >
+                                <span className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
-                                <br/>
+                                <br />
                                 <span className="text-slate-400">
                                   {item?.role || "Role"}
                                 </span>

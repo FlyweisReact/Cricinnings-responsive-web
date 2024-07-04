@@ -28,9 +28,8 @@ const PlayerProfile = () => {
   console.log(playerId);
   const getPlayerDataById = async () => {
     axios.get(baseUrl + "user/getPlayerStats/" + playerId).then((res) => {
-     
       setPlayerData(res?.data?.player);
-      setPlayerData1(res?.data?.player);
+      setPlayerData1(res?.data);
       console.log(res?.data);
     });
   };
@@ -72,7 +71,7 @@ const PlayerProfile = () => {
               >
                 <img
                   style={{ height: "100%", width: "100%" }}
-                  src={playerData?.thumb_url}
+                  strikec={playerData?.thumb_url}
                   alt=""
                 />
               </div>
@@ -123,29 +122,28 @@ const PlayerProfile = () => {
               </div>
             </div>
             <div className="right-container">
-              <p className="lef-con">Batting Career Summary</p>
-              <Table style={{ width: "600px" }} striped bordered hover>
+              <p className="lef-co-header1 mt-3">Batting Career Summary</p>
+              <Table style={{ width: "600px",textAlign:"center"}}>
                 <thead>
                   <tr>
-                    <th>#</th>
-                    <th>M</th>
-                    <th>Inn</th>
-                    <th>NO</th>
-                    <th>Runs</th>
-                    <th>HS</th>
-                    <th>Avg</th>
-                    <th>BF</th>
-                    <th>SR</th>
-                    <th>100</th>
-                    <th>50</th>
-                    <th>4s</th>
-                    <th>6s</th>
+                    <th className="lef-co-header"></th>
+                    <th className="lef-co-header">M</th>
+                    <th className="lef-co-header">Inn</th>
+                    <th className="lef-co-header">NO</th>
+                    <th className="lef-co-header">Runs</th>
+                    <th className="lef-co-header">HS</th>
+                    <th className="lef-co-header">Avg</th>
+                    <th className="lef-co-header">BF</th>
+                    <th className="lef-co-header">strike</th>
+                    <th className="lef-co-header">100</th>
+                    <th className="lef-co-header">50</th>
+                    <th className="lef-co-header">4s</th>
+                    <th className="lef-co-header">6s</th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr>
-                    <td>Test</td>
-                    {console.log(playerData)}
+                    <td className="lef-co-header1">Test</td>
                     <td>{playerData1?.batting?.test?.matches}</td>
                     <td>{playerData1?.batting?.test?.innings}</td>
                     <td>{playerData1?.batting?.test?.notout}</td>
@@ -160,9 +158,96 @@ const PlayerProfile = () => {
                     <td>{playerData1?.batting?.test?.run6}</td>
                   </tr>
                   <tr>
-                    <td>T20</td>
+                    <td className="lef-co-header1">T20</td>
                     <td>{playerData1?.batting?.t20?.matches}</td>
                     <td>{playerData1?.batting?.t20?.innings}</td>
+                    <td>{playerData1?.batting?.t20?.notout}</td>
+                    <td>{playerData1?.batting?.t20?.runs}</td>
+                    <td>{playerData1?.batting?.t20?.highest}</td>
+                    <td>{playerData1?.batting?.t20?.average}</td>
+                    <td>{playerData1?.batting?.t20?.balls}</td>
+                    <td>{playerData1?.batting?.t20?.strike}</td>
+                    <td>{playerData1?.batting?.t20?.run100}</td>
+
+                    <td>{playerData1?.batting?.t20?.run50}</td>
+                    <td>{playerData1?.batting?.t20?.run4}</td>
+                    <td>{playerData1?.batting?.t20?.run6}</td>
+                  </tr>
+                  <tr>
+                    <td className="lef-co-header1">ODI</td>
+                    <td>{playerData1?.batting?.odi?.matches}</td>
+                    <td>{playerData1?.batting?.odi?.innings}</td>
+                    <td>{playerData1?.batting?.odi?.notout}</td>
+                    <td>{playerData1?.batting?.odi?.runs}</td>
+                    <td>{playerData1?.batting?.odi?.highest}</td>
+                    <td>{playerData1?.batting?.odi?.average}</td>
+                    <td>{playerData1?.batting?.odi?.balls}</td>
+                    <td>{playerData1?.batting?.odi?.strike}</td>
+                    <td>{playerData1?.batting?.odi?.run100}</td>
+                    <td>{playerData1?.batting?.odi?.run50}</td>
+                    <td>{playerData1?.batting?.odi?.run4}</td>
+                    <td>{playerData1?.batting?.odi?.run6}</td>
+                  </tr>
+                </tbody>
+              </Table>
+              <p className="lef-co-header1 mt-5">Bowling Career Summary</p>
+              <Table style={{ width: "600px",textAlign:"center" }}>
+                <thead>
+                  <tr>
+                    <th className="lef-co-header"></th>
+                    <th className="lef-co-header">M</th>
+                    <th className="lef-co-header">Inn</th>
+                    <th className="lef-co-header">NO</th>
+                    <th className="lef-co-header">Runs</th>
+
+                    <th className="lef-co-header">Wkts</th>
+                    <th className="lef-co-header">Econ</th>
+                    <th className="lef-co-header">Avg</th>
+                    <th className="lef-co-header">strike</th>
+                    <th className="lef-co-header">5W</th>
+                    <th className="lef-co-header">10W</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="lef-co-header1">Test</td>
+
+                    <td>{playerData1?.bowling?.test?.matches || 0}</td>
+                    <td>{playerData1?.bowling?.test?.innings || 0}</td>
+                    <td>{playerData1?.bowling?.test?.balls || 0 }</td>
+                    <td>{playerData1?.bowling?.test?.runs || 0}</td>
+                    <td>{playerData1?.bowling?.test?.wickets || 0}</td>
+                    <td>{playerData1?.bowling?.test?.econ || 0}</td>
+                    <td>{playerData1?.bowling?.test?.average || 0}</td>
+                    <td>{playerData1?.bowling?.test?.strike}</td>
+                    <td>{playerData1?.bowling?.test?.wicket5i}</td>
+                    <td>{playerData1?.bowling?.test?.wicket10m}</td>
+                  </tr>
+                  <tr>
+                    <td className="lef-co-header1">ODI</td>
+                    <td>{playerData1?.bowling?.odi?.matches}</td>
+                    <td>{playerData1?.bowling?.odi?.innings}</td>
+                    <td>{playerData1?.bowling?.odi?.balls || 0 }</td>
+                    <td>{playerData1?.bowling?.odi?.runs}</td>
+                    <td>{playerData1?.bowling?.odi?.wickets}</td>
+                    <td>{playerData1?.bowling?.odi?.econ}</td>
+                    <td>{playerData1?.bowling?.odi?.average}</td>
+                    <td>{playerData1?.bowling?.odi?.strike}</td>
+                    <td>{playerData1?.bowling?.odi?.wicket5i}</td>
+                    <td>{playerData1?.bowling?.odi?.wicket10m}</td>
+                  </tr>
+                  <tr className="text-center">
+                    <td className="lef-co-header1">T20</td>
+                    <td>{playerData1?.bowling?.t20?.matches}</td>
+                    <td>{playerData1?.bowling?.t20?.innings}</td>
+                    <td>{playerData1?.bowling?.t20?.balls || 0 }</td>
+                    <td>{playerData1?.bowling?.t20?.runs}</td>
+                    <td>{playerData1?.bowling?.t20?.wickets}</td>
+                    <td>{playerData1?.bowling?.t20?.econ}</td>
+                    <td>{playerData1?.bowling?.t20?.average}</td>
+                    <td>{playerData1?.bowling?.t20?.strike}</td>
+                    <td>{playerData1?.bowling?.t20?.wicket5i}</td>
+                    <td>{playerData1?.bowling?.t20?.wicket10m}</td>
                   </tr>
                 </tbody>
               </Table>

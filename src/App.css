@@ -527,16 +527,32 @@
   text-align: left;
 }
 
-
-.right-container{
+.right-container {
   padding: 15px;
-line-height: 24px;
-color: rgb(34, 34, 34);
-font-family: helvetica, "Segoe UI", Arial, sans-serif;
-font-size: 14px;
-background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
+  line-height: 24px;
+  color: rgb(34, 34, 34);
+  font-family: helvetica, "Segoe UI", Arial, sans-serif;
+  font-size: 14px;
+  background: none 0% 0% / auto repeat scroll padding-box border-box
+    rgb(255, 255, 255);
 }
 
-.lef-con{
-  
+.lef-co-header {
+  text-align: right;
+  padding: 3px 0px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #000;
+  background-color: #F5F5F5;
+}
+
+.lef-co-header1 {
+  font-weight: 700;
+  font-size: 16px;
+  padding-bottom: 5px;
+  line-height: 24px;
+  color: rgb(34, 34, 34);
+  font-family: helvetica, "Segoe UI", Arial, sans-serif;
+  background: none 0% 0% / auto repeat scroll padding-box border-box
+    rgb(255, 255, 255);
 }

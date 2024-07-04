@@ -961,7 +961,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -980,7 +980,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -999,7 +999,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1022,7 +1022,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1041,7 +1041,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1060,7 +1060,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1183,6 +1183,7 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
                       <div className="flex flex-col gap-5">
+                        {console.log(competationsType, "Boss")}
                         {competationsType?.map((item) => (
                           <div className="flex gap-[10rem]">
                             <div className="font-semibold">
@@ -1199,7 +1200,7 @@ const Livescrore = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="w-[250px]">
+                    {/* <div className="w-[250px]">
                       {allSeries?.length > 0 && (
                         <div
                           style={{
@@ -1260,14 +1261,7 @@ const Livescrore = () => {
                       )}
 
                       <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div
-                          style={{
-                            boxShadow:
-                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                            padding: "10px",
-                          }}
-                          className="flex justify-between p-2"
-                        >
+                        <div className="flex justify-between p-2">
                           <div
                             className="text-sm font-semibold"
                             style={{ fontSize: "12px" }}
@@ -1393,11 +1387,35 @@ const Livescrore = () => {
                         </div>
                         <table>
                           <thead style={{ textAlign: "center" }}>
-                            <tr>
-                              <th className="w-[100px]">Rank</th>
-                              <th className="w-[100px]">Team</th>
-                              <th className="w-[100px]">Rating</th>
-                            </tr>
+                            {mainCategory === "teams" && (
+                              <tr>
+                                <th className="w-[100px]">Rank</th>
+                                <th className="w-[100px]">Team</th>
+                                <th className="w-[100px]">Rating</th>
+                              </tr>
+                            )}
+
+                            {mainCategory === "batting" && (
+                              <tr>
+                                <th className="w-[100px]">Rank</th>
+                                <th className="w-[100px]">Player</th>
+                                <th className="w-[100px]">Rating</th>
+                              </tr>
+                            )}
+                            {mainCategory === "bowling" && (
+                              <tr>
+                                <th className="w-[100px]">Rank</th>
+                                <th className="w-[100px]">Player</th>
+                                <th className="w-[100px]">Rating</th>
+                              </tr>
+                            )}
+                            {mainCategory === "alr" && (
+                              <tr>
+                                <th className="w-[100px]">Rank</th>
+                                <th className="w-[100px]">Player</th>
+                                <th className="w-[100px]">Rating</th>
+                              </tr>
+                            )}
                           </thead>
                           <tbody>
                             {mainCategory === "teams" && (
@@ -1470,7 +1488,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1489,7 +1507,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1508,7 +1526,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1531,7 +1549,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1550,7 +1568,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1569,7 +1587,7 @@ const Livescrore = () => {
                                           {item?.rank}
                                         </td>
                                         <td className="text-center">
-                                          {item?.team}
+                                          {item?.player}
                                         </td>
                                         <td className="text-center">
                                           {item?.rating}
@@ -1590,7 +1608,7 @@ const Livescrore = () => {
                                         {item?.rank}
                                       </td>
                                       <td className="text-center">
-                                        {item?.team}
+                                        {item?.player}
                                       </td>
                                       <td className="text-center">
                                         {item?.rating}
@@ -1607,7 +1625,7 @@ const Livescrore = () => {
                                         {item?.rank}
                                       </td>
                                       <td className="text-center">
-                                        {item?.team}
+                                        {item?.player}
                                       </td>
                                       <td className="text-center">
                                         {item?.rating}
@@ -1624,7 +1642,7 @@ const Livescrore = () => {
                                         {item?.rank}
                                       </td>
                                       <td className="text-center">
-                                        {item?.team}
+                                        {item?.player}
                                       </td>
                                       <td className="text-center">
                                         {item?.rating}
@@ -1675,7 +1693,7 @@ const Livescrore = () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </>
@@ -1727,483 +1745,7 @@ const Livescrore = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="w-[250px]">
-                      {allSeries?.length > 0 && (
-                        <div
-                          style={{
-                            boxShadow:
-                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                          }}
-                          className="bg-[white] pb-3 rounded-lg mb-3"
-                        >
-                          <span
-                            style={{
-                              color: "black",
-                              fontWeight: "bold",
-                              fontSize: "12px",
-                              paddingLeft: "10px",
-                              paddingTop: "10px",
-                            }}
-                          >
-                            CURRENT SERIES
-                          </span>
-                          <div className="flex flex-col mt-4 gap-3 items-center text-center">
-                            {allSeries?.map((item, index) => {
-                              if (index >= 4) return null;
-                              return (
-                                <div
-                                  key={item?._id}
-                                  style={{
-                                    display: "grid",
-                                    placeItems: "center",
-                                    justifyContent: "center",
-                                    width: "90%",
-                                    margin: "auto",
-                                    boxShadow:
-                                      "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                    textAlign: "center",
-                                    paddingTop: "0.5rem",
-                                    borderRadius: "4px",
-                                  }}
-                                >
-                                  <p>{item?.title}</p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-
-                      {middleBanner2 && (
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "550px",
-                            borderRadius: "10px",
-                          }}
-                          className="mb-3"
-                          src={middleBanner2}
-                          alt="middleBanner"
-                        />
-                      )}
-
-                      <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div
-                          style={{
-                            boxShadow:
-                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                            padding: "10px",
-                          }}
-                          className="flex justify-between p-2"
-                        >
-                          <div
-                            className="text-sm font-semibold"
-                            style={{ fontSize: "12px" }}
-                          >
-                            RANKING’s
-                          </div>
-                          <div>
-                            <button
-                              onClick={() => navigate("/Manrankingpage")}
-                              className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            >
-                              View all
-                            </button>
-                          </div>
-                        </div>
-                        <div className="flex justify-between ml-2 mr-2">
-                          <button
-                            onClick={() => setTeamSelector("test")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "test" ? "#0F19AF" : "black",
-                              color:
-                                teamSelector === "test" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "test" ? "bold" : "normal",
-                            }}
-                          >
-                            Test
-                          </button>
-                          <button
-                            onClick={() => setTeamSelector("odi")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "odi" ? "#0F19AF" : null,
-                              color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "odi" ? "bold" : "normal",
-                            }}
-                          >
-                            ODI
-                          </button>
-                          <button
-                            onClick={() => setTeamSelector("t20")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "t20" ? "#0F19AF" : null,
-                              color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "t20" ? "bold" : "normal",
-                            }}
-                          >
-                            T20
-                          </button>
-                        </div>
-                        <div className="flex justify-between m-2">
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "teams" ? "underline" : "none",
-                              fontWeight:
-                                mainCategory === "teams" ? "bold" : "normal",
-                              color: "black",
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("teams")}
-                            className="text-[#0F19AF]"
-                          >
-                            Teams
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "batting"
-                                  ? "underline"
-                                  : "none",
-                              fontWeight:
-                                mainCategory === "batting" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("batting")}
-                          >
-                            Batting
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "bowling"
-                                  ? "underline"
-                                  : "none",
-                              fontWeight:
-                                mainCategory === "bowling" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("bowling")}
-                          >
-                            Bowling
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "alr" ? "underline" : "none",
-                              fontWeight:
-                                mainCategory === "alr" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("alr")}
-                          >
-                            ALR
-                          </div>
-                        </div>
-                        <table>
-                          <thead style={{ textAlign: "center" }}>
-                            <tr>
-                              <th className="w-[100px]">Rank</th>
-                              <th className="w-[100px]">Team</th>
-                              <th className="w-[100px]">Rating</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {mainCategory === "teams" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  test?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "t20" &&
-                                  t20s?.slice(0, 6).map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-
-                                {teamSelector === "odi" &&
-                                  odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                              </>
-                            )}
-                            {mainCategory === "batting" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testBestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "t20" &&
-                                  t20Bestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "odi" &&
-                                  odiBestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                              </>
-                            )}
-                            {mainCategory === "bowling" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testBolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "t20" &&
-                                  t20Bolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "odi" &&
-                                  odiBolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                              </>
-                            )}
-                            {mainCategory === "alr" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "t20" &&
-                                  odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "odi" &&
-                                  odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                              </>
-                            )}
-                          </tbody>
-                        </table>
-                        <div className="text-center text-[10px] mt-2">
-                          Latest Updated On {new Date().toLocaleDateString()}
-                        </div>
-                      </div>
-
-                      {bottomBanner1 && (
-                        <img
-                          src={bottomBanner1}
-                          style={{
-                            height: "550px",
-                            borderRadius: "10px",
-                            marginTop: "2rem",
-                          }}
-                          alt="images"
-                        />
-                      )}
-                      <div
-                        style={{
-                          boxShadow:
-                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                        }}
-                        className="bg-[white] rounded-lg mt-2 mb-3"
-                      >
-                        <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">
-                            SPECIALS
-                          </span>
-                          {specialBanner?.map((item, index) => (
-                            <>
-                              <img src={item?.image} alt="" />
-                              <span className="font-semibold text-sm ml-4">
-                                {item?.subtitle}
-                              </span>
-                              <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                                {item?.description}
-                              </p>
-                            </>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                
                   </div>
                 </div>
               </>
@@ -2437,462 +1979,7 @@ const Livescrore = () => {
                       </div>
                     </div>
 
-                    <div className="w-[250px]  mt-10">
-                      {allSeries?.length > 0 && (
-                        <div className="bg-[white] pb-3 pt-3 rounded-lg mb-3">
-                          <span
-                            style={{
-                              color: "black",
-                              fontWeight: "bold",
-                              fontSize: "12px",
-                              paddingLeft: "10px",
-                            }}
-                          >
-                            CURRENT SERIES
-                          </span>
-                          <div className="flex flex-col mt-4 gap-3 items-center text-center">
-                            {allSeries?.map((item, index) => {
-                              if (index >= 4) return null;
-                              return (
-                                <div
-                                  key={item?._id}
-                                  style={{
-                                    display: "grid",
-                                    placeItems: "center",
-                                    justifyContent: "center",
-                                    width: "90%",
-                                    margin: "auto",
-                                    boxShadow:
-                                      "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                    textAlign: "center",
-                                    paddingTop: "0.5rem",
-                                    borderRadius: "4px",
-                                  }}
-                                >
-                                  <p>{item?.title}</p>
-                                </div>
-                              );
-                            })}
-                          </div>
-                        </div>
-                      )}
-                      {hompageBanner2?.image && (
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "550px",
-                            borderRadius: "10px",
-                          }}
-                          className="mb-3"
-                          src={hompageBanner2?.image}
-                          alt="middleBanner"
-                        />
-                      )}
-
-                      <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div className="flex justify-between p-2">
-                          <div
-                            className="text-sm font-semibold"
-                            style={{ fontSize: "12px" }}
-                          >
-                            RANKING’s
-                          </div>
-                          <div>
-                            <button
-                              onClick={() => navigate("/Manrankingpage")}
-                              className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            >
-                              View all
-                            </button>
-                          </div>
-                        </div>
-                        <div className="flex justify-between ml-2 mr-2">
-                          <button
-                            onClick={() => setTeamSelector("test")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "test" ? "#0F19AF" : "black",
-                              color:
-                                teamSelector === "test" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "test" ? "bold" : "normal",
-                            }}
-                          >
-                            Test
-                          </button>
-                          <button
-                            onClick={() => setTeamSelector("odi")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "odi" ? "#0F19AF" : null,
-                              color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "odi" ? "bold" : "normal",
-                            }}
-                          >
-                            ODI
-                          </button>
-                          <button
-                            onClick={() => setTeamSelector("t20")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "t20" ? "#0F19AF" : null,
-                              color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "t20" ? "bold" : "normal",
-                            }}
-                          >
-                            T20
-                          </button>
-                        </div>
-                        <div className="flex justify-between m-2">
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "teams" ? "underline" : "none",
-                              fontWeight:
-                                mainCategory === "teams" ? "bold" : "normal",
-                              color: "black",
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("teams")}
-                            className="text-[#0F19AF]"
-                          >
-                            Teams
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "batting"
-                                  ? "underline"
-                                  : "none",
-                              fontWeight:
-                                mainCategory === "batting" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("batting")}
-                          >
-                            Batting
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "bowling"
-                                  ? "underline"
-                                  : "none",
-                              fontWeight:
-                                mainCategory === "bowling" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("bowling")}
-                          >
-                            Bowling
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "alr" ? "underline" : "none",
-                              fontWeight:
-                                mainCategory === "alr" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("alr")}
-                          >
-                            ALR
-                          </div>
-                        </div>
-                        <table>
-                          <thead style={{ textAlign: "center" }}>
-                            <tr>
-                              <th className="w-[100px]">Rank</th>
-                              <th className="w-[100px]">Team</th>
-                              <th className="w-[100px]">Rating</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {mainCategory === "teams" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  test?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "t20" &&
-                                  t20s?.slice(0, 6).map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-
-                                {teamSelector === "odi" &&
-                                  odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                              </>
-                            )}
-                            {mainCategory === "batting" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testBestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "t20" &&
-                                  t20Bestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "odi" &&
-                                  odiBestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                              </>
-                            )}
-                            {mainCategory === "bowling" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testBolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "t20" &&
-                                  t20Bolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "odi" &&
-                                  odiBolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                              </>
-                            )}
-                            {mainCategory === "alr" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "t20" &&
-                                  odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "odi" &&
-                                  odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                              </>
-                            )}
-                          </tbody>
-                        </table>
-                        <div className="text-center text-[10px] mt-2">
-                          Latest Updated On {new Date().toLocaleDateString()}
-                        </div>
-                      </div>
-
-                      {hompageBanner3?.image && (
-                        <img
-                          src={hompageBanner3?.image}
-                          style={{
-                            height: "550px",
-                            borderRadius: "10px",
-                            marginTop: "2rem",
-                          }}
-                          alt="images"
-                        />
-                      )}
-                      <div className="bg-[white] rounded-lg mt-2">
-                        <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">
-                            SPECIALS
-                          </span>
-                          {specialBanner?.map((item, index) => (
-                            <>
-                              <img src={item?.image} alt="" />
-                              <span className="font-semibold text-sm ml-4">
-                                {item?.subtitle}
-                              </span>
-                              <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                                {item?.description}
-                              </p>
-                            </>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
+                  
                   </div>
                 </div>
               </>
