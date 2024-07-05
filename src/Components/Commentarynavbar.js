@@ -103,17 +103,18 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/match/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/match/") ? "white" : "black",
+            color: pathname.startsWith("/live-cricket-scores/") ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/match/")
+            backgroundColor: pathname.startsWith("/live-cricket-scores/")
               ? "#0F19AF"
               : "white",
-            padding: pathname.startsWith("/match/") ? "14px" : "0px",
+            padding: pathname.startsWith("/live-cricket-scores/") ? "14px" : "0px",
           }}
         >
+          {console.log(matchDetails)}
           Commentary
         </p>
         <p

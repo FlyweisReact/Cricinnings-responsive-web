@@ -510,7 +510,7 @@ const Nav = () => {
           </div>
 
           {matchesList?.slice(0, 5).map((match) => (
-            <a style={{ textDecoration: "none", color: "white" }} href={`/Scorecard/${match?.match_id}`}>
+            <a style={{ textDecoration: "none", color: "white" }} href={`/live-cricket-scores/${match?.title}-${match?.competition?.title}/scorecard/${match?.match_id}`}>
             <div
             // onClick={() => navigate(`/Scorecard/${match?.match_id}`)} 
               className="matchList"

@@ -9,7 +9,7 @@ const Fullcommentary = () => {
   const { matchId } = useParams();
   const [commentaryData, setCommentaryData] = useState({});
   const [itemsToShow, setItemsToShow] = useState(7);
-
+const [initialInning, setInitialInning] = useState(1);
   const handleViewMore = () => {
     setItemsToShow(commentaryData?.commentaries?.length);
   };
@@ -23,7 +23,7 @@ const Fullcommentary = () => {
   const getAllCommentary = async () => {
     try {
       const res = await axios.get(
-        `${baseUrl}user/matches/${matchId}/innings/1/commentary`
+        `${baseUrl}user/matches/${matchId}/innings/${initialInning}/commentary`
       );
       console.log(res?.data);
       setCommentaryData(res?.data);
@@ -34,7 +34,7 @@ const Fullcommentary = () => {
 
   useEffect(() => {
     getAllCommentary();
-  }, []);
+  }, [initialInning]);
 
   useEffect(() => {
     getMatchDetails();
