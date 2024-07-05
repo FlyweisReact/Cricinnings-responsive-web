@@ -63,7 +63,7 @@ const router = createBrowserRouter([
         element: <Squads />,
       },
       {
-        path: "/profile/:playerId/:playerName",
+        path: "/cricket-players/:playerName/:playerId",
         element: <PlayerProfile />,
       },
       {
@@ -128,27 +128,27 @@ const router = createBrowserRouter([
         element: <Stats />,
       },
       {
-        path: "/Cricketnews",
+        path: "/cricket-news",
         element: <Cricketnews />,
       },
       {
-        path: "/Cricspecial",
+        path: "/cric-special",
         element: <Cricspecial />,
       },
       {
-        path: "/Pitchreport",
+        path: "/pitch-report",
         element: <Pitchreport />,
       },
       {
-        path: "/Fantasytips",
+        path: "/fantasy-cricket-tips",
         element: <Fantasytips />,
       },
       {
-        path: "/Livescrore",
+        path: "/live-cricket-scores",
         element: <Livescrore />,
       },
       {
-        path: "/Livescrore/:category",
+        path: "/live-cricket-scores/:category",
         element: <Livescrore />,
       },
       {
@@ -156,23 +156,23 @@ const router = createBrowserRouter([
         element: <Iccseriesschedule />,
       },
       {
-        path: "/Manrankingpage",
+        path: "/icc-rankings/men",
         element: <Manrankingpage />,
       },
       {
-        path: "/Womenrankingpage",
+        path: "/icc-rankings/women",
         element: <Womenrankingpage />,
       },
       {
-        path: "/terms",
+        path: "terms-conditions",
         element: <TermsPage />,
       },
       {
-        path: "/privacy",
+        path: "/privacy-policy",
         element: <PrivacyPage />,
       },
       {
-        path: "/about",
+        path: "/about-us",
         element: <AboutPage />,
       },
       {

@@ -78,7 +78,7 @@ const Commentarynavbar = () => {
         </p>
       </div>
       <div className="flex justify-between mt-3">
-        <div onClick={() => navigate(`/Livescrore/Allseries`)}
+        <div onClick={() => navigate(`/live-cricket-scores/Allseries`)}
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E",cursor:"pointer" }}
           className="text-slate-500"
         >

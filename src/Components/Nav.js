@@ -139,19 +139,19 @@ const Nav = () => {
               />
             </div>
             <div className="navBar_links">
-              <a href="/Livescrore">
+              <a href="/live-cricket-scores">
               <p 
               // onClick={() => navigate("/Livescrore")}
               >Live Scores</p>
               </a>
-              <a href="/Livescrore/Schedule">
+              <a href="/live-cricket-scores/Schedule">
               <p
               //  onClick={() => navigate("/Livescrore/Schedule")}
               >Schedule</p>
               </a>
               {/* <a href="/Livescrore/Allseries"> */}
               <p 
-              onClick={() => navigate("/Fantasytips")}
+              onClick={() => navigate("/fantasy-cricket-tips")}
               >Fantasy Tips</p>
               {/* </a> */}
               <p>
@@ -170,16 +170,16 @@ const Nav = () => {
                   >
                     {allSeries?.slice(0, 5)?.map((item) => (
                       <Dropdown.Item
-                        onClick={() => navigate("/Livescrore/Allseries")}
+                        onClick={() => navigate("/live-cricket-scores/Allseries")}
                         className="no-border-radius-text"
                       >
                         {item?.title}
                       </Dropdown.Item>
                     ))}
-                    <a className="no1" href="/Livescrore/Allseries">
+                    <a className="no1" href="/live-cricket-scores/Allseries">
                     <Dropdown.Item
                       className="no-border-radius-text1"
-                      onClick={() => navigate("/Livescrore/Allseries")}
+                      onClick={() => navigate("/live-cricket-scores/Allseries")}
                     >
                       All Series {">>"}
                     </Dropdown.Item>
@@ -188,7 +188,7 @@ const Nav = () => {
                 </Dropdown>
               </p>
               <p
-               onClick={() => navigate("/Cricketnews")}
+               onClick={() => navigate("/cricket-news")}
                >Cricket News</p>
               <p>
                 <p onClick={handleToggle} style={{ cursor: "pointer" }}>
@@ -205,22 +205,22 @@ const Nav = () => {
                     ref={dropdownRef}
                   >
                     <Dropdown.Item
-                      onClick={() => navigate("/Manrankingpage")}
+                      onClick={() => navigate("/icc-rankings/men")}
                       className="no-border-radius-text"
                     >
                       ICC - Men's Ranking
                     </Dropdown.Item>
                     <Dropdown.Item
                       className="no-border-radius-text"
-                      onClick={() => navigate("/Womenrankingpage")}
+                      onClick={() => navigate("/icc-rankings/women")}
                     >
                       ICC - Women's Ranking
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </p>
-              <p onClick={() => navigate("/Cricspecial")}>Cricspecial</p>
-              <p onClick={() => navigate("/Pitchreport")}>Pitch Report</p>
+              <p onClick={() => navigate("/cric-special")}>Cricspecial</p>
+              <p onClick={() => navigate("/pitch-report")}>Pitch Report</p>
             </div>
             <div className="navBar_icons">
               <p>

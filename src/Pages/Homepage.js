@@ -737,7 +737,7 @@ const Homepage = () => {
                   {allSeries?.map((item, index) => {
                     if (index >= 4) return null;
                     return (
-                      <div onClick={() => navigate(`/Livescrore/Allseries`)}
+                      <div onClick={() => navigate(`/live-cricket-scores/Allseries`)}
                         key={item?._id}
                         style={{
                           display: "grid",
@@ -782,7 +782,7 @@ const Homepage = () => {
                 </div>
                 <div>
                   <button
-                    onClick={() => navigate("/Manrankingpage")}
+                    onClick={() => navigate("/icc-rankings/men")}
                     className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                   >
                     View all

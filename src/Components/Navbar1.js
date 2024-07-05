@@ -42,18 +42,18 @@ const Navbar = () => {
 
         <div className="">
           <ul className="flex gap-4">
-            <Link to="/Livescrore">
+            <Link to="/live-cricket-scores">
               <li>
                 <span className="live-dot"></span>
                 <span className="text-[15px] text-[white]">Live Scores</span>
               </li>
             </Link>
-            <Link to="/Livescrore">
+            <Link to="/live-cricket-scores">
               <li>
                 <span className="text-[15px] text-[white]">Schedule</span>
               </li>
             </Link>
-            <Link to="/Fantasytips">
+            <Link to="/fantasy-cricket-tips">
               <li>
                 <span className="text-[15px] text-[white]">Fantasy Tips</span>
               </li>
@@ -98,7 +98,7 @@ const Navbar = () => {
                 </ul>
               )}
             </li>
-            <Link to="/Cricketnews">
+            <Link to="/cricket-news">
               <li>
                 <span className="text-[15px] text-[white]">Cricket News</span>
               </li>
@@ -118,20 +118,20 @@ const Navbar = () => {
                   className="absolute bg-white w-[200px] h-[80px] font-semibold p-2 flex flex-col gap-3   z-10"
                 >
                   <li>
-                    <Link to="/Manrankingpage">ICC Men's Ranking </Link>
+                    <Link to="/icc-rankings/men">ICC Men's Ranking </Link>
                   </li>
                   <li>
-                    <Link to="/Womenrankingpage">ICC Women's Ranking </Link>
+                    <Link to="/icc-rankings/women">ICC Women's Ranking </Link>
                   </li>
                 </ul>
               )}
             </li>
-            <Link to="/Cricspecial">
+            <Link to="/cric-special">
               <li>
                 <span className="text-[15px] text-[white]">Cricspecial</span>
               </li>{" "}
             </Link>
-            <Link to="/Pitchreport">
+            <Link to="/pitch-report">
               <li>
                 <span className="text-[15px] text-[white]">Pitch Report</span>
               </li>

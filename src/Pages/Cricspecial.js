@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 const Cricspecial = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
   const getAllData = async () => {
-    GetData("userAuth/getPostByTitle/Cricspecial").then((res) => {
+    GetData("userAuth/getPostByTitle/cric-special").then((res) => {
       setFantasyBanner(res?.data);
     });
   };

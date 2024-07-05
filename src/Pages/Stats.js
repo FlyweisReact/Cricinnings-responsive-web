@@ -126,7 +126,7 @@ const Stats = () => {
                     <tbody>
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
-                          <td onClick={() => navigate(`/profile/${item?.player?.pid}/${item?.player?.first_name}-${item?.player?.last_name}`)}>
+                          <td onClick={() => navigate(`/cricket-players/${item?.player?.first_name}-${item?.player?.last_name}/${item?.player?.pid}`)}>
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
                           <td>{item?.matches}</td>

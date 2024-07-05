@@ -11,9 +11,9 @@ const Livescrore = () => {
   const location = useLocation();
 
   const initialLocation =
-    location.pathname === "/Livescrore/Schedule"
+    location.pathname === "/live-cricket-scores/Schedule"
       ? "Match Day By Day"
-      : location.pathname === "/Livescrore/Allseries"
+      : location.pathname === "/live-cricket-scores/Allseries"
       ? "Current & Future Series"
       : "Current Matches";
   console.log(location.pathname);
@@ -761,7 +761,7 @@ const Livescrore = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/Manrankingpage")}
+                              onClick={() => navigate("/icc-rankings/men")}
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all
@@ -1270,7 +1270,7 @@ const Livescrore = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/Manrankingpage")}
+                              onClick={() => navigate("/icc-rankings/men")}
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all
@@ -1798,7 +1798,7 @@ const Livescrore = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/Manrankingpage")}
+                              onClick={() => navigate("/icc-rankings/men")}
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all
@@ -2493,7 +2493,7 @@ const Livescrore = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/Manrankingpage")}
+                              onClick={() => navigate("/icc-rankings/men")}
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all
