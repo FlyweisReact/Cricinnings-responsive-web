@@ -14,6 +14,22 @@ const Fullcommentary = () => {
     });
   };
 
+  const getAllComantry = async () => {
+    try {
+      axios
+        .get(baseUrl + `user/matches/${matchId}/innings/1/commentary`)
+        .then((res) => {
+          console.log(res?.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllComantry();
+  }, []);
+
   useEffect(() => {
     getMatchDetails();
   }, []);
@@ -23,12 +39,12 @@ const Fullcommentary = () => {
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <Commentarynavbar matchDetails={matchDetails} />
         <div className="flex justify-center">
-          <div
+          {/* <div
             style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}
           >
             <p>Comming Soon ...</p>
-          </div>
-          {/* <div className="w-[950px] mb-5 pb-5 shadow-2xl bg-white flex justify-center gap-3 mt-5 pt-5 ">
+          </div> */}
+          <div className="w-[950px] mb-5 pb-5 shadow-2xl bg-white flex justify-center gap-3 mt-5 pt-5 ">
             <div className="border w-[250px] h-[400px]">
               <div className="flex justify-center mt-5 gap-2">
                 <div className="bg-[#0F19AF] text-white w-[80px] h-[30px] rounded-3xl flex justify-center items-center">
@@ -124,7 +140,7 @@ const Fullcommentary = () => {
                 </div>
               </div>
             </div>
-          </div> */}
+          </div>
         </div>
       </div>
     </div>

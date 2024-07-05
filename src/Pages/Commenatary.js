@@ -31,12 +31,12 @@ const Commenatary = () => {
         <div className="text-xl">Suresh Raina</div> */}
       </div>
       <div className="bg-white pb-5  ">
-        <div
+        {/* <div
           style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}
         >
           <p>Comming Soon ...</p>
-        </div>
-        {/* <div className="flex justify-center pt-2 gap-5">
+        </div> */}
+        <div className="flex justify-center pt-2 gap-5">
           <div>
             <div className="">
               <div className="font-semibold">Match Info</div>
@@ -377,7 +377,7 @@ const Commenatary = () => {
               </div>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );
