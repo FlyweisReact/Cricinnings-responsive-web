@@ -8,6 +8,11 @@ const Fullcommentary = () => {
   const [matchDetails, setMatchDetails] = useState({});
   const { matchId } = useParams();
   const [commentaryData, setCommentaryData] = useState({});
+  const [itemsToShow, setItemsToShow] = useState(7);
+
+  const handleViewMore = () => {
+    setItemsToShow(commentaryData?.commentaries?.length);
+  };
 
   const getMatchDetails = async () => {
     axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
@@ -34,7 +39,16 @@ const Fullcommentary = () => {
   useEffect(() => {
     getMatchDetails();
   }, []);
-
+  const convertCommentaryToSymbol = (commentaryItem) => {
+    if (commentaryItem.six) return "6";
+    if (commentaryItem.four) return "4";
+    if (commentaryItem.wideball) return "Wd";
+    if (commentaryItem.noball) return "Nb";
+    if (commentaryItem.bye_run > 0) return "B";
+    if (commentaryItem.legbye_run > 0) return "Lb";
+    if (commentaryItem.event === "wicket") return "W";
+    return commentaryItem.run.toString();
+  };
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
@@ -77,28 +91,80 @@ const Fullcommentary = () => {
               </div>
             </div>
             <div className="w-[650px] flex flex-col gap-5">
-              {commentaryData?.commentaries?.map((item) => (
-                <div className="commentryDataClass">
-                  <div
-                    style={{
-                      height: "60px",
-                      width: "60px",
-                      borderRadius: "50%",
-                      padding: "12px",
-                      backgroundColor: "#55B2A8",
-                      color: "white",
-                    }}
-                  >
-                    <p style={{ fontSize: "20px", textAlign: "center" }}>
-                      {item?.bat_run}
-                    </p>
-                  </div>
+              {commentaryData?.commentaries
+                ?.slice(0, itemsToShow)
+                .map((item, index) => (
                   <div>
-                    <p>{item?.commentary}</p>
-                    <p>{item?.commentary}</p>
+                    {item?.event === "overend" ? (
+                      <div
+                        style={{
+                          backgroundColor: "#ECEAEA",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        <div
+                          style={{
+                            borderBottom: "1px solid #D0D0D1",
+                            height: "20px",
+                          }}
+                        ></div>
+                        <div className="d-flex align-items-center p-2">
+                          <div>
+                            <p>{item?.event?.over}</p>
+                          </div>
+                          <div
+                            style={{
+                              borderRight: "1px solid #D0D0D1",
+                              paddingRight: "10px",
+                            }}
+                          >
+                            <p style={{ paddingTop: "3px" }}>
+                              Runs Scored: {item?.runs}
+                            </p>
+                            {item.bowls.map((bowler, i) => (
+                              <p key={i}>
+                                <span> M {bowler.maidens}</span>
+                                <span> RC {bowler.runs_conceded}</span>
+                                <span> W {bowler.wickets}</span>
+                              </p>
+                            ))}
+                          </div>
+                          <div></div>
+                          <div></div>
+                          <div></div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div key={index} className="commentryDataClass">
+                        <div
+                          style={{
+                            height: "60px",
+                            width: "60px",
+                            borderRadius: "50%",
+                            padding: "5px",
+                            backgroundColor: "#55B2A8",
+                            color: "white",
+                          }}
+                        >
+                          <p style={{ fontSize: "20px", textAlign: "center" }}>
+                            {item?.bat_run}
+                          </p>
+                        </div>
+                        <div>
+                          <p>{item?.commentary}</p>
+                        </div>
+                      </div>
+                    )}
                   </div>
+                ))}
+              {itemsToShow < commentaryData?.commentaries?.length && (
+                <div
+                  onClick={handleViewMore}
+                  style={{ cursor: "pointer", color: "blue" }}
+                >
+                  View More
                 </div>
-              ))}
+              )}
             </div>
           </div>
         </div>
