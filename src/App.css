@@ -556,3 +556,24 @@
   background: none 0% 0% / auto repeat scroll padding-box border-box
     rgb(255, 255, 255);
 }
+
+
+.commentryDataClass{
+  box-sizing: border-box;
+background-color: rgb(255, 255, 255);
+border-bottom: 1px solid rgb(221, 221, 221);
+overflow: hidden;
+padding: 8px;
+font-size: 13px;
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+display: flex;
+gap: 2rem;
+}
+
+.commentryDataClass2{
+  box-sizing: border-box;
+font-size: 13px;
+font-family: helvetica, "Segoe UI", Arial, sans-serif;
+cursor: default;
+background-color: rgb(255, 255, 255);
+}

@@ -7,6 +7,7 @@ import axios from "axios";
 const Fullcommentary = () => {
   const [matchDetails, setMatchDetails] = useState({});
   const { matchId } = useParams();
+  const [commentaryData, setCommentaryData] = useState({});
 
   const getMatchDetails = async () => {
     axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
@@ -14,20 +15,20 @@ const Fullcommentary = () => {
     });
   };
 
-  const getAllComantry = async () => {
+  const getAllCommentary = async () => {
     try {
-      axios
-        .get(baseUrl + `user/matches/${matchId}/innings/1/commentary`)
-        .then((res) => {
-          console.log(res?.data);
-        });
+      const res = await axios.get(
+        `${baseUrl}user/matches/${matchId}/innings/1/commentary`
+      );
+      console.log(res?.data);
+      setCommentaryData(res?.data);
     } catch (error) {
       console.log(error);
     }
   };
 
   useEffect(() => {
-    getAllComantry();
+    getAllCommentary();
   }, []);
 
   useEffect(() => {
@@ -76,69 +77,28 @@ const Fullcommentary = () => {
               </div>
             </div>
             <div className="w-[650px] flex flex-col gap-5">
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
+              {commentaryData?.commentaries?.map((item) => (
+                <div className="commentryDataClass">
+                  <div
+                    style={{
+                      height: "60px",
+                      width: "60px",
+                      borderRadius: "50%",
+                      padding: "12px",
+                      backgroundColor: "#55B2A8",
+                      color: "white",
+                    }}
+                  >
+                    <p style={{ fontSize: "20px", textAlign: "center" }}>
+                      {item?.bat_run}
+                    </p>
+                  </div>
+                  <div>
+                    <p>{item?.commentary}</p>
+                    <p>{item?.commentary}</p>
+                  </div>
                 </div>
-              </div>
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
-                </div>
-              </div>
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
-                </div>
-              </div>
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
-                </div>
-              </div>
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
-                </div>
-              </div>
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
-                </div>
-              </div>
-              <div>
-                <span className="font-semibold">Najmul Hossain Shanto: </span>
-                <div>
-                  Lorem ipsum dolor sit amet consectetur. Amet mus aliquam
-                  vivamus tincidunt. Odio rhoncus pretium eu vivamus. Urna odio
-                  porta vel sed mi sagittis fermentum odio. Volutpat velit metus
-                  rhoncus enim dolor orci quis
-                </div>
-              </div>
+              ))}
             </div>
           </div>
         </div>
