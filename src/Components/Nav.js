@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { AuthToken, GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
@@ -45,7 +45,7 @@ const Nav = () => {
   const getTopMatches = async () => {
     const response = await axios.get(
       baseUrl +
-      "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
+        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
       {
         params: {
           token: AuthToken,
@@ -73,7 +73,7 @@ const Nav = () => {
       );
 
       setAllSeries(res?.data?.competitions?.slice(0, 5));
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -99,9 +99,10 @@ const Nav = () => {
   const baseUrl = "https://vipin-jha-cricbuzz.vercel.app/";
   const getAllHomePageBanners = async () => {
     const res = await axios.get(`${baseUrl}admin/getAllPosts`);
-    const banner = res?.data?.data?.filter((item) => item.title === "hompageBanner1")?.[0]
-      ?.image;
-    console.log(res?.data)
+    const banner = res?.data?.data?.filter(
+      (item) => item.title === "hompageBanner1"
+    )?.[0]?.image;
+    console.log(res?.data);
     setTopBanner1(banner);
   };
   useEffect(() => {
@@ -140,19 +141,23 @@ const Nav = () => {
             </div>
             <div className="navBar_links">
               <a href="/live-cricket-scores">
-              <p 
-              // onClick={() => navigate("/Livescrore")}
-              >Live Scores</p>
+                <p
+                // onClick={() => navigate("/Livescrore")}
+                >
+                  Live Scores
+                </p>
               </a>
               <a href="/live-cricket-scores/Schedule">
-              <p
-              //  onClick={() => navigate("/Livescrore/Schedule")}
-              >Schedule</p>
+                <p
+                //  onClick={() => navigate("/Livescrore/Schedule")}
+                >
+                  Schedule
+                </p>
               </a>
               {/* <a href="/Livescrore/Allseries"> */}
-              <p 
-              onClick={() => navigate("/fantasy-cricket-tips")}
-              >Fantasy Tips</p>
+              <p onClick={() => navigate("/fantasy-cricket-tips")}>
+                Fantasy Tips
+              </p>
               {/* </a> */}
               <p>
                 <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
@@ -170,26 +175,28 @@ const Nav = () => {
                   >
                     {allSeries?.slice(0, 5)?.map((item) => (
                       <Dropdown.Item
-                        onClick={() => navigate("/live-cricket-scores/Allseries")}
+                        onClick={() =>
+                          navigate("/live-cricket-scores/Allseries")
+                        }
                         className="no-border-radius-text"
                       >
                         {item?.title}
                       </Dropdown.Item>
                     ))}
                     <a className="no1" href="/live-cricket-scores/Allseries">
-                    <Dropdown.Item
-                      className="no-border-radius-text1"
-                      onClick={() => navigate("/live-cricket-scores/Allseries")}
-                    >
-                      All Series {">>"}
-                    </Dropdown.Item>
+                      <Dropdown.Item
+                        className="no-border-radius-text1"
+                        onClick={() =>
+                          navigate("/live-cricket-scores/Allseries")
+                        }
+                      >
+                        All Series {">>"}
+                      </Dropdown.Item>
                     </a>
                   </Dropdown.Menu>
                 </Dropdown>
               </p>
-              <p
-               onClick={() => navigate("/cricket-news")}
-               >Cricket News</p>
+              <p onClick={() => navigate("/cricket-news")}>Cricket News</p>
               <p>
                 <p onClick={handleToggle} style={{ cursor: "pointer" }}>
                   ICC Ranking
@@ -510,18 +517,21 @@ const Nav = () => {
           </div>
 
           {matchesList?.slice(0, 5).map((match) => (
-            <a style={{ textDecoration: "none", color: "white" }} href={`/live-cricket-scores/${match?.title}-${match?.competition?.title}/scorecard/${match?.match_id}`}>
-            <div
-            // onClick={() => navigate(`/Scorecard/${match?.match_id}`)} 
-              className="matchList"
+            <a
+              style={{ textDecoration: "none", color: "white" }}
+              href={`/Scorecard/${match?.match_id}`}
             >
-              <p>
-                {match?.short_title}
-                {match?.status === 2
-                  ? `- ${match?.result?.split(" ")?.[0]} WON `
-                  : ""}
-              </p>
-            </div>
+              <div
+                // onClick={() => navigate(`/Scorecard/${match?.match_id}`)}
+                className="matchList"
+              >
+                <p>
+                  {match?.short_title}
+                  {match?.status === 2
+                    ? `- ${match?.result?.split(" ")?.[0]} WON `
+                    : ""}
+                </p>
+              </div>
             </a>
           ))}
         </div>

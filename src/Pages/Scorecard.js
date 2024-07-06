@@ -1,7 +1,7 @@
 import { IoCaretForwardOutline } from "react-icons/io5";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
@@ -11,6 +11,7 @@ const Scorecard = () => {
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
+  const navigate = useNavigate();
 
   function formatDate11(dateString) {
     const date = new Date(dateString);
@@ -174,7 +175,16 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[0]?.batsmen?.map((item, index) => (
                     <tr key={index} className="border-b">
-                      <td className="text-[#0F19AF]">{item.name}</td>
+                      <td
+                        className="text-[#0F19AF]"
+                        onClick={() =>
+                          navigate(
+                            `/profile/${item?.player?.pid}/${item?.player?.title}`
+                          )
+                        }
+                      >
+                        {item.name}
+                      </td>
                       <td>{item.how_out}</td>
                       <td>{item.runs}</td>
                       <td>{item.balls_faced}</td>
