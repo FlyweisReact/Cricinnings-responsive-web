@@ -20,17 +20,17 @@ const PlayerProfile = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      console.log(banner);
+      // console.log(banner);
     });
   };
   const params = useParams();
   const { playerId } = params;
-  console.log(playerId);
+  // console.log(playerId);
   const getPlayerDataById = async () => {
     axios.get(baseUrl + "user/getPlayerStats/" + playerId).then((res) => {
       setPlayerData(res?.data?.player);
       setPlayerData1(res?.data);
-      console.log(res?.data);
+      // console.log(res?.data);
     });
   };
 
@@ -42,7 +42,7 @@ const PlayerProfile = () => {
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`)
       .then((res) => {
-        console.log(res?.data);
+        // console.log(res?.data);
         setCompetitionData(res?.data);
       });
   };

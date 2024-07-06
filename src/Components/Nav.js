@@ -102,7 +102,7 @@ const Nav = () => {
     const banner = res?.data?.data?.filter(
       (item) => item.title === "hompageBanner1"
     )?.[0]?.image;
-    console.log(res?.data);
+    // console.log(res?.data);
     setTopBanner1(banner);
   };
   useEffect(() => {
@@ -519,7 +519,7 @@ const Nav = () => {
           {matchesList?.slice(0, 5).map((match) => (
             <a
               style={{ textDecoration: "none", color: "white" }}
-              href={`/Scorecard/${match?.match_id}`}
+              href={`/live-cricket-scores/${match?.title}-${match?.competition?.title}/scorecard/${match?.match_id}`}
             >
               <div
                 // onClick={() => navigate(`/Scorecard/${match?.match_id}`)}

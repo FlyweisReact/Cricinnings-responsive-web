@@ -8,7 +8,7 @@ const PrivacyPage = () => {
   const getAllTermsData = () => {
     GetData("userAuth/getAllPrivacyAndPolicy").then((res) => {
       setTerms(res?.data);
-      console.log(res?.data);
+      // console.log(res?.data);
     });
   };
 

@@ -16,7 +16,7 @@ const Livescrore = () => {
       : location.pathname === "/live-cricket-scores/Allseries"
       ? "Current & Future Series"
       : "Current Matches";
-  console.log(location.pathname);
+  // console.log(location.pathname);
   const [selectedDiv, setSelectedDiv] = useState(initialLocation);
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
@@ -280,7 +280,7 @@ const Livescrore = () => {
         `${baseUrl}user/getCompetitionsAndMatches?token=7971ecfda0c915c1573e11d0d8032c9a&per_page=10&paged=1&include_matches=true&category=${category}`
       )
       .then((res) => {
-        console.log(res?.data?.competitions);
+        // console.log(res?.data?.competitions);
         setNewMatchData(res?.data?.competitions);
       })
       .catch((err) => {});

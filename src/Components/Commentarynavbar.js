@@ -56,7 +56,7 @@ const Commentarynavbar = () => {
 
   const getSquadData = async () => {
     axios.get(baseUrl + "user/scorecard/" + matchId).then((res) => {
-      console.log(res?.data?.scorecard);
+      // console.log(res?.data?.scorecard);
       setSquadData(res?.data?.scorecard);
     });
   };
@@ -114,16 +114,10 @@ const Commentarynavbar = () => {
               );
           }}
           style={{
-            color: pathname.startsWith("/live-cricket-scores/")
-              ? "white"
-              : "black",
+            color: /\/full_commentry\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/live-cricket-scores/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/live-cricket-scores/")
-              ? "14px"
-              : "0px",
+            backgroundColor: /\/full_commentry\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/full_commentry\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Commentary
@@ -131,47 +125,42 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/Scorecard/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/Scorecard/") ? "white" : "black",
+            color: /\/scorecard\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Scorecard/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Scorecard/") ? "14px" : "0px",
+            backgroundColor: /\/scorecard\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
           }}
+          
         >
           ScoreCard
         </p>
         <p
-          onClick={() => {
-            matchDetails?.match_id &&
-              navigate(`/Squads/${matchDetails?.match_id}`);
-          }}
-          style={{
-            color: pathname.startsWith("/Squads/") ? "white" : "black",
-            fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Squads/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Squads/") ? "14px" : "0px",
-          }}
+            onClick={() => {
+              matchDetails?.match_id &&
+                navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/squad/${matchDetails?.match_id}`);
+            }}
+            style={{
+              color: /\/squad\//i.test(pathname) ? "white" : "black",
+              fontWeight: "bold",
+              backgroundColor: /\/squad\//i.test(pathname) ? "#0F19AF" : "white",
+              padding: /\/squad\//i.test(pathname) ? "14px" : "0px",
+            }}
         >
           Squads
         </p>
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/Highlights/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/highlights/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/Highlights/") ? "white" : "black",
+            color: /\/highlights\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Highlights/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Highlights/") ? "14px" : "0px",
+            backgroundColor: /\/highlights\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/highlights\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Highlights
@@ -179,15 +168,13 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/match/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/commentary/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/match/") ? "white" : "black",
+            color: /\/commentary\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/match/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/match/") ? "14px" : "0px",
+            backgroundColor: /\/commentary\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/commentary\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Full Commentary
@@ -195,17 +182,13 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-            navigate(
-              `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`
-            );
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/overs/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/Overs/") ? "white" : "black",
+            color: /\/overs\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Overs/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Overs/") ? "14px" : "0px",
+            backgroundColor: /\/overs\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/overs\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Overs
@@ -213,31 +196,27 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/Pointtable/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/points-table/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/Pointtable/") ? "white" : "black",
+            color: /\/points-table\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Pointtable/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Pointtable/") ? "14px" : "0px",
+            backgroundColor: /\/points-table\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/points-table\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Point Table
         </p>
         <p
-          onClick={() => {
+           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/Matchinfo/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/match-info/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/Matchinfo/") ? "white" : "black",
+            color: /\/match-info\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Matchinfo/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Matchinfo/") ? "14px" : "0px",
+            backgroundColor: /\/match-info\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/match-info\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Match Info
@@ -245,15 +224,15 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/News/${matchDetails?.match_id}`);
+              navigate(`/cricket-news/`);
           }}
           style={{
-            color: pathname.startsWith("/News/") ? "white" : "black",
+            color: pathname.startsWith("/cricket-news/") ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/News/")
+            backgroundColor: pathname.startsWith("/cricket-news/")
               ? "#0F19AF"
               : "white",
-            padding: pathname.startsWith("/News/") ? "14px" : "0px",
+            padding: pathname.startsWith("/cricket-news/") ? "14px" : "0px",
           }}
         >
           News
@@ -261,15 +240,13 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/Stats/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/stats/${matchDetails?.match_id}`);
           }}
           style={{
-            color: pathname.startsWith("/Stats/") ? "white" : "black",
+            color: /\/stats\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: pathname.startsWith("/Stats/")
-              ? "#0F19AF"
-              : "white",
-            padding: pathname.startsWith("/Stats/") ? "14px" : "0px",
+            backgroundColor: /\/stats\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/stats\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Stats

@@ -77,7 +77,7 @@ const Fantasytips = () => {
       path: "teams/25/matches",
     })
       .then((res) => {
-        console.log(res?.response?.items);
+        // console.log(res?.response?.items);
         setMatches(res?.response?.items);
       })
       .catch((err) => {
@@ -90,7 +90,7 @@ const Fantasytips = () => {
 
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      console.log(res?.data);
+      // console.log(res?.data);
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"
@@ -125,7 +125,7 @@ const Fantasytips = () => {
         baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
       );
 
-      console.log(res?.data?.competitions);
+      // console.log(res?.data?.competitions);
       setAllSeries(res?.data?.competitions);
     } catch (error) {
       console.log(error);

@@ -8,7 +8,7 @@ const TermsPage = () => {
   const getAllTermsData = () => {
     GetData("userAuth/getAllTermsAndConditions").then((res) => {
       setTerms(res?.data);
-      console.log(res?.data);
+      // console.log(res?.data);
     });
   };
 

@@ -25,7 +25,7 @@ const Manrankingpage = () => {
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    console.log(res?.data?.rankingData);
+    // console.log(res?.data?.rankingData);
     setOdiBestman(res?.data?.rankingData?.ranks?.batsmen?.odis);
     setT20Bestman(res?.data?.rankingData?.ranks?.batsmen?.t20s);
     setTestBestman(res?.data?.rankingData?.ranks?.batsmen?.tests);

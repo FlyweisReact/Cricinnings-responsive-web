@@ -75,7 +75,7 @@ const Cricspecial = () => {
       path: "teams/25/matches",
     })
       .then((res) => {
-        console.log(res?.response?.items);
+        // console.log(res?.response?.items);
         setMatches(res?.response?.items);
       })
       .catch((err) => {
@@ -88,7 +88,7 @@ const Cricspecial = () => {
 
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      console.log(res?.data);
+      // console.log(res?.data);
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"

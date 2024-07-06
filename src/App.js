@@ -54,7 +54,7 @@ const router = createBrowserRouter([
         element: <Scorecard />,
       },
       {
-        path: "/live-cricket-scores/matchName:/scorecard/:matchId" ,
+        path: "/live-cricket-scores/:matchName/scorecard/:matchId",
         element: <Scorecard />,
       },
       {
@@ -62,16 +62,17 @@ const router = createBrowserRouter([
         element: <Scorecard />,
       },
 
-      {
-        path: "/Squads",
-        element: <Squads />,
-      },
+      // {
+      //   path: "/Squads",
+      //   element: <Squads />,
+      // },
       {
         path: "/cricket-players/:playerName/:playerId",
         element: <PlayerProfile />,
       },
+    
       {
-        path: "/live-cricket-scores/matchName:/squad/:matchId",
+        path: "/live-cricket-scores/:matchName/squad/:matchId",
         element: <Squads />,
       },
       {
@@ -79,7 +80,7 @@ const router = createBrowserRouter([
         element: <Squads />,
       },
       {
-        path: "/Highlights/:matchId",
+        path: "/live-cricket-scores/:matchName/highlights/:matchId",
         element: <Highlights />,
       },
       {
@@ -100,7 +101,7 @@ const router = createBrowserRouter([
         element: <Fullcommentary />,
       },
       {
-        path: "/Overs",
+        path: "/live-cricket-scores/:matchName/overs/:matchId",
         element: <Overs />,
       },
       {
@@ -112,11 +113,11 @@ const router = createBrowserRouter([
         element: <Pointtable />,
       },
       {
-        path: "/Pointtable",
+        path: "/live-cricket-scores/:matchName/points-table/:matchId",
         element: <Pointtable />,
       },
       {
-        path: "/Matchinfo",
+        path: "/live-cricket-scores/:matchName/match-info/:matchId",
         element: <Matchinfo />,
       },
       {
@@ -124,7 +125,7 @@ const router = createBrowserRouter([
         element: <Matchinfo />,
       },
       {
-        path: "/News/:matchId",
+        path: "/live-cricket-scores/:matchName/cricket-news/:matchId",
         element: <News />,
       },
       {
@@ -132,7 +133,7 @@ const router = createBrowserRouter([
         element: <News />,
       },
       {
-        path: "/Stats/:matchId",
+        path: "/live-cricket-scores/:matchName/stats/:matchId",
         element: <Stats />,
       },
       {
@@ -140,7 +141,7 @@ const router = createBrowserRouter([
         element: <Stats />,
       },
       {
-        path: "/cricket-news",
+        path: "/cricket-news/",
         element: <Cricketnews />,
       },
       {

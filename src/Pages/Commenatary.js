@@ -2,17 +2,22 @@ import { useEffect, useState } from "react";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
+import videoframe from "../Assets/Homepage/videoframe.svg";
+
+import topnews from "../Assets/Homepage/topnews.svg";
 const Commenatary = () => {
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
+  const [data, setData] = useState([]);
+  const [commentary, setCommentary] = useState([]);
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
       const banner = res?.data?.data
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
-      console.log(banner)
+      // console.log(banner)
     })
   }
 
@@ -45,7 +50,7 @@ const Commenatary = () => {
             <div className="w-[680px]  mt-2 bg-white rounded-lg  shadow-lg flex justify-center  flex-wrap gap-5 pt-5 pb-5">
               <div>
                 <span className="text-sm ml-4">India</span>
-                <img src={qualifiedfinal} alt="" />
+                {/* <img src={qualifiedfinal} alt="" /> */}
               </div>
               <div className="ml-4 mr-4">
                 <div className="text-xl font-semibold">

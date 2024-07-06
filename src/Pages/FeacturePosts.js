@@ -21,7 +21,7 @@ const FeacturePosts = () => {
   };
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      console.log(res?.data);
+      // console.log(res?.data);
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"

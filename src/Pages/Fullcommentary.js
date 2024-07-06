@@ -10,6 +10,22 @@ const Fullcommentary = () => {
   const [commentaryData, setCommentaryData] = useState({});
   const [itemsToShow, setItemsToShow] = useState(7);
 const [initialInning, setInitialInning] = useState(1);
+function dateConvert12(dateString) {
+  const date = new Date(dateString);
+  const options = { year: 'numeric', month: 'short', day: 'numeric' };
+  return date.toLocaleDateString('en-US', options);
+}
+
+function timeConvert12(dateString) {
+  const date = new Date(dateString);
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const ampm = hours >= 12 ? 'PM' : 'AM';
+  hours = hours % 12;
+  hours = hours ? hours : 12; // the hour '0' should be '12'
+  const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+  return `${hours}:${minutesStr} ${ampm} IST`;
+}
   const handleViewMore = () => {
     setItemsToShow(commentaryData?.commentaries?.length);
   };
@@ -25,7 +41,7 @@ const [initialInning, setInitialInning] = useState(1);
       const res = await axios.get(
         `${baseUrl}user/matches/${matchId}/innings/${initialInning}/commentary`
       );
-      console.log(res?.data);
+      // console.log(res?.data);
       setCommentaryData(res?.data);
     } catch (error) {
       console.log(error);
@@ -61,33 +77,36 @@ const [initialInning, setInitialInning] = useState(1);
           </div> */}
           <div className="w-[950px] mb-5 pb-5 shadow-2xl bg-white flex justify-center gap-3 mt-5 pt-5 ">
             <div className="border w-[250px] h-[400px]">
-              <div className="flex justify-center mt-5 gap-2">
+              {/* <div className="flex justify-center mt-5 gap-2">
                 <div className="bg-[#0F19AF] text-white w-[80px] h-[30px] rounded-3xl flex justify-center items-center">
-                  Preview
+                 Preview
                 </div>
                 <div className="border w-[80px] h-[30px] rounded-3xl flex justify-center items-center">
-                  Csk-Inn
+                {commentaryData?.inning?.name}
                 </div>
+              </div> */}
+              <div style={{ display: "flex", justifyContent: "space-between",padding:"0.5rem",justifyContent:"center",gap:"1rem" }}>
+                <p onClick={() => {initialInning === 1 ? setInitialInning(2) : setInitialInning(1)}} style={{ fontSize: "14px", fontWeight: "bold" ,padding:"0.2rem 0.5rem",backgroundColor:"blue",color:"white",borderRadius:"35px",border:"1px solid gray",cursor:"pointer"}}>Switch</p>
+                <p style={{ fontSize: "14px", fontWeight: "bold",padding:"0.2rem 0.5rem ",backgroundColor:"white",color:"blue",borderRadius:"35px",border:"1px solid gray" }}>{commentaryData?.inning?.name}</p>
               </div>
 
               <div className="bg-[#767676] text-white flex justify-center pt-2 pb-2 mt-2">
                 MATCH INFO
               </div>
               <div className=" pt-2 pb-2 mt-2 border-y pl-2 flex gap-3">
-                <span className="font-semibold"> Match </span> : CSK vs MI{" "}
+                <span className="font-semibold"> Match </span> :{matchDetails?.title}{" "}
               </div>
               <div className=" pt-2 pb-2 mt-2 border-y pl-2 flex gap-5">
-                <span className="font-semibold"> Date </span> : Mar 18, 2024{" "}
+                <span className="font-semibold"> Date </span> : {dateConvert12(matchDetails?.date_start)}
               </div>
               <div className=" pt-2 pb-2 mt-2 border-y pl-2 flex gap-5">
-                <span className="font-semibold"> Toss </span> : CSK (Batting){" "}
+                <span className="font-semibold"> Toss </span> : {matchDetails?.toss?.text}
               </div>
               <div className=" pt-2 pb-2 mt-2 border-y pl-2 flex gap-5">
-                <span className="font-semibold"> Time </span> : 7:30 PM IST{" "}
+                <span className="font-semibold"> Time </span> : {timeConvert12(matchDetails?.date_start)} IST{" "}
               </div>
               <div className=" pt-2 pb-2 mt-2 border-t pl-2 flex gap-3">
-                <span className="font-semibold">Venue</span>: wankhade stadium ,
-                Mumbai, Maharashtra.
+                <span className="font-semibold">Venue</span>: {matchDetails?.venue?.name}, {matchDetails?.venue?.location},{matchDetails?.venue?.country},
               </div>
             </div>
             <div className="w-[650px] flex flex-col gap-5">

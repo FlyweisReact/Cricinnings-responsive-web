@@ -474,8 +474,8 @@ const Homepage = () => {
                     <div className="top_slider_card_div2_text11">
                       <div></div>
                       <div className="top_slider_card_div2_text11_text23">
-                        <p style={{ cursor: "pointer" }} onClick={() => navigate(`/Pointtable/${item?.match_id}`)}>Points Table</p>
-                        <p style={{ cursor: "pointer" }} onClick={() => navigate(`/Matchinfo/${item?.match_id}`)}>Schedule</p>
+                        <p style={{ cursor: "pointer" }} onClick={() => navigate(`/live-cricket-scores/${item?.title}-${item?.competition?.title}/points-table/${item?.match_id}`)}>Points Table</p>
+                        <p style={{ cursor: "pointer" }} onClick={() => navigate(`/live-cricket-scores/${item?.title}-${item?.competition?.title}/match-info/${item?.match_id}`)}>Schedule</p>
                       </div>
                     </div>
                   </div>
