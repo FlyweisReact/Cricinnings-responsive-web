@@ -6,7 +6,7 @@ import { GetData } from "../Components/Integration/ApiIntegration";
 const AboutPage = () => {
   const [terms, setTerms] = useState([]);
   const getAllTermsData = () => {
-    GetData("userAuth/user/getAllAbout").then((res) => {
+    GetData("userAuth/getAll/About").then((res) => {
       setTerms(res?.data);
       console.log(res?.data);
     });
@@ -22,8 +22,12 @@ const AboutPage = () => {
         <div
           className="terms_content"
           style={{ borderRight: "1px solid gray" }}
-        >{terms[0]?.content &&
-          <div dangerouslySetInnerHTML={{ __html: terms[0]?.content }}></div>}
+        >
+          {terms[0]?.content && (
+            <div dangerouslySetInnerHTML={{ __html: terms[0]?.content }}></div>
+          )}
+
+        {terms[0]?.content &&  <div style={{color:"black"}}> {terms[0]?.content}</div>}
         </div>
       </div>
     </div>

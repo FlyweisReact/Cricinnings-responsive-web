@@ -40,7 +40,7 @@ const Footer = () => {
                 Privacy Policy
               </li>
             </Link>
-            <Link to="/terms" className=" text-white">
+            <Link to="/terms-conditions" className=" text-white">
               <li onClick={() => navigate("/terms-conditions")} className=" text-white">
                 Terms of use
               </li>

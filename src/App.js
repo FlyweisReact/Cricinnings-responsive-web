@@ -54,7 +54,11 @@ const router = createBrowserRouter([
         element: <Scorecard />,
       },
       {
-        path: "/live-cricket-scores/matchName:/scorecard/:matchId" || "/Scorecard/:matchId",
+        path: "/live-cricket-scores/matchName:/scorecard/:matchId" ,
+        element: <Scorecard />,
+      },
+      {
+        path: "/Scorecard/:matchId",
         element: <Scorecard />,
       },
 
@@ -69,6 +73,14 @@ const router = createBrowserRouter([
       {
         path: "/live-cricket-scores/matchName:/squad/:matchId",
         element: <Squads />,
+      },
+      {
+        path: "/Squads/:matchId",
+        element: <Squads />,
+      },
+      {
+        path: "/Highlights/:matchId",
+        element: <Highlights />,
       },
       {
         path: "/Highlights/:matchId",

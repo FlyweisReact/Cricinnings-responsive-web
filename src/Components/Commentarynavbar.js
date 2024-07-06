@@ -78,8 +78,14 @@ const Commentarynavbar = () => {
         </p>
       </div>
       <div className="flex justify-between mt-3">
-        <div onClick={() => navigate(`/live-cricket-scores/Allseries`)}
-          style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E",cursor:"pointer" }}
+        <div
+          onClick={() => navigate(`/live-cricket-scores/Allseries`)}
+          style={{
+            fontSize: "14px",
+            fontWeight: "bold",
+            color: "#7E7F7E",
+            cursor: "pointer",
+          }}
           className="text-slate-500"
         >
           Series: {matchDetails?.competition?.title}
@@ -103,18 +109,23 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`
+              );
           }}
           style={{
-            color: pathname.startsWith("/live-cricket-scores/") ? "white" : "black",
+            color: pathname.startsWith("/live-cricket-scores/")
+              ? "white"
+              : "black",
             fontWeight: "bold",
             backgroundColor: pathname.startsWith("/live-cricket-scores/")
               ? "#0F19AF"
               : "white",
-            padding: pathname.startsWith("/live-cricket-scores/") ? "14px" : "0px",
+            padding: pathname.startsWith("/live-cricket-scores/")
+              ? "14px"
+              : "0px",
           }}
         >
-          {console.log(matchDetails)}
           Commentary
         </p>
         <p
@@ -184,7 +195,9 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/Overs/${matchDetails?.match_id}`);
+            navigate(
+              `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`
+            );
           }}
           style={{
             color: pathname.startsWith("/Overs/") ? "white" : "black",
