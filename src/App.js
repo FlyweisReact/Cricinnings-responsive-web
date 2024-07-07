@@ -97,8 +97,12 @@ const router = createBrowserRouter([
       //   element: <Fullcommentary />,
       // },
       {
-        path: "/live-cricket-scores/:matchName/full_commentry/:matchId",
+        path: "/live-cricket-scores/:matchName/commentry/:matchId",
         element: <Fullcommentary />,
+      },
+      {
+        path: "/live-cricket-scores/:matchName/full_commentry/:matchId",
+        element: <Commenatary />,
       },
       {
         path: "/live-cricket-scores/:matchName/overs/:matchId",

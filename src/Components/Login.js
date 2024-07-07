@@ -131,7 +131,7 @@ const Login = () => {
         </Link>
       </div>
 
-      <div className="flex justify-center mt-10">OR</div>
+      {/* <div className="flex justify-center mt-10">OR</div>
       <div className="flex flex-col items-center gap-4 justify-center mt-5">
         <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
           <FcGoogle /> Continue with Google
@@ -139,7 +139,7 @@ const Login = () => {
         <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
           <FaApple /> Continue with Apple
         </button>
-      </div>
+      </div> */}
     </div>
   );
 };

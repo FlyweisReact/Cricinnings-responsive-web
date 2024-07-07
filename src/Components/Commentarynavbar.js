@@ -110,14 +110,14 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/commentry/${matchDetails?.match_id}`
               );
           }}
           style={{
-            color: /\/full_commentry\//i.test(pathname) ? "white" : "black",
+            color: /\/commentry\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/full_commentry\//i.test(pathname) ? "#0F19AF" : "white",
-            padding: /\/full_commentry\//i.test(pathname) ? "14px" : "0px",
+            backgroundColor: /\/commentry\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/commentry\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Commentary
@@ -168,13 +168,13 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/commentary/${matchDetails?.match_id}`);
+              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`);
           }}
           style={{
-            color: /\/commentary\//i.test(pathname) ? "white" : "black",
+            color: /\/full_commentry\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/commentary\//i.test(pathname) ? "#0F19AF" : "white",
-            padding: /\/commentary\//i.test(pathname) ? "14px" : "0px",
+            backgroundColor: /\/full_commentry\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/full_commentry\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Full Commentary

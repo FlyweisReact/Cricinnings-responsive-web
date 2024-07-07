@@ -1,7 +1,7 @@
 import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import { useEffect, useState } from "react";
@@ -11,6 +11,7 @@ const Squads = () => {
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
+  const navigate = useNavigate();
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
       const banner = res?.data?.data;
@@ -191,6 +192,11 @@ const Squads = () => {
                               />
                             </div> */}
                               <div
+                                onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.name}/${item?.player_id}`
+                                  )
+                                }
                                 style={{ width: "200px", textAlign: "left" }}
                                 //  className="flex flex-col"
                               >
@@ -211,7 +217,11 @@ const Squads = () => {
                               key={index}
                               className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
                             >
-                              <div className="abc">
+                              <div   onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.name}/${item?.player_id}`
+                                  )
+                                } className="abc">
                                 <span className="font-semibold mr-2">
                                   {item?.name || "Player Name"}
                                 </span>

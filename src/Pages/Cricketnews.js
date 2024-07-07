@@ -303,12 +303,20 @@ const Cricketnews = () => {
                 />
               )}
 
-              <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
+<div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
                 <div className="flex justify-between p-2">
-                  <div className="text-sm font-semibold">RANKING’s</div>
+                  <div
+                    className="text-sm font-semibold"
+                    style={{ fontSize: "12px" }}
+                  >
+                    RANKING’s
+                  </div>
                   <div>
-                    <button className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white">
-                      Viewall
+                    <button
+                      onClick={() => navigate("/icc-rankings/men")}
+                      className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                    >
+                      View all
                     </button>
                   </div>
                 </div>
@@ -321,6 +329,7 @@ const Cricketnews = () => {
                       backgroundColor:
                         teamSelector === "test" ? "#0F19AF" : "black",
                       color: teamSelector === "test" ? "white" : "black",
+                      fontWeight: teamSelector === "test" ? "bold" : "normal",
                     }}
                   >
                     Test
@@ -333,6 +342,7 @@ const Cricketnews = () => {
                       backgroundColor:
                         teamSelector === "odi" ? "#0F19AF" : null,
                       color: teamSelector === "odi" ? "white" : "black",
+                      fontWeight: teamSelector === "odi" ? "bold" : "normal",
                     }}
                   >
                     ODI
@@ -345,9 +355,10 @@ const Cricketnews = () => {
                       backgroundColor:
                         teamSelector === "t20" ? "#0F19AF" : null,
                       color: teamSelector === "t20" ? "white" : "black",
+                      fontWeight: teamSelector === "t20" ? "bold" : "normal",
                     }}
                   >
-                    T201
+                    T20
                   </button>
                 </div>
                 <div className="flex justify-between m-2">
@@ -356,10 +367,12 @@ const Cricketnews = () => {
                       cursor: "pointer",
                       textDecoration:
                         mainCategory === "teams" ? "underline" : "none",
-                      color: mainCategory === "teams" ? "#0F19AF" : "black",
+                      fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                      color: "black",
+                      textDecorationColor: "#0F19AF",
                     }}
                     onClick={() => setMainCategory("teams")}
-                    className="text-[#0F19AF] underline"
+                    className="text-[#0F19AF]"
                   >
                     Teams
                   </div>
@@ -368,7 +381,10 @@ const Cricketnews = () => {
                       cursor: "pointer",
                       textDecoration:
                         mainCategory === "batting" ? "underline" : "none",
-                      color: mainCategory === "batting" ? "#0F19AF" : "black",
+                      fontWeight:
+                        mainCategory === "batting" ? "bold" : "normal",
+
+                      textDecorationColor: "#0F19AF",
                     }}
                     onClick={() => setMainCategory("batting")}
                   >
@@ -379,7 +395,10 @@ const Cricketnews = () => {
                       cursor: "pointer",
                       textDecoration:
                         mainCategory === "bowling" ? "underline" : "none",
-                      color: mainCategory === "bowling" ? "#0F19AF" : "black",
+                      fontWeight:
+                        mainCategory === "bowling" ? "bold" : "normal",
+
+                      textDecorationColor: "#0F19AF",
                     }}
                     onClick={() => setMainCategory("bowling")}
                   >
@@ -390,7 +409,9 @@ const Cricketnews = () => {
                       cursor: "pointer",
                       textDecoration:
                         mainCategory === "alr" ? "underline" : "none",
-                      color: mainCategory === "alr" ? "#0F19AF" : "black",
+                      fontWeight: mainCategory === "alr" ? "bold" : "normal",
+
+                      textDecorationColor: "#0F19AF",
                     }}
                     onClick={() => setMainCategory("alr")}
                   >
@@ -399,17 +420,41 @@ const Cricketnews = () => {
                 </div>
                 <table>
                   <thead style={{ textAlign: "center" }}>
-                    <tr>
-                      <th className="w-[100px]">Rank</th>
-                      <th className="w-[100px]">Team</th>
-                      <th className="w-[100px]">Rating</th>
-                    </tr>
+                    {mainCategory === "teams" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Team</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+
+                    {mainCategory === "batting" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Player</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+                    {mainCategory === "bowling" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Player</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+                    {mainCategory === "alr" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Player</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
                   </thead>
                   <tbody>
                     {mainCategory === "teams" && (
                       <>
                         {teamSelector === "test" &&
-                          test?.map((item, index) => (
+                          test?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
                               <td className="text-center">{item?.team}</td>
@@ -417,15 +462,16 @@ const Cricketnews = () => {
                             </tr>
                           ))}
                         {teamSelector === "t20" &&
-                          t20s?.map((item, index) => (
+                          t20s?.slice(0, 6).map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
                               <td className="text-center">{item?.team}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
+
                         {teamSelector === "odi" &&
-                          odis?.map((item, index) => (
+                          odis?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
                               <td className="text-center">{item?.team}</td>
@@ -437,26 +483,26 @@ const Cricketnews = () => {
                     {mainCategory === "batting" && (
                       <>
                         {teamSelector === "test" &&
-                          testBestman?.map((item, index) => (
+                          testBestman?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
                         {teamSelector === "t20" &&
-                          t20Bestman?.map((item, index) => (
+                          t20Bestman?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
                         {teamSelector === "odi" &&
-                          odiBestman?.map((item, index) => (
+                          odiBestman?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
@@ -465,26 +511,26 @@ const Cricketnews = () => {
                     {mainCategory === "bowling" && (
                       <>
                         {teamSelector === "test" &&
-                          testBolling?.map((item, index) => (
+                          testBolling?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
                         {teamSelector === "t20" &&
-                          t20Bolling?.map((item, index) => (
+                          t20Bolling?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
                         {teamSelector === "odi" &&
-                          odiBolling?.map((item, index) => (
+                          odiBolling?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
@@ -493,26 +539,26 @@ const Cricketnews = () => {
                     {mainCategory === "alr" && (
                       <>
                         {teamSelector === "test" &&
-                          testAlr?.map((item, index) => (
+                          testAlr?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
                         {teamSelector === "t20" &&
-                          odiAlr?.map((item, index) => (
+                          odiAlr?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}
                         {teamSelector === "odi" &&
-                          odiAlr?.map((item, index) => (
+                          odiAlr?.slice(0, 6)?.map((item, index) => (
                             <tr key={index} style={{ textAlign: "center" }}>
                               <td className="text-center">{item?.rank}</td>
-                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.player}</td>
                               <td className="text-center">{item?.rating}</td>
                             </tr>
                           ))}

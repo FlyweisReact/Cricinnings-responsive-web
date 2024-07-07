@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { GetData, baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Womenrankingpage = () => {
   const [rank, setRank] = useState([]);
   const [odiBestman, setOdiBestman] = useState([]);
@@ -23,6 +24,7 @@ const Womenrankingpage = () => {
   const [mainCategory, setMainCategory] = useState("batting");
   const [currentCategory, setCurrentCategory] = useState("odi");
   const [fantasyBanner, setFantasyBanner] = useState([]);
+  const navigate = useNavigate();
   const getAllData = async () => {
     GetData("userAuth/getPostByTitle/CRICKET_NEWS").then((res) => {
       setFantasyBanner(res?.data);
@@ -230,7 +232,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -276,7 +282,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -322,7 +332,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -462,7 +476,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -508,7 +526,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -554,7 +576,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -694,7 +720,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -740,7 +770,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -786,7 +820,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -926,7 +964,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -972,7 +1014,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -1018,7 +1064,11 @@ const Womenrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}

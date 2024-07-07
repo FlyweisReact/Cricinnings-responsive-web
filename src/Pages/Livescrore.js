@@ -512,7 +512,9 @@ const Livescrore = () => {
                           return (
                             <div
                               onClick={() =>
-                                navigate(`/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`)
+                                navigate(
+                                  `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
+                                )
                               }
                               key={index}
                               style={{ borderRadius: "10px" }}
@@ -561,7 +563,9 @@ const Livescrore = () => {
                               <div className="flex ">
                                 <div
                                   onClick={() =>
-                                    navigate(`/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`)
+                                    navigate(
+                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`
+                                    )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
                                 >
@@ -569,7 +573,9 @@ const Livescrore = () => {
                                 </div>
                                 <div
                                   onClick={() =>
-                                    navigate(`/live-cricket-scores/${item?.title}-${item?.competition?.title}/scorecard/${item?.match_id}`)
+                                    navigate(
+                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/scorecard/${item?.match_id}`
+                                    )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
@@ -577,7 +583,9 @@ const Livescrore = () => {
                                 </div>
                                 <div
                                   onClick={() =>
-                                    navigate(`/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`)
+                                    navigate(
+                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`
+                                    )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
@@ -1695,7 +1703,15 @@ const Livescrore = () => {
                                     ?.filter((m) => m?.status === 2)
                                     ?.map((item) => (
                                       <div className="mb-3">
-                                        <span className="text-slate-400">
+                                        <span
+                                          onClick={() =>
+                                            navigate(
+                                              `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
+                                            )
+                                          }
+                                          className="text-slate-400"
+                                        >
+                                          {console.log(item)}
                                           {item?.title}
                                         </span>
                                         <br />

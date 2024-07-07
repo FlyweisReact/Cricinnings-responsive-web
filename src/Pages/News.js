@@ -3,11 +3,13 @@ import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import axios from "axios";
 import { GetData, baseUrl } from "../Components/Integration/ApiIntegration";
+import { useNavigate } from "react-router-dom";
 
 const News = () => {
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
+  const navigate=useNavigate()
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
       const banner = res?.data?.data;

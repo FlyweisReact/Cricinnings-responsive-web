@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const Manrankingpage = () => {
   const [rank, setRank] = useState([]);
   const [odiBestman, setOdiBestman] = useState([]);
@@ -22,6 +23,7 @@ const Manrankingpage = () => {
   const [teamRankings, setTeamRankings] = useState([]);
   const [mainCategory, setMainCategory] = useState("batting");
   const [currentCategory, setCurrentCategory] = useState("test");
+  const navigate=useNavigate();
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
@@ -178,13 +180,7 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
+                         
                             >
                               <span>
                                 {/* <img
@@ -197,9 +193,13 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  
                               >
-                                <span style={{ fontWeight: "bold" }}>
+                                <span   onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } style={{ fontWeight: "bold" }}>
                                   {item.player}
                                 </span>
                                 <span style={{ fontWeight: "normal" }}>
@@ -244,6 +244,11 @@ const Manrankingpage = () => {
                                   display: "flex",
                                   flexDirection: "column",
                                 }}
+                                onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -289,7 +294,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -429,7 +438,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -475,7 +488,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -521,7 +538,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -661,7 +682,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -707,7 +732,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -753,7 +782,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -893,7 +926,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -939,7 +976,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -985,7 +1026,11 @@ const Manrankingpage = () => {
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
-                                }}
+                                }}  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                  )
+                                } 
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
