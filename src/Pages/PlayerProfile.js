@@ -17,9 +17,9 @@ const PlayerProfile = () => {
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
       const banner = res?.data?.data;
-      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
-      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
-      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
+      setBanner1(banner?.find((playerData) => playerData?.title === "scorePageBanner1"));
+      setBanner2(banner?.find((playerData) => playerData?.title === "scorePageBanner2"));
+      setBanner3(banner?.find((playerData) => playerData?.title === "scorePageBanner3"));
       // console.log(banner);
     });
   };
@@ -105,9 +105,9 @@ const PlayerProfile = () => {
                 </p> */}
                 <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Role</span>
-                  <span className="right-text">{playerData?.playing_role}</span>
+                  <span className="right-text"> {playerData?.playing_role==="bat"?"Batter":playerData?.playing_role==="bowl"?"Bowler":playerData?.playing_role==="all"?"All-Rounder":playerData?.playing_role==="wk" ?"Wicket-keeper":playerData?.playing_role || "Role"}</span>
                 </p>
-                <p className="d-flex gap-2 justify-between">
+                <p className="d-flex gap-2 justify-between">  
                   <span className="left-text">Batting Style</span>
                   <span className="right-text">
                     {playerData?.batting_style}
@@ -144,49 +144,49 @@ const PlayerProfile = () => {
                 <tbody>
                   <tr>
                     <td className="lef-co-header1">Test</td>
-                    <td>{playerData1?.batting?.test?.matches}</td>
-                    <td>{playerData1?.batting?.test?.innings}</td>
-                    <td>{playerData1?.batting?.test?.notout}</td>
-                    <td>{playerData1?.batting?.test?.runs}</td>
-                    <td>{playerData1?.batting?.test?.highest}</td>
-                    <td>{playerData1?.batting?.test?.average}</td>
-                    <td>{playerData1?.batting?.test?.balls}</td>
-                    <td>{playerData1?.batting?.test?.strike}</td>
-                    <td>{playerData1?.batting?.test?.run100}</td>
-                    <td>{playerData1?.batting?.test?.run50}</td>
-                    <td>{playerData1?.batting?.test?.run4}</td>
-                    <td>{playerData1?.batting?.test?.run6}</td>
+                    <td>{playerData1?.batting?.test?.matches || "-"}</td>
+                    <td>{playerData1?.batting?.test?.innings || "-"}</td>
+                    <td>{playerData1?.batting?.test?.notout || "-"}</td>
+                    <td>{playerData1?.batting?.test?.runs || "-"}</td>
+                    <td>{playerData1?.batting?.test?.highest || "-"}</td>
+                    <td>{playerData1?.batting?.test?.average  || "-"}</td>
+                    <td>{playerData1?.batting?.test?.balls  || "-"}</td>
+                    <td>{playerData1?.batting?.test?.strike  || "-"}</td>
+                    <td>{playerData1?.batting?.test?.run100   || "-"}</td>
+                    <td>{playerData1?.batting?.test?.run50 || "-" }</td>
+                    <td>{playerData1?.batting?.test?.run4  || "-"}</td>
+                    <td>{playerData1?.batting?.test?.run6 || "-"}</td>
                   </tr>
                   <tr>
                     <td className="lef-co-header1">T20</td>
-                    <td>{playerData1?.batting?.t20?.matches}</td>
-                    <td>{playerData1?.batting?.t20?.innings}</td>
-                    <td>{playerData1?.batting?.t20?.notout}</td>
-                    <td>{playerData1?.batting?.t20?.runs}</td>
-                    <td>{playerData1?.batting?.t20?.highest}</td>
-                    <td>{playerData1?.batting?.t20?.average}</td>
-                    <td>{playerData1?.batting?.t20?.balls}</td>
-                    <td>{playerData1?.batting?.t20?.strike}</td>
-                    <td>{playerData1?.batting?.t20?.run100}</td>
+                    <td>{playerData1?.batting?.t20?.matches || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.innings || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.notout || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.runs || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.highest || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.average || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.balls || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.strike || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.run100 || "-"}</td>
 
-                    <td>{playerData1?.batting?.t20?.run50}</td>
-                    <td>{playerData1?.batting?.t20?.run4}</td>
-                    <td>{playerData1?.batting?.t20?.run6}</td>
+                    <td>{playerData1?.batting?.t20?.run50 || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.run4 || "-"}</td>
+                    <td>{playerData1?.batting?.t20?.run6 || "-"}</td>
                   </tr>
                   <tr>
                     <td className="lef-co-header1">ODI</td>
-                    <td>{playerData1?.batting?.odi?.matches}</td>
-                    <td>{playerData1?.batting?.odi?.innings}</td>
-                    <td>{playerData1?.batting?.odi?.notout}</td>
-                    <td>{playerData1?.batting?.odi?.runs}</td>
-                    <td>{playerData1?.batting?.odi?.highest}</td>
-                    <td>{playerData1?.batting?.odi?.average}</td>
-                    <td>{playerData1?.batting?.odi?.balls}</td>
-                    <td>{playerData1?.batting?.odi?.strike}</td>
-                    <td>{playerData1?.batting?.odi?.run100}</td>
-                    <td>{playerData1?.batting?.odi?.run50}</td>
-                    <td>{playerData1?.batting?.odi?.run4}</td>
-                    <td>{playerData1?.batting?.odi?.run6}</td>
+                    <td>{playerData1?.batting?.odi?.matches || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.innings || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.notout || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.runs || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.highest || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.average || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.balls || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.strike || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.run100 || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.run50 || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.run4 || "-"}</td>
+                    <td>{playerData1?.batting?.odi?.run6 || "-"}</td>
                   </tr>
                 </tbody>
               </Table>
@@ -212,42 +212,42 @@ const PlayerProfile = () => {
                   <tr>
                     <td className="lef-co-header1">Test</td>
 
-                    <td>{playerData1?.bowling?.test?.matches || 0}</td>
-                    <td>{playerData1?.bowling?.test?.innings || 0}</td>
-                    <td>{playerData1?.bowling?.test?.balls || 0 }</td>
-                    <td>{playerData1?.bowling?.test?.runs || 0}</td>
-                    <td>{playerData1?.bowling?.test?.wickets || 0}</td>
-                    <td>{playerData1?.bowling?.test?.econ || 0}</td>
-                    <td>{playerData1?.bowling?.test?.average || 0}</td>
-                    <td>{playerData1?.bowling?.test?.strike}</td>
-                    <td>{playerData1?.bowling?.test?.wicket5i}</td>
-                    <td>{playerData1?.bowling?.test?.wicket10m}</td>
+                    <td>{playerData1?.bowling?.test?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.innings  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.balls  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.runs  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.wickets  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.econ  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.average  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.wicket10m || "-"}</td>
                   </tr>
                   <tr>
                     <td className="lef-co-header1">ODI</td>
-                    <td>{playerData1?.bowling?.odi?.matches}</td>
-                    <td>{playerData1?.bowling?.odi?.innings}</td>
-                    <td>{playerData1?.bowling?.odi?.balls || 0 }</td>
-                    <td>{playerData1?.bowling?.odi?.runs}</td>
-                    <td>{playerData1?.bowling?.odi?.wickets}</td>
-                    <td>{playerData1?.bowling?.odi?.econ}</td>
-                    <td>{playerData1?.bowling?.odi?.average}</td>
-                    <td>{playerData1?.bowling?.odi?.strike}</td>
-                    <td>{playerData1?.bowling?.odi?.wicket5i}</td>
-                    <td>{playerData1?.bowling?.odi?.wicket10m}</td>
+                    <td>{playerData1?.bowling?.odi?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.balls  || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.average || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.wicket10m || "-"}</td>
                   </tr>
                   <tr className="text-center">
                     <td className="lef-co-header1">T20</td>
-                    <td>{playerData1?.bowling?.t20?.matches}</td>
-                    <td>{playerData1?.bowling?.t20?.innings}</td>
-                    <td>{playerData1?.bowling?.t20?.balls || 0 }</td>
-                    <td>{playerData1?.bowling?.t20?.runs}</td>
-                    <td>{playerData1?.bowling?.t20?.wickets}</td>
-                    <td>{playerData1?.bowling?.t20?.econ}</td>
-                    <td>{playerData1?.bowling?.t20?.average}</td>
-                    <td>{playerData1?.bowling?.t20?.strike}</td>
-                    <td>{playerData1?.bowling?.t20?.wicket5i}</td>
-                    <td>{playerData1?.bowling?.t20?.wicket10m}</td>
+                    <td>{playerData1?.bowling?.t20?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.balls  || "-" }</td>
+                    <td>{playerData1?.bowling?.t20?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.average || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.wicket10m || "-"}</td>
                   </tr>
                 </tbody>
               </Table>

@@ -512,7 +512,7 @@ const Nav = () => {
       </nav> */}
       <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
         <div className="UseFlexMenu">
-          <div className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px]">
+          <div onClick={() => navigate("/live-cricket-scores")} className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px] cursor-pointer">
             MATCHES
           </div>
 

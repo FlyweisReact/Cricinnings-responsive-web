@@ -592,7 +592,7 @@ const Womenrankingpage = () => {
                             </p>
                           </td>{" "}
                           <td>
-                            <p>{item.rank}</p>
+                            <p>{item.rating}</p>
                           </td>{" "}
                         </tr>
                       ))}
