@@ -1,4 +1,3 @@
-import { IoCaretForwardOutline } from "react-icons/io5";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { useNavigate, useParams } from "react-router-dom";
@@ -190,9 +189,7 @@ const Scorecard = () => {
                       <td>{item.balls_faced}</td>
                       <td>{item.fours}</td>
                       <td>{item.sixes}</td>
-                      <td className="flex items-center">
-                        {item.strike_rate} <IoCaretForwardOutline />
-                      </td>
+                      <td className="flex items-center">{item.strike_rate}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -221,11 +218,16 @@ const Scorecard = () => {
                   <div className="flex gap-2 overflow-x-auto whitespace-wrap">
                     {squadData?.innings?.[0]?.did_not_bat?.map(
                       (player, index) => (
-                        <span   onClick={() =>
-                          navigate(
-                            `/cricket-players/${player?.name}/${player?.player_id}`
-                          )
-                        } key={index}>{player?.name + ","}</span>
+                        <span
+                          onClick={() =>
+                            navigate(
+                              `/cricket-players/${player?.name}/${player?.player_id}`
+                            )
+                          }
+                          key={index}
+                        >
+                          {player?.name + ","}
+                        </span>
                       )
                     )}
                   </div>
@@ -263,11 +265,16 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[0]?.bowlers?.map((item, index) => (
                     <tr style={{ borderBottom: "1px solid #E5E7EB" }}>
-                      <td  onClick={() =>
+                      <td
+                        onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.bowler_id}`
                           )
-                        } className="text-[#0F19AF]  pl-3">{item.name}</td>
+                        }
+                        className="text-[#0F19AF]  pl-3"
+                      >
+                        {item.name}
+                      </td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
                       <td>{item.run0}</td>
@@ -337,11 +344,16 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[0]?.fows?.map((item, index) => (
                     <tr className="border-b">
-                      <td  onClick={() =>
+                      <td
+                        onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.batsman_id}`
                           )
-                        } className="pl-3">{item?.name} </td>
+                        }
+                        className="pl-3"
+                      >
+                        {item?.name}{" "}
+                      </td>
                       <td className="pr-3">{item?.how_out}</td>
                       <td className="pl-3">{item?.score_at_dismissal}</td>
                       <td className="text-[#0F19AF] pt-2 pl-3">
@@ -376,19 +388,22 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[1]?.batsmen?.map((item, index) => (
                     <tr key={index} className="border-b">
-                      <td  onClick={() =>
+                      <td
+                        onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.batsman_id}`
                           )
-                        } className="text-[#0F19AF]">{item.name}</td>
+                        }
+                        className="text-[#0F19AF]"
+                      >
+                        {item.name}
+                      </td>
                       <td>{item.how_out}</td>
                       <td>{item.runs}</td>
                       <td>{item.balls_faced}</td>
                       <td>{item.fours}</td>
                       <td>{item.sixes}</td>
-                      <td className="flex items-center">
-                        {item.strike_rate} <IoCaretForwardOutline />
-                      </td>
+                      <td className="flex items-center">{item.strike_rate}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -418,11 +433,16 @@ const Scorecard = () => {
                   <div className="flex gap-2 overflow-x-auto whitespace-wrap">
                     {squadData?.innings?.[1]?.did_not_bat?.map(
                       (player, index) => (
-                        <span  onClick={() =>
-                          navigate(
-                            `/cricket-players/${player?.name}/${player?.batsman_id}`
-                          )
-                        }  key={index}>{player?.name + ","}</span>
+                        <span
+                          onClick={() =>
+                            navigate(
+                              `/cricket-players/${player?.name}/${player?.batsman_id}`
+                            )
+                          }
+                          key={index}
+                        >
+                          {player?.name + ","}
+                        </span>
                       )
                     )}
                   </div>
@@ -460,11 +480,16 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[1]?.bowlers?.map((item, index) => (
                     <tr style={{ borderBottom: "1px solid #E5E7EB" }}>
-                      <td  onClick={() =>
+                      <td
+                        onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.bowler_id}`
                           )
-                        }  className="text-[#0F19AF]  pl-3">{item.name}</td>
+                        }
+                        className="text-[#0F19AF]  pl-3"
+                      >
+                        {item.name}
+                      </td>
                       <td>{item.overs}</td>
                       <td>{item.maidens}</td>
                       <td>{item.run0}</td>
@@ -542,11 +567,16 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[1]?.fows?.map((item, index) => (
                     <tr className="border-b">
-                      <td  onClick={() =>
+                      <td
+                        onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.batsman_id}`
                           )
-                        }  className="pl-3">{item?.name} </td>
+                        }
+                        className="pl-3"
+                      >
+                        {item?.name}{" "}
+                      </td>
                       <td className="pr-3">{item?.how_out}</td>
                       <td className="pl-3">{item?.score_at_dismissal}</td>
                       <td className="text-[#0F19AF] pt-2 pl-3">

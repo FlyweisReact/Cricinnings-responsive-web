@@ -414,7 +414,7 @@ const Livescrore = () => {
           >
             Match Day By Day
           </div>
-          <div
+          {/* <div
             className={`cursor-pointer ${
               selectedDiv === "Teams"
                 ? "underline text-[#0F19AF] underline-offset-8"
@@ -423,7 +423,7 @@ const Livescrore = () => {
             onClick={() => setSelectedDiv("Teams")}
           >
             Teams
-          </div>
+          </div> */}
           {/* <div
             className={`cursor-pointer ${
               selectedDiv === "Series Archive"

@@ -1,15 +1,10 @@
 import videoframe from "../Assets/Homepage/videoframe.svg";
-import ipl from "../Assets/Homepage/ipl.svg";
-import camp from "../Assets/Homepage/campioins.svg";
-import premier from "../Assets/Homepage/premier.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { Table } from "react-bootstrap";
-
-import topnews from "../Assets/Homepage/topnews.svg";
 const Pointtable = () => {
   const { matchId } = useParams();
   const [squadData, setSquadData] = useState({});
@@ -63,8 +58,11 @@ const Pointtable = () => {
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <Commentarynavbar />
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          
-          <img style={{ height: "96px" ,width:"100%"}} src={banner1?.image} alt="" />
+          <img
+            style={{ height: "96px", width: "100%" }}
+            src={banner1?.image}
+            alt=""
+          />
         </div>
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
@@ -77,18 +75,19 @@ const Pointtable = () => {
                   padding: "10px",
                 }}
               >
-                <p> {title}</p>
+                <p> {title}- Points Table</p>
               </div>
               <Table className="w-full">
-                <thead>
-
-                </thead>
+                <thead></thead>
                 <tbody>
                   {Array.isArray(squadData?.standings) &&
                     squadData.standings.map((item, index) => (
                       <React.Fragment key={index}>
                         <tr className="border-b bg-gray-200">
-                          <td style={{ fontSize: "12px" }} className="font-bold text-center">
+                          <td
+                            style={{ fontSize: "12px" }}
+                            className="font-bold text-center"
+                          >
                             {item?.round?.name}
                           </td>
                           <td></td>
@@ -102,17 +101,16 @@ const Pointtable = () => {
                         </tr>
                         {item?.standings?.map((team, teamIndex) => (
                           <tr key={teamIndex} className="border-b">
-
                             <td>
                               <div className="flex gap-2">
                                 <span>
-                                  <img src={team?.team?.logo_url} alt="" className="w-[30px] h-[30px]" />
+                                  <img
+                                    src={team?.team?.logo_url}
+                                    alt=""
+                                    className="w-[30px] h-[30px]"
+                                  />
                                 </span>
-                                <span>
-
-                                  {team?.team?.alt_name}
-                                </span>
-
+                                <span>{team?.team?.alt_name}</span>
                               </div>
                             </td>
                             <td></td>
@@ -123,7 +121,6 @@ const Pointtable = () => {
                             <td>{team?.nr}</td>
                             <td>{team?.points}</td>
                             <td>{team?.netrr}</td>
-
                           </tr>
                         ))}
                       </React.Fragment>
@@ -229,11 +226,23 @@ const Pointtable = () => {
               </table> */}
             </div>
             <div className="w-[250px] ">
-              {banner1 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-                <img src={banner1?.image} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
-              </div>}
+              {banner1 && (
+                <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                  <img
+                    src={banner1?.image}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "10px",
+                    }}
+                    alt=""
+                  />
+                </div>
+              )}
               <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
-                <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
+                <div className="text-sm p-3 font-semibold">
+                  FEATURE VIDEOS !!
+                </div>
                 <img src={videoframe} alt="" />
                 <img src={videoframe} alt="" />
                 <img src={videoframe} alt="" />
@@ -243,10 +252,19 @@ const Pointtable = () => {
                   </button>
                 </div>
               </div>
-              {banner2 && <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-                <img src={banner2?.image} style={{ width: "100%", height: "100%", borderRadius: "10px" }} alt="" />
-              </div>}
-            
+              {banner2 && (
+                <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                  <img
+                    src={banner2?.image}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "10px",
+                    }}
+                    alt=""
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>

@@ -69,7 +69,8 @@ const Commentarynavbar = () => {
     <div className="bg-[white] pl-2 pt-2 pr-2">
       <div className="font-semibold ">
         <p style={{ fontSize: "14px", fontWeight: "bold" }}>
-          {matchDetails?.title} , {matchDetails?.subtitle} -{" "}
+          {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket
+          Commentary
           {matchDetails?.statue === 3
             ? "Live"
             : matchDetails?.statue === 1
@@ -94,8 +95,10 @@ const Commentarynavbar = () => {
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
           className="text-slate-500"
         >
-          Venue: {matchDetails?.venue?.location}
+          Venue:
           {matchDetails?.venue?.name}
+          {","}
+          {matchDetails?.venue?.location}
         </div>
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
@@ -116,70 +119,85 @@ const Commentarynavbar = () => {
           style={{
             color: /\/commentry\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/commentry\//i.test(pathname) ? "#0F19AF" : "white",
+            backgroundColor: /\/commentry\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
             padding: /\/commentry\//i.test(pathname) ? "14px" : "0px",
           }}
         >
-          Commentary
+          Live
         </p>
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`
+              );
           }}
           style={{
             color: /\/scorecard\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/scorecard\//i.test(pathname) ? "#0F19AF" : "white",
+            backgroundColor: /\/scorecard\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
             padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
           }}
-          
         >
-          ScoreCard
-        </p>
-        <p
-            onClick={() => {
-              matchDetails?.match_id &&
-                navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/squad/${matchDetails?.match_id}`);
-            }}
-            style={{
-              color: /\/squad\//i.test(pathname) ? "white" : "black",
-              fontWeight: "bold",
-              backgroundColor: /\/squad\//i.test(pathname) ? "#0F19AF" : "white",
-              padding: /\/squad\//i.test(pathname) ? "14px" : "0px",
-            }}
-        >
-          Squads
+          Scorecard
         </p>
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/highlights/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/squad/${matchDetails?.match_id}`
+              );
+          }}
+          style={{
+            color: /\/squad\//i.test(pathname) ? "white" : "black",
+            fontWeight: "bold",
+            backgroundColor: /\/squad\//i.test(pathname) ? "#0F19AF" : "white",
+            padding: /\/squad\//i.test(pathname) ? "14px" : "0px",
+          }}
+        >
+          Squads
+        </p>
+        {/* <p
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/highlights/${matchDetails?.match_id}`
+              );
           }}
           style={{
             color: /\/highlights\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/highlights\//i.test(pathname) ? "#0F19AF" : "white",
+            backgroundColor: /\/highlights\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
             padding: /\/highlights\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Highlights
-        </p>
+        </p> */}
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`
+              );
           }}
           style={{
             color: /\/full_commentry\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/full_commentry\//i.test(pathname) ? "#0F19AF" : "white",
+            backgroundColor: /\/full_commentry\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
             padding: /\/full_commentry\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Full Commentary
         </p>
-        <p
+        {/* <p
           onClick={() => {
             matchDetails?.match_id &&
               navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/overs/${matchDetails?.match_id}`);
@@ -192,30 +210,38 @@ const Commentarynavbar = () => {
           }}
         >
           Overs
-        </p>
+        </p> */}
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/points-table/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/points-table/${matchDetails?.match_id}`
+              );
           }}
           style={{
             color: /\/points-table\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/points-table\//i.test(pathname) ? "#0F19AF" : "white",
+            backgroundColor: /\/points-table\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
             padding: /\/points-table\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Point Table
         </p>
         <p
-           onClick={() => {
+          onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/match-info/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/match-info/${matchDetails?.match_id}`
+              );
           }}
           style={{
             color: /\/match-info\//i.test(pathname) ? "white" : "black",
             fontWeight: "bold",
-            backgroundColor: /\/match-info\//i.test(pathname) ? "#0F19AF" : "white",
+            backgroundColor: /\/match-info\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
             padding: /\/match-info\//i.test(pathname) ? "14px" : "0px",
           }}
         >
@@ -223,8 +249,7 @@ const Commentarynavbar = () => {
         </p>
         <p
           onClick={() => {
-            matchDetails?.match_id &&
-              navigate(`/cricket-news/`);
+            matchDetails?.match_id && navigate(`/cricket-news/`);
           }}
           style={{
             color: pathname.startsWith("/cricket-news/") ? "white" : "black",
@@ -240,7 +265,9 @@ const Commentarynavbar = () => {
         <p
           onClick={() => {
             matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/stats/${matchDetails?.match_id}`);
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/stats/${matchDetails?.match_id}`
+              );
           }}
           style={{
             color: /\/stats\//i.test(pathname) ? "white" : "black",
