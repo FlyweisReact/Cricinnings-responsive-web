@@ -28,6 +28,7 @@ import LivescroreById from "./Pages/LiveScoresById";
 import FeacturePosts from "./Pages/FeacturePosts";
 import AboutPage from "./Pages/AboutPage";
 import PlayerProfile from "./Pages/PlayerProfile";
+import SeriesById from "./Pages/SeriesById";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -199,6 +200,10 @@ const router = createBrowserRouter([
       {
         path: "/feature_posts",
         element: <FeacturePosts />,
+      },
+      {
+        path: "/cricket-series/:seriesName/:seriesId",
+        element: <SeriesById />,
       },
     ],
   },

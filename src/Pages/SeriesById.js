@@ -6,8 +6,13 @@ import {
   baseUrl,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
-import { useLocation, useNavigate } from "react-router-dom";
-const Livescrore = () => {
+import { useLocation, useNavigate, useParams } from "react-router-dom";
+import Squads from "./Squads";
+import SeriesSquad from "./SeriesSquad";
+import SeriesPoints from "./SeriesPoints";
+import SeriesStats from "./SeriesStats";
+import Venu from "./Venu";
+const SeriesById = () => {
   const location = useLocation();
 
   const initialLocation =
@@ -61,6 +66,7 @@ const Livescrore = () => {
   const [scorePageBanner1, setScorePageBanner1] = useState("");
   const [scorePageBanner2, setScorePageBanner2] = useState("");
   const [scorePageBanner3, setScorePageBanner3] = useState("");
+  const params = useParams();
   const navigate = useNavigate();
   const getWinningTeamName = (match) => {
     const winningTeamId = match.winning_team_id;
@@ -74,6 +80,43 @@ const Livescrore = () => {
       return "Unknown";
     }
   };
+  function formatDateString123(dateString) {
+    const date = new Date(dateString);
+
+    const options = {
+      weekday: "short",
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    };
+
+    return date
+      .toLocaleDateString("en-US", options)
+      .toUpperCase()
+      .replace(",", "");
+  }
+  function formatDateString11(dateString) {
+    const date = new Date(dateString);
+
+    const optionsDate = {
+      month: "short",
+      day: "numeric",
+    };
+
+    const optionsTime = {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true,
+    };
+
+    const formattedDate = date.toLocaleDateString("en-US", optionsDate);
+    const formattedTime = date
+      .toLocaleTimeString("en-US", optionsTime)
+      .toLowerCase()
+      .replace(/\./g, "");
+
+    return `${formattedDate}  •  ${formattedTime.toUpperCase()}`;
+  }
   function formatDateString1(dateString) {
     const originalDate = new Date(dateString.replace(" ", "T"));
     const monthNames = [
@@ -345,19 +388,40 @@ const Livescrore = () => {
   useEffect(() => {
     getAllCompetationsType();
   }, [category]);
-
+  const [seriesMatches, setSeriesMatches] = useState([]);
+  const [currentSeriesData, setCurrentSeriesData] = useState({});
   const getAllCurrentMatches = () => {
-    GetDataWithToken({
-      path: "matches",
-      category: category,
-    })
-      .then((res) => {
-        setCurrentMatches(res?.response?.items);
-      })
-      .catch((err) => {});
+    const newId = params?.seriesId;
+    try {
+      const res = axios
+        .get(
+          `${baseUrl}user/competitions/${newId}/matches?status=1&per_page=15&paged=1`
+        )
+        .then((res) => {
+          setSeriesMatches(res?.data?.matches);
+        });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  useEffect(() => {}, []);
+  const getCurrentSeriesData = () => {
+    const newId = params?.seriesId;
+    try {
+      const res = axios
+        .get(`${baseUrl}user/competitions/${newId}`)
+        .then((res) => {
+          console.log(res.data, "current");
+          setCurrentSeriesData(res?.data);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllCurrentMatches();
+  }, []);
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
@@ -378,316 +442,169 @@ const Livescrore = () => {
   useEffect(() => {
     getAllSpecialBanners();
   }, []);
+  const [selectedButton, setSelectedButton] = useState("Current Matches");
 
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
-        <div className="font-semibold">Live Cricket Score</div>
-        <div className="flex  gap-5 mt-2">
-          <div
-            className={`cursor-pointer ${
-              selectedDiv === "Current Matches"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
-            onClick={() => setSelectedDiv("Current Matches")}
-          >
-            Current Matches
-          </div>
-          <div
-            className={`cursor-pointer ${
-              selectedDiv === "Current & Future Series"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
-            onClick={() => setSelectedDiv("Current & Future Series")}
-          >
-            Current & Future Series
-          </div>
-          <div
-            className={`cursor-pointer ${
-              selectedDiv === "Match Day By Day"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
-            onClick={() => setSelectedDiv("Match Day By Day")}
-          >
-            Match Day By Day
-          </div>
-          {/* <div
-            className={`cursor-pointer ${
-              selectedDiv === "Teams"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
-            onClick={() => setSelectedDiv("Teams")}
-          >
-            Teams
-          </div> */}
-          {/* <div
-            className={`cursor-pointer ${
-              selectedDiv === "Series Archive"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
-            onClick={() => setSelectedDiv("Series Archive")}
-          >
-            Series Archive
-          </div> */}
-        </div>
-        <hr className="mt-2" />
-        <div
-          style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
-          className="flex gap-5 mt-2"
-        >
-          <div
-            onClick={() => setCategory("international")}
-            style={{
-              backgroundColor:
-                category === "international" ? "#0F19AF" : "white",
-              color: category === "international" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            International
-          </div>
+        <div>
+          <p style={{fontWeight:"bold",fontSize:"18px",padding:"20px"}}>
+            {seriesMatches?.[0]?.title}
+            {", "}
+            {seriesMatches?.[0]?.season}
+          </p>
+          <p></p>
           <div
             style={{
-              backgroundColor: category === "youth" ? "#0F19AF" : "white",
-              color: category === "youth" ? "white" : "black",
-              cursor: "pointer",
+              display: "flex",
+              gap: "10px",
+              paddingLeft: "10px",
+              alignItems: "center",
             }}
-            onClick={() => setCategory("youth")}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
           >
-            League
-          </div>
-          <div
-            style={{
-              backgroundColor: category === "domestic" ? "#0F19AF" : "white",
-              color: category === "domestic" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            onClick={() => setCategory("domestic")}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            Domestic
-          </div>
-          <div
-            style={{
-              backgroundColor: category === "women" ? "#0F19AF" : "white",
-              color: category === "women" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            onClick={() => setCategory("women")}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            Women
+            <p
+              style={{
+                padding: "5px 5px 5px 5px",
+                backgroundColor:
+                  selectedButton === "Current Matches" ? "#0E19AE" : "white",
+                fontWeight: "bold",
+                color: selectedButton === "Current Matches" ? "white" : "black",
+                borderRadius: "5px",
+              }}
+              onClick={() => setSelectedButton("Current Matches")}
+            >
+              Schedule
+            </p>
+            <p
+              style={{
+                padding: "5px 5px 5px 5px",
+                backgroundColor:
+                  selectedButton === "squad" ? "#0E19AE" : "white",
+                fontWeight: "bold",
+                color: selectedButton === "squad" ? "white" : "black",
+                borderRadius: "5px",
+              }}
+              onClick={() => setSelectedButton("squad")}
+            >
+              Squads
+            </p>
+            <p
+              style={{
+                padding: "5px 5px 5px 5px",
+                backgroundColor:
+                  selectedButton === "Point Table" ? "#0E19AE" : "white",
+                fontWeight: "bold",
+                color: selectedButton === "Point Table" ? "white" : "black",
+                borderRadius: "5px",
+              }}
+              onClick={() => setSelectedButton("Point Table")}
+            >
+              Point Table
+            </p>
+            <p
+              style={{
+                padding: "5px 5px 5px 5px",
+                backgroundColor:
+                  selectedButton === "State Venu" ? "#0E19AE" : "white",
+                fontWeight: "bold",
+                color: selectedButton === "State Venu" ? "white" : "black",
+                borderRadius: "5px",
+              }}
+              onClick={() => setSelectedButton("State Venu")}
+            >
+              State
+            </p>
+            <p
+              style={{
+                padding: "5px 5px 5px 5px",
+                backgroundColor:
+                  selectedButton === "Venu" ? "#0E19AE" : "white",
+                fontWeight: "bold",
+                color: selectedButton === "Venu" ? "white" : "black",
+                borderRadius: "5px",
+              }}
+              onClick={() => setSelectedButton("Venu")}
+            >
+              Venu
+            </p>
           </div>
         </div>
+
         {selectedDiv && (
           <div>
-            {selectedDiv === "Current Matches" && (
+            {selectedButton === "Current Matches" && (
               <>
-                {competationsType?.length === 0 && (
-                  <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                    {" "}
-                    There are no matches at the moment. Please check back later.{" "}
-                  </div>
-                )}
-                {competationsType?.[0] && (
-                  <>
-                    <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                      {competationsType?.[0]?.title}
-                    </div>
-                  </>
-                )}
-
-                <div className="flex mt-5 justify-center pb-5">
+                <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
-                      <div className="flex flex-col gap-5">
-                        {competationsType[0]?.matches?.map((item, index) => {
-                          return (
-                            <div
-                              onClick={() =>
-                                navigate(
-                                  `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
-                                )
-                              }
-                              key={index}
-                              style={{ borderRadius: "10px" }}
-                              className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer"
-                            >
-                              <div className="flex">
-                                <span className="font-semibold"></span>
-                                <span className="text-slate-400">
-                                  {convertToOrdinal(
-                                    item?.subtitle?.split(" ")?.[1]
-                                  )}{" "}
-                                  {item?.format_str}
-                                  {/* 3rd T20I{" "} */}
-                                </span>
-                              </div>
-                              <div className="text-slate-400">
-                                {formatDateString1(item?.date_start)}
-                                at {item?.venue?.name}
-                                {" ,"}
-                                {item?.venue?.location}
-                              </div>
-                              <div className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                                <div
-                                  style={{ padding: "0.5rem 1rem" }}
-                                  className="flex items-center gap-[6rem] "
-                                >
-                                  <div>
-                                    <div className="flex gap-5 text-white">
-                                      <span>{item?.teama?.name}</span>
-                                      <span>{item?.teama?.scores_full}</span>
-                                    </div>
-                                    <div className="flex gap-7 text-white">
-                                      <span>{item?.teamb?.name}</span>
-                                      <span>{item?.teamb?.scores_full}</span>
-                                    </div>
-                                    <div className="text-slate-300">
-                                      {getWinningTeamName(item)} won by{" "}
-                                      {item?.win_margin}
-                                    </div>
-                                  </div>
-                                  <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                    <IoCaretForwardOutline />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex ">
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
-                                >
-                                  Live Score
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/scorecard/${item?.match_id}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                >
-                                  Scorecard
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                >
-                                  Full Commentary
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    navigate(`/News/${item?.match_id}`)
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                >
-                                  News
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
-                      {competationsType?.map((item, index) => {
-                        if (index === 0) {
-                          return null;
-                        }
+                      {seriesMatches?.map((item, index) => {
                         return (
-                          <>
+                          <div key={index}>
+                            {" "}
                             <div
-                              key={index}
-                              className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
+                              style={{
+                                padding: "5px 0px 5px 0px",
+                                backgroundColor: "#E7E7E7",
+                                fontWeight: "bold",
+                              }}
                             >
-                              {}
-                              {item?.title}
+                              <p style={{ fontWeight: "bold", padding: "5px" }}>
+                                {formatDateString123(item?.date_start)}
+                              </p>
                             </div>
-                            <div className="flex flex-col gap-5 mt-5">
-                              {item?.matches?.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    style={{
-                                      borderRadius: "10px",
-                                      boxShadow:
-                                        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                    }}
-                                    className=" h-[300px] pt-2 pl-2  flex flex-col gap-2"
-                                  >
-                                    <div className="flex">
-                                      <span className="font-semibold"></span>
-                                      <span className="text-slate-400">{}</span>
-                                    </div>
-                                    <div className="text-slate-400">
-                                      {item?.date_start
-                                        ?.split("T")?.[0]
-                                        ?.split("-")
-                                        ?.reverse()
-                                        ?.join("-")}
-                                      at {item?.venue?.name}
-                                      {" ,"}
-                                      {item?.venue?.location}
-                                    </div>
-                                    <div className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                                      <div className="flex items-center gap-[6rem] ">
-                                        <div>
-                                          <div className="flex gap-5 text-white">
-                                            <span>{item?.teama?.name}</span>
-                                            <span>
-                                              {item?.teama?.scores_full}
-                                            </span>
-                                          </div>
-                                          <div className="flex gap-7 text-white">
-                                            <span>{item?.teamb?.name}</span>
-                                            <span>
-                                              {item?.teamb?.scores_full}
-                                            </span>
-                                          </div>
-                                          <div className="text-slate-300">
-                                            {getWinningTeamName(item)} won by{" "}
-                                            {item?.win_margin}
-                                          </div>
-                                        </div>
-                                        <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                          <IoCaretForwardOutline />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="flex ">
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
-                                        Live Score
-                                      </div>
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                        Scorecard
-                                      </div>
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                        Full Commentary
-                                      </div>
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                        News
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                              {}
+                            <div
+                              style={{
+                                display: "grid",
+                                gridTemplateColumns: "20% 50% 30%",
+                                gap: "10px",
+                                marginTop: "10px",
+                                marginBottom: "10px",
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontWeight: "bold",
+                                  color: "black",
+                                  paddingLeft: "5px",
+                                }}
+                              >
+                                {item?.competition?.title}
+                                {","} {item?.competition?.season}
+                              </p>
+                              <p
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span style={{ color: "#707071" }}>
+                                  {item?.short_title}
+                                  {","} {item?.format_str}
+                                </span>
+                                <span style={{ color: "#707071" }}>
+                                  {formatDateString11(item?.date_start)} at{" "}
+                                  {item?.venue?.location}
+                                  {","} {item?.venue?.name}
+                                </span>
+                              </p>
+                              <p
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                              >
+                                <span>
+                                  {item?.short_title}
+                                  {","} {item?.format_str}
+                                </span>
+                                <span>
+                                  {formatDateString11(item?.date_start)} at{" "}
+                                  {item?.venue?.location}
+                                  {","} {item?.venue?.name}
+                                </span>
+                              </p>
                             </div>
-                          </>
+                          </div>
                         );
                       })}
                     </div>
@@ -1173,6 +1090,11 @@ const Livescrore = () => {
                 </div>
               </>
             )}
+            {selectedButton === "squad" && <SeriesSquad />}
+            {selectedButton === "Point Table" && <SeriesPoints />}
+            {selectedButton === "State Venu" && <SeriesStats />}
+            {selectedButton === "Venu" && <Venu />}
+
             {selectedDiv === "Current & Future Series" && (
               <>
                 <div className="bg-[#E6E6E7] h-[70px] flex items-center mt-5  ">
@@ -2914,4 +2836,4 @@ const Livescrore = () => {
   );
 };
 
-export default Livescrore;
+export default SeriesById;

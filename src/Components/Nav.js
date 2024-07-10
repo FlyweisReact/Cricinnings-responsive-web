@@ -44,16 +44,10 @@ const Nav = () => {
   const [matchesList, setMatchesList] = useState([]);
   const getTopMatches = async () => {
     const response = await axios.get(
-      baseUrl +
-        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
-      {
-        params: {
-          token: AuthToken,
-        },
-      }
+      baseUrl + "user/getMatchesList?status=2&paged=1"
     );
 
-    setMatchesList(response?.data?.competitions?.[0]?.matches);
+    setMatchesList(response?.data?.response?.matches);
   };
   const getAllMatchList = () => {
     GetDataWithToken({
@@ -175,9 +169,7 @@ const Nav = () => {
                   >
                     {allSeries?.slice(0, 5)?.map((item) => (
                       <Dropdown.Item
-                        onClick={() =>
-                          navigate("/live-cricket-scores/Allseries")
-                        }
+                      onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                         className="no-border-radius-text"
                       >
                         {item?.title}
@@ -512,7 +504,10 @@ const Nav = () => {
       </nav> */}
       <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
         <div className="UseFlexMenu">
-          <div onClick={() => navigate("/live-cricket-scores")} className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px] cursor-pointer">
+          <div
+            onClick={() => navigate("/live-cricket-scores")}
+            className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px] cursor-pointer"
+          >
             MATCHES
           </div>
 
@@ -527,9 +522,9 @@ const Nav = () => {
               >
                 <p>
                   {match?.short_title}
-                  {match?.status === 2
+                  {/* {match?.status === 2
                     ? `- ${match?.result?.split(" ")?.[0]} WON `
-                    : ""}
+                    : ""} */}
                 </p>
               </div>
             </a>

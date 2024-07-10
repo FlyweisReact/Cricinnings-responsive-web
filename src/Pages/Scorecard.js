@@ -212,10 +212,15 @@ const Scorecard = () => {
                 </div>
               </div>
 
-              <div className="flex ml-2 justify-between w-[400px]">
-                <div className="text-slate-400 pr-14">Didn’t Bat</div>
-                <div className="text-[#0F19AF]">
-                  <div className="flex gap-2 overflow-x-auto whitespace-wrap">
+              <div className="flex ml-2 w-[680px]">
+                <div
+                  style={{ width: "150px" }}
+                  className="text-slate-400 pr-14"
+                >
+                  Didn’t Bat
+                </div>
+                <div className="text-[#0F19AF] ml-4">
+                  <div className="flex flex-wrap gap-1">
                     {squadData?.innings?.[0]?.did_not_bat?.map(
                       (player, index) => (
                         <span
@@ -226,7 +231,9 @@ const Scorecard = () => {
                           }
                           key={index}
                         >
-                          {player?.name + ","}
+                          {player?.name}
+                          {index !==
+                            squadData.innings[0].did_not_bat.length - 1 && ","}
                         </span>
                       )
                     )}
@@ -427,21 +434,28 @@ const Scorecard = () => {
                 </div>
               </div>
 
-              <div className="flex ml-2 justify-between w-[400px]">
-                <div className="text-slate-400 pr-14">Didn’t Bat</div>
-                <div className="text-[#0F19AF]">
-                  <div className="flex gap-2 overflow-x-auto whitespace-wrap">
+              <div className="flex ml-2 w-[680px]">
+                <div
+                  style={{ width: "150px" }}
+                  className="text-slate-400 pr-14"
+                >
+                  Didn’t Bat
+                </div>
+                <div className="text-[#0F19AF] ml-4">
+                  <div className="flex flex-wrap gap-1">
                     {squadData?.innings?.[1]?.did_not_bat?.map(
                       (player, index) => (
                         <span
                           onClick={() =>
                             navigate(
-                              `/cricket-players/${player?.name}/${player?.batsman_id}`
+                              `/cricket-players/${player?.name}/${player?.player_id}`
                             )
                           }
                           key={index}
                         >
-                          {player?.name + ","}
+                          {player?.name}
+                          {index !==
+                            squadData.innings[1].did_not_bat.length - 1 && ","}
                         </span>
                       )
                     )}

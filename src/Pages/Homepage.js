@@ -165,15 +165,15 @@ const Homepage = () => {
   const getSliderDataMatch = async () => {
     const response = await axios.get(
       baseUrl +
-        "user/getCompetitionsAndMatchesDashboard?status=live&per_page=10&paged=1&include_matches=true&match_status=1,2",
+        "user/getMatchesList?type=mixed&paged=1&per_page=10&type=mixed",
       {
         params: {
           token: AuthToken,
         },
       }
     );
-    // console.log(response?.data?.competitions)
-    setSliderData(response?.data?.competitions?.[0]?.matches);
+    console.log(response?.data?.response,"dashboard")
+    setSliderData(response?.data?.response?.matches);
   };
 
   useEffect(() => {
@@ -251,6 +251,7 @@ const Homepage = () => {
         (item) => item?.title === "bottom"
       );
 
+
       setTopBanner1(topBanner[0]?.image);
       setTopBanner2(topBanner[1]?.image);
       setMiddleBanner1(middleBanner[0]?.image);
@@ -267,6 +268,8 @@ const Homepage = () => {
       setHompageBanner2(
         res2?.data?.data?.find((item) => item.title === "hompageBanner2")?.image
       );
+      const ban3=res2?.data?.data?.find((item) => item.title === "hompageBanner3")?.image
+      {console.log(ban3,"HomePage Banner")}
       setHompageBanner3(
         res2?.data?.data?.find((item) => item.title === "hompageBanner3")?.image
       );
@@ -562,7 +565,7 @@ const Homepage = () => {
                     <div className="top_slider_card_div2_text11">
                       <div></div>
                       <div className="top_slider_card_div2_text11_text23">
-                        <p
+                      {item?.competition?.total_teams>2 &&  <p
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigate(
@@ -571,8 +574,8 @@ const Homepage = () => {
                           }
                         >
                           Points Table
-                        </p>
-                        <p
+                        </p>}
+                   <p
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigate(
@@ -856,9 +859,9 @@ const Homepage = () => {
                     if (index >= 4) return null;
                     return (
                       <div
-                        onClick={() =>
-                          navigate(`/live-cricket-scores/Allseries`)
-                        }
+                        // onClick={() =>
+                        //   navigate(`/live-cricket-scores/Allseries`)
+                        // }
                         key={item?._id}
                         style={{
                           display: "grid",
@@ -873,7 +876,8 @@ const Homepage = () => {
                           borderRadius: "4px",
                         }}
                       >
-                        <p>{item?.title}</p>
+                        {console.log(item)}
+                        <p onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} >{item?.title}</p>
                       </div>
                     );
                   })}
