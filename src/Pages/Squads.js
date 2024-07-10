@@ -101,31 +101,43 @@ const Squads = () => {
                       ? squadData?.teama?.squads
                           ?.filter((item) => item?.playing11 === "true")
                           ?.map((item, index) => (
-                            <div
+                            <div onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.name}/${item?.player_id}`
+                              )
+                            }
                               key={index}
                               className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
                             >
-                              {/* <div>
-                              <img
+                              <div>
+                              {/* <img
                                 src={item?.playerpic || "defaultPlayerPic.jpg"}
                                 alt={item?.name || "Player"}
                                 className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              {/* <div className="flex flex-col">
-                                <span className="font-semibold">
+                              /> */}
+                            </div>
+                              <div className="flex flex-col">
+                                <span  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.name}/${item?.player_id}`
+                                  )
+                                } className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
                                 </span>
-                              </div> */}
+                              </div>
                             </div>
                           ))
                       : squadData?.teamb?.squads
                           ?.filter((item) => item?.playing11 === "true")
                           ?.map((item, index) => (
-                            <div
+                            <div onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.name}/${item?.player_id}`
+                              )
+                            }
                               key={index}
                               className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
                             >
@@ -205,9 +217,8 @@ const Squads = () => {
                                 //  className="flex flex-col"
                               >
                                 <span className="font-semibold">
-                                  {/* {item?.name || "Player Name"} */}
+                                  {item?.name || "Player Name"}
                                 </span>
-                                <br />
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
                                 </span>
@@ -258,7 +269,7 @@ const Squads = () => {
 
               <div>
                 <div className="font-semibold text-center mt-5 text-xl">
-                  Bench
+                 Bench
                 </div>
                 <div className="flex justify-center">
                   <div className="w-[300px]">
@@ -270,27 +281,35 @@ const Squads = () => {
                               key={index}
                               className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
                             >
-                              {/* <div>
-                              <img
+                              <div>
+                              {/* <img
                                 src={item?.playerpic || "defaultPlayerPic.jpg"}
                                 alt={item?.name || "Player"}
                                 className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              {/* <div className="flex flex-col">
-                                <span className="font-semibold">
+                              /> */}
+                            </div>
+                              <div className="flex flex-col">
+                                <span  onClick={() =>
+                                  navigate(
+                                    `/cricket-players/${item?.name}/${item?.player_id}`
+                                  )
+                                } className="font-semibold">
                                   {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
                                 </span>
-                              </div> */}
+                              </div>
                             </div>
                           ))
                       : squadData?.teamb?.squads
                           ?.filter((item) => item?.playing11 === "false")
                           ?.map((item, index) => (
-                            <div
+                            <div  onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.name}/${item?.player_id}`
+                              )
+                            }
                               key={index}
                               className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
                             >
@@ -347,7 +366,7 @@ const Squads = () => {
                     </div> */}
                     {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
                       ? squadData?.teamb?.squads
-                          ?.filter((item) => item?.playing11 === "true")
+                          ?.filter((item) => item?.playing11 === "false")
                           ?.map((item, index) => (
                             <div
                               key={index}
@@ -370,9 +389,8 @@ const Squads = () => {
                                 //  className="flex flex-col"
                               >
                                 <span className="font-semibold">
-                                  {/* {item?.name || "Player Name"} */}
+                                  {item?.name || "Player Name"}
                                 </span>
-                                <br />
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
                                 </span>
@@ -380,29 +398,25 @@ const Squads = () => {
                             </div>
                           ))
                       : squadData?.teama?.squads
-                          ?.filter((item) => item?.playing11 === "true")
+                          ?.filter((item) => item?.playing11 === "false")
                           ?.map((item, index) => (
                             <div
                               key={index}
                               className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
                             >
                               <div
-                                 onClick={() =>
+                                onClick={() =>
                                   navigate(
                                     `/cricket-players/${item?.name}/${item?.player_id}`
                                   )
                                 }
                                 className="abc"
                               >
-                                <span  onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                } style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }} className="font-semibold mr-2">
+                                <span style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }} className="font-semibold mr-2">
                                   {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
-                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
+                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
                                 </span>
                               </div>
                             </div>

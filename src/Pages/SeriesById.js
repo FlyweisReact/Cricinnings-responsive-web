@@ -448,7 +448,7 @@ const SeriesById = () => {
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <div>
-          <p style={{fontWeight:"bold",fontSize:"18px",padding:"20px"}}>
+          <p style={{ fontWeight: "bold", fontSize: "18px", padding: "20px" }}>
             {seriesMatches?.[0]?.title}
             {", "}
             {seriesMatches?.[0]?.season}
@@ -588,6 +588,11 @@ const SeriesById = () => {
                                 </span>
                               </p>
                               <p
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
+                                  )
+                                }
                                 style={{
                                   display: "flex",
                                   flexDirection: "column",
@@ -633,7 +638,7 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div
+                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1147,7 +1152,7 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div
+                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1619,7 +1624,7 @@ const SeriesById = () => {
                               <div className="w-[150px] font-semibold">
                                 {item?.title}
                               </div>
-                              <div className="w-[325px]">
+                              <div className="w-[325px]"> 
                                 {item?.matches &&
                                   item?.matches
                                     ?.filter((m) => m?.status === 2)
@@ -1683,7 +1688,7 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div
+                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -2386,7 +2391,7 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div
+                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",

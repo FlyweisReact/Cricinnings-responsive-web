@@ -436,21 +436,26 @@ const Homepage = () => {
       />
     );
   };
+  
   const settings1 = {
     dots: false,
-    infinite: true,
+    infinite: false,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,
     nextArrow: <CustomNextArrow1 />,
-    prevArrow: <CustomPrevArrow />,
+    prevArrow: currentSlide === 0 ? null : <CustomPrevArrow />,
+    beforeChange: (oldIndex, newIndex) => {
+      setCurrentSlide(newIndex);
+      console.log(newIndex);
+    },
   };
 
   return (
     <div className="">
       {sliderData && (
         <div className="homePageSlider">
-          <div className="slider-container">
+          <div style={{overflow: "hidden"}} className="slider-container">
             <Slider {...settings1}>
               {sliderData &&
                 sliderData?.map((item, index) => (

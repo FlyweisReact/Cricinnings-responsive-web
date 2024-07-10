@@ -66,7 +66,7 @@ const Pointtable = () => {
         </div>
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-            <div className="left w-[700px] h-[700px] shadow-2xl">
+            <div  style={{padding:"1rem"}} className="left w-[700px] h-[700px] shadow-2xl">
               <div
                 style={{
                   fontSize: "24px",
@@ -75,7 +75,7 @@ const Pointtable = () => {
                   padding: "10px",
                 }}
               >
-                <p> {title}- Points Table</p>
+                <p  style={{color:"black",fontWeight:"bold"}}> {title}- Points Table</p>
               </div>
               <Table className="w-full">
                 <thead></thead>

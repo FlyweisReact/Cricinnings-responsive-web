@@ -68,7 +68,13 @@ const Commentarynavbar = () => {
   return (
     <div className="bg-[white] pl-2 pt-2 pr-2">
       <div className="font-semibold ">
-        <p style={{ fontSize: "14px", fontWeight: "bold" }}>
+        <p
+          onClick={() =>
+            navigate(`/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`)
+          }
+          // onClick={()=>console.log(matchDetails)}
+          style={{ fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
+        >
           {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket
           Commentary
           {matchDetails?.statue === 3
@@ -128,24 +134,26 @@ const Commentarynavbar = () => {
           Live
         </p>
         {console.log(matchDetails)}
-    {matchDetails?.status !== 1 &&    <p
-          onClick={() => {
-            matchDetails?.match_id &&
-              navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`
-              );
-          }}
-          style={{
-            color: /\/scorecard\//i.test(pathname) ? "white" : "black",
-            fontWeight: "bold",
-            backgroundColor: /\/scorecard\//i.test(pathname)
-              ? "#0F19AF"
-              : "white",
-            padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
-          }}
-        >
-          Scorecard
-        </p>}
+        {matchDetails?.status !== 1 && (
+          <p
+            onClick={() => {
+              matchDetails?.match_id &&
+                navigate(
+                  `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`
+                );
+            }}
+            style={{
+              color: /\/scorecard\//i.test(pathname) ? "white" : "black",
+              fontWeight: "bold",
+              backgroundColor: /\/scorecard\//i.test(pathname)
+                ? "#0F19AF"
+                : "white",
+              padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
+            }}
+          >
+            Scorecard
+          </p>
+        )}
         <p
           onClick={() => {
             matchDetails?.match_id &&

@@ -543,7 +543,7 @@
   font-size: 12px;
   font-weight: 700;
   color: #000;
-  background-color: #F5F5F5;
+  background-color: #f5f5f5;
 }
 
 .lef-co-header1 {
@@ -557,23 +557,66 @@
     rgb(255, 255, 255);
 }
 
-
-.commentryDataClass{
+.commentryDataClass {
   box-sizing: border-box;
-background-color: rgb(255, 255, 255);
-border-bottom: 1px solid rgb(221, 221, 221);
-overflow: hidden;
-padding: 8px;
-font-size: 13px;
-font-family: helvetica, "Segoe UI", Arial, sans-serif;
-display: flex;
-gap: 2rem;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid rgb(221, 221, 221);
+  overflow: hidden;
+  padding: 8px;
+  font-size: 13px;
+  font-family: helvetica, "Segoe UI", Arial, sans-serif;
+  display: flex;
+  gap: 2rem;
 }
 
-.commentryDataClass2{
+.commentryDataClass2 {
   box-sizing: border-box;
-font-size: 13px;
-font-family: helvetica, "Segoe UI", Arial, sans-serif;
-cursor: default;
-background-color: rgb(255, 255, 255);
+  font-size: 13px;
+  font-family: helvetica, "Segoe UI", Arial, sans-serif;
+  cursor: default;
+  background-color: rgb(255, 255, 255);
+}
+
+.stats_div {
+  padding: 5px;
+  margin-bottom: 10px;
+}
+
+.stats_div > p:first-child {
+  background-color: #4b4b4a;
+  color: white;
+  font-size: 14px;
+  padding: 8px 10px;
+}
+
+.statsDivSpantag {
+  color: #d1d1d1;
+  font-weight: bold;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #d1d1d1;
+  padding-bottom:  5px;
+}
+
+.statsDivSpantag1 {
+  color: rgb(34, 34, 34);
+  font-weight: normal;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid rgb(34, 34, 34);
+  padding-bottom:  5px;
+}
+
+.statsDivSpantag123>span:hover {
+background-color: #D1D1D1;
+color: black;
+}
+
+.statsDivSpantag123>span{
+  color: black;
+  font-weight: normal;
+  padding: 6px 10px;
+  font-size: 14px;
+  border-bottom: 1px solid #d1d1d1;
+  padding-bottom:  5px;
 }

@@ -79,6 +79,8 @@ const Womenrankingpage = () => {
   useEffect(() => {
     getAllTeamRankingsData();
   }, []);
+  const [searchParams, setSearchParams] = useState({});
+  
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
@@ -98,7 +100,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "batting" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("batting")}
+            onClick={() =>{ setMainCategory("batting");  window.history.pushState({}, '', '/icc/women/batting');}}
           >
             Batting
           </div>
@@ -107,7 +109,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "bowling" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("bowling")}
+            onClick={() => { setMainCategory("bowling"); window.history.pushState({}, '', '/icc/women/bowling'); }}
           >
             Bowling
           </div>
@@ -116,7 +118,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "alr" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("alr")}
+            onClick={() =>{ setMainCategory("alr");  window.history.pushState({}, '', '/icc/women/alr'); setMainCategory("alr")}}
           >
             All-rounders
           </div>
@@ -125,7 +127,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "teams" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("teams")}
+            onClick={() =>{     window.history.pushState({}, '', '/icc/women/teams') ;setMainCategory("teams")}}
           >
             Teams
           </div>

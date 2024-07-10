@@ -717,6 +717,7 @@ const Livescrore = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
+                                onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1186,12 +1187,23 @@ const Livescrore = () => {
                     <div className="left w-[700px]  ">
                       <div className="flex flex-col gap-5">
                         {competationsType?.map((item) => (
-                          <div className="flex gap-[10rem]">
-                            <div className="font-semibold">
+                          <div className="flex gap-[5rem]">
+                            <div
+                              style={{ width: "150px" }}
+                              className="font-semibold"
+                            >
                               {formatDate(item?.datestart)?.split(" ")?.[0]}{" "}
                               {item?.datestart?.slice(0, 4)}
                             </div>
-                            <div className="text-slate-400">
+                            <div
+                              onClick={() =>
+                                navigate(
+                                  `/cricket-series/${item?.title}/${item?.cid}`
+                                )
+                              }
+                              style={{ width: "430px" }}
+                              className="text-slate-400"
+                            >
                               {item?.title}
                               <br />
                               {convertDate1(item?.datestart)}
@@ -1226,6 +1238,7 @@ const Livescrore = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
+                                onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1762,6 +1775,7 @@ const Livescrore = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
+                                onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -2465,6 +2479,7 @@ const Livescrore = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
+                                onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
                                   key={item?._id}
                                   style={{
                                     display: "grid",

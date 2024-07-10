@@ -65,7 +65,7 @@ const Manrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "batting" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("batting")}
+            onClick={() =>{ setMainCategory("batting");  window.history.pushState({}, '', '/icc/men/batting');}}
           >
             Batting
           </div>
@@ -74,7 +74,7 @@ const Manrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "bowling" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("bowling")}
+            onClick={() =>{ setMainCategory("bowling"); window.history.pushState({}, '', '/icc/men/bowling');}}
           >
             Bowling
           </div>
@@ -83,7 +83,7 @@ const Manrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "alr" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("alr")}
+            onClick={() =>{ setMainCategory("alr"); window.history.pushState({}, '', '/icc/men/alr');}}
           >
             All-rounders
           </div>
@@ -92,7 +92,7 @@ const Manrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "teams" ? "underline" : "none",
             }}
-            onClick={() => setMainCategory("teams")}
+            onClick={() => {setMainCategory("teams") ; window.history.pushState({}, '', '/icc/men/teams');}}
           >
             Teams
           </div>
