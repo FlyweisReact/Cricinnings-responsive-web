@@ -122,7 +122,7 @@ const Squads = () => {
                                     `/cricket-players/${item?.name}/${item?.player_id}`
                                   )
                                 } className="font-semibold">
-                                  {item?.name || "Player Name"}
+                                 {item?.role_str==="(C)"?"(C)":""}    {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
@@ -154,7 +154,7 @@ const Squads = () => {
                                   )
                                 } className="flex flex-col">
                                 <span className="font-semibold">
-                                  {item?.name || "Player Name"}
+                                {item?.role_str==="(C)"?"(C)":""}       {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
@@ -217,7 +217,7 @@ const Squads = () => {
                                 //  className="flex flex-col"
                               >
                                 <span className="font-semibold">
-                                  {item?.name || "Player Name"}
+                                {item?.role_str==="(C)"?"(C)":""}       {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
@@ -241,7 +241,7 @@ const Squads = () => {
                                 className="abc"
                               >
                                 <span style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }} className="font-semibold mr-2">
-                                  {item?.name || "Player Name"}
+                                {item?.role_str==="(C)"?"(C)":""}     {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
@@ -294,7 +294,7 @@ const Squads = () => {
                                     `/cricket-players/${item?.name}/${item?.player_id}`
                                   )
                                 } className="font-semibold">
-                                  {item?.name || "Player Name"}
+                                {item?.role_str==="(C)"?"(C)":""}     {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
@@ -326,7 +326,7 @@ const Squads = () => {
                                   )
                                 } className="flex flex-col">
                                 <span className="font-semibold">
-                                  {item?.name || "Player Name"}
+                                {item?.role_str==="(C)"?"(C)":""}       {item?.name || "Player Name"}
                                 </span>
                                 <span className="text-slate-400">
                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}

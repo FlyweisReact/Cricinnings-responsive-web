@@ -77,7 +77,7 @@ const Commentarynavbar = () => {
           // onClick={()=>console.log(matchDetails)}
           style={{ fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
         >
-          {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket
+          {matchDetails?.title} , {matchDetails?.subtitle} - Live Score Cricket
           Commentary
           {matchDetails?.statue === 3
             ? "Live"
@@ -88,7 +88,8 @@ const Commentarynavbar = () => {
       </div>
       <div className="flex justify-between mt-3">
         <div
-          onClick={() => navigate(`/live-cricket-scores/Allseries`)}
+            onClick={() => navigate(`/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`)} 
+                     
           style={{
             fontSize: "14px",
             fontWeight: "bold",
@@ -136,7 +137,7 @@ const Commentarynavbar = () => {
           Live
         </p>
         {console.log(matchDetails)}
-        {matchDetails?.status !== 1 && (
+        {matchDetails?.status !== 1  && (
           <p
             onClick={() => {
               matchDetails?.match_id &&
@@ -226,7 +227,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/points-table/${matchDetails?.match_id}`
+                `/cricket-series/${matchDetails?.competition?.title}/points-table/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -277,7 +278,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/stats/${matchDetails?.match_id}`
+                `/cricket-series/${matchDetails?.competition?.title}/stats/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -324,7 +325,7 @@ const Commentarynavbar = () => {
         </Link>
       </div> */}
 
-      <div
+   {/\/commentry\//i.test(pathname) &&   <div
         style={{
           fontSize: "14px",
           paddingLeft: "30px",
@@ -349,8 +350,8 @@ const Commentarynavbar = () => {
             )}{" "}
           </span>
         </p>
-      </div>
-      <div>
+      </div>}
+    { /\/scorecard\//i.test(pathname) &&  <div>
         {matchDetails?.status === 2 && matchDetails?.status_note}
         <div className="d-flex gap-2">
           {squadData?.man_of_the_match && (
@@ -372,7 +373,7 @@ const Commentarynavbar = () => {
             </p>
           )}
         </div>
-      </div>
+      </div>}
     </div>
   );
 };

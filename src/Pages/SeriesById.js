@@ -512,11 +512,11 @@ const SeriesById = () => {
               }}
               onClick={() => setSelectedButton("State Venu")}
             >
-              State
+              Stats
             </p>
             <p
               style={{
-                padding: "5px 5px 5px 5px",
+                padding: "5px 5px 5px 5px", 
                 backgroundColor:
                   selectedButton === "Venu" ? "#0E19AE" : "white",
                 fontWeight: "bold",
@@ -525,7 +525,7 @@ const SeriesById = () => {
               }}
               onClick={() => setSelectedButton("Venu")}
             >
-              Venu
+              Venue
             </p>
           </div>
         </div>

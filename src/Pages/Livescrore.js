@@ -101,6 +101,38 @@ const Livescrore = () => {
 
     return formattedDate;
   }
+  function formatDateStringb(dateString) {
+    const date = new Date(dateString);
+    const day = date.getDate();
+    const monthNames = [
+      'January', 'February', 'March', 'April', 'May', 'June',
+      'July', 'August', 'September', 'October', 'November', 'December'
+    ];
+    const month = monthNames[date.getMonth()];
+  
+    // Determine the day suffix (st, nd, rd, th)
+    const daySuffix = (day) => {
+      if (day > 3 && day < 21) return 'th'; // for 11th, 12th, 13th
+      switch (day % 10) {
+        case 1:  return "st";
+        case 2:  return "nd";
+        case 3:  return "rd";
+        default: return "th";
+      }
+    };
+  
+    return `${day}${daySuffix(day)} ${month}`;
+  }
+  function formatTime11(dateString) {
+    const date = new Date(dateString);
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // the hour '0' should be '12'
+    const minutesStr = minutes < 10 ? '0' + minutes : minutes;
+    return `${hours}:${minutesStr} ${ampm}`;
+  }
 
   const getAllSeriesData = async () => {
     try {
@@ -277,7 +309,7 @@ const Livescrore = () => {
   const getAllNewMatches = async () => {
     const res = await axios
       .get(
-        `${baseUrl}user/getCompetitionsAndMatches?token=7971ecfda0c915c1573e11d0d8032c9a&per_page=10&paged=1&include_matches=true&category=${category}`
+        `${baseUrl}user/getCompetitionsAndMatches?per_page=10&paged=1&include_matches=true&category=${category}`
       )
       .then((res) => {
         // console.log(res?.data?.competitions);
@@ -717,7 +749,11 @@ const Livescrore = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
-                                onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1184,7 +1220,7 @@ const Livescrore = () => {
                 </div>
                 <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[700px]  ">
+                    <div className="left w-[950px]  ">
                       <div className="flex flex-col gap-5">
                         {competationsType?.map((item) => (
                           <div className="flex gap-[5rem]">
@@ -1201,7 +1237,7 @@ const Livescrore = () => {
                                   `/cricket-series/${item?.title}/${item?.cid}`
                                 )
                               }
-                              style={{ width: "430px" }}
+                              style={{ width: "650px" }}
                               className="text-slate-400"
                             >
                               {item?.title}
@@ -1213,7 +1249,7 @@ const Livescrore = () => {
                         ))}
                       </div>
                     </div>
-                    <div className="w-[250px]">
+                    {/* <div className="w-[250px]">
                       {allSeries?.length > 0 && (
                         <div
                           style={{
@@ -1690,7 +1726,7 @@ const Livescrore = () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </>
@@ -1699,18 +1735,109 @@ const Livescrore = () => {
               <>
                 <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[700px]  ">
+                    <div className="left w-[950px]  ">
+                      {newMatchData?.map((item, index) => {
+                        return (
+                          <div key={index}>
+                            {" "}
+                            <div
+                              style={{
+                                padding: "5px 0px 5px 0px",
+                                backgroundColor: "#E7E7E7",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              <p style={{ fontWeight: "bold", padding: "5px" }}>
+                                {console.log(item)}{" "}
+                                {convertDate1(item?.datestart)}
+                              </p>
+                            </div>
+                            <div
+                              style={{
+                                display: "grid",
+                                gridTemplateColumns: "25% 50%  25%",
+                                gap: "20px",
+                                marginTop: "10px",
+                                marginBottom: "10px",
+                              }}
+                            >
+                              <p
+                                style={{
+                                  fontWeight: "bold",
+                                  color: "black",
+                                  paddingLeft: "5px",
+                                }}
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scores/${item?.title}-${item?.title}/commentry/${item?.match_id}`
+                                  )
+                                }
+                              >
+                                {item?.title}
+                                {","} {formatDateStringb(item?.datestart)}
+                              </p>
+                              <p>
+                                {item?.matches &&
+                                  item?.matches
+                                    ?.filter((m) => m?.status === 2)
+                                    ?.map((item) => (
+                                      <p
+                                        style={{
+                                          display: "flex",
+                                          flexDirection: "column",
+                                        }}
+                                      >
+                                        <span style={{ color: "black" }}>
+                                          {item?.short_title}
+                                          {","} {item?.format_str}{","}{" "}{item?.date_start?.slice(0,10)}
+                                        </span>
+                                        <span style={{ color: "#707071" }}>
+                                          {/* {formatDateString11(item?.date_start)} at{" "} */}
+                                          {item?.venue?.location}
+                                          {","} {item?.venue?.name}
+                                        </span>
+                                      </p>
+                                    ))}
+                              </p>
+                              <p>
+                              {item?.matches &&
+                                  item?.matches
+                                    ?.filter((m) => m?.status === 2)
+                                    ?.map((item) => (
+                                      <p
+                                        style={{
+                                          display: "flex",
+                                          flexDirection: "column",
+                                        }}
+                                      >
+                                        <span style={{ color: "black" }}>
+                                         {formatTime11(item?.date_start)}
+                                        </span>
+                                        <span style={{ color: "#707071" }}>
+                                          {/* {formatDateString11(item?.date_start)} at{" "} */}
+                                          {/* {item?.venue?.location}
+                                          {","} {item?.venue?.name} */}
+                                        </span>
+                                      </p>
+                                    ))}
+                              </p>
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    {/* <div className="left w-[950px]  ">
                       <div className="flex flex-col gap-5">
                         {newMatchData?.map((item) => (
                           <div className="  flex flex-col gap-5">
                             <div className="bg-[#E6E6E7] h-[70px] font-semibold flex justify-start items-center pl-2">
                               {convertDate1(item?.datestart)}
-                            </div>
-                            <div className="flex   justify-between">
+                            </div> */}
+                    {/* <div className="flex   justify-between">
                               <div className="w-[150px] font-semibold">
                                 {item?.title}
-                              </div>
-                              <div className="w-[325px]">
+                              </div> */}
+                    {/* <div className="w-[325px]">
                                 {item?.matches &&
                                   item?.matches
                                     ?.filter((m) => m?.status === 2)
@@ -1734,8 +1861,8 @@ const Livescrore = () => {
                                         </span>
                                       </div>
                                     ))}
-                              </div>
-                              {/* <div className="w-[150px]">
+                              </div> */}
+                    {/* <div className="w-[150px]">
                                 <span className="text-slate-400">
                                   {" "}
                                   Mar 18  •  9:30 PM
@@ -1745,12 +1872,12 @@ const Livescrore = () => {
                                   9:30 PM GMT/Local
                                 </span>
                               </div> */}
-                            </div>
+                    {/* </div>
                           </div>
                         ))}
-                      </div>
-                    </div>
-                    <div className="w-[250px]">
+                      </div> */}
+                    {/* </div> */}
+                    {/* <div className="w-[250px]">
                       {allSeries?.length > 0 && (
                         <div
                           style={{
@@ -2227,7 +2354,7 @@ const Livescrore = () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </>
@@ -2479,7 +2606,11 @@ const Livescrore = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
-                                onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",

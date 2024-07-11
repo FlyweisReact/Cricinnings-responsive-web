@@ -118,7 +118,7 @@ const router = createBrowserRouter([
         element: <Pointtable />,
       },
       {
-        path: "/live-cricket-scores/:matchName/points-table/:matchId",
+        path: "/cricket-series/:matchName/points-table/:matchId",
         element: <Pointtable />,
       },
       {
@@ -138,7 +138,7 @@ const router = createBrowserRouter([
         element: <News />,
       },
       {
-        path: "/live-cricket-scores/:matchName/stats/:matchId",
+        path: "/cricket-series/:matchName/stats/:matchId",
         element: <Stats />,
       },
       {

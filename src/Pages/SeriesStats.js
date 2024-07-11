@@ -36,12 +36,8 @@ const SeriesStats = () => {
   };
 
   useEffect(() => {
-      getStatesData(seriesId);
-    
+    getStatesData(seriesId);
   }, [filterByData]);
-
-  
-
 
   useEffect(() => {
     getAllBanner();
@@ -58,8 +54,8 @@ const SeriesStats = () => {
           />
         </div>
         <div className="flex mt-2 g-4 p-3">
-          <div className="mt-3 p-1" style={{ width: "250px" }}>
-            <div className="stats_div">
+        <div className="mt-3 p-1" style={{ width: "250px" }}>
+            <div onClick={() => setInitialCondition("batting")} className="stats_div">
               <p> Batting</p>
               <p
                 style={{
@@ -79,6 +75,26 @@ const SeriesStats = () => {
                 >
                   Most Runs{" "}
                 </span>
+                <span
+                  className={
+                    filterByData === "batting_highest_average"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_highest_average")}
+                >
+                  Best Batting Average{" "}
+                </span>
+                <span
+                  className={
+                    filterByData === "batting_highest_strikerate"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_highest_strikerate")}
+                >
+                  Best Strike Rate{" "}
+                </span>
                 <span onClick={() => setFilterByData("batting_most_run4")}>
                   {" "}
                   Most Fours
@@ -95,7 +111,10 @@ const SeriesStats = () => {
                 </span>
               </p>
             </div>
-            <div className="stats_div">
+            <div
+              onClick={() => setInitialCondition("bowling")}
+              className="stats_div"
+            >
               <p> Bowling</p>
               <p
                 style={{
@@ -113,7 +132,7 @@ const SeriesStats = () => {
                   }
                   onClick={() => setFilterByData("bowling_top_wicket_takers")}
                 >
-                  Top Wicket Taker Most Runs{" "}
+                  Most Wickets{" "}
                 </span>
                 <span onClick={() => setFilterByData("bowling_four_wickets")}>
                   {" "}
@@ -125,6 +144,16 @@ const SeriesStats = () => {
                 </span>
                 <span onClick={() => setFilterByData("bowling_best_averages")}>
                   Best Averages
+                </span>
+                <span
+                  onClick={() => setFilterByData("bowling_best_strike_rates")}
+                >
+                  Best Strike Rate
+                </span>
+                <span
+                  onClick={() => setFilterByData("bowling_best_economy_rates")}
+                >
+                  Best Economy
                 </span>
                 <span
                   onClick={() =>
@@ -181,10 +210,11 @@ const SeriesStats = () => {
                   <tr>
                     <th style={{ backgroundColor: "#EDEBEA" }}>Player</th>
                     <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Wkts</th>
+                    <th style={{ backgroundColor: "#EDEBEA" }}>Overs</th>
                     <th style={{ backgroundColor: "#EDEBEA" }}>Balls</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Econ</th>
+                    <th style={{ backgroundColor: "#EDEBEA" }}>Wkts</th>
+                    <th style={{ backgroundColor: "#EDEBEA" }}>Avg</th>
+                    <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
                     <th style={{ backgroundColor: "#EDEBEA" }}>4-fers</th>
                     <th style={{ backgroundColor: "#EDEBEA" }}>5-fers</th>
                   </tr>
@@ -201,13 +231,14 @@ const SeriesStats = () => {
                       >
                         {item?.player?.first_name} {item?.player?.last_name}
                       </td>
-                      <td>{item?.matches}</td>
-                      <td>{item?.innings}</td>
-                      <td>{item?.wickets}</td>
-                      <td>{item?.balls}</td>
-                      <td>{item?.econ}</td>
-                      <td>{item?.wicket4i}</td>
-                      <td>{item?.wicket5i}</td>
+                      <td>{item?.matches || "-"}</td>
+                      <td>{item?.overs || "-"}</td>
+                      <td>{item?.balls || "-"}</td>
+                      <td>{item?.wickets || "-"}</td>
+                      <td>{item?.average || "-"}</td>
+                      <td>{item?.runs || "-"}</td>
+                      <td>{item?.wicket4i || "-"}</td>
+                      <td>{item?.wicket5i || "-"}</td>
                     </tr>
                   ))}
                 </tbody>
