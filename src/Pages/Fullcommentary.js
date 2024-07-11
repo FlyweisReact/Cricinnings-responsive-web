@@ -138,8 +138,8 @@ const Fullcommentary = () => {
                             fontWeight: "bold",
                           }}
                         >
-                          {item?.ball} {"."}
-                          {item?.over}
+                          {item?.over}{"."}
+                          {item?.ball} 
                         </span>
                         <span>{item?.commentary}</span>
                       </p>
