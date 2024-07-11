@@ -70,7 +70,9 @@ const Commentarynavbar = () => {
       <div className="font-semibold ">
         <p
           onClick={() =>
-            navigate(`/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`)
+            navigate(
+              `/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`
+            )
           }
           // onClick={()=>console.log(matchDetails)}
           style={{ fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}

@@ -1,5 +1,4 @@
 import videoframe from "../Assets/Homepage/videoframe.svg";
-import Commentarynavbar from "../Components/Commentarynavbar";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
@@ -42,9 +41,12 @@ const Venu = () => {
     return formattedDateTime;
   }
   const getSquadData = async () => {
-    axios.get(baseUrl + "user/AllCompetitionstats/" + seriesId+"/stats").then((res) => {
-      setSquadData(res?.data?.scorecard);
-    });
+    axios
+      .get(baseUrl + "user/getCompetitionOverview/" + seriesId)
+      .then((res) => {
+        setSquadData(res?.data?.response);
+        console.log(res?.data?.response);
+      });
   };
 
   useEffect(() => {
@@ -64,7 +66,49 @@ const Venu = () => {
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="left w-[700px] h-[1100px] shadow-2xl">
-              <div className=" mt-5 ml-4">
+              <div className="mt-10 ml-4">
+                <div style={{fontSize:"20px",paddingBottom:"10px"}} className="text-[#0F19AF] underline font-semibold">
+                  Venue Guide
+                </div>
+                <div className="mt-2">
+                  <span className="font-semibold">
+                    Stadium:
+                    <span style={{ fontWeight: "normal" }}>
+                      {" "}
+                      {squadData?.venue_list?.map((item) => item?.name + ", ")}
+                    </span>
+                  </span>
+                  <div className="mt-2"> </div>
+                  <span className="font-semibold">
+                    City:
+                    <span style={{ fontWeight: "normal" }}>
+                      {" "}
+                      {squadData?.venue_list?.map((item) => item?.city + ", ")}
+                    </span>
+                  </span>
+                  <div className="mt-2"> </div>
+
+                  <span className="font-semibold">
+                    End:{" "}
+                    <span style={{ fontWeight: "normal" }}>
+                      {squadData?.dateend}
+                    </span>
+                  </span>
+                  <div className="mt-2"></div>
+
+                  <span className="font-semibold ">
+                    Hosts to:{" "}
+                    <span style={{ fontWeight: "normal" }}>
+                      {" "}
+                      {squadData?.venue_list?.map(
+                        (item) => item?.country + ", "
+                      )}
+                    </span>
+                  </span>
+                  <div className=""></div>
+                </div>
+              </div>
+              {/* <div className=" mt-5 ml-4">
                 <div className="text-[#0F19AF] font-semibold underline">
                   Match Info
                 </div>
@@ -85,7 +129,12 @@ const Venu = () => {
                   </div>
                   <span className="font-semibold">Indian Local Time:</span>
                   <div className="">
-                 {squadData?.date_start?.slice(0, 10)?.split("-").reverse().join("-")}   {(squadData?.date_start?.slice(11, 16) + " " + "IST")}
+                    {squadData?.date_start
+                      ?.slice(0, 10)
+                      ?.split("-")
+                      .reverse()
+                      .join("-")}{" "}
+                    {squadData?.date_start?.slice(11, 16) + " " + "IST"}
                   </div>
                   <span className="font-semibold">Venue:</span>
                   <div className="">
@@ -104,28 +153,7 @@ const Venu = () => {
                   <div className=""> {squadData?.referee}</div>
                   {}
                 </div>
-              </div>
-              <div className="mt-10 ml-4">
-                <div className="text-[#0F19AF] underline font-semibold">
-                  Venue Guide
-                </div>
-                <div className="mt-2">
-                  <span className="font-semibold">Stadium:</span>
-                  <div className=""> {squadData?.venue?.name}</div>
-                  <span className="font-semibold">City:</span>
-                  <div className=""> {squadData?.venue?.country}</div>
-                  
-                  <span className="font-semibold">End:</span>
-                  <div className="">{formatDateTime(squadData?.date_end)}</div>
-                  <span className="font-semibold">Indian Local Time:</span>
-                  <div className="">
-                 {squadData?.date_end?.slice(0, 10)?.split("-").reverse().join("-")}   {(squadData?.date_end?.slice(11, 16) + " " + "IST")}
-                  </div>
-                    <span className="font-semibold">Hosts to:</span>
-                    <div className="">{squadData?.venue?.country}</div>
-                </div>
-              </div>
-              
+              </div> */}
             </div>
             <div className="w-[250px] ">
               {banner1 && (

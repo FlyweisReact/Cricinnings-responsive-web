@@ -1,17 +1,16 @@
-import topnews from "../Assets/Homepage/topnews.svg";
-import videoframe from "../Assets/Homepage/videoframe.svg";
-import Commentarynavbar from "../Components/Commentarynavbar";
-import {  useNavigate, useParams } from "react-router-dom";
-import axios from "axios";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
 import { useEffect, useState } from "react";
+import { baseUrl } from "../Components/Integration/ApiIntegration";
+import axios from "axios";
+import { useNavigate, useParams } from "react-router-dom";
 const SeriesSquad = () => {
-  const { seriesId } = useParams();
-  const [squadData, setSquadData] = useState();
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
-  const [teamSquads, setTeamSquads] = useState([]);
+  const [competitionId, setCompetitionId] = useState("");
+  const [filterByData, setFilterByData] = useState("batting_most_runs");
+  const { seriesId } = useParams();
+  const [competitionData, setCompetitionData] = useState([]);
+  const [initialCondition, setInitialCondition] = useState("batting");
   const navigate = useNavigate();
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
@@ -23,23 +22,36 @@ const SeriesSquad = () => {
     });
   };
 
-  useEffect(() => {
-    getAllBanner();
-  }, []);
-  const getSquadData = async () => {
-    axios.get(baseUrl + "user/competitions/" + seriesId+"/squads").then((res) => {
-    //   setSquadData(res?.data?.response);
-      console.log(res?.data?.response?.squads);
-      setTeamSquads(res?.data?.response?.squads);
+  const [allTeams, setAllTeams] = useState([]);
+  const [teamData, setTeamData] = useState({});
+  const [filterByteamId, setFilterByteamId] = useState("");
+
+  const getStatesData = async (payload) => {
+    axios.get(baseUrl + `user/competitions/${payload}/squads`).then((res) => {
+      setAllTeams(res?.data?.response?.squads);
     });
   };
 
   useEffect(() => {
-    getSquadData();
+    getStatesData(seriesId);
+  }, []);
+
+  const getTeamFilteredData = async () => {
+    if (allTeams?.length > 0) {
+      setTeamData(allTeams?.find((item) => item?.team?.tid === filterByteamId));
+    }
+  };
+
+  useEffect(() => {
+    getTeamFilteredData();
+  }, [filterByteamId]);
+
+  useEffect(() => {
+    getAllBanner();
   }, []);
   return (
     <div className="">
-      <div className="bg-[white] pl-2 pt-2">
+      <div className="bg-[white] pl-2 pt-2 pr-2">
         {/* <Commentarynavbar /> */}
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
           <img
@@ -48,434 +60,183 @@ const SeriesSquad = () => {
             alt=""
           />
         </div>
-      </div>
-      <div className="bg-white pb-5  ">
-        <div className="flex justify-center pt-2 gap-5">
-          <div>
-            <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-                <select className="pt-2 pl-2 pb-2 " >
-                  <option>Select Series</option>
-                  {/* {console.log(teamSquads)} */}
-                  {teamSquads?.map((item) => (
-                    <option key={item?.id} value={item?.id}>
+        <div className="flex mt-2 g-4 p-3">
+          <div className="mt-3 p-1" style={{ width: "250px" }}>
+            <div className="stats_div">
+              <p> Teams</p>
+              <p
+                style={{
+                  display: "flex",
+                  gap: "10px",
+                  flexDirection: "column",
+                }}
+                className="statsDivSpantag123"
+              >
+                {allTeams?.map((item) => {
+                  return (
+                    <span
+                      onClick={() => setFilterByteamId(item?.team?.tid)}
+                      className="statsDivSpantag"
+                    >
                       {item?.title}
-                    </option>
-                  ))}
-                </select>
-              <div className="bg-[#0F19AF] flex  items-center shadow-2xl justify-between  rounded-t-lg w-full h-[45px] text-white">
-                <div className="ml-2 flex items-center gap-2">
+                    </span>
+                  );
+                })}
+
+                {/* <span
+                  className={
+                    filterByData === "batting_most_runs"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_most_runs")}
+                >
+                  Most Runs{" "}
+                </span>
+                <span onClick={() => setFilterByData("batting_most_run4")}>
                   {" "}
-                  <img
-                    style={{
-                      width: "25px",
-                      height: "25px",
-                      borderRadius: "50%",
-                    }}
-                    src={
-                      squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                        ? squadData?.teams?.[1]?.thumb_url
-                        : squadData?.teams?.[0]?.thumb_url
-                    }
-                    alt=""
-                  />
-                  {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                    ? squadData?.teams?.[1]?.alt_name
-                    : squadData?.teams?.[0]?.alt_name}
-                </div>
-                <div className="mr-2 flex items-center gap-2">
+                  Most Fours
+                </span>
+                <span onClick={() => setFilterByData("batting_most_run6")}>
                   {" "}
-                  <img
-                    style={{
-                      width: "25px",
-                      height: "25px",
-                      borderRadius: "50%",
-                    }}
-                    src={
-                      squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                        ? squadData?.teams?.[0]?.thumb_url
-                        : squadData?.teams?.[1]?.thumb_url
-                    }
-                    alt=""
-                  />
-                  {squadData?.teama?.team_id === squadData?.teams?.[1]?.tid
-                    ? squadData?.teams?.[0]?.alt_name
-                    : squadData?.teams?.[1]?.alt_name}
+                  Most Sixes
+                </span>
+                <span onClick={() => setFilterByData("batting_most_run100")}>
+                  Most Centuries
+                </span>
+                <span onClick={() => setFilterByData("batting_most_run50")}>
+                  Most Fiftes
+                </span> */}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-6" style={{ width: "100%" }}>
+            <div className="p-3">
+              <div className="mb-3">
+                <p
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "1.5rem",
+                  }}
+                  className="pl-1"
+                >
+                  BATTER
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2,1fr)",
+                    gap: "10px",
+                    padding: "1rem",
+                  }}
+                >
+                  {teamData?.players
+                    ?.filter((item) => item?.playing_role === "bat")
+                    ?.map((item) => {
+                      return (
+                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                          <p>{item?.first_name + " " + item?.last_name}</p>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
-              <div>
-                <div className="font-semibold text-center mt-5 text-xl">
-                  Playing XI
-                </div>
-                <div className="flex justify-center">
-                  <div className="w-[300px]">
-                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                      ? squadData?.teama?.squads
-                          ?.filter((item) => item?.playing11 === "true")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
-                            >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              {/* <div className="flex flex-col">
-                                <span className="font-semibold">
-                                  {item?.name || "Player Name"}
-                                </span>
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div> */}
-                            </div>
-                          ))
-                      : squadData?.teamb?.squads
-                          ?.filter((item) => item?.playing11 === "true")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
-                            >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              <div  onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                } className="flex flex-col">
-                                <span className="font-semibold">
-                                  {item?.name || "Player Name"}
-                                </span>
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-
-                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasirqasdds Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div> */}
-                  </div>
-
-                  <div className="w-[300px]">
-                    {/* <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div> */}
-                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                      ? squadData?.teamb?.squads
-                          ?.filter((item) => item?.playing11 === "true")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
-                            >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              <div
-                                onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                }
-                                style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }}
-                                //  className="flex flex-col"
-                              >
-                                <span className="font-semibold">
-                                  {/* {item?.name || "Player Name"} */}
-                                </span>
-                                <br />
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div>
-                            </div>
-                          ))
-                      : squadData?.teama?.squads
-                          ?.filter((item) => item?.playing11 === "true")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
-                            >
-                              <div
-                                onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                }
-                                className="abc"
-                              >
-                                <span style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }} className="font-semibold mr-2">
-                                  {item?.name || "Player Name"}
-                                </span>
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-
-                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasirqasdds Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div> */}
-                  </div>
+              <div className="mb-3">
+                <p
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "1.5rem",
+                  }}
+                  className="pl-1"
+                >
+                  Bowler
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2,1fr)",
+                    gap: "10px",
+                    padding: "1rem",
+                  }}
+                >
+                  {teamData?.players
+                    ?.filter((item) => item?.playing_role === "bowl")
+                    ?.map((item) => {
+                      return (
+                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                          <p>{item?.first_name + " " + item?.last_name}</p>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
-
-              <div>
-                <div className="font-semibold text-center mt-5 text-xl">
-                  Bench
+              <div className="mb-3">
+                <p
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "1.5rem",
+                  }}
+                  className="pl-1"
+                >
+                  All Rounder
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2,1fr)",
+                    gap: "10px",
+                    padding: "1rem",
+                  }}
+                >
+                  {teamData?.players
+                    ?.filter((item) => item?.playing_role === "all")
+                    ?.map((item) => {
+                      return (
+                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                          <p>{item?.first_name + " " + item?.last_name}</p>
+                        </div>
+                      );
+                    })}
                 </div>
-                <div className="flex justify-center">
-                  <div className="w-[300px]">
-                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                      ? squadData?.teama?.squads
-                          ?.filter((item) => item?.playing11 === "false")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
-                            >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              {/* <div className="flex flex-col">
-                                <span className="font-semibold">
-                                  {item?.name || "Player Name"}
-                                </span>
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div> */}
-                            </div>
-                          ))
-                      : squadData?.teamb?.squads
-                          ?.filter((item) => item?.playing11 === "false")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]"
-                            >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              <div  onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                } className="flex flex-col">
-                                <span className="font-semibold">
-                                  {item?.name || "Player Name"}
-                                </span>
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-
-                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasirqasdds Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div> */}
-                  </div>
-
-                  <div className="w-[300px]">
-                    {/* <div className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3">
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasir Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                    </div> */}
-                    {squadData?.teama?.team_id === squadData?.teams?.[0]?.tid
-                      ? squadData?.teamb?.squads
-                          ?.filter((item) => item?.playing11 === "true")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
-                            >
-                              {/* <div>
-                              <img
-                                src={item?.playerpic || "defaultPlayerPic.jpg"}
-                                alt={item?.name || "Player"}
-                                className="w-[50px] h-[50px]"
-                              />
-                            </div> */}
-                              <div
-                                onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                }
-                                style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }}
-                                //  className="flex flex-col"
-                              >
-                                <span className="font-semibold">
-                                  {/* {item?.name || "Player Name"} */}
-                                </span>
-                                <br />
-                                <span className="text-slate-400">
-                                 {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div>
-                            </div>
-                          ))
-                      : squadData?.teama?.squads
-                          ?.filter((item) => item?.playing11 === "true")
-                          ?.map((item, index) => (
-                            <div
-                              key={index}
-                              className="flex items-center justify-end  border-b pt-1 pb-1 hover:bg-[#EBF9F6] pr-3"
-                            >
-                              <div
-                                 onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                }
-                                className="abc"
-                              >
-                                <span  onClick={() =>
-                                  navigate(
-                                    `/cricket-players/${item?.name}/${item?.player_id}`
-                                  )
-                                } style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }} className="font-semibold mr-2">
-                                  {item?.name || "Player Name"}
-                                </span>
-                                <span className="text-slate-400">
-                                  {item?.role==="bat"?"Batter":item?.role==="bowl"?"Bowler":item?.role==="all"?"All-Rounder":item?.role==="wk" ?"Wicket-keeper":item?.role || "Role"}
-                                </span>
-                              </div>
-                            </div>
-                          ))}
-
-                    {/* <div className="flex items-center gap-1 border-b border-r pt-1 pb-1 hover:bg-[#EBF9F6]">
-                      <div>
-                        <img
-                          src={playerpic}
-                          alt=""
-                          className="w-[50px] h-[50px]"
-                        />
-                      </div>
-                      <div className="flex flex-col">
-                        <span className="font-semibold">Yasirqasdds Khan</span>
-                        <span className="text-slate-400">Batter</span>
-                      </div>
-                    </div> */}
-                  </div>
+              </div>
+              <div className="mb-3">
+                <p
+                  style={{
+                    color: "black",
+                    fontWeight: "bold",
+                    fontSize: "1.5rem",
+                  }}
+                  className="pl-1"
+                >
+                Wicket Keeper
+                </p>
+                <div
+                  style={{
+                    display: "grid",
+                    gridTemplateColumns: "repeat(2,1fr)",
+                    gap: "10px",
+                    padding: "1rem",
+                  }}
+                >
+                  {teamData?.players
+                    ?.filter((item) => item?.playing_role === "wk")
+                    ?.map((item) => {
+                      return (
+                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                          <p>{item?.first_name + " " + item?.last_name}</p>
+                        </div>
+                      );
+                    })}
                 </div>
               </div>
             </div>
           </div>
-
-          <div className="w-[250px] ">
-            {banner1 && (
-              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-                <img
-                  src={banner1?.image}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "10px",
-                  }}
-                  alt=""
-                />
-              </div>
-            )}
-            <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
-              <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
-              <img src={videoframe} alt="" />
-              <img src={videoframe} alt="" />
-              <img src={videoframe} alt="" />
-              <div className="flex justify-center pb-5">
-                <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
-                  More Videos
-                </button>
-              </div>
-            </div>
-            {banner2 && (
-              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-                <img
-                  src={banner2?.image}
-                  style={{
-                    width: "100%",
-                    height: "100%",
-                    borderRadius: "10px",
-                  }}
-                  alt=""
-                />
-              </div>
-            )}
+          <div>
+            <div></div>
           </div>
         </div>
       </div>
