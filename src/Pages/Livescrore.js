@@ -1749,7 +1749,7 @@ const Livescrore = () => {
                             >
                               <p style={{ fontWeight: "bold", padding: "5px" }}>
                                 {console.log(item)}{" "}
-                                {convertDate1(item?.datestart)}
+                              r  {convertDate1(item?.datestart)}
                               </p>
                             </div>
                             <div

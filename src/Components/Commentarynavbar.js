@@ -137,7 +137,7 @@ const Commentarynavbar = () => {
           Live
         </p>
         {console.log(matchDetails)}
-        {matchDetails?.status !== 1  && (
+        {/* {matchDetails?.status !== 1  && ( */}
           <p
             onClick={() => {
               matchDetails?.match_id &&
@@ -156,7 +156,7 @@ const Commentarynavbar = () => {
           >
             Scorecard
           </p>
-        )}
+        {/* )} */}
         <p
           onClick={() => {
             matchDetails?.match_id &&
