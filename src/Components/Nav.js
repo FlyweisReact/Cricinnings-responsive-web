@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { AuthToken, GetDataWithToken } from "./Integration/ApiIntegration";
+import { GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -169,7 +169,7 @@ const Nav = () => {
                   >
                     {allSeries?.slice(0, 5)?.map((item) => (
                       <Dropdown.Item
-                      onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                      onClick={() => navigate(`/cricket-series/${item?.title}-${item?.season}/${item?.cid}`)} 
                         className="no-border-radius-text"
                       >
                         {item?.title}
@@ -522,9 +522,11 @@ const Nav = () => {
               >
                 <p>
                   {match?.short_title}
-                  {/* {match?.status === 2
-                    ? `- ${match?.result?.split(" ")?.[0]} WON `
-                    : ""} */}
+              <span style={{fontSize:"10px"}}>
+                    {match?.status === 2
+                      ? `   - ${match?.result?.split(" ")?.[0]} WON `
+                      : ""}
+              </span>
                 </p>
               </div>
             </a>

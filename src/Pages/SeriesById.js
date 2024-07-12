@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { IoCaretForwardOutline } from "react-icons/io5";
 import {
   GetData,
   GetDataWithToken,
@@ -7,7 +6,6 @@ import {
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import Squads from "./Squads";
 import SeriesSquad from "./SeriesSquad";
 import SeriesPoints from "./SeriesPoints";
 import SeriesStats from "./SeriesStats";
@@ -320,7 +318,7 @@ const SeriesById = () => {
   const getAllNewMatches = async () => {
     const res = await axios
       .get(
-        `${baseUrl}user/getCompetitionsAndMatches?token=7971ecfda0c915c1573e11d0d8032c9a&per_page=10&paged=1&include_matches=true&category=${category}`
+        `${baseUrl}user/getCompetitionsAndMatches?&per_page=10&paged=1&include_matches=true&category=${category}`
       )
       .then((res) => {
         // console.log(res?.data?.competitions);
@@ -442,7 +440,8 @@ const SeriesById = () => {
   useEffect(() => {
     getAllSpecialBanners();
   }, []);
-  const [selectedButton, setSelectedButton] = useState("Current Matches");
+  const { pathname } = useLocation();
+  const [selectedButton, setSelectedButton] = useState( /\/point-table\//i.test(pathname) ? "Point Table":"Current Matches");
 
   return (
     <div className="">
@@ -516,7 +515,7 @@ const SeriesById = () => {
             </p>
             <p
               style={{
-                padding: "5px 5px 5px 5px", 
+                padding: "5px 5px 5px 5px",
                 backgroundColor:
                   selectedButton === "Venu" ? "#0E19AE" : "white",
                 fontWeight: "bold",
@@ -638,7 +637,12 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                                <div
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1152,7 +1156,12 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                                <div
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1624,7 +1633,7 @@ const SeriesById = () => {
                               <div className="w-[150px] font-semibold">
                                 {item?.title}
                               </div>
-                              <div className="w-[325px]"> 
+                              <div className="w-[325px]">
                                 {item?.matches &&
                                   item?.matches
                                     ?.filter((m) => m?.status === 2)
@@ -1688,7 +1697,12 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                                <div
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -2391,7 +2405,12 @@ const SeriesById = () => {
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
-                                <div onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} 
+                                <div
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",

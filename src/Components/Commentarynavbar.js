@@ -44,7 +44,7 @@ const Commentarynavbar = () => {
   const { pathname } = location;
   const params = useParams();
   const { matchId, commentary } = params;
-  const [matchData, setMatchData] = useState([]);
+  const [matchData1, setMatchData1] = useState([]);
   const [matchDetails, setMatchDetails] = useState({});
   const [squadData, setSquadData] = useState({});
 
@@ -61,9 +61,17 @@ const Commentarynavbar = () => {
     });
   };
 
+  const getMatchData1 = async () => {
+    axios.get(baseUrl + "user/getLiveMatchById/" + matchId).then((res) => {
+      console.log(res?.data?.response);
+      setMatchData1(res?.data?.response);
+    });
+  };
+
   useEffect(() => {
     getSquadData();
     getMatchDetails();
+    getMatchData1();
   }, []);
   return (
     <div className="bg-[white] pl-2 pt-2 pr-2">
@@ -88,8 +96,11 @@ const Commentarynavbar = () => {
       </div>
       <div className="flex justify-between mt-3">
         <div
-            onClick={() => navigate(`/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`)} 
-                     
+          onClick={() =>
+            navigate(
+              `/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`
+            )
+          }
           style={{
             fontSize: "14px",
             fontWeight: "bold",
@@ -136,26 +147,26 @@ const Commentarynavbar = () => {
         >
           Live
         </p>
-        {console.log(matchDetails)}
+
         {/* {matchDetails?.status !== 1  && ( */}
-          <p
-            onClick={() => {
-              matchDetails?.match_id &&
-                navigate(
-                  `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`
-                );
-            }}
-            style={{
-              color: /\/scorecard\//i.test(pathname) ? "white" : "black",
-              fontWeight: "bold",
-              backgroundColor: /\/scorecard\//i.test(pathname)
-                ? "#0F19AF"
-                : "white",
-              padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
-            }}
-          >
-            Scorecard
-          </p>
+        <p
+          onClick={() => {
+            matchDetails?.match_id &&
+              navigate(
+                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`
+              );
+          }}
+          style={{
+            color: /\/scorecard\//i.test(pathname) ? "white" : "black",
+            fontWeight: "bold",
+            backgroundColor: /\/scorecard\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
+            padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
+          }}
+        >
+          Scorecard
+        </p>
         {/* )} */}
         <p
           onClick={() => {
@@ -325,55 +336,278 @@ const Commentarynavbar = () => {
         </Link>
       </div> */}
 
-   {/\/commentry\//i.test(pathname) &&   <div
-        style={{
-          fontSize: "14px",
-          paddingLeft: "30px",
-        }}
-        className=" text-[#0F19AF] mt-2"
-      >
-        <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
-          <span>{matchDetails?.teama?.name}</span>{" "}
-          <span>
-            {matchDetails?.teama?.scores}
-            {matchDetails?.teama?.overs && (
-              <> ({matchDetails.teama.overs})</>
-            )}{" "}
-          </span>
-        </p>
-        <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
-          <span>{matchDetails?.teamb?.name}</span>{" "}
-          <span>
-            {matchDetails?.teamb?.scores}
-            {matchDetails?.teamb?.overs && (
-              <> ({matchDetails.teamb.overs})</>
-            )}{" "}
-          </span>
-        </p>
-      </div>}
-    { /\/scorecard\//i.test(pathname) &&  <div>
-        {matchDetails?.status === 2 && matchDetails?.status_note}
-        <div className="d-flex gap-2">
-          {squadData?.man_of_the_match && (
-            <p className="CommentartyData1">
-              Man of the match :{" "}
-              <span className="CommentartyData2">
-                {" "}
-                {squadData?.man_of_the_match?.name}
-              </span>
-            </p>
-          )}
-          {squadData?.man_of_the_series && (
-            <p className="CommentartyData1">
-              Man of the series :{" "}
-              <span className="CommentartyData2">
-                {" "}
-                {squadData?.man_of_the_series?.name}
-              </span>
-            </p>
-          )}
+      {/\/commentry\//i.test(pathname) && (
+        <div
+          style={{
+            fontSize: "12px",
+            paddingLeft: "30px",
+          }}
+          className=" text-[#0F19AF] mt-2"
+        >
+          <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
+            <span>{matchDetails?.teama?.name}</span>{" "}
+            <span>
+              {matchDetails?.teama?.scores}
+              {matchDetails?.teama?.overs && (
+                <> ({matchDetails.teama.overs})</>
+              )}{" "}
+            </span>
+          </p>
+          <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
+            <span>{matchDetails?.teamb?.name}</span>{" "}
+            <span>
+              {matchDetails?.teamb?.scores}
+              {matchDetails?.teamb?.overs && (
+                <> ({matchDetails.teamb.overs})</>
+              )}{" "}
+            </span>
+          </p>
+
+          <div>
+            <div style={{ width: "400px" }}>
+              <div>
+                <table className="m-2">
+                  <thead>
+                    <tr className="border-b">
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          borderRadius: "8px 0 0 0",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[150px] text-left"
+                      >
+                        Batter
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[300px]"
+                      ></th>
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[50px] text-left"
+                      >
+                        R
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[50px] text-left"
+                      >
+                        B
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[50px] text-left"
+                      >
+                        4S
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[50px] text-left"
+                      >
+                        6S
+                      </th>
+                      <th
+                        style={{
+                          backgroundColor: "#0F19AF",
+                          color: "white",
+                          borderRadius: "0 8px 0 0",
+                          padding: "0.4rem",
+                        }}
+                        className="w-[50px]"
+                      >
+                        SR{" "}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {matchData1?.batsmen?.map((item, index) => (
+                      <tr key={index} className="border-b">
+                        <td
+                          className="text-[#0F19AF]"
+                          onClick={() =>
+                            navigate(
+                              `/cricket-players/${item?.name}/${item?.batsman_id}`
+                            )
+                          }
+                        >
+                          {item?.role_str === "(WK)"
+                            ? "(WK)"
+                            : item?.role_str === "(C)"
+                            ? "(C)"
+                            : ""}{" "}
+                          {item.name}
+                        </td>
+                        <td>{item.how_out}</td>
+                        <td>{item.runs}</td>
+                        <td>{item.balls_faced}</td>
+                        <td>{item.fours}</td>
+                        <td>{item.sixes}</td>
+                        <td className="flex items-center">
+                          {item.strike_rate}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+              {matchData1?.status !== 1 && (
+                <div>
+                  <table className="m-2">
+                    <thead>
+                      <tr className="border-b">
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            borderRadius: "8px 0 0 0",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[150px] text-left"
+                        >
+                          Bowler
+                        </th>
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[300px]"
+                        ></th>
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[50px] text-left"
+                        >
+                          Ov
+                        </th>
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[50px] text-left"
+                        >
+                          M
+                        </th>
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[50px] text-left"
+                        >
+                          R
+                        </th>
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[50px] text-left"
+                        >
+                          W
+                        </th>
+                        <th
+                          style={{
+                            backgroundColor: "#0F19AF",
+                            color: "white",
+                            borderRadius: "0 8px 0 0",
+                            padding: "0.4rem",
+                          }}
+                          className="w-[50px]"
+                        >
+                          Eco{" "}
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {matchData1?.bowlers?.map((item, index) => (
+                        <tr key={index} className="border-b">
+                          <td
+                            className="text-[#0F19AF]"
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.name}/${item?.batsman_id}`
+                              )
+                            }
+                          >
+                            {item?.role_str === "(WK)"
+                              ? "(WK)"
+                              : item?.role_str === "(C)"
+                              ? "(C)"
+                              : ""}{" "}
+                            {item.name}
+                          </td>
+                          <td></td>
+                          <td>{item.overs}</td>
+                          <td>{item.maidens}</td>
+                          <td>{item.runs_conceded}</td>
+                          <td>{item.wickets}</td>
+                          <td>{item.econ}</td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              )}
+            </div>
+          </div>
         </div>
-      </div>}
+      )}
+      {/\/scorecard\//i.test(pathname) && (
+        <div>
+          {matchDetails?.status === 2 && matchDetails?.status_note}
+          <div className="d-flex gap-2">
+            {squadData?.man_of_the_match && (
+              <p className="CommentartyData1">
+                Man of the match :{" "}
+                <span className="CommentartyData2">
+                  {" "}
+                  {squadData?.man_of_the_match?.name}
+                </span>
+              </p>
+            )}
+            {squadData?.man_of_the_series && (
+              <p className="CommentartyData1">
+                Man of the series :{" "}
+                <span className="CommentartyData2">
+                  {" "}
+                  {squadData?.man_of_the_series?.name}
+                </span>
+              </p>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

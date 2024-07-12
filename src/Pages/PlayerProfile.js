@@ -77,7 +77,9 @@ const PlayerProfile = () => {
               </div>
             )}
             <div className="mt-[120px]">
-              <p className="player-name">{playerData?.title}</p>
+              <p className="player-name">
+                {playerData?.first_name + " " + playerData?.last_name}
+              </p>
               <p className="player-country">{playerData?.country}</p>
             </div>
           </div>
@@ -105,9 +107,20 @@ const PlayerProfile = () => {
                 </p> */}
                 <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Role</span>
-                  <span className="right-text"> {playerData?.playing_role==="bat"?"Batter":playerData?.playing_role==="bowl"?"Bowler":playerData?.playing_role==="all"?"All-Rounder":playerData?.playing_role==="wk" ?"Wicket-keeper":playerData?.playing_role || "Role"}</span>
+                  <span className="right-text">
+                    {" "}
+                    {playerData?.playing_role === "bat"
+                      ? "Batter"
+                      : playerData?.playing_role === "bowl"
+                      ? "Bowler"
+                      : playerData?.playing_role === "all"
+                      ? "All-Rounder"
+                      : playerData?.playing_role === "wk"
+                      ? "Wicket-keeper"
+                      : playerData?.playing_role || "Role"}
+                  </span>
                 </p>
-                <p className="d-flex gap-2 justify-between">  
+                <p className="d-flex gap-2 justify-between">
                   <span className="left-text">Batting Style</span>
                   <span className="right-text">
                     {playerData?.batting_style}
@@ -119,11 +132,15 @@ const PlayerProfile = () => {
                     {playerData?.bowling_style}
                   </span>
                 </p>
+                <p className="d-flex gap-2 justify-between">
+                  <span className="left-text">Nationality</span>
+                  <span className="right-text">{playerData?.nationality}</span>
+                </p>
               </div>
             </div>
             <div className="right-container">
               <p className="lef-co-header1 mt-3">Batting Career Summary</p>
-              <Table style={{ width: "600px",textAlign:"center"}}>
+              <Table style={{ width: "600px", textAlign: "center" }}>
                 <thead>
                   <tr>
                     <th className="lef-co-header"></th>
@@ -149,12 +166,12 @@ const PlayerProfile = () => {
                     <td>{playerData1?.batting?.test?.notout || "-"}</td>
                     <td>{playerData1?.batting?.test?.runs || "-"}</td>
                     <td>{playerData1?.batting?.test?.highest || "-"}</td>
-                    <td>{playerData1?.batting?.test?.average  || "-"}</td>
-                    <td>{playerData1?.batting?.test?.balls  || "-"}</td>
-                    <td>{playerData1?.batting?.test?.strike  || "-"}</td>
-                    <td>{playerData1?.batting?.test?.run100   || "-"}</td>
-                    <td>{playerData1?.batting?.test?.run50 || "-" }</td>
-                    <td>{playerData1?.batting?.test?.run4  || "-"}</td>
+                    <td>{playerData1?.batting?.test?.average || "-"}</td>
+                    <td>{playerData1?.batting?.test?.balls || "-"}</td>
+                    <td>{playerData1?.batting?.test?.strike || "-"}</td>
+                    <td>{playerData1?.batting?.test?.run100 || "-"}</td>
+                    <td>{playerData1?.batting?.test?.run50 || "-"}</td>
+                    <td>{playerData1?.batting?.test?.run4 || "-"}</td>
                     <td>{playerData1?.batting?.test?.run6 || "-"}</td>
                   </tr>
                   <tr>
@@ -191,7 +208,7 @@ const PlayerProfile = () => {
                 </tbody>
               </Table>
               <p className="lef-co-header1 mt-5">Bowling Career Summary</p>
-              <Table style={{ width: "600px",textAlign:"center" }}>
+              <Table style={{ width: "600px", textAlign: "center" }}>
                 <thead>
                   <tr>
                     <th className="lef-co-header"></th>
@@ -213,12 +230,12 @@ const PlayerProfile = () => {
                     <td className="lef-co-header1">Test</td>
 
                     <td>{playerData1?.bowling?.test?.matches || "-"}</td>
-                    <td>{playerData1?.bowling?.test?.innings  || "-"}</td>
-                    <td>{playerData1?.bowling?.test?.balls  || "-"}</td>
-                    <td>{playerData1?.bowling?.test?.runs  || "-"}</td>
-                    <td>{playerData1?.bowling?.test?.wickets  || "-"}</td>
-                    <td>{playerData1?.bowling?.test?.econ  || "-"}</td>
-                    <td>{playerData1?.bowling?.test?.average  || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.balls || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.test?.average || "-"}</td>
                     <td>{playerData1?.bowling?.test?.strike || "-"}</td>
                     <td>{playerData1?.bowling?.test?.wicket5i || "-"}</td>
                     <td>{playerData1?.bowling?.test?.wicket10m || "-"}</td>
@@ -227,7 +244,7 @@ const PlayerProfile = () => {
                     <td className="lef-co-header1">ODI</td>
                     <td>{playerData1?.bowling?.odi?.matches || "-"}</td>
                     <td>{playerData1?.bowling?.odi?.innings || "-"}</td>
-                    <td>{playerData1?.bowling?.odi?.balls  || "-"}</td>
+                    <td>{playerData1?.bowling?.odi?.balls || "-"}</td>
                     <td>{playerData1?.bowling?.odi?.runs || "-"}</td>
                     <td>{playerData1?.bowling?.odi?.wickets || "-"}</td>
                     <td>{playerData1?.bowling?.odi?.econ || "-"}</td>
@@ -240,7 +257,7 @@ const PlayerProfile = () => {
                     <td className="lef-co-header1">T20</td>
                     <td>{playerData1?.bowling?.t20?.matches || "-"}</td>
                     <td>{playerData1?.bowling?.t20?.innings || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.balls  || "-" }</td>
+                    <td>{playerData1?.bowling?.t20?.balls || "-"}</td>
                     <td>{playerData1?.bowling?.t20?.runs || "-"}</td>
                     <td>{playerData1?.bowling?.t20?.wickets || "-"}</td>
                     <td>{playerData1?.bowling?.t20?.econ || "-"}</td>

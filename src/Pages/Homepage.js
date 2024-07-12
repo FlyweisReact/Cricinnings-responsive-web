@@ -1,5 +1,4 @@
 import cric from "../Assets/Homepage/cric.svg";
-import banner from "../Assets/Homepage/banner.svg";
 import { useNavigate } from "react-router-dom";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -164,15 +163,14 @@ const Homepage = () => {
 
   const getSliderDataMatch = async () => {
     const response = await axios.get(
-      baseUrl +
-        "user/getMatchesList?type=mixed&paged=1&per_page=10&type=mixed",
+      baseUrl + "user/getMatchesList?type=mixed&paged=1&per_page=10&type=mixed",
       {
         params: {
           token: AuthToken,
         },
       }
     );
-    console.log(response?.data?.response,"dashboard")
+    console.log(response?.data?.response, "dashboard");
     setSliderData(response?.data?.response?.matches);
   };
 
@@ -251,7 +249,6 @@ const Homepage = () => {
         (item) => item?.title === "bottom"
       );
 
-
       setTopBanner1(topBanner[0]?.image);
       setTopBanner2(topBanner[1]?.image);
       setMiddleBanner1(middleBanner[0]?.image);
@@ -268,8 +265,10 @@ const Homepage = () => {
       setHompageBanner2(
         res2?.data?.data?.find((item) => item.title === "hompageBanner2")?.image
       );
-      const ban3=res2?.data?.data?.find((item) => item.title === "hompageBanner3")?.image
-      {console.log(ban3,"HomePage Banner")}
+      const ban3 = res2?.data?.data?.find(
+        (item) => item.title === "hompageBanner3"
+      )?.image;
+     
       setHompageBanner3(
         res2?.data?.data?.find((item) => item.title === "hompageBanner3")?.image
       );
@@ -436,7 +435,7 @@ const Homepage = () => {
       />
     );
   };
-  
+
   const settings1 = {
     dots: false,
     infinite: false,
@@ -455,7 +454,7 @@ const Homepage = () => {
     <div className="">
       {sliderData && (
         <div className="homePageSlider">
-          <div style={{overflow: "hidden"}} className="slider-container">
+          <div style={{ overflow: "hidden" }} className="slider-container">
             <Slider {...settings1}>
               {sliderData &&
                 sliderData?.map((item, index) => (
@@ -540,7 +539,9 @@ const Homepage = () => {
                                 ?.slice(0, 2)
                                 ?.join(" ")}
                             </span>
-                            <span>{item?.teamb?.scores_full}</span>
+                            <span>
+                              {item?.teamb?.scores_full?.split("&")?.[0]}
+                            </span>
                           </p>
                         </div>
                         <span>
@@ -564,27 +565,47 @@ const Homepage = () => {
                               {item?.result}
                             </span>
                           )}
+                          {item?.status === 3 && (
+                            <span
+                              style={{
+                                fontSize: "12px",
+                                color: "rgb(24, 102, 219)",
+                                overflow: "hidden",
+                                textOverflow: "ellipsis",
+                                whiteSpace: "nowrap",
+                              }}
+                            >
+                              {item?.live}
+                            </span>
+                          )}
                         </span>
                       </div>
                     </div>
                     <div className="top_slider_card_div2_text11">
                       <div></div>
                       <div className="top_slider_card_div2_text11_text23">
-                      {item?.competition?.total_teams>2 &&  <p
+                        {item?.competition?.total_teams > 2 && (
+                          <p
+                            style={{ cursor: "pointer" }}
+                            onClick={() =>
+                              navigate(
+                                `/cricket-series/${item?.competition?.title}/point-table/${item?.competition?.cid}`
+                              )
+                            }
+                          >
+                            Points Table
+                          </p>
+                        )}
+                        <p
                           style={{ cursor: "pointer" }}
+                          // onClick={() =>
+                          //   navigate(
+                          //     `/live-cricket-scores/${item?.title}-${item?.competition?.title}/match-info/${item?.match_id}`
+                          //   )
+                          // }
                           onClick={() =>
                             navigate(
-                              `/live-cricket-scores/${item?.title}-${item?.competition?.title}/points-table/${item?.match_id}`
-                            )
-                          }
-                        >
-                          Points Table
-                        </p>}
-                   <p
-                          style={{ cursor: "pointer" }}
-                          onClick={() =>
-                            navigate(
-                              `/live-cricket-scores/${item?.title}-${item?.competition?.title}/match-info/${item?.match_id}`
+                              `/cricket-series/${item?.competition?.title}/${item?.competition?.cid}`
                             )
                           }
                         >
@@ -609,99 +630,7 @@ const Homepage = () => {
           </div>
         </div>
       )}
-      {/* <div className="flex flex-wrap gap-2 bg-[#EEEEEE] pt-2 pb-2 justify-center ">
-        <Slider {...settings} className="w-[1000px]">
-          {sliderData &&
-            sliderData?.map((item) => (
-              <Link to={`/match/${item?.match_id}/commentary`}>
-                <div className="homePageSlider">
-                  <div className="pt-2 pl-2">
-                    <div
-                      style={{
-                        display: "flex",
-                        justifyContent: "space-between",
-                        gap: "10px",
-                      }}
-                    >
-                      <p style={{ maxWidth: "80%" }}>
-                        {item?.teama?.name} vs {item?.teamb?.name}
-                      </p>
-                      <p
-                        style={{
-                          backgroundColor: "black",
-                          borderRadius: "50px",
-                          color: "white",
-                          fontSize: "15px",
-                          padding: "5px 10px",
-                          margin: "1rem",
-                          textDecoration: "none",
-                        }}
-                      >
-                        {item?.competition?.category}
-                      </p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teama?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teama?.name}</p>
-                    </div>
-                    <div
-                      style={{
-                        display: "flex",
-                        gap: "10px",
-                        alignItems: "center",
-                      }}
-                    >
-                      <p>
-                        <img
-                          style={{
-                            maxWidth: "30px",
-                            maxHeight: "30px",
-                            borderRadius: "50%",
-                          }}
-                          src={item?.teamb?.logo_url}
-                          alt="team"
-                        />
-                      </p>
-                      <p style={{ color: "gray" }}>{item?.teamb?.name}</p>
-                    </div>
-                    <p className="text-[#FE9839]">
-                      {formattedDate(item?.date_start?.split(" ")?.[0])}.{" "}
-                      {item?.date_start?.split(" ")?.[1]}
-                    </p>
-                  </div>
-                  <div className="homePageSlider2">
-                    <div></div>
-                    <div>
-                      <p>Points Table</p>
-                      <p>Schedule</p>
-                    </div>
-                  </div>
-                </div>
-                {}
-              </Link>
-            ))}
 
-          {}
-          {}
-        </Slider>
-      </div> */}
-      {}
       {hompageBanner3 && (
         <img
           style={{ width: "100%", height: "96px", marginTop: "2rem" }}
@@ -882,7 +811,15 @@ const Homepage = () => {
                         }}
                       >
                         {console.log(item)}
-                        <p onClick={() => navigate(`/cricket-series/${item?.title}/${item?.cid}`)} >{item?.title}</p>
+                        <p
+                          onClick={() =>
+                            navigate(
+                              `/cricket-series/${item?.title}/${item?.cid}`
+                            )
+                          }
+                        >
+                          {item?.title}
+                        </p>
                       </div>
                     );
                   })}

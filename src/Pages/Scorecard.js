@@ -361,7 +361,7 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[0]?.fows?.map((item, index) => (
                     <tr className="border-b">
-                      <td
+                      <td style={{color:"blue"}} 
                         onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.batsman_id}`
@@ -606,7 +606,7 @@ const Scorecard = () => {
                 <tbody>
                   {squadData?.innings?.[1]?.fows?.map((item, index) => (
                     <tr className="border-b">
-                      <td
+                      <td style={{color:"blue"}} 
                         onClick={() =>
                           navigate(
                             `/cricket-players/${item?.name}/${item?.batsman_id}`
@@ -871,7 +871,7 @@ const Scorecard = () => {
                         <tbody>
                           {squadData?.innings?.[2]?.fows?.map((item, index) => (
                             <tr className="border-b">
-                              <td
+                              <td style={{color:"blue"}} 
                                 onClick={() =>
                                   navigate(
                                     `/cricket-players/${item?.name}/${item?.batsman_id}`
@@ -1136,7 +1136,7 @@ const Scorecard = () => {
                         <tbody>
                           {squadData?.innings?.[3]?.fows?.map((item, index) => (
                             <tr className="border-b">
-                              <td
+                              <td style={{color:"blue"}} 
                                 onClick={() =>
                                   navigate(
                                     `/cricket-players/${item?.name}/${item?.batsman_id}`
