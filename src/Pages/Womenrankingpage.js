@@ -236,7 +236,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -286,7 +286,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -336,7 +336,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -480,7 +480,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -530,7 +530,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -580,7 +580,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -724,7 +724,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -774,7 +774,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -824,7 +824,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -968,7 +968,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -1018,7 +1018,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >
@@ -1068,7 +1068,7 @@ const Womenrankingpage = () => {
                                   flexDirection: "column",
                                 }}  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player}/${item?.pid}`
+                                    `/cricket-players/${item?.player?.split(" ")?.join("-")}/${item?.pid}`
                                   )
                                 } 
                               >

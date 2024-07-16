@@ -79,7 +79,7 @@ const Commentarynavbar = () => {
         <p
           onClick={() =>
             navigate(
-              `/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`
+              `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/${matchDetails?.competition?.cid}`
             )
           }
           // onClick={()=>console.log(matchDetails)}
@@ -98,7 +98,7 @@ const Commentarynavbar = () => {
         <div
           onClick={() =>
             navigate(
-              `/cricket-series/${matchDetails?.competition?.title}/${matchDetails?.competition?.cid}`
+              `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/${matchDetails?.competition?.cid}`
             )
           }
           style={{
@@ -133,7 +133,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/commentry/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/commentry/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -153,7 +153,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/scorecard/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/scorecard/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -172,7 +172,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/squad/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/squad/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -206,7 +206,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/full_commentry/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/full_commentry/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -238,7 +238,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-series/${matchDetails?.competition?.title}/points-table/${matchDetails?.match_id}`
+                `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/points-table/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -256,7 +256,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/match-info/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/match-info/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -289,7 +289,7 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-series/${matchDetails?.competition?.title}/stats/${matchDetails?.match_id}`
+                `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/stats/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -448,7 +448,7 @@ const Commentarynavbar = () => {
                           className="text-[#0F19AF]"
                           onClick={() =>
                             navigate(
-                              `/cricket-players/${item?.name}/${item?.batsman_id}`
+                              `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                             )
                           }
                         >
@@ -556,7 +556,7 @@ const Commentarynavbar = () => {
                             className="text-[#0F19AF]"
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.name}/${item?.batsman_id}`
+                                `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                               )
                             }
                           >

@@ -594,7 +594,7 @@ const Livescrore = () => {
                             <div
                               onClick={() =>
                                 navigate(
-                                  `/live-cricket-scores/${item?.match?.title}-${item?.competition?.match?.title}/commentry/${item?.match?.match_id}`
+                                  `/live-cricket-scores/${item?.match?.title?.split(" ")?.join("-")}-${item?.competition?.match?.title?.split(" ")?.join("-")}/commentry/${item?.match?.match_id}`
                                 )
                               }
                               key={index}
@@ -645,7 +645,7 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.title}-${item?.competition?.title}/full_commentry/${item?.match_id}`
+                                      `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/full_commentry/${item?.match_id}`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
@@ -655,7 +655,7 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.match?.title}-${item?.match?.competition?.title}/scorecard/${item?.match?.match_id}`
+                                      `/live-cricket-scores/${item?.match?.title?.split(" ")?.join("-")}-${item?.match?.competition?.title?.split(" ")?.join("-")}/scorecard/${item?.match?.match_id}`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
@@ -665,7 +665,7 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.match?.title}-${item?.match?.competition?.title}/full_commentry/${item?.match?.match_id}`
+                                      `/live-cricket-scores/${item?.match?.title?.split(" ")?.join("-")}-${item?.match?.competition?.title?.split(" ")?.join("-")}/full_commentry/${item?.match?.match_id}`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
@@ -799,7 +799,7 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1281,7 +1281,7 @@ const Livescrore = () => {
                             <div
                               onClick={() =>
                                 navigate(
-                                  `/cricket-series/${item?.title}/${item?.cid}`
+                                  `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                 )
                               }
                               style={{ width: "650px" }}
@@ -1294,7 +1294,7 @@ const Livescrore = () => {
                                       <p style={{cursor:"pointer"}}
                                         onClick={() =>
                                           navigate(
-                                            `/cricket-series/${item?.competition?.title}-${item?.competition?.season}/${item?.competition?.cid}`
+                                            `/cricket-series/${item?.competition?.title?.split(" ")?.join("-")}-${item?.competition?.season?.split(" ")?.join("-")}/${item?.competition?.cid}`
                                           )
                                         }
                                         key={index}
@@ -1357,7 +1357,7 @@ const Livescrore = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-series/${item?.title}-${item?.season}/${item?.cid}`
+                                    `/cricket-series/${item?.title?.split(" ")?.join("-")}-${item?.season?.split(" ")?.join("-")}/${item?.cid}`
                                   )
                                 }
                               >
@@ -1376,7 +1376,7 @@ const Livescrore = () => {
                                         }}
                                         onClick={() =>
                                           navigate(
-                                            `/live-cricket-scores/${item?.short_title}/commentry/${item?.match_id}`
+                                            `/live-cricket-scores/${item?.short_title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
                                           )
                                         }
                                       >
@@ -1534,7 +1534,7 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}

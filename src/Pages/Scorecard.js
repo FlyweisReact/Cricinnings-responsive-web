@@ -178,7 +178,7 @@ const Scorecard = () => {
                         className="text-[#0F19AF]"
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.name}/${item?.batsman_id}`
+                            `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                           )
                         }
                       >
@@ -231,7 +231,7 @@ const Scorecard = () => {
                         <span
                           onClick={() =>
                             navigate(
-                              `/cricket-players/${player?.name}/${player?.player_id}`
+                              `/cricket-players/${player?.name?.split(" ")?.join("-")}/${player?.player_id}`
                             )
                           }
                           key={index}
@@ -280,7 +280,7 @@ const Scorecard = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.name}/${item?.bowler_id}`
+                            `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.bowler_id}`
                           )
                         }
                         className="text-[#0F19AF]  pl-3"
@@ -364,7 +364,7 @@ const Scorecard = () => {
                       <td style={{color:"blue"}} 
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.name}/${item?.batsman_id}`
+                            `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                           )
                         }
                         className="pl-3"
@@ -413,7 +413,7 @@ const Scorecard = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.name}/${item?.batsman_id}`
+                            `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                           )
                         }
                         className="text-[#0F19AF]"
@@ -468,7 +468,7 @@ const Scorecard = () => {
                         <span
                           onClick={() =>
                             navigate(
-                              `/cricket-players/${player?.name}/${player?.player_id}`
+                              `/cricket-players/${player?.name?.split(" ")?.join("-")}/${player?.player_id}`
                             )
                           }
                           key={index}
@@ -517,7 +517,7 @@ const Scorecard = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.name}/${item?.bowler_id}`
+                            `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.bowler_id}`
                           )
                         }
                         className="text-[#0F19AF]  pl-3"
@@ -609,7 +609,7 @@ const Scorecard = () => {
                       <td style={{color:"blue"}} 
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.name}/${item?.batsman_id}`
+                            `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                           )
                         }
                         className="pl-3"
@@ -664,7 +664,7 @@ const Scorecard = () => {
                                 <td
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${item?.name}/${item?.batsman_id}`
+                                      `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                                     )
                                   }
                                   className="text-[#0F19AF]"
@@ -724,7 +724,7 @@ const Scorecard = () => {
                                 <span
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${player?.name}/${player?.player_id}`
+                                      `/cricket-players/${player?.name?.split(" ")?.join("-")}/${player?.player_id}`
                                     )
                                   }
                                   key={index}
@@ -775,7 +775,7 @@ const Scorecard = () => {
                                 <td
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${item?.name}/${item?.bowler_id}`
+                                      `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.bowler_id}`
                                     )
                                   }
                                   className="text-[#0F19AF]  pl-3"
@@ -874,7 +874,7 @@ const Scorecard = () => {
                               <td style={{color:"blue"}} 
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name}/${item?.batsman_id}`
+                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                                   )
                                 }
                                 className="pl-3"
@@ -929,7 +929,7 @@ const Scorecard = () => {
                                 <td
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${item?.name}/${item?.batsman_id}`
+                                      `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                                     )
                                   }
                                   className="text-[#0F19AF]"
@@ -989,7 +989,7 @@ const Scorecard = () => {
                                 <span
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${player?.name}/${player?.player_id}`
+                                      `/cricket-players/${player?.name?.split(" ")?.join("-")}/${player?.player_id}`
                                     )
                                   }
                                   key={index}
@@ -1040,7 +1040,7 @@ const Scorecard = () => {
                                 <td
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${item?.name}/${item?.bowler_id}`
+                                      `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.bowler_id}`
                                     )
                                   }
                                   className="text-[#0F19AF]  pl-3"
@@ -1139,7 +1139,7 @@ const Scorecard = () => {
                               <td style={{color:"blue"}} 
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name}/${item?.batsman_id}`
+                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
                                   )
                                 }
                                 className="pl-3"

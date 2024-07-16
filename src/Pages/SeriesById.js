@@ -589,7 +589,7 @@ const SeriesById = () => {
                               <p
                                 onClick={() =>
                                   navigate(
-                                    `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
+                                    `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
                                   )
                                 }
                                 style={{
@@ -640,7 +640,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1159,7 +1159,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1642,7 +1642,7 @@ const SeriesById = () => {
                                         <span
                                           onClick={() =>
                                             navigate(
-                                              `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
+                                              `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
                                             )
                                           }
                                           className="text-slate-400"
@@ -1700,7 +1700,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -2408,7 +2408,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title}/${item?.cid}`
+                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}

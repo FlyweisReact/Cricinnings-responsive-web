@@ -462,7 +462,7 @@ const Homepage = () => {
                     <div
                       onClick={() =>
                         navigate(
-                          `/live-cricket-scores/${item?.title}-${item?.competition?.title}/commentry/${item?.match_id}`
+                          `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
                         )
                       }
                       style={{ cursor: "pointer" }}
@@ -589,7 +589,7 @@ const Homepage = () => {
                             style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(
-                                `/cricket-series/${item?.competition?.title}/point-table/${item?.competition?.cid}`
+                                `/cricket-series/${item?.competition?.title?.split(" ")?.join("-")}/point-table/${item?.competition?.cid}`
                               )
                             }
                           >
@@ -605,7 +605,7 @@ const Homepage = () => {
                           // }
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.competition?.title}/${item?.competition?.cid}`
+                              `/cricket-series/${item?.competition?.title?.split(" ")?.join("-")}/${item?.competition?.cid}`
                             )
                           }
                         >
@@ -814,7 +814,7 @@ const Homepage = () => {
                         <p
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.title}/${item?.cid}`
+                              `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
                             )
                           }
                         >

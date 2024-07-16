@@ -203,7 +203,7 @@ const Stats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title}/${item?.player?.pid}`
+                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
                           )
                         }
                       >
@@ -241,7 +241,7 @@ const Stats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title}/${item?.player?.pid}`
+                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
                           )
                         }
                       >
@@ -278,7 +278,7 @@ const Stats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title}/${item?.player?.pid}`
+                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
                           )
                         }
                       >
