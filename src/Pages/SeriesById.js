@@ -419,7 +419,7 @@ const SeriesById = () => {
 
   useEffect(() => {
     getAllCurrentMatches();
-  }, []);
+  }, [params?.seriesId]);
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
@@ -448,9 +448,9 @@ const SeriesById = () => {
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <div>
           <p style={{ fontWeight: "bold", fontSize: "18px", padding: "20px" }}>
-            {seriesMatches?.[0]?.title}
+            {seriesMatches?.[0]?.competition?.title}
             {", "}
-            {seriesMatches?.[0]?.season}
+            {seriesMatches?.[0]?.competition?.season}
           </p>
           <p></p>
           <div

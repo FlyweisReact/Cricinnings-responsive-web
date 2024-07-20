@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
@@ -169,10 +169,16 @@ const Nav = () => {
                   >
                     {allSeries?.slice(0, 5)?.map((item) => (
                       <Dropdown.Item
-                      onClick={() => navigate(`/cricket-series/${item?.title}-${item?.season}/${item?.cid}`)} 
+                        key={item?.cid}
                         className="no-border-radius-text"
                       >
-                        {item?.title}
+                        <Link
+                          to={`/cricket-series/${item?.title
+                            ?.split(" ")
+                            ?.join("-")}-${item?.season}/${item?.cid}`}
+                        >
+                          {item?.title}
+                        </Link>
                       </Dropdown.Item>
                     ))}
                     <a className="no1" href="/live-cricket-scores/Allseries">
@@ -514,7 +520,11 @@ const Nav = () => {
           {matchesList?.slice(0, 5).map((match) => (
             <a
               style={{ textDecoration: "none", color: "white" }}
-              href={`/live-cricket-scores/${match?.title?.split(" ")?.join("-")}-${match?.competition?.title?.split(" ")?.join("-")}/scorecard/${match?.match_id}`}
+              href={`/live-cricket-scores/${match?.title
+                ?.split(" ")
+                ?.join("-")}-${match?.competition?.title
+                ?.split(" ")
+                ?.join("-")}/scorecard/${match?.match_id}`}
             >
               <div
                 // onClick={() => navigate(`/Scorecard/${match?.match_id}`)}
@@ -522,11 +532,11 @@ const Nav = () => {
               >
                 <p>
                   {match?.short_title}
-              <span style={{fontSize:"10px"}}>
+                  <span style={{ fontSize: "10px" }}>
                     {match?.status === 2
                       ? `   - ${match?.result?.split(" ")?.[0]} WON `
                       : ""}
-              </span>
+                  </span>
                 </p>
               </div>
             </a>

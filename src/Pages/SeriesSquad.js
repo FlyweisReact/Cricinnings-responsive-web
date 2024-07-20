@@ -34,7 +34,7 @@ const SeriesSquad = () => {
 
   useEffect(() => {
     getStatesData(seriesId);
-  }, []);
+  }, [seriesId]);
 
   const getTeamFilteredData = async () => {
     if (allTeams?.length > 0) {

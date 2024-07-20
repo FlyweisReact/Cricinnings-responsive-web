@@ -83,6 +83,9 @@ const Homepage = () => {
       </div>
     );
   };
+
+
+  
   const settings = {
     infinite: true,
     speed: 500,
@@ -268,7 +271,7 @@ const Homepage = () => {
       const ban3 = res2?.data?.data?.find(
         (item) => item.title === "hompageBanner3"
       )?.image;
-     
+
       setHompageBanner3(
         res2?.data?.data?.find((item) => item.title === "hompageBanner3")?.image
       );
@@ -462,7 +465,11 @@ const Homepage = () => {
                     <div
                       onClick={() =>
                         navigate(
-                          `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
+                          `/live-cricket-scores/${item?.title
+                            ?.split(" ")
+                            ?.join("-")}-${item?.competition?.title
+                            ?.split(" ")
+                            ?.join("-")}/commentry/${item?.match_id}`
                         )
                       }
                       style={{ cursor: "pointer" }}
@@ -486,7 +493,7 @@ const Homepage = () => {
                           />{" "}
                           {item?.competition?.title}
                         </p>
-                        <p>{item?.format_str}</p>
+                        <p>{item?.format_str?.slice(0, 5)}</p>
                       </div>
                       <div
                         style={{ lineHeight: "0" }}
@@ -575,7 +582,7 @@ const Homepage = () => {
                                 whiteSpace: "nowrap",
                               }}
                             >
-                              {item?.live}
+                              {item?.live?.slice(0, 30) + "..."}
                             </span>
                           )}
                         </span>
@@ -589,7 +596,11 @@ const Homepage = () => {
                             style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(
-                                `/cricket-series/${item?.competition?.title?.split(" ")?.join("-")}/point-table/${item?.competition?.cid}`
+                                `/cricket-series/${item?.competition?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/point-table/${
+                                  item?.competition?.cid
+                                }`
                               )
                             }
                           >
@@ -605,7 +616,9 @@ const Homepage = () => {
                           // }
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.competition?.title?.split(" ")?.join("-")}/${item?.competition?.cid}`
+                              `/cricket-series/${item?.competition?.title
+                                ?.split(" ")
+                                ?.join("-")}/${item?.competition?.cid}`
                             )
                           }
                         >
@@ -814,7 +827,9 @@ const Homepage = () => {
                         <p
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                              `/cricket-series/${item?.title
+                                ?.split(" ")
+                                ?.join("-")}/${item?.cid}`
                             )
                           }
                         >

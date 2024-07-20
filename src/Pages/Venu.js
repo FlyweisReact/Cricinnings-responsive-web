@@ -51,7 +51,7 @@ const Venu = () => {
 
   useEffect(() => {
     getSquadData();
-  }, []);
+  }, [seriesId]);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">

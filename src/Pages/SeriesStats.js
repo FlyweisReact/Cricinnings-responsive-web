@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
-import Commentarynavbar from "../Components/Commentarynavbar";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
-
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Table } from "react-bootstrap";
 const SeriesStats = () => {
@@ -37,7 +34,7 @@ const SeriesStats = () => {
 
   useEffect(() => {
     getStatesData(seriesId);
-  }, [filterByData]);
+  }, [filterByData, seriesId]);
 
   useEffect(() => {
     getAllBanner();
@@ -54,8 +51,11 @@ const SeriesStats = () => {
           />
         </div>
         <div className="flex mt-2 g-4 p-3">
-        <div className="mt-3 p-1" style={{ width: "250px" }}>
-            <div onClick={() => setInitialCondition("batting")} className="stats_div">
+          <div className="mt-3 p-1" style={{ width: "250px" }}>
+            <div
+              onClick={() => setInitialCondition("batting")}
+              className="stats_div"
+            >
               <p> Batting</p>
               <p
                 style={{
@@ -187,7 +187,9 @@ const SeriesStats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
+                            `/cricket-players/${item?.player?.title
+                              ?.split(" ")
+                              ?.join("-")}/${item?.player?.pid}`
                           )
                         }
                       >
@@ -225,7 +227,9 @@ const SeriesStats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
+                            `/cricket-players/${item?.player?.title
+                              ?.split(" ")
+                              ?.join("-")}/${item?.player?.pid}`
                           )
                         }
                       >
@@ -262,7 +266,9 @@ const SeriesStats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
+                            `/cricket-players/${item?.player?.title
+                              ?.split(" ")
+                              ?.join("-")}/${item?.player?.pid}`
                           )
                         }
                       >

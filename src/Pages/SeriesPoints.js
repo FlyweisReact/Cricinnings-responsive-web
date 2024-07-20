@@ -1,5 +1,4 @@
 import videoframe from "../Assets/Homepage/videoframe.svg";
-import Commentarynavbar from "../Components/Commentarynavbar";
 import { useParams } from "react-router-dom";
 import React, { useEffect, useState } from "react";
 import { baseUrl } from "../Components/Integration/ApiIntegration";
@@ -15,32 +14,30 @@ const SeriesPoints = () => {
 
   const getMatchData = async () => {
     axios.get(baseUrl + "user/getpoints/" + seriesId).then((res) => {
-      console.log(res)
+      console.log(res);
       setSquadData(res?.data);
     });
   };
 
   useEffect(() => {
     getMatchData();
-  }, []);
+  }, [seriesId]);
   const [banner1, setBanner1] = useState();
   const [banner2, setBanner2] = useState();
   const [banner3, setBanner3] = useState();
   const getAllBanner = async () => {
     axios.get(baseUrl + "admin/getAllPosts").then((res) => {
-      const banner = res?.data?.data
-      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"))
-      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"))
-      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"))
+      const banner = res?.data?.data;
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
       // console.log(banner)
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    getAllBanner()
-  }, [])
- 
-
+    getAllBanner();
+  }, []);
 
   return (
     <div className="">
@@ -55,7 +52,10 @@ const SeriesPoints = () => {
         </div>
         <div className="flex mt-2 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-            <div style={{padding:"1rem"}} className="left w-[700px] h-[700px] shadow-2xl">
+            <div
+              style={{ padding: "1rem" }}
+              className="left w-[700px] h-[700px] shadow-2xl"
+            >
               <div
                 style={{
                   fontSize: "22px",
@@ -64,7 +64,10 @@ const SeriesPoints = () => {
                   padding: "10px",
                 }}
               >
-                <p style={{color:"black",fontWeight:"bold"}}> {  squadData?.standings?.[0]?.round?.name}- Points Table</p>
+                <p style={{ color: "black", fontWeight: "bold" }}>
+                  {" "}
+                  {squadData?.standings?.[0]?.round?.name}{squadData?.standings?.[0]?.round?.name &&"- Points Table"}
+                </p>
               </div>
               <Table className="w-full">
                 <thead></thead>
