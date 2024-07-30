@@ -230,6 +230,24 @@ const Livescrore = () => {
     setTeamRankings(res?.response?.items);
   };
 
+  function convertMonthAndYearR(monthAndYear) {
+    const date = new Date(monthAndYear);
+    const options = { year: "numeric", month: "long" };
+    return date.toLocaleDateString("en-US", options);
+  }
+  function formatDateRangeR(start, end) {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    const startOptions = { month: "short", day: "numeric" };
+    const endOptions = { month: "short", day: "numeric" };
+
+    const startFormatted = startDate.toLocaleDateString("en-US", startOptions);
+    const endFormatted = endDate.toLocaleDateString("en-US", endOptions);
+
+    return `${startFormatted} - ${endFormatted}`;
+  }
+
   const getAllFeacturePosts = () => {
     GetData("userAuth/getFeaturePost").then((res) => {
       setFeacturePosts(res?.data);
@@ -580,7 +598,9 @@ const Livescrore = () => {
                 {comp1[0]?.competition?.title && (
                   <>
                     <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
-                      {comp1[0]?.competition?.title}{","}{comp1[0]?.competition?.season}
+                      {comp1[0]?.competition?.title}
+                      {","}
+                      {comp1[0]?.competition?.season}
                     </div>
                   </>
                 )}
@@ -594,7 +614,15 @@ const Livescrore = () => {
                             <div
                               onClick={() =>
                                 navigate(
-                                  `/live-cricket-scores/${item?.match?.title?.split(" ")?.join("-")}-${item?.competition?.match?.title?.split(" ")?.join("-")}/commentry/${item?.match?.match_id}`
+                                  `/live-cricket-scores/${item?.match?.title
+                                    ?.split(" ")
+                                    ?.join(
+                                      "-"
+                                    )}-${item?.competition?.match?.title
+                                    ?.split(" ")
+                                    ?.join("-")}/commentry/${
+                                    item?.match?.match_id
+                                  }`
                                 )
                               }
                               key={index}
@@ -608,7 +636,6 @@ const Livescrore = () => {
                                     item?.match?.subtitle?.split(" ")?.[1]
                                   )}{" "}
                                   {item?.match?.format_str}
-                                
                                 </span>
                               </div>
                               <div className="text-slate-400">
@@ -625,11 +652,15 @@ const Livescrore = () => {
                                   <div>
                                     <div className="flex gap-5 text-white">
                                       <span>{item?.match?.teama?.name}</span>
-                                      <span>{item?.match?.teama?.scores_full}</span>
+                                      <span>
+                                        {item?.match?.teama?.scores_full}
+                                      </span>
                                     </div>
                                     <div className="flex gap-7 text-white">
                                       <span>{item?.match?.teamb?.name}</span>
-                                      <span>{item?.match?.teamb?.scores_full}</span>
+                                      <span>
+                                        {item?.match?.teamb?.scores_full}
+                                      </span>
                                     </div>
                                     <div className="text-slate-300">
                                       {getWinningTeamName(item)} won by{" "}
@@ -645,7 +676,13 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/full_commentry/${item?.match_id}`
+                                      `/live-cricket-scores/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}-${item?.competition?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/full_commentry/${
+                                        item?.match_id
+                                      }`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
@@ -655,7 +692,15 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.match?.title?.split(" ")?.join("-")}-${item?.match?.competition?.title?.split(" ")?.join("-")}/scorecard/${item?.match?.match_id}`
+                                      `/live-cricket-scores/${item?.match?.title
+                                        ?.split(" ")
+                                        ?.join(
+                                          "-"
+                                        )}-${item?.match?.competition?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/scorecard/${
+                                        item?.match?.match_id
+                                      }`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
@@ -665,7 +710,15 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.match?.title?.split(" ")?.join("-")}-${item?.match?.competition?.title?.split(" ")?.join("-")}/full_commentry/${item?.match?.match_id}`
+                                      `/live-cricket-scores/${item?.match?.title
+                                        ?.split(" ")
+                                        ?.join(
+                                          "-"
+                                        )}-${item?.match?.competition?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/full_commentry/${
+                                        item?.match?.match_id
+                                      }`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
@@ -727,13 +780,17 @@ const Livescrore = () => {
                                       <div className="flex items-center gap-[6rem] ">
                                         <div>
                                           <div className="flex gap-5 text-white">
-                                            <span>{item?.match?.teama?.name}</span>
+                                            <span>
+                                              {item?.match?.teama?.name}
+                                            </span>
                                             <span>
                                               {item?.match?.teama?.scores_full}
                                             </span>
                                           </div>
                                           <div className="flex gap-7 text-white">
-                                            <span>{item?.match?.teamb?.name}</span>
+                                            <span>
+                                              {item?.match?.teamb?.name}
+                                            </span>
                                             <span>
                                               {item?.match?.teamb?.scores_full}
                                             </span>
@@ -799,7 +856,9 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1270,18 +1329,21 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[950px]  ">
                       <div className="flex flex-col gap-5">
+                        {console.log(competationsType)}
                         {competationsType?.map((item) => (
                           <div className="flex gap-[5rem]">
                             <div
                               style={{ width: "150px" }}
                               className="font-semibold"
                             >
-                              {item?.monthAndYear}
+                              {convertMonthAndYearR(item?.monthAndYear)}
                             </div>
                             <div
                               onClick={() =>
                                 navigate(
-                                  `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                  `/cricket-series/${item?.title
+                                    ?.split(" ")
+                                    ?.join("-")}/${item?.cid}`
                                 )
                               }
                               style={{ width: "650px" }}
@@ -1291,22 +1353,47 @@ const Livescrore = () => {
                                 {item?.competitions?.map(
                                   (competition, index) => {
                                     return (
-                                      <p style={{cursor:"pointer"}}
+                                      <p
+                                        style={{
+                                          cursor: "pointer",
+                                          display: "flex",
+                                          flexDirection: "column",
+                                        }}
                                         onClick={() =>
                                           navigate(
-                                            `/cricket-series/${item?.competition?.title?.split(" ")?.join("-")}-${item?.competition?.season?.split(" ")?.join("-")}/${item?.competition?.cid}`
+                                            `/cricket-series/${item?.competition?.title
+                                              ?.split(" ")
+                                              ?.join(
+                                                "-"
+                                              )}-${item?.competition?.season
+                                              ?.split(" ")
+                                              ?.join("-")}/${
+                                              item?.competition?.cid
+                                            }`
                                           )
                                         }
                                         key={index}
                                       >
-                                        {competition?.title}
+                                        <span>
+                                          {" "}
+                                          {competition?.title}{" "}
+                                          {competition?.datestart?.slice(0, 4) +
+                                            " - " +
+                                            competition?.dateend?.slice(2, 4)}
+                                        </span>
+                                        <span>
+                                          {formatDateRangeR(
+                                            competition?.datestart,
+                                            competition?.dateend
+                                          )}
+                                        </span>
                                       </p>
                                     );
                                   }
                                 )}
                               </span>
 
-                              <br />
+                              {/* <br /> */}
                               {}
                               <hr className="mt-2" />
                             </div>
@@ -1357,12 +1444,16 @@ const Livescrore = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-series/${item?.title?.split(" ")?.join("-")}-${item?.season?.split(" ")?.join("-")}/${item?.cid}`
+                                    `/cricket-series/${item?.title
+                                      ?.split(" ")
+                                      ?.join("-")}-${item?.season
+                                      ?.split(" ")
+                                      ?.join("-")}/${item?.cid}`
                                   )
                                 }
                               >
                                 {item?.title}
-                                {","} {formatDateStringb(item?.datestart)}
+                                {","} {item?.season}
                               </p>
                               <p>
                                 {item?.matches &&
@@ -1376,7 +1467,11 @@ const Livescrore = () => {
                                         }}
                                         onClick={() =>
                                           navigate(
-                                            `/live-cricket-scores/${item?.short_title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
+                                            `/live-cricket-scores/${item?.short_title
+                                              ?.split(" ")
+                                              ?.join("-")}/commentry/${
+                                              item?.match_id
+                                            }`
                                           )
                                         }
                                       >
@@ -1405,10 +1500,15 @@ const Livescrore = () => {
                                         }}
                                       >
                                         <span style={{ color: "black" }}>
-                                          {formatTime11(item?.date_start)}
+                                          {formatTime11(item?.date_start_ist)}
                                         </span>
-                                        <span style={{ color: "#707071" }}>
-                                          {}
+                                        <span style={{ color: "#707071",fontSize:"15px" }}>
+                                          {formatTime11(item?.date_start) +
+                                            " " +
+                                            "GMT" +
+                                            "/" +
+                                            " " +
+                                            formatTime11(item?.verify_time)+" "+"Local"}
                                           {}
                                         </span>
                                       </p>
@@ -1534,7 +1634,9 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}

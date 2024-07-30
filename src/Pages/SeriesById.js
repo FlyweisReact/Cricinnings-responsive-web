@@ -498,7 +498,7 @@ const SeriesById = () => {
               }}
               onClick={() => setSelectedButton("Point Table")}
             >
-              Point Table
+              Points Table
             </p>
             <p
               style={{

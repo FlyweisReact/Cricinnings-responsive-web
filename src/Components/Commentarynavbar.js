@@ -79,13 +79,15 @@ const Commentarynavbar = () => {
         <p
           onClick={() =>
             navigate(
-              `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/${matchDetails?.competition?.cid}`
+              `/cricket-series/${matchDetails?.competition?.title
+                ?.split(" ")
+                ?.join("-")}/${matchDetails?.competition?.cid}`
             )
           }
           // onClick={()=>console.log(matchDetails)}
           style={{ fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
         >
-          {matchDetails?.title} , {matchDetails?.subtitle} - Live Score Cricket
+          {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket Score,
           Commentary
           {matchDetails?.statue === 3
             ? "Live"
@@ -98,7 +100,9 @@ const Commentarynavbar = () => {
         <div
           onClick={() =>
             navigate(
-              `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/${matchDetails?.competition?.cid}`
+              `/cricket-series/${matchDetails?.competition?.title
+                ?.split(" ")
+                ?.join("-")}/${matchDetails?.competition?.cid}`
             )
           }
           style={{
@@ -109,14 +113,17 @@ const Commentarynavbar = () => {
           }}
           className="text-slate-500"
         >
-          Series: {matchDetails?.competition?.title}
+          Series: 
+          {matchDetails?.competition?.title +
+            "," +
+            " " +
+            matchDetails?.competition?.season}
         </div>
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
           className="text-slate-500"
         >
-          Venue:
-          {matchDetails?.venue?.name}
+          Venue: {matchDetails?.venue?.name}
           {","}
           {matchDetails?.venue?.location}
         </div>
@@ -133,7 +140,11 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/commentry/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title
+                  ?.split(" ")
+                  ?.join("-")}-${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/commentry/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -153,7 +164,11 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/scorecard/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title
+                  ?.split(" ")
+                  ?.join("-")}-${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/scorecard/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -172,7 +187,11 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/squad/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title
+                  ?.split(" ")
+                  ?.join("-")}-${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/squad/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -206,7 +225,11 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/full_commentry/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title
+                  ?.split(" ")
+                  ?.join("-")}-${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/full_commentry/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -238,7 +261,9 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/points-table/${matchDetails?.match_id}`
+                `/cricket-series/${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/points-table/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -256,7 +281,11 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title?.split(" ")?.join("-")}-${matchDetails?.competition?.title?.split(" ")?.join("-")}/match-info/${matchDetails?.match_id}`
+                `/live-cricket-scores/${matchDetails?.title
+                  ?.split(" ")
+                  ?.join("-")}-${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/match-info/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -289,7 +318,9 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-series/${matchDetails?.competition?.title?.split(" ")?.join("-")}/stats/${matchDetails?.match_id}`
+                `/cricket-series/${matchDetails?.competition?.title
+                  ?.split(" ")
+                  ?.join("-")}/stats/${matchDetails?.match_id}`
               );
           }}
           style={{
@@ -448,7 +479,9 @@ const Commentarynavbar = () => {
                           className="text-[#0F19AF]"
                           onClick={() =>
                             navigate(
-                              `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
+                              `/cricket-players/${item?.name
+                                ?.split(" ")
+                                ?.join("-")}/${item?.batsman_id}`
                             )
                           }
                         >
@@ -556,7 +589,9 @@ const Commentarynavbar = () => {
                             className="text-[#0F19AF]"
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.batsman_id}`
+                                `/cricket-players/${item?.name
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.batsman_id}`
                               )
                             }
                           >
