@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { baseUrl } from "./Integration/ApiIntegration";
+import { baseUrl, getOrdinalSuffix } from "./Integration/ApiIntegration";
 
 const Commentarynavbar = () => {
   const navigate = useNavigate();
@@ -80,6 +80,7 @@ const Commentarynavbar = () => {
           onClick={() =>
             navigate(
               `/cricket-series/${matchDetails?.competition?.title
+                ?.toLowerCase()
                 ?.split(" ")
                 ?.join("-")}/${matchDetails?.competition?.cid}`
             )
@@ -94,15 +95,19 @@ const Commentarynavbar = () => {
             : matchDetails?.statue === 1
             ? "Match Not Started Yet"
             : ""}{" "}
+            
         </p>
       </div>
       <div className="flex justify-between mt-3">
         <div
           onClick={() =>
             navigate(
-              `/cricket-series/${matchDetails?.competition?.title
+              `/cricket-series/${
+                matchDetails?.competition?.cid
+              }/${matchDetails?.competition?.title
+                ?.toLowerCase()
                 ?.split(" ")
-                ?.join("-")}/${matchDetails?.competition?.cid}`
+                ?.join("-")}/matches`
             )
           }
           style={{
@@ -140,20 +145,31 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title
+                `/live-cricket-scores/${
+                  matchDetails?.match_id
+                }/${matchDetails?.short_title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${getOrdinalSuffix(matchDetails?.match_number)
+                  ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}-${matchDetails?.competition?.title
-                  ?.split(" ")
-                  ?.join("-")}/commentry/${matchDetails?.match_id}`
+                  .join("-")}-${matchDetails?.competition?.title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join(
+                    "-"
+                  )}-${matchDetails?.competition?.season?.toLowerCase()}`
               );
           }}
           style={{
-            color: /\/commentry\//i.test(pathname) ? "white" : "black",
+            color: /\/live-cricket-scores\//i.test(pathname)
+              ? "white"
+              : "black",
             fontWeight: "bold",
-            backgroundColor: /\/commentry\//i.test(pathname)
+            backgroundColor: /\/live-cricket-scores\//i.test(pathname)
               ? "#0F19AF"
               : "white",
-            padding: /\/commentry\//i.test(pathname) ? "14px" : "0px",
+            padding: /\/live-cricket-scores\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Live
@@ -164,20 +180,33 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title
+                `/live-cricket-scorecard/${
+                  matchDetails?.match_id
+                }/${matchDetails?.short_title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${getOrdinalSuffix(matchDetails?.match_number)
+                  ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}-${matchDetails?.competition?.title
-                  ?.split(" ")
-                  ?.join("-")}/scorecard/${matchDetails?.match_id}`
+                  .join("-")}-${matchDetails?.competition?.title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join(
+                    "-"
+                  )}-${matchDetails?.competition?.season?.toLowerCase()}`
               );
           }}
           style={{
-            color: /\/scorecard\//i.test(pathname) ? "white" : "black",
+            color: /\/live-cricket-scorecard\//i.test(pathname)
+              ? "white"
+              : "black",
             fontWeight: "bold",
-            backgroundColor: /\/scorecard\//i.test(pathname)
+            backgroundColor: /\/live-cricket-scorecard\//i.test(pathname)
               ? "#0F19AF"
               : "white",
-            padding: /\/scorecard\//i.test(pathname) ? "14px" : "0px",
+            padding: /\/live-cricket-scorecard\//i.test(pathname)
+              ? "14px"
+              : "0px",
           }}
         >
           Scorecard
@@ -187,18 +216,33 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title
+                `/cricket-match-squads/${
+                  matchDetails?.match_id
+                }/${matchDetails?.short_title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${getOrdinalSuffix(matchDetails?.match_number)
+                  ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}-${matchDetails?.competition?.title
-                  ?.split(" ")
-                  ?.join("-")}/squad/${matchDetails?.match_id}`
+                  .join("-")}-${matchDetails?.competition?.title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join(
+                    "-"
+                  )}-${matchDetails?.competition?.season?.toLowerCase()}`
               );
           }}
           style={{
-            color: /\/squad\//i.test(pathname) ? "white" : "black",
+            color: /\/cricket-match-squads\//i.test(pathname)
+              ? "white"
+              : "black",
             fontWeight: "bold",
-            backgroundColor: /\/squad\//i.test(pathname) ? "#0F19AF" : "white",
-            padding: /\/squad\//i.test(pathname) ? "14px" : "0px",
+            backgroundColor: /\/cricket-match-squads\//i.test(pathname)
+              ? "#0F19AF"
+              : "white",
+            padding: /\/cricket-match-squads\//i.test(pathname)
+              ? "14px"
+              : "0px",
           }}
         >
           Squads
@@ -225,20 +269,33 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title
+                `/live-cricket-full-commentary/${
+                  matchDetails?.match_id
+                }/${matchDetails?.short_title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${getOrdinalSuffix(matchDetails?.match_number)
+                  ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}-${matchDetails?.competition?.title
-                  ?.split(" ")
-                  ?.join("-")}/full_commentry/${matchDetails?.match_id}`
+                  .join("-")}-${matchDetails?.competition?.title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join(
+                    "-"
+                  )}-${matchDetails?.competition?.season?.toLowerCase()}`
               );
           }}
           style={{
-            color: /\/full_commentry\//i.test(pathname) ? "white" : "black",
+            color: /\/live-cricket-full-commentary\//i.test(pathname)
+              ? "white"
+              : "black",
             fontWeight: "bold",
-            backgroundColor: /\/full_commentry\//i.test(pathname)
+            backgroundColor: /\/live-cricket-full-commentary\//i.test(pathname)
               ? "#0F19AF"
               : "white",
-            padding: /\/full_commentry\//i.test(pathname) ? "14px" : "0px",
+            padding: /\/live-cricket-full-commentary\//i.test(pathname)
+              ? "14px"
+              : "0px",
           }}
         >
           Full Commentary
@@ -261,9 +318,14 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-series/${matchDetails?.competition?.title
+                `/cricket-series/${
+                  matchDetails?.competition?.cid
+                }/${matchDetails?.competition?.title
+                  ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}/points-table/${matchDetails?.match_id}`
+                  ?.join("-")}-${
+                  matchDetails?.competition?.season
+                }/points-table`
               );
           }}
           style={{
@@ -281,20 +343,31 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scores/${matchDetails?.title
+                `/cricket-match-facts/${
+                  matchDetails?.match_id
+                }/${matchDetails?.short_title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${getOrdinalSuffix(matchDetails?.match_number)
+                  ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}-${matchDetails?.competition?.title
-                  ?.split(" ")
-                  ?.join("-")}/match-info/${matchDetails?.match_id}`
+                  .join("-")}-${matchDetails?.competition?.title
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join(
+                    "-"
+                  )}-${matchDetails?.competition?.season?.toLowerCase()}`
               );
           }}
           style={{
-            color: /\/match-info\//i.test(pathname) ? "white" : "black",
+            color: /\/cricket-match-facts\//i.test(pathname)
+              ? "white"
+              : "black",
             fontWeight: "bold",
-            backgroundColor: /\/match-info\//i.test(pathname)
+            backgroundColor: /\/cricket-match-facts\//i.test(pathname)
               ? "#0F19AF"
               : "white",
-            padding: /\/match-info\//i.test(pathname) ? "14px" : "0px",
+            padding: /\/cricket-match-facts\//i.test(pathname) ? "14px" : "0px",
           }}
         >
           Match Info

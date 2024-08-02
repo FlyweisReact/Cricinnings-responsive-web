@@ -3,6 +3,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -10,6 +11,7 @@ import SeriesSquad from "./SeriesSquad";
 import SeriesPoints from "./SeriesPoints";
 import SeriesStats from "./SeriesStats";
 import Venu from "./Venu";
+import { Table } from "react-bootstrap";
 const SeriesById = () => {
   const location = useLocation();
 
@@ -78,6 +80,13 @@ const SeriesById = () => {
       return "Unknown";
     }
   };
+
+  function formatDateBoss(dateString) {
+    const date = new Date(dateString);
+
+    const options = { month: "short", day: "numeric", weekday: "short" };
+    return date.toLocaleDateString("en-US", options);
+  }
   function formatDateString123(dateString) {
     const date = new Date(dateString);
 
@@ -441,7 +450,9 @@ const SeriesById = () => {
     getAllSpecialBanners();
   }, []);
   const { pathname } = useLocation();
-  const [selectedButton, setSelectedButton] = useState( /\/point-table\//i.test(pathname) ? "Point Table":"Current Matches");
+  const [selectedButton, setSelectedButton] = useState(
+    /\/point-table\//i.test(pathname) ? "Point Table" : "Current Matches"
+  );
 
   return (
     <div className="">
@@ -459,42 +470,53 @@ const SeriesById = () => {
               gap: "10px",
               paddingLeft: "10px",
               alignItems: "center",
+              borderBottom: "2px solid gray",
             }}
           >
             <p
               style={{
                 padding: "5px 5px 5px 5px",
-                backgroundColor:
-                  selectedButton === "Current Matches" ? "#0E19AE" : "white",
+                borderBottom:
+                  selectedButton === "Current Matches"
+                    ? " 2px solid #028062"
+                    : "white",
                 fontWeight: "bold",
-                color: selectedButton === "Current Matches" ? "white" : "black",
-                borderRadius: "5px",
+                color:
+                  selectedButton === "Current Matches" ? "#028062" : "black",
+                // borderRadius: "5px",
+                cursor: "pointer",
               }}
               onClick={() => setSelectedButton("Current Matches")}
             >
-              Schedule
+              Schedule & Results
             </p>
             <p
               style={{
                 padding: "5px 5px 5px 5px",
-                backgroundColor:
-                  selectedButton === "squad" ? "#0E19AE" : "white",
+                borderBottom:
+                  selectedButton === "squad" ? " 2px solid #028062" : "white",
                 fontWeight: "bold",
-                color: selectedButton === "squad" ? "white" : "black",
-                borderRadius: "5px",
+                color: selectedButton === "squad" ? "#028062" : "black",
+                // borderRadius: "5px",
+                cursor: "pointer",
               }}
-              onClick={() => setSelectedButton("squad")}
+              onClick={() => {
+                setSelectedButton("squad");
+              }}
             >
               Squads
             </p>
             <p
               style={{
                 padding: "5px 5px 5px 5px",
-                backgroundColor:
-                  selectedButton === "Point Table" ? "#0E19AE" : "white",
+                borderBottom:
+                  selectedButton === "Point Table"
+                    ? "2px solid #028062"
+                    : "white",
                 fontWeight: "bold",
-                color: selectedButton === "Point Table" ? "white" : "black",
-                borderRadius: "5px",
+                color: selectedButton === "Point Table" ? "#028062" : "black",
+                // borderRadius: "5px",
+                cursor: "pointer",
               }}
               onClick={() => setSelectedButton("Point Table")}
             >
@@ -503,11 +525,14 @@ const SeriesById = () => {
             <p
               style={{
                 padding: "5px 5px 5px 5px",
-                backgroundColor:
-                  selectedButton === "State Venu" ? "#0E19AE" : "white",
+                borderBottom:
+                  selectedButton === "State Venu"
+                    ? " 2px solid #028062"
+                    : "white",
                 fontWeight: "bold",
-                color: selectedButton === "State Venu" ? "white" : "black",
-                borderRadius: "5px",
+                color: selectedButton === "State Venu" ? "#028062" : "black",
+                // borderRadius: "5px",
+                cursor: "pointer",
               }}
               onClick={() => setSelectedButton("State Venu")}
             >
@@ -516,17 +541,19 @@ const SeriesById = () => {
             <p
               style={{
                 padding: "5px 5px 5px 5px",
-                backgroundColor:
-                  selectedButton === "Venu" ? "#0E19AE" : "white",
+                borderBottom:
+                  selectedButton === "Venu" ? " 2px solid #028062" : "white",
                 fontWeight: "bold",
-                color: selectedButton === "Venu" ? "white" : "black",
-                borderRadius: "5px",
+                color: selectedButton === "Venu" ? "#028062" : "black",
+                // borderRadius: "5px",
+                cursor: "pointer",
               }}
               onClick={() => setSelectedButton("Venu")}
             >
               Venue
             </p>
           </div>
+          {/* <hr /> */}
         </div>
 
         {selectedDiv && (
@@ -536,7 +563,88 @@ const SeriesById = () => {
                 <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
-                      {seriesMatches?.map((item, index) => {
+                      <Table style={{ border: "none" }}>
+                        <thead style={{ textAlign: "left" }}>
+                          <tr>
+                            <th
+                              style={{ backgroundColor: "#b3b3b3" }}
+                              className="w-[100px] "
+                            >
+                              Date
+                            </th>
+                            <th
+                              style={{ backgroundColor: "#b3b3b3" }}
+                              className="w-[100px]"
+                            >
+                              Match Details
+                            </th>
+                            <th
+                              style={{ backgroundColor: "#b3b3b3" }}
+                              className="w-[100px]"
+                            >
+                              Time
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody style={{ textAlign: "left" }}>
+                          {seriesMatches?.map((item, index) => {
+                            return (
+                              <tr key={index}>
+                                <td
+                                  style={{
+                                    textAlign: "left",
+                                    border: "none",
+                                  }}
+                                >
+                                  {formatDateBoss(item?.date_start_ist)}
+                                </td>
+                                <td
+                                  style={{
+                                    textAlign: "left",
+                                    border: "none",
+                                  }}
+                                >
+                                  <p
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      gap: "5px",
+                                    }}
+                                  >
+                                    <span>
+                                      {item?.title +
+                                        "," +
+                                        getOrdinalSuffix(item?.match_number) +
+                                        " " +
+                                        item?.format_str}
+                                    </span>
+                                    <span style={{ color: "gray" }}>
+                                      {item?.venue?.name +
+                                        " - " +
+                                        item?.venue?.location}
+                                    </span>
+                                    <span style={{ color: "#2e8ae8" }}>
+                                      {(item?.status === 1 &&
+                                        `Match Starts at ${formatDateBoss(item?.date_start_ist)} `) ||
+                                        item?.result}
+                                    </span>
+                                  </p>
+                                </td>
+                                <td
+                                  style={{
+                                    textAlign: "left",
+                                    border: "none",
+                                  }}
+                                >
+                                  <p>Time</p>
+                                </td>
+                              </tr>
+                            );
+                          })}
+                        </tbody>
+                      </Table>
+
+                      {/* {seriesMatches?.map((item, index) => {
                         return (
                           <div key={index}>
                             {" "}
@@ -589,7 +697,11 @@ const SeriesById = () => {
                               <p
                                 onClick={() =>
                                   navigate(
-                                    `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
+                                    `/live-cricket-scores/${item?.title
+                                      ?.split(" ")
+                                      ?.join("-")}-${item?.competition?.title
+                                      ?.split(" ")
+                                      ?.join("-")}/commentry/${item?.match_id}`
                                   )
                                 }
                                 style={{
@@ -610,7 +722,7 @@ const SeriesById = () => {
                             </div>
                           </div>
                         );
-                      })}
+                      })} */}
                     </div>
 
                     <div className="w-[250px]">
@@ -640,7 +752,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1159,7 +1273,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1642,7 +1758,15 @@ const SeriesById = () => {
                                         <span
                                           onClick={() =>
                                             navigate(
-                                              `/live-cricket-scores/${item?.title?.split(" ")?.join("-")}-${item?.competition?.title?.split(" ")?.join("-")}/commentry/${item?.match_id}`
+                                              `/live-cricket-scores/${item?.title
+                                                ?.split(" ")
+                                                ?.join(
+                                                  "-"
+                                                )}-${item?.competition?.title
+                                                ?.split(" ")
+                                                ?.join("-")}/commentry/${
+                                                item?.match_id
+                                              }`
                                             )
                                           }
                                           className="text-slate-400"
@@ -1700,7 +1824,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -2408,7 +2534,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title?.split(" ")?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${item?.title
+                                        ?.split(" ")
+                                        ?.join("-")}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}

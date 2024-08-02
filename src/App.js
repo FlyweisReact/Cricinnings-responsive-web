@@ -55,7 +55,7 @@ const router = createBrowserRouter([
         element: <Scorecard />,
       },
       {
-        path: "/live-cricket-scores/:matchName/scorecard/:matchId",
+        path: "/live-cricket-scorecard/:matchId/:matchName",
         element: <Scorecard />,
       },
       {
@@ -73,7 +73,7 @@ const router = createBrowserRouter([
       },
     
       {
-        path: "/live-cricket-scores/:matchName/squad/:matchId",
+        path: "/cricket-match-squads/:matchId/:matchName",
         element: <Squads />,
       },
       {
@@ -98,11 +98,11 @@ const router = createBrowserRouter([
       //   element: <Fullcommentary />,
       // },
       {
-        path: "/live-cricket-scores/:matchName/commentry/:matchId",
+        path: "/live-cricket-scores/:matchId/:matchName",
         element: <Fullcommentary />,
       },
       {
-        path: "/live-cricket-scores/:matchName/full_commentry/:matchId",
+        path: "/live-cricket-full-commentary/:matchId/:matchName",
         element: <Commenatary />,
       },
       {
@@ -113,17 +113,17 @@ const router = createBrowserRouter([
         path: "/Overs/:matchId",
         element: <Overs />,
       },
+      // {
+      //   path: "/Pointtable/:matchId",
+      //   element: <Pointtable />,
+      // },
       {
-        path: "/Pointtable/:matchId",
-        element: <Pointtable />,
-      },
-      {
-        path: "/cricket-series/:matchName/points-table/:matchId",
+        path: "/cricket-series/:matchId/:matchName/points-table",
         element: <Pointtable />,
       },
       
       {
-        path: "/live-cricket-scores/:matchName/match-info/:matchId",
+        path: "/cricket-match-facts/:matchId/:matchName",
         element: <Matchinfo />,
       },
       {
@@ -203,11 +203,11 @@ const router = createBrowserRouter([
         element: <FeacturePosts />,
       },
       {
-        path: "/cricket-series/:seriesName/:seriesId",
+        path: "/cricket-series/:seriesId/:seriesName/matches",
         element: <SeriesById />,
       },
       {
-        path: "/cricket-series/:seriesName/point-table/:seriesId",
+        path: "/cricket-series/:seriesId/:seriesName/point-table",
         element: <SeriesById />,
       },
     ],

@@ -1,6 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { GetDataWithToken } from "./Integration/ApiIntegration";
+import {
+  GetDataWithToken,
+  getOrdinalSuffix,
+} from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -517,24 +520,31 @@ const Nav = () => {
             MATCHES
           </div>
 
-          {matchesList?.slice(0, 5).map((match) => (
+          {matchesList?.slice(0, 5).map((item) => (
             <a
               style={{ textDecoration: "none", color: "white" }}
-              href={`/live-cricket-scores/${match?.title
+              href={`/live-cricket-scorecard/${
+                item?.match_id
+              }/${item?.short_title
+                ?.toLowerCase()
+                .split(" ")
+                .join("-")}-${getOrdinalSuffix(item?.match_number)
+                ?.toLowerCase()
                 ?.split(" ")
-                ?.join("-")}-${match?.competition?.title
-                ?.split(" ")
-                ?.join("-")}/scorecard/${match?.match_id}`}
+                .join("-")}-${item?.competition?.title
+                ?.toLowerCase()
+                .split(" ")
+                .join("-")}-${item?.competition?.season?.toLowerCase()}`}
             >
               <div
                 // onClick={() => navigate(`/Scorecard/${match?.match_id}`)}
                 className="matchList"
               >
                 <p>
-                  {match?.short_title}
+                  {item?.short_title}
                   <span style={{ fontSize: "10px" }}>
-                    {match?.status === 2
-                      ? `   - ${match?.result?.split(" ")?.[0]} WON `
+                    {item?.status === 2
+                      ? `   - ${item?.result?.split(" ")?.[0]} WON `
                       : ""}
                   </span>
                 </p>

@@ -10,6 +10,7 @@ import {
   AuthUrl,
   GetData,
   baseUrl,
+  getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -84,8 +85,6 @@ const Homepage = () => {
     );
   };
 
-
-  
   const settings = {
     infinite: true,
     speed: 500,
@@ -465,11 +464,20 @@ const Homepage = () => {
                     <div
                       onClick={() =>
                         navigate(
-                          `/live-cricket-scores/${item?.title
+                          `/live-cricket-scores/${
+                            item?.match_id
+                          }/${item?.short_title
+                            ?.toLowerCase()
+                            .split(" ")
+                            .join("-")}-${getOrdinalSuffix(item?.match_number)
+                            ?.toLowerCase()
                             ?.split(" ")
-                            ?.join("-")}-${item?.competition?.title
-                            ?.split(" ")
-                            ?.join("-")}/commentry/${item?.match_id}`
+                            .join("-")}-${item?.competition?.title
+                            ?.toLowerCase()
+                            .split(" ")
+                            .join(
+                              "-"
+                            )}-${item?.competition?.season?.toLowerCase()}`
                         )
                       }
                       style={{ cursor: "pointer" }}
@@ -596,11 +604,14 @@ const Homepage = () => {
                             style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(
-                                `/cricket-series/${item?.competition?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/point-table/${
+                                `/cricket-series/${
                                   item?.competition?.cid
-                                }`
+                                }/${item?.competition?.title
+                                  ?.toLowerCase()
+                                  ?.split(" ")
+                                  ?.join("-")}-${
+                                  item?.competition?.season
+                                }/points-table`
                               )
                             }
                           >
@@ -616,9 +627,12 @@ const Homepage = () => {
                           // }
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.competition?.title
+                              `/cricket-series/${
+                                item?.competition?.cid
+                              }/${item?.competition?.title
+                                ?.toLowerCase()
                                 ?.split(" ")
-                                ?.join("-")}/${item?.competition?.cid}`
+                                ?.join("-")}-${item?.competition?.season}`
                             )
                           }
                         >
@@ -821,15 +835,18 @@ const Homepage = () => {
                           textAlign: "center",
                           paddingTop: "0.5rem",
                           borderRadius: "4px",
+                          cursor: "pointer",
                         }}
                       >
-                        {console.log(item)}
                         <p
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.title
+                              `/cricket-series/${
+                                item?.cid
+                              }/${item?.title
+                                ?.toLowerCase()
                                 ?.split(" ")
-                                ?.join("-")}/${item?.cid}`
+                                ?.join("-")}/matches`
                             )
                           }
                         >
