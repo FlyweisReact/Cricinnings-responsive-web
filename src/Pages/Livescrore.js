@@ -1502,14 +1502,20 @@ const Livescrore = () => {
                                         <span style={{ color: "black" }}>
                                           {formatTime11(item?.date_start_ist)}
                                         </span>
-                                        <span style={{ color: "#707071",fontSize:"15px" }}>
+                                        <span
+                                          style={{
+                                            color: "#707071",
+                                            fontSize: "15px",
+                                          }}
+                                        >
                                           {formatTime11(item?.date_start) +
                                             " " +
                                             "GMT" +
                                             "/" +
                                             " " +
-                                            formatTime11(item?.verify_time)+" "+"Local"}
-                                          {}
+                                            formatTime11(item?.verify_time) +
+                                            " " +
+                                            "Local"}
                                         </span>
                                       </p>
                                     ))}
