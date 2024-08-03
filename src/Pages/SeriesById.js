@@ -81,7 +81,6 @@ const SeriesById = () => {
     }
   };
 
-
   const formatDateToTimer = (dateString) => {
     const date = new Date(dateString.replace(" ", "T"));
     const hours = date.getHours();
@@ -403,7 +402,16 @@ const SeriesById = () => {
         );
       });
   };
+  const formatDate22 = (dateString) => {
+    // Create a new Date object from the input date string
+    const date = new Date(dateString);
 
+    // Define options to format the date as "Feb 15"
+    const options = { month: "short", day: "numeric" };
+
+    // Use toLocaleDateString with the specified options
+    return date.toLocaleDateString("en-US", options);
+  };
   useEffect(() => {
     getAllCompetationsType();
   }, [category]);
@@ -475,7 +483,11 @@ const SeriesById = () => {
             {", "}
             {seriesMatches?.[0]?.competition?.season}
           </p>
-          <p></p>
+          <span style={{color:"#676766",paddingLeft:"2rem"}}>
+            {" "}
+            {formatDate22(seriesMatches?.[0]?.competition?.datestart)}-
+            {formatDate22(seriesMatches?.[0]?.competition?.dateend)}
+          </span>
           <div
             style={{
               display: "flex",
@@ -617,16 +629,18 @@ const SeriesById = () => {
                                   style={{
                                     textAlign: "left",
                                     border: "none",
-                                    cursor:"pointer"
+                                    cursor: "pointer",
                                   }}
-                                  onClick={()=>{
+                                  onClick={() => {
                                     navigate(
                                       `/live-cricket-scores/${
                                         item?.match_id
                                       }/${item?.short_title
                                         ?.toLowerCase()
                                         .split(" ")
-                                        .join("-")}-${getOrdinalSuffix(item?.match_number)
+                                        .join("-")}-${getOrdinalSuffix(
+                                        item?.match_number
+                                      )
                                         ?.toLowerCase()
                                         ?.split(" ")
                                         .join("-")}-${item?.competition?.title
@@ -685,8 +699,14 @@ const SeriesById = () => {
                                     gap: "2px",
                                   }}
                                 >
-                                  <span>{formatDateToTimer(item?.date_start_ist)}</span>
-                                  <span style={{color:"gray"}}>{formatDateToTimer(item?.date_start)} GMT / {formatDateToTimer(item?.date_start_ist)} LOCAL</span>
+                                  <span>
+                                    {formatDateToTimer(item?.date_start_ist)}
+                                  </span>
+                                  <span style={{ color: "gray" }}>
+                                    {formatDateToTimer(item?.date_start)} GMT /{" "}
+                                    {formatDateToTimer(item?.date_start_ist)}{" "}
+                                    LOCAL
+                                  </span>
                                 </td>
                               </tr>
                             );

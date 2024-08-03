@@ -751,44 +751,53 @@ const Livescrore = () => {
                                   Live Score
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scores/${item?.match?.title
-                                        ?.split(" ")
-                                        ?.join(
-                                          "-"
-                                        )}-${item?.match?.competition?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/scorecard/${
-                                        item?.match?.match_id
-                                      }`
-                                    )
-                                  }
+                                   onClick={() => {
+                                    
+                                      navigate(
+                                        `/live-cricket-scorecard/${
+                                          item?.match?.match_id
+                                        }/${item?.match?.teama?.short_name?.toLowerCase()
+                                          .split(" ")
+                                          .join("-")}-vs-${item?.match?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                                          item?.match?.subtitle?.split(" ")?.[1]
+                                        }-${item?.match?.competition?.title
+                                          ?.toLowerCase()
+                                          .split(" ")
+                                          .join(
+                                            "-"
+                                          )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      );
+                                  }}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
+                                  {console.log(item)}
                                   Scorecard
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scores/${item?.match?.title
-                                        ?.split(" ")
-                                        ?.join(
-                                          "-"
-                                        )}-${item?.match?.competition?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/full_commentry/${
-                                        item?.match?.match_id
-                                      }`
-                                    )
-                                  }
+                                  onClick={() => {
+                                    item?.match?.match_id &&
+                                      navigate(
+                                        `/live-cricket-full-commentary/${
+                                          item?.match?.match_id
+                                        }/${item?.match?.teama?.short_name?.toLowerCase()
+                                          .split(" ")
+                                          .join("-")}-vs-${item?.match?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                                          item?.match?.subtitle?.split(" ")?.[1]
+                                        }-${item?.match?.competition?.title
+                                          ?.toLowerCase()
+                                          .split(" ")
+                                          .join(
+                                            "-"
+                                          )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      );
+                                  }}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
                                   Full Commentary
                                 </div>
                                 <div
                                   onClick={() =>
-                                    navigate(`/News/${item?.match?.match_id}`)
+                                    navigate(`/cricket-news`)
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
@@ -810,6 +819,7 @@ const Livescrore = () => {
                               className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
                             >
                               {item?.competition?.title}
+
                             </div>
                             <div className="flex flex-col gap-5 mt-5">
                               {item?.matches?.map((item, index) => {
@@ -1519,15 +1529,15 @@ const Livescrore = () => {
                                   color: "black",
                                   paddingLeft: "5px",
                                 }}
-                                onClick={() =>
-                                  navigate(
-                                    `/cricket-series/${item?.title
-                                      ?.split(" ")
-                                      ?.join("-")}-${item?.season
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.cid}`
-                                  )
-                                }
+                                // onClick={() =>
+                                //   navigate(
+                                //     `/cricket-series/${item?.title
+                                //       ?.split(" ")
+                                //       ?.join("-")}-${item?.season
+                                //       ?.split(" ")
+                                //       ?.join("-")}/${item?.cid}`
+                                //   )
+                                // }
                               >
                                 {item?.title}
                                 {","} {item?.season}
@@ -1542,15 +1552,23 @@ const Livescrore = () => {
                                           display: "flex",
                                           flexDirection: "column",
                                         }}
-                                        onClick={() =>
-                                          navigate(
-                                            `/live-cricket-scores/${item?.short_title
-                                              ?.split(" ")
-                                              ?.join("-")}/commentry/${
-                                              item?.match_id
-                                            }`
-                                          )
-                                        }
+                                        onClick={() => {
+                                          item?.match_id &&
+                                            navigate(
+                                              `/live-cricket-scores/${
+                                                item?.match_id
+                                              }/${item?.teama?.short_name?.toLowerCase()
+                                                .split(" ")
+                                                .join("-")}-vs-${item?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                                                item?.subtitle?.split(" ")?.[1]
+                                              }-${item?.competition?.title
+                                                ?.toLowerCase()
+                                                .split(" ")
+                                                .join(
+                                                  "-"
+                                                )}-${item?.competition?.season?.toLowerCase()}`
+                                            );
+                                        }}
                                       >
                                         <span style={{ color: "black" }}>
                                           {item?.short_title}

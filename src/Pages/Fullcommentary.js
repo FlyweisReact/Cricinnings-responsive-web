@@ -43,6 +43,8 @@ const Fullcommentary = () => {
       );
       // console.log(res?.data);
       setCommentaryData(res?.data);
+      const reverseData = res?.data?.commentaries?.reverse();
+      setCommentaryData({ ...res?.data, commentaries: reverseData });
     } catch (error) {
       console.log(error);
     }

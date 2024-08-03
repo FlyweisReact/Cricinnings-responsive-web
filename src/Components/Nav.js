@@ -176,9 +176,12 @@ const Nav = () => {
                         className="no-border-radius-text"
                       >
                         <Link
-                          to={`/cricket-series/${item?.title
-                            ?.split(" ")
-                            ?.join("-")}-${item?.season}/${item?.cid}`}
+                          to={`/cricket-series/${
+                                item?.cid
+                              }/${item?.title
+                                ?.toLowerCase()
+                                ?.split(" ")
+                                ?.join("-")}/matches`}
                         >
                           {item?.title}
                         </Link>
