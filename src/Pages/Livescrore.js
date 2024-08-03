@@ -4,9 +4,11 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 const Livescrore = () => {
   const location = useLocation();
 
@@ -20,9 +22,10 @@ const Livescrore = () => {
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
   const [category, setCategory] = useState("international");
-  const [liveCategory, setLiveCategory] = useState("live");
+  const [liveCategory, setLiveCategory] = useState("3");
   const [specialBanner, setSpecialBanner] = useState([]);
   const [competationsType, setCompetationsType] = useState([]);
+  const [competationsTypeR, setCompetationsTypeR] = useState([]);
   const [allSeries, setAllSeries] = useState([]);
   const [teamRankings, setTeamRankings] = useState([]);
   const [odis, setOdis] = useState([]);
@@ -146,6 +149,39 @@ const Livescrore = () => {
     const minutesStr = minutes < 10 ? "0" + minutes : minutes;
     return `${hours}:${minutesStr} ${ampm}`;
   }
+
+  const formatDateStringRkt = (dateString) => {
+    const date = new Date(dateString?.replace(" ", "T"));
+
+    const monthNames = [
+      "Jan",
+      "Feb",
+      "Mar",
+      "Apr",
+      "May",
+      "Jun",
+      "Jul",
+      "Aug",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dec",
+    ];
+
+    const month = monthNames[date.getMonth()];
+
+    const day = date.getDate();
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12 || 12;
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+    return `${month} ${
+      day < 10 ? "0" + day : day
+    } • ${hours}:${formattedMinutes} ${ampm}`;
+  };
 
   const getAllSeriesData = async () => {
     try {
@@ -377,6 +413,18 @@ const Livescrore = () => {
       })
       .catch((err) => {});
   };
+  const getAllCompetationsTypeR = async () => {
+    const current_year = new Date().getFullYear();
+    const res = await axios
+      .get(
+        `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&paged=1'&status=2&category=${category}`
+      )
+      .then((res) => {
+        console.log(res?.data?.response);
+        setCompetationsTypeR(res?.data?.response?.competitionsByMonthAndYear);
+      })
+      .catch((err) => {});
+  };
   const formatDate = (dateString) => {
     if (!dateString) return "";
 
@@ -495,6 +543,16 @@ const Livescrore = () => {
           >
             Match Day By Day
           </div>
+          <div
+            className={`cursor-pointer ${
+              selectedDiv === "Series Archive"
+                ? "underline text-[#0F19AF] underline-offset-8"
+                : ""
+            }`}
+            onClick={() => setSelectedDiv("Series Archive")}
+          >
+          Series Archive
+          </div>
           {}
           {}
         </div>
@@ -599,8 +657,9 @@ const Livescrore = () => {
                   <>
                     <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
                       {comp1[0]?.competition?.title}
-                      {","}
-                      {comp1[0]?.competition?.season}
+                      {","}{" "}
+                      {comp1[0]?.competition?.season ||
+                        comp1[0]?.matches?.[0]?.match?.competition?.season}
                     </div>
                   </>
                 )}
@@ -612,19 +671,6 @@ const Livescrore = () => {
                         {comp1[0]?.matches?.map((item, index) => {
                           return (
                             <div
-                              onClick={() =>
-                                navigate(
-                                  `/live-cricket-scores/${item?.match?.title
-                                    ?.split(" ")
-                                    ?.join(
-                                      "-"
-                                    )}-${item?.competition?.match?.title
-                                    ?.split(" ")
-                                    ?.join("-")}/commentry/${
-                                    item?.match?.match_id
-                                  }`
-                                )
-                              }
                               key={index}
                               style={{ borderRadius: "10px" }}
                               className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer"
@@ -632,14 +678,18 @@ const Livescrore = () => {
                               <div className="flex">
                                 <span className="font-semibold"></span>
                                 <span className="text-slate-400">
-                                  {convertToOrdinal(
-                                    item?.match?.subtitle?.split(" ")?.[1]
+                                  {item?.match?.title}
+                                  {","}{" "}
+                                  {getOrdinalSuffix(
+                                    +item?.match?.subtitle?.split(" ")?.[1] ||
+                                      ""
                                   )}{" "}
-                                  {item?.match?.format_str}
                                 </span>
                               </div>
                               <div className="text-slate-400">
-                                {formatDateString1(item?.date_start)}
+                                {formatDateStringRkt(
+                                  item?.match?.date_start_ist
+                                )}
                                 at {item?.match?.venue?.name}
                                 {" ,"}
                                 {item?.match?.venue?.location}
@@ -676,13 +726,24 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.title
+                                      `/live-cricket-scores/${
+                                        item?.match?.match_id
+                                      }/${item?.match?.short_title
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join("-")}-${getOrdinalSuffix(
+                                        item?.match?.match_number
+                                      )
+                                        ?.toLowerCase()
                                         ?.split(" ")
-                                        ?.join("-")}-${item?.competition?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/full_commentry/${
-                                        item?.match_id
-                                      }`
+                                        .join(
+                                          "-"
+                                        )}-${item?.match?.competition?.title
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join(
+                                          "-"
+                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
@@ -806,7 +867,31 @@ const Livescrore = () => {
                                       </div>
                                     </div>
                                     <div className="flex ">
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center">
+                                      <div
+                                        onClick={() =>
+                                          navigate(
+                                            `/live-cricket-scores/${
+                                              item?.match?.match_id
+                                            }/${item?.match?.short_title
+                                              ?.toLowerCase()
+                                              .split(" ")
+                                              .join("-")}-${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              .join(
+                                                "-"
+                                              )}-${item?.match?.competition?.title
+                                              ?.toLowerCase()
+                                              .split(" ")
+                                              .join(
+                                                "-"
+                                              )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                          )
+                                        }
+                                        className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center"
+                                      >
                                         Live Score
                                       </div>
                                       <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
@@ -1329,7 +1414,6 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[950px]  ">
                       <div className="flex flex-col gap-5">
-                        {console.log(competationsType)}
                         {competationsType?.map((item) => (
                           <div className="flex gap-[5rem]">
                             <div
@@ -1339,13 +1423,6 @@ const Livescrore = () => {
                               {convertMonthAndYearR(item?.monthAndYear)}
                             </div>
                             <div
-                              onClick={() =>
-                                navigate(
-                                  `/cricket-series/${item?.title
-                                    ?.split(" ")
-                                    ?.join("-")}/${item?.cid}`
-                                )
-                              }
                               style={{ width: "650px" }}
                               className="text-slate-400"
                             >
@@ -1353,48 +1430,48 @@ const Livescrore = () => {
                                 {item?.competitions?.map(
                                   (competition, index) => {
                                     return (
-                                      <p
-                                        style={{
-                                          cursor: "pointer",
-                                          display: "flex",
-                                          flexDirection: "column",
-                                        }}
-                                        onClick={() =>
-                                          navigate(
-                                            `/cricket-series/${item?.competition?.title
-                                              ?.split(" ")
-                                              ?.join(
-                                                "-"
-                                              )}-${item?.competition?.season
-                                              ?.split(" ")
-                                              ?.join("-")}/${
-                                              item?.competition?.cid
-                                            }`
-                                          )
-                                        }
-                                        key={index}
+                                      <Link
+                                        to={`/cricket-series/${
+                                          competition?.cid
+                                        }/${competition?.title
+                                          ?.toLowerCase()
+                                          ?.split(" ")
+                                          ?.join("-")}-${
+                                          competition?.season
+                                        }/matches`}
                                       >
-                                        <span>
-                                          {" "}
-                                          {competition?.title}{" "}
-                                          {competition?.datestart?.slice(0, 4) +
-                                            " - " +
-                                            competition?.dateend?.slice(2, 4)}
-                                        </span>
-                                        <span>
-                                          {formatDateRangeR(
-                                            competition?.datestart,
-                                            competition?.dateend
-                                          )}
-                                        </span>
-                                      </p>
+                                        <p
+                                          style={{
+                                            cursor: "pointer",
+                                            display: "flex",
+                                            flexDirection: "column",
+                                          }}
+                                          key={index}
+                                        >
+                                          {console.log(competition, "rk")}
+                                          <span>
+                                            {" "}
+                                            {competition?.title}{" "}
+                                            {competition?.datestart?.slice(
+                                              0,
+                                              4
+                                            ) +
+                                              " - " +
+                                              competition?.dateend?.slice(2, 4)}
+                                          </span>
+                                          <span>
+                                            {formatDateRangeR(
+                                              competition?.datestart,
+                                              competition?.dateend
+                                            )}
+                                          </span>
+                                        </p>
+                                      </Link>
                                     );
                                   }
                                 )}
                               </span>
 
-                              {/* <br /> */}
-                              {}
                               <hr className="mt-2" />
                             </div>
                           </div>
@@ -1525,13 +1602,6 @@ const Livescrore = () => {
                         );
                       })}
                     </div>
-                    {}
-                    {}
-                    {}
-                    {}
-                    {}
-                    {}
-                    {}
                   </div>
                 </div>
               </>
@@ -1554,538 +1624,83 @@ const Livescrore = () => {
             )}
             {selectedDiv === "Series Archive" && (
               <>
-                <div className="mt-2 ml-5 w-[800px] flex justify-between">
-                  <div className="font-semibold">
-                    Cricket Match Archives <br /> 2024
-                  </div>
-                  <div className="font-semibold">All Seasons</div>
+              <div className="bg-[#E6E6E7] h-[70px] flex items-center mt-5  ">
+                <div className="w-[700px] flex items-center gap-[13.5rem] pl-5 ">
+                  <div className="font-semibold">Month</div>
+                  <div className="font-semibold">Series Name</div>
                 </div>
-                <div className="flex mt-2 justify-center pb-5">
-                  <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[700px] border-t">
-                      <div className="w-[650px] flex justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                      <div className="w-[650px] flex border-t justify-between h-[90px] items-center">
-                        <div className="font-semibold">International</div>
-                        <div className="text-slate-400">
-                          Mens African Games, 2024 Mar 17 - Mar 23
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-[250px]  mt-10">
-                      {allSeries?.length > 0 && (
-                        <div className="bg-[white] pb-3 pt-3 rounded-lg mb-3">
-                          <span
-                            style={{
-                              color: "black",
-                              fontWeight: "bold",
-                              fontSize: "12px",
-                              paddingLeft: "10px",
-                            }}
+              </div>
+              <div className="flex mt-2 justify-center pb-5">
+                <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
+                  <div className="left w-[950px]  ">
+                    <div className="flex flex-col gap-5">
+                      {competationsTypeR?.map((item) => (
+                        <div className="flex gap-[5rem]">
+                          <div
+                            style={{ width: "150px" }}
+                            className="font-semibold"
                           >
-                            CURRENT SERIES
-                          </span>
-                          <div className="flex flex-col mt-4 gap-3 items-center text-center">
-                            {allSeries?.map((item, index) => {
-                              if (index >= 4) return null;
-                              return (
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/cricket-series/${item?.title
+                            {convertMonthAndYearR(item?.monthAndYear)}
+                          </div>
+                          <div
+                            style={{ width: "650px" }}
+                            className="text-slate-400"
+                          >
+                            <span>
+                              {item?.competitions?.map(
+                                (competition, index) => {
+                                  return (
+                                    <Link
+                                      to={`/cricket-series/${
+                                        competition?.cid
+                                      }/${competition?.title
+                                        ?.toLowerCase()
                                         ?.split(" ")
-                                        ?.join("-")}/${item?.cid}`
-                                    )
-                                  }
-                                  key={item?._id}
-                                  style={{
-                                    display: "grid",
-                                    placeItems: "center",
-                                    justifyContent: "center",
-                                    width: "90%",
-                                    margin: "auto",
-                                    boxShadow:
-                                      "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                    textAlign: "center",
-                                    paddingTop: "0.5rem",
-                                    borderRadius: "4px",
-                                  }}
-                                >
-                                  <p>{item?.title}</p>
-                                </div>
-                              );
-                            })}
+                                        ?.join("-")}-${
+                                        competition?.season
+                                      }/matches`}
+                                    >
+                                      <p
+                                        style={{
+                                          cursor: "pointer",
+                                          display: "flex",
+                                          flexDirection: "column",
+                                        }}
+                                        key={index}
+                                      >
+                                        {console.log(competition, "rk")}
+                                        <span>
+                                          {" "}
+                                          {competition?.title}{" "}
+                                          {competition?.datestart?.slice(
+                                            0,
+                                            4
+                                          ) +
+                                            " - " +
+                                            competition?.dateend?.slice(2, 4)}
+                                        </span>
+                                        <span>
+                                          {formatDateRangeR(
+                                            competition?.datestart,
+                                            competition?.dateend
+                                          )}
+                                        </span>
+                                      </p>
+                                    </Link>
+                                  );
+                                }
+                              )}
+                            </span>
+
+                            <hr className="mt-2" />
                           </div>
                         </div>
-                      )}
-                      {hompageBanner2?.image && (
-                        <img
-                          style={{
-                            width: "100%",
-                            height: "550px",
-                            borderRadius: "10px",
-                          }}
-                          className="mb-3"
-                          src={hompageBanner2?.image}
-                          alt="middleBanner"
-                        />
-                      )}
-
-                      <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div className="flex justify-between p-2">
-                          <div
-                            className="text-sm font-semibold"
-                            style={{ fontSize: "12px" }}
-                          >
-                            RANKING’s
-                          </div>
-                          <div>
-                            <button
-                              onClick={() => navigate("/icc-rankings/men")}
-                              className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            >
-                              View all
-                            </button>
-                          </div>
-                        </div>
-                        <div className="flex justify-between ml-2 mr-2">
-                          <button
-                            onClick={() => setTeamSelector("test")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "test" ? "#0F19AF" : "black",
-                              color:
-                                teamSelector === "test" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "test" ? "bold" : "normal",
-                            }}
-                          >
-                            Test
-                          </button>
-                          <button
-                            onClick={() => setTeamSelector("odi")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "odi" ? "#0F19AF" : null,
-                              color: teamSelector === "odi" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "odi" ? "bold" : "normal",
-                            }}
-                          >
-                            ODI
-                          </button>
-                          <button
-                            onClick={() => setTeamSelector("t20")}
-                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                            style={{
-                              cursor: "pointer",
-                              backgroundColor:
-                                teamSelector === "t20" ? "#0F19AF" : null,
-                              color: teamSelector === "t20" ? "white" : "black",
-                              fontWeight:
-                                teamSelector === "t20" ? "bold" : "normal",
-                            }}
-                          >
-                            T20
-                          </button>
-                        </div>
-                        <div className="flex justify-between m-2">
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "teams" ? "underline" : "none",
-                              fontWeight:
-                                mainCategory === "teams" ? "bold" : "normal",
-                              color: "black",
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("teams")}
-                            className="text-[#0F19AF]"
-                          >
-                            Teams
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "batting"
-                                  ? "underline"
-                                  : "none",
-                              fontWeight:
-                                mainCategory === "batting" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("batting")}
-                          >
-                            Batting
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "bowling"
-                                  ? "underline"
-                                  : "none",
-                              fontWeight:
-                                mainCategory === "bowling" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("bowling")}
-                          >
-                            Bowling
-                          </div>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              textDecoration:
-                                mainCategory === "alr" ? "underline" : "none",
-                              fontWeight:
-                                mainCategory === "alr" ? "bold" : "normal",
-
-                              textDecorationColor: "#0F19AF",
-                            }}
-                            onClick={() => setMainCategory("alr")}
-                          >
-                            ALR
-                          </div>
-                        </div>
-                        <table>
-                          <thead style={{ textAlign: "center" }}>
-                            <tr>
-                              <th className="w-[100px]">Rank</th>
-                              <th className="w-[100px]">Team</th>
-                              <th className="w-[100px]">Rating</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {mainCategory === "teams" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  test?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "t20" &&
-                                  t20s?.slice(0, 6).map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-
-                                {teamSelector === "odi" &&
-                                  odis?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                              </>
-                            )}
-                            {mainCategory === "batting" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testBestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "t20" &&
-                                  t20Bestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "odi" &&
-                                  odiBestman
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                              </>
-                            )}
-                            {mainCategory === "bowling" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testBolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "t20" &&
-                                  t20Bolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                                {teamSelector === "odi" &&
-                                  odiBolling
-                                    ?.slice(0, 6)
-                                    ?.map((item, index) => (
-                                      <tr
-                                        key={index}
-                                        style={{ textAlign: "center" }}
-                                      >
-                                        <td className="text-center">
-                                          {item?.rank}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.team}
-                                        </td>
-                                        <td className="text-center">
-                                          {item?.rating}
-                                        </td>
-                                      </tr>
-                                    ))}
-                              </>
-                            )}
-                            {mainCategory === "alr" && (
-                              <>
-                                {teamSelector === "test" &&
-                                  testAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "t20" &&
-                                  odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                                {teamSelector === "odi" &&
-                                  odiAlr?.slice(0, 6)?.map((item, index) => (
-                                    <tr
-                                      key={index}
-                                      style={{ textAlign: "center" }}
-                                    >
-                                      <td className="text-center">
-                                        {item?.rank}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.team}
-                                      </td>
-                                      <td className="text-center">
-                                        {item?.rating}
-                                      </td>
-                                    </tr>
-                                  ))}
-                              </>
-                            )}
-                          </tbody>
-                        </table>
-                        <div className="text-center text-[10px] mt-2">
-                          Latest Updated On {new Date().toLocaleDateString()}
-                        </div>
-                      </div>
-
-                      {hompageBanner3?.image && (
-                        <img
-                          src={hompageBanner3?.image}
-                          style={{
-                            height: "550px",
-                            borderRadius: "10px",
-                            marginTop: "2rem",
-                          }}
-                          alt="images"
-                        />
-                      )}
-                      <div className="bg-[white] rounded-lg mt-2">
-                        <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">
-                            SPECIALS
-                          </span>
-                          {specialBanner?.map((item, index) => (
-                            <>
-                              <img src={item?.image} alt="" />
-                              <span className="font-semibold text-sm ml-4">
-                                {item?.subtitle}
-                              </span>
-                              <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                                {item?.description}
-                              </p>
-                            </>
-                          ))}
-                        </div>
-                      </div>
+                      ))}
                     </div>
                   </div>
                 </div>
-              </>
+              </div>
+            </>
             )}
           </div>
         )}

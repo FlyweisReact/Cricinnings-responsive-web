@@ -81,6 +81,18 @@ const SeriesById = () => {
     }
   };
 
+
+  const formatDateToTimer = (dateString) => {
+    const date = new Date(dateString.replace(" ", "T"));
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const ampm = hours >= 12 ? "PM" : "AM";
+    const formattedHours = hours % 12 || 12;
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+
+    return `${formattedHours}:${formattedMinutes} ${ampm}`;
+  };
+
   function formatDateBoss(dateString) {
     const date = new Date(dateString);
 
@@ -563,23 +575,23 @@ const SeriesById = () => {
                 <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[700px]  ">
-                      <Table style={{ border: "none" }}>
+                      <Table style={{ border: "none", fontSize: "14px" }}>
                         <thead style={{ textAlign: "left" }}>
                           <tr>
                             <th
-                              style={{ backgroundColor: "#b3b3b3" }}
+                              style={{ backgroundColor: "#EDEAEA" }}
                               className="w-[100px] "
                             >
                               Date
                             </th>
                             <th
-                              style={{ backgroundColor: "#b3b3b3" }}
+                              style={{ backgroundColor: "#EDEAEA" }}
                               className="w-[100px]"
                             >
                               Match Details
                             </th>
                             <th
-                              style={{ backgroundColor: "#b3b3b3" }}
+                              style={{ backgroundColor: "#EDEAEA" }}
                               className="w-[100px]"
                             >
                               Time
@@ -589,7 +601,10 @@ const SeriesById = () => {
                         <tbody style={{ textAlign: "left" }}>
                           {seriesMatches?.map((item, index) => {
                             return (
-                              <tr key={index}>
+                              <tr
+                                style={{ borderBottom: "1px solid #b3b3b3" }}
+                                key={index}
+                              >
                                 <td
                                   style={{
                                     textAlign: "left",
@@ -602,13 +617,32 @@ const SeriesById = () => {
                                   style={{
                                     textAlign: "left",
                                     border: "none",
+                                    cursor:"pointer"
+                                  }}
+                                  onClick={()=>{
+                                    navigate(
+                                      `/live-cricket-scores/${
+                                        item?.match_id
+                                      }/${item?.short_title
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join("-")}-${getOrdinalSuffix(item?.match_number)
+                                        ?.toLowerCase()
+                                        ?.split(" ")
+                                        .join("-")}-${item?.competition?.title
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join(
+                                          "-"
+                                        )}-${item?.competition?.season?.toLowerCase()}`
+                                    );
                                   }}
                                 >
                                   <p
                                     style={{
                                       display: "flex",
                                       flexDirection: "column",
-                                      gap: "5px",
+                                      gap: "2px",
                                     }}
                                   >
                                     <span>
@@ -623,9 +657,21 @@ const SeriesById = () => {
                                         " - " +
                                         item?.venue?.location}
                                     </span>
-                                    <span style={{ color: "#2e8ae8" }}>
+                                    <span
+                                      style={{
+                                        color:
+                                          item?.status === 1
+                                            ? "#D39400"
+                                            : "#2e8ae8",
+                                      }}
+                                    >
                                       {(item?.status === 1 &&
-                                        `Match Starts at ${formatDateBoss(item?.date_start_ist)} `) ||
+                                        `Match Starts at ${formatDateBoss(
+                                          item?.date_start_ist
+                                        )} ${item?.date_start?.slice(
+                                          11,
+                                          16
+                                        )} `) ||
                                         item?.result}
                                     </span>
                                   </p>
@@ -634,9 +680,13 @@ const SeriesById = () => {
                                   style={{
                                     textAlign: "left",
                                     border: "none",
+                                    display: "flex",
+                                    flexDirection: "column",
+                                    gap: "2px",
                                   }}
                                 >
-                                  <p>Time</p>
+                                  <span>{formatDateToTimer(item?.date_start_ist)}</span>
+                                  <span style={{color:"gray"}}>{formatDateToTimer(item?.date_start)} GMT / {formatDateToTimer(item?.date_start_ist)} LOCAL</span>
                                 </td>
                               </tr>
                             );

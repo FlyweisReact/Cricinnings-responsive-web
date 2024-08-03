@@ -632,7 +632,7 @@ const Homepage = () => {
                               }/${item?.competition?.title
                                 ?.toLowerCase()
                                 ?.split(" ")
-                                ?.join("-")}-${item?.competition?.season}`
+                                ?.join("-")}-${item?.competition?.season}/matches`
                             )
                           }
                         >
@@ -680,7 +680,7 @@ const Homepage = () => {
             </div>
             <div className="feacturePosts">
               {feacturePosts?.map((item) => (
-                <div className="feacturePosts_div">
+                <div key={item?._id} className="feacturePosts_div">
                   <div className="flex gap-2">
                     <div>
                       <img src={cric} alt="" />
