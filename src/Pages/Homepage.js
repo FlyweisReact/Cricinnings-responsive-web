@@ -609,9 +609,7 @@ const Homepage = () => {
                                 }/${item?.competition?.title
                                   ?.toLowerCase()
                                   ?.split(" ")
-                                  ?.join("-")}-${
-                                  item?.competition?.season
-                                }/points-table`
+                                  ?.join("-")}/points-table`
                               )
                             }
                           >

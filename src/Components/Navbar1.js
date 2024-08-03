@@ -42,7 +42,7 @@ const Navbar = () => {
 
         <div className="">
           <ul className="flex gap-4">
-            <Link to="/live-cricket-scores">
+            <Link to="/cricket-match/live-scores">
               <li>
                 <span className="live-dot"></span>
                 <span className="text-[15px] text-[white]">Live Scores</span>

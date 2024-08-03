@@ -81,6 +81,8 @@ const SeriesById = () => {
     }
   };
 
+  
+
   const formatDateToTimer = (dateString) => {
     const date = new Date(dateString.replace(" ", "T"));
     const hours = date.getHours();
@@ -432,6 +434,25 @@ const SeriesById = () => {
     }
   };
 
+  const [seriesDetails, setSeriesDetails] = useState({});
+
+  const getSeriesDetails = async () => {
+    const newId = params?.seriesId;
+    try {
+      const res = axios
+        .get(`${baseUrl}user/competitionOverview/${newId}`)
+        .then((res) => {
+          setSeriesDetails(res?.data);
+        });
+    } catch (error) {
+      console.log(error); 
+    }
+  };
+
+  useEffect(() => {
+    getSeriesDetails();
+  }, [params?.seriesId]);
+
   const getCurrentSeriesData = () => {
     const newId = params?.seriesId;
     try {
@@ -470,24 +491,56 @@ const SeriesById = () => {
     getAllSpecialBanners();
   }, []);
   const { pathname } = useLocation();
-  const [selectedButton, setSelectedButton] = useState(
-    /\/point-table\//i.test(pathname) ? "Point Table" : "Current Matches"
-  );
+  console.log(pathname);
+  const [selectedButton, setSelectedButton] = useState('');
+
+  useEffect(() => {
+    if (pathname.includes("/matches")) {
+      setSelectedButton("Current Matches");
+    }else if (pathname.includes("/squads")) {
+      setSelectedButton("squad");
+    }
+    else if (pathname.includes("/stats")) {
+      setSelectedButton("State Venu");
+    }else if (pathname.includes("/points-table")) {
+      setSelectedButton("Point Table");
+    }
+    
+    
+    else {
+      setSelectedButton("Venu");
+    }
+  }, [pathname]);
+
+  
+
+  
 
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <div>
-          <p style={{ fontWeight: "bold", fontSize: "18px", padding: "20px" }}>
-            {seriesMatches?.[0]?.competition?.title}
-            {", "}
-            {seriesMatches?.[0]?.competition?.season}
+          <p
+            style={{
+              fontWeight: "bold",
+              fontSize: "18px",
+              padding: "20px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "5px",
+            }}
+          >
+            <span>
+              {console.log(seriesDetails,"sda")}
+              {seriesDetails?.title}
+              {", "}
+              {seriesDetails?.season}
+            </span>
+            <span style={{ color: "#676766" }}>
+              {formatDate22(seriesDetails?.datestart)}-
+              {formatDate22(seriesDetails?.dateend)}
+            </span>
           </p>
-          <span style={{color:"#676766",paddingLeft:"2rem"}}>
-            {" "}
-            {formatDate22(seriesMatches?.[0]?.competition?.datestart)}-
-            {formatDate22(seriesMatches?.[0]?.competition?.dateend)}
-          </span>
           <div
             style={{
               display: "flex",
@@ -510,7 +563,16 @@ const SeriesById = () => {
                 // borderRadius: "5px",
                 cursor: "pointer",
               }}
-              onClick={() => setSelectedButton("Current Matches")}
+              onClick={() =>
+                navigate(
+                  `/cricket-series/${
+                    seriesDetails?.cid
+                  }/${seriesDetails?.title
+                    ?.toLowerCase()
+                    ?.split(" ")
+                    ?.join("-")}/matches`
+                )
+              }
             >
               Schedule & Results
             </p>
@@ -524,9 +586,16 @@ const SeriesById = () => {
                 // borderRadius: "5px",
                 cursor: "pointer",
               }}
-              onClick={() => {
-                setSelectedButton("squad");
-              }}
+              onClick={() =>
+                navigate(
+                  `/cricket-series/${
+                    seriesDetails?.cid
+                  }/${seriesDetails?.title
+                    ?.toLowerCase()
+                    ?.split(" ")
+                    ?.join("-")}/squads`
+                )
+              }
             >
               Squads
             </p>
@@ -542,7 +611,16 @@ const SeriesById = () => {
                 // borderRadius: "5px",
                 cursor: "pointer",
               }}
-              onClick={() => setSelectedButton("Point Table")}
+              onClick={() =>
+                navigate(
+                  `/cricket-series/${
+                    seriesDetails?.cid
+                  }/${seriesDetails?.title
+                    ?.toLowerCase()
+                    ?.split(" ")
+                    ?.join("-")}/points-table`
+                )
+              }
             >
               Points Table
             </p>
@@ -558,7 +636,16 @@ const SeriesById = () => {
                 // borderRadius: "5px",
                 cursor: "pointer",
               }}
-              onClick={() => setSelectedButton("State Venu")}
+              onClick={() =>
+                navigate(
+                  `/cricket-series/${
+                    seriesDetails?.cid
+                  }/${seriesDetails?.title
+                    ?.toLowerCase()
+                    ?.split(" ")
+                    ?.join("-")}/stats`
+                )
+              }
             >
               Stats
             </p>
@@ -572,9 +659,18 @@ const SeriesById = () => {
                 // borderRadius: "5px",
                 cursor: "pointer",
               }}
-              onClick={() => setSelectedButton("Venu")}
+              onClick={() =>
+                navigate(
+                  `/cricket-series/${
+                    seriesDetails?.cid
+                  }/${seriesDetails?.title
+                    ?.toLowerCase()
+                    ?.split(" ")
+                    ?.join("-")}/venues`
+                )
+              }
             >
-              Venue
+              Venues
             </p>
           </div>
           {/* <hr /> */}
@@ -820,13 +916,16 @@ const SeriesById = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/cricket-series/${item?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/${item?.cid}`
-                                    )
-                                  }
+                                onClick={() =>
+                                  navigate(
+                                    `/cricket-series/${
+                                      item?.cid
+                                    }/${item?.title
+                                      ?.toLowerCase()
+                                      ?.split(" ")
+                                      ?.join("-")}/matches`
+                                  )
+                                }
                                   key={item?._id}
                                   style={{
                                     display: "grid",

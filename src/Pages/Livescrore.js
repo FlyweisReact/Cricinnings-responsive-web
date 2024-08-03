@@ -508,6 +508,61 @@ const Livescrore = () => {
     getAllSpecialBanners();
   }, []);
 
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    
+   
+    if (pathname.includes("/cricket-match/live-scores/upcoming-matches")) {
+      setSelectedDiv("Current Matches");
+      setLiveCategory("1");
+    }
+   else if (pathname.includes("/cricket-match/live-scores/recent-matches")) {
+      setSelectedDiv("Current Matches");
+      setLiveCategory("2");
+    }
+    else if (pathname.includes("/cricket-match/live-scores")) {
+      setSelectedDiv("Current Matches");
+      setLiveCategory("3");
+      
+    }
+    else if (pathname.includes("/cricket-schedule/series")) {
+      setSelectedDiv("Current & Future Series");
+      
+      
+    }
+    else if (pathname.includes("/cricket-schedule/upcoming-series/international")) {
+      setSelectedDiv("Match Day By Day");
+      setCategory("international");
+      
+      
+    }else if (pathname.includes("/cricket-schedule/upcoming-series/league")) {
+      setSelectedDiv("Match Day By Day");
+      setCategory("youth");
+      
+      
+    }else if (pathname.includes("/cricket-schedule/upcoming-series/domestic")) {
+      setSelectedDiv("Match Day By Day");
+      setCategory("domestic");
+      
+      
+    }else if (pathname.includes("/cricket-schedule/upcoming-series/women")) {
+      setSelectedDiv("Match Day By Day");
+      setCategory("women");
+      
+      
+    }else if (pathname.includes("/cricket-scorecard-archives")) {
+      setSelectedDiv("Series Archive");
+ 
+      
+      
+    }
+    
+    
+    
+    
+  }, [pathname]);
+
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
@@ -519,7 +574,7 @@ const Livescrore = () => {
                 ? "underline text-[#0F19AF] underline-offset-8"
                 : ""
             }`}
-            onClick={() => setSelectedDiv("Current Matches")}
+            onClick={() => navigate("/cricket-match/live-scores")}
           >
             Current Matches
           </div>
@@ -529,7 +584,7 @@ const Livescrore = () => {
                 ? "underline text-[#0F19AF] underline-offset-8"
                 : ""
             }`}
-            onClick={() => setSelectedDiv("Current & Future Series")}
+            onClick={() => navigate("/cricket-schedule/series")}
           >
             Current & Future Series
           </div>
@@ -539,7 +594,7 @@ const Livescrore = () => {
                 ? "underline text-[#0F19AF] underline-offset-8"
                 : ""
             }`}
-            onClick={() => setSelectedDiv("Match Day By Day")}
+            onClick={() => navigate("/cricket-schedule/upcoming-series/international")}
           >
             Match Day By Day
           </div>
@@ -549,7 +604,8 @@ const Livescrore = () => {
                 ? "underline text-[#0F19AF] underline-offset-8"
                 : ""
             }`}
-            onClick={() => setSelectedDiv("Series Archive")}
+            onClick={() => navigate("/cricket-scorecard-archives")}
+            
           >
           Series Archive
           </div>
@@ -557,7 +613,57 @@ const Livescrore = () => {
           {}
         </div>
         <hr className="mt-2" />
+        {selectedDiv === "Match Day By Day" ?<>
         <div
+          style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
+          className="flex gap-5 mt-2"
+        >
+          <div
+            onClick={() => {navigate("/cricket-match/live-scores/upcoming-matches/international")}}
+            style={{
+              backgroundColor:
+                category === "international" ? "#0F19AF" : "white",
+              color: category === "international" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
+            International
+          </div>
+          <div
+            style={{
+              backgroundColor: category === "youth" ? "#0F19AF" : "white",
+              color: category === "youth" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            onClick={() => {navigate("/cricket-schedule/upcoming-series/league")}}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
+            League
+          </div>
+          <div
+            style={{
+              backgroundColor: category === "domestic" ? "#0F19AF" : "white",
+              color: category === "domestic" ? "white" : "black",
+              cursor: "pointer",
+            }}
+            onClick={() => {navigate("/cricket-schedule/upcoming-series/domestic")}}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
+            Domestic
+          </div>
+          <div
+            style={{
+              backgroundColor: category === "women" ? "#0F19AF" : "white",
+              color: category === "women" ? "white" : "black",
+              cursor: "pointer",
+            }}
+          onClick={() => {navigate("/cricket-schedule/upcoming-series/women")}}
+            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+          >
+            Women
+          </div>
+        </div></>  :<div
           style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
           className="flex gap-5 mt-2"
         >
@@ -606,7 +712,7 @@ const Livescrore = () => {
           >
             Women
           </div>
-        </div>
+        </div>}
         {selectedDiv && (
           <div>
             {selectedDiv === "Current Matches" && (
@@ -624,7 +730,7 @@ const Livescrore = () => {
                       cursor: "pointer",
                       color: liveCategory === "3" ? "#0F19AF" : "black",
                     }}
-                    onClick={() => setLiveCategory("3")}
+                    onClick={()=>navigate("/cricket-match/live-scores")}
                   >
                     Live
                   </p>
@@ -633,7 +739,7 @@ const Livescrore = () => {
                       cursor: "pointer",
                       color: liveCategory === "2" ? "#0F19AF" : "black",
                     }}
-                    onClick={() => setLiveCategory("2")}
+                    onClick={()=>navigate("/cricket-match/live-scores/recent-matches")}
                   >
                     Recent
                   </p>
@@ -642,7 +748,7 @@ const Livescrore = () => {
                       cursor: "pointer",
                       color: liveCategory === "1" ? "#0F19AF" : "black",
                     }}
-                    onClick={() => setLiveCategory("1")}
+                    onClick={()=>navigate("/cricket-match/live-scores/upcoming-matches")}
                   >
                     Upcoming
                   </p>
@@ -770,7 +876,7 @@ const Livescrore = () => {
                                   }}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
-                                  {console.log(item)}
+                                 
                                   Scorecard
                                 </div>
                                 <div

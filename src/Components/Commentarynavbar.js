@@ -77,12 +77,14 @@ const Commentarynavbar = () => {
     <div className="bg-[white] pl-2 pt-2 pr-2">
       <div className="font-semibold ">
         <p
-          onClick={() =>
+           onClick={() =>
             navigate(
-              `/cricket-series/${matchDetails?.competition?.title
+              `/cricket-series/${
+                matchDetails?.competition?.cid
+              }/${matchDetails?.competition?.title
                 ?.toLowerCase()
                 ?.split(" ")
-                ?.join("-")}/${matchDetails?.competition?.cid}`
+                ?.join("-")}/matches`
             )
           }
           // onClick={()=>console.log(matchDetails)}

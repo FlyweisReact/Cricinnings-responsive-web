@@ -137,14 +137,14 @@ const Nav = () => {
               />
             </div>
             <div className="navBar_links">
-              <a href="/live-cricket-scores">
+              <a href="/cricket-match/live-scores">
                 <p
                 // onClick={() => navigate("/Livescrore")}
                 >
                   Live Scores
                 </p>
               </a>
-              <a href="/live-cricket-scores/Schedule">
+              <a href="/cricket-schedule/upcoming-series/international">
                 <p
                 //  onClick={() => navigate("/Livescrore/Schedule")}
                 >

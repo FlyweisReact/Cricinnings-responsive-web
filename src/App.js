@@ -118,7 +118,7 @@ const router = createBrowserRouter([
       //   element: <Pointtable />,
       // },
       {
-        path: "/cricket-series/:matchId/:matchName/points-table",
+        path: "/cricket-series/:matchId/:matchName/point-table",
         element: <Pointtable />,
       },
       
@@ -163,7 +163,27 @@ const router = createBrowserRouter([
         element: <Fantasytips />,
       },
       {
-        path: "/live-cricket-scores",
+        path: "/cricket-match/live-scores",
+        element: <Livescrore />,
+      },
+      {
+        path: "/cricket-schedule/series",
+        element: <Livescrore />,
+      },
+      {
+        path: "/cricket-schedule/upcoming-series/:categoryId",
+        element: <Livescrore />,
+      },
+      {
+        path: "/cricket-scorecard-archives",
+        element: <Livescrore />,
+      },
+      {
+        path: "/cricket-match/live-scores/recent-matches",
+        element: <Livescrore />,
+      },
+      {
+        path: "/cricket-match/live-scores/upcoming-matches",
         element: <Livescrore />,
       },
       {
@@ -207,7 +227,19 @@ const router = createBrowserRouter([
         element: <SeriesById />,
       },
       {
-        path: "/cricket-series/:seriesId/:seriesName/point-table",
+        path: "/cricket-series/:seriesId/:seriesName/points-table",
+        element: <SeriesById />,
+      },
+      {
+        path: "/cricket-series/:seriesId/:seriesName/squads",
+        element: <SeriesById />,
+      },
+      {
+        path: "/cricket-series/:seriesId/:seriesName/stats",
+        element: <SeriesById />,
+      },
+      {
+        path: "/cricket-series/:seriesId/:seriesName/venues",
         element: <SeriesById />,
       },
     ],
