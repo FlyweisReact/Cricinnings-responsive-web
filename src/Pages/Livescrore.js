@@ -9,6 +9,7 @@ import {
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import { Table } from "react-bootstrap";
 const Livescrore = () => {
   const location = useLocation();
 
@@ -374,11 +375,12 @@ const Livescrore = () => {
   const getAllNewMatches = async () => {
     const res = await axios
       .get(
-        `${baseUrl}user/getCompetitionsAndMatches?per_page=10&paged=1&include_matches=true&status=live&category=${category}`
+        `${baseUrl}user/getcompetitionsMatchesListDayByDay?category=${category}&status=1`
       )
       .then((res) => {
-        const reverseData = res?.data?.competitions.reverse();
-        setNewMatchData(res?.data?.competitions);
+        console.log(res?.data);
+
+        setNewMatchData(res?.data?.response?.matches);
       })
       .catch((err) => {});
   };
@@ -396,7 +398,6 @@ const Livescrore = () => {
         `${baseUrl}user/getcompetitionsMatchesList?status=${liveCategory}&category=${category}`
       )
       .then((res) => {
-        console.log(res?.data?.response);
         setComp1(res?.data?.response);
       })
       .catch((err) => {});
@@ -408,23 +409,52 @@ const Livescrore = () => {
         `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&paged=1'&status=live&category=${category}`
       )
       .then((res) => {
-        console.log(res?.data?.response);
         setCompetationsType(res?.data?.response?.competitionsByMonthAndYear);
       })
       .catch((err) => {});
   };
-  const getAllCompetationsTypeR = async () => {
+
+  const [seriesArchiveInternation, setSeriesArchiveInternation] = useState([]);
+  const [seriesArchiveDomestic, setSeriesArchiveDomestic] = useState([]);
+  const [seriesArchiveYouth, setSeriesArchiveYouth] = useState([]);
+  const [seriesArchiveWomen, setSeriesArchiveWomen] = useState([]);
+  const currentYear = new Date().getFullYear();
+  const [seriesArchieveSeason, setSeriesArchieveSeason] = useState(currentYear);
+  const getAllCompetationsTypeR = async (currentCategory) => {
     const current_year = new Date().getFullYear();
     const res = await axios
       .get(
-        `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&paged=1'&status=2&category=${category}`
+        `${baseUrl}user/getAllCompetitionsList?category=${currentCategory}&season=${seriesArchieveSeason}`
       )
       .then((res) => {
-        console.log(res?.data?.response);
-        setCompetationsTypeR(res?.data?.response?.competitionsByMonthAndYear);
+        if (currentCategory === "international") {
+          setSeriesArchiveInternation(res?.data?.response?.items);
+        } else if (currentCategory === "domestic") {
+          setSeriesArchiveDomestic(res?.data?.response?.items);
+        } else if (currentCategory === "youth") {
+          setSeriesArchiveYouth(res?.data?.response?.items);
+        } else if (currentCategory === "women") {
+          setSeriesArchiveWomen(res?.data?.response?.items);
+        }
       })
       .catch((err) => {});
   };
+
+  useEffect(() => {
+    getAllCompetationsTypeR("international");
+    getAllCompetationsTypeR("domestic");
+    getAllCompetationsTypeR("youth");
+    getAllCompetationsTypeR("women");
+  }, [seriesArchieveSeason]);
+
+  const formatDate22 = (dateString) => {
+    const date = new Date(dateString);
+
+    const options = { month: "short", day: "numeric" };
+
+    return date.toLocaleDateString("en-US", options);
+  };
+
   const formatDate = (dateString) => {
     if (!dateString) return "";
 
@@ -511,57 +541,45 @@ const Livescrore = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    
-   
     if (pathname.includes("/cricket-match/live-scores/upcoming-matches")) {
       setSelectedDiv("Current Matches");
       setLiveCategory("1");
-    }
-   else if (pathname.includes("/cricket-match/live-scores/recent-matches")) {
+    } else if (pathname.includes("/cricket-match/live-scores/recent-matches")) {
       setSelectedDiv("Current Matches");
       setLiveCategory("2");
-    }
-    else if (pathname.includes("/cricket-match/live-scores")) {
+    } else if (pathname.includes("/cricket-match/live-scores")) {
       setSelectedDiv("Current Matches");
       setLiveCategory("3");
-      
-    }
-    else if (pathname.includes("/cricket-schedule/series")) {
+    } else if (pathname.includes("/cricket-schedule/series")) {
       setSelectedDiv("Current & Future Series");
-      
-      
-    }
-    else if (pathname.includes("/cricket-schedule/upcoming-series/international")) {
+    } else if (
+      pathname.includes("/cricket-schedule/upcoming-series/international")
+    ) {
       setSelectedDiv("Match Day By Day");
       setCategory("international");
-      
-      
-    }else if (pathname.includes("/cricket-schedule/upcoming-series/league")) {
+    } else if (pathname.includes("/cricket-schedule/upcoming-series/league")) {
       setSelectedDiv("Match Day By Day");
       setCategory("youth");
-      
-      
-    }else if (pathname.includes("/cricket-schedule/upcoming-series/domestic")) {
+    } else if (
+      pathname.includes("/cricket-schedule/upcoming-series/domestic")
+    ) {
       setSelectedDiv("Match Day By Day");
       setCategory("domestic");
-      
-      
-    }else if (pathname.includes("/cricket-schedule/upcoming-series/women")) {
+    } else if (pathname.includes("/cricket-schedule/upcoming-series/women")) {
       setSelectedDiv("Match Day By Day");
       setCategory("women");
-      
-      
-    }else if (pathname.includes("/cricket-scorecard-archives")) {
+    } else if (pathname.includes("/cricket-scorecard-archives")) {
       setSelectedDiv("Series Archive");
- 
-      
-      
     }
-    
-    
-    
-    
   }, [pathname]);
+  const groupedMatches = newMatchData?.reduce((acc, item) => {
+    const date = convertDate1(item?.date_start_ist);
+    if (!acc[date]) {
+      acc[date] = [];
+    }
+    acc[date].push(item);
+    return acc;
+  }, {});
 
   return (
     <div className="">
@@ -594,7 +612,9 @@ const Livescrore = () => {
                 ? "underline text-[#0F19AF] underline-offset-8"
                 : ""
             }`}
-            onClick={() => navigate("/cricket-schedule/upcoming-series/international")}
+            onClick={() =>
+              navigate("/cricket-schedule/upcoming-series/international")
+            }
           >
             Match Day By Day
           </div>
@@ -605,114 +625,140 @@ const Livescrore = () => {
                 : ""
             }`}
             onClick={() => navigate("/cricket-scorecard-archives")}
-            
           >
-          Series Archive
+            Series Archive
           </div>
           {}
           {}
         </div>
         <hr className="mt-2" />
-        {selectedDiv === "Match Day By Day" ?<>
-        <div
-          style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
-          className="flex gap-5 mt-2"
-        >
-          <div
-            onClick={() => {navigate("/cricket-match/live-scores/upcoming-matches/international")}}
-            style={{
-              backgroundColor:
-                category === "international" ? "#0F19AF" : "white",
-              color: category === "international" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            International
-          </div>
-          <div
-            style={{
-              backgroundColor: category === "youth" ? "#0F19AF" : "white",
-              color: category === "youth" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            onClick={() => {navigate("/cricket-schedule/upcoming-series/league")}}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            League
-          </div>
-          <div
-            style={{
-              backgroundColor: category === "domestic" ? "#0F19AF" : "white",
-              color: category === "domestic" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            onClick={() => {navigate("/cricket-schedule/upcoming-series/domestic")}}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            Domestic
-          </div>
-          <div
-            style={{
-              backgroundColor: category === "women" ? "#0F19AF" : "white",
-              color: category === "women" ? "white" : "black",
-              cursor: "pointer",
-            }}
-          onClick={() => {navigate("/cricket-schedule/upcoming-series/women")}}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            Women
-          </div>
-        </div></>  :<div
-          style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
-          className="flex gap-5 mt-2"
-        >
-          <div
-            onClick={() => setCategory("international")}
-            style={{
-              backgroundColor:
-                category === "international" ? "#0F19AF" : "white",
-              color: category === "international" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            International
-          </div>
+        {selectedDiv === "Match Day By Day" ? (
+          <>
+            <div
+              style={{ display: selectedDiv === "Teams" ? "none" : "flex" }}
+              className="flex gap-5 mt-2"
+            >
+              <div
+                onClick={() => {
+                  navigate("/cricket-schedule/upcoming-series/international");
+                }}
+                style={{
+                  backgroundColor:
+                    category === "international" ? "#0F19AF" : "white",
+                  color: category === "international" ? "white" : "black",
+                  cursor: "pointer",
+                }}
+                className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+              >
+                International
+              </div>
+              <div
+                style={{
+                  backgroundColor: category === "youth" ? "#0F19AF" : "white",
+                  color: category === "youth" ? "white" : "black",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  navigate("/cricket-schedule/upcoming-series/league");
+                }}
+                className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+              >
+                League
+              </div>
+              <div
+                style={{
+                  backgroundColor:
+                    category === "domestic" ? "#0F19AF" : "white",
+                  color: category === "domestic" ? "white" : "black",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  navigate("/cricket-schedule/upcoming-series/domestic");
+                }}
+                className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+              >
+                Domestic
+              </div>
+              <div
+                style={{
+                  backgroundColor: category === "women" ? "#0F19AF" : "white",
+                  color: category === "women" ? "white" : "black",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  navigate("/cricket-schedule/upcoming-series/women");
+                }}
+                className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+              >
+                Women
+              </div>
+            </div>
+          </>
+        ) : (
           <div
             style={{
-              backgroundColor: category === "youth" ? "#0F19AF" : "white",
-              color: category === "youth" ? "white" : "black",
-              cursor: "pointer",
+              display:
+                selectedDiv === "Teams"
+                  ? "none"
+                  : selectedDiv === "Series Archive"
+                  ? "none"
+                  : "flex",
+              marginTop:
+                selectedDiv === "Teams"
+                  ? "0rem"
+                  : selectedDiv === "Series Archive"
+                  ? "0rem"
+                  : "1rem",
             }}
-            onClick={() => setCategory("youth")}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+            className="flex gap-5 "
           >
-            League
+            <div
+              onClick={() => setCategory("international")}
+              style={{
+                backgroundColor:
+                  category === "international" ? "#0F19AF" : "white",
+                color: category === "international" ? "white" : "black",
+                cursor: "pointer",
+              }}
+              className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+            >
+              International
+            </div>
+            <div
+              style={{
+                backgroundColor: category === "youth" ? "#0F19AF" : "white",
+                color: category === "youth" ? "white" : "black",
+                cursor: "pointer",
+              }}
+              onClick={() => setCategory("youth")}
+              className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+            >
+              League
+            </div>
+            <div
+              style={{
+                backgroundColor: category === "domestic" ? "#0F19AF" : "white",
+                color: category === "domestic" ? "white" : "black",
+                cursor: "pointer",
+              }}
+              onClick={() => setCategory("domestic")}
+              className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+            >
+              Domestic
+            </div>
+            <div
+              style={{
+                backgroundColor: category === "women" ? "#0F19AF" : "white",
+                color: category === "women" ? "white" : "black",
+                cursor: "pointer",
+              }}
+              onClick={() => setCategory("women")}
+              className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
+            >
+              Women
+            </div>
           </div>
-          <div
-            style={{
-              backgroundColor: category === "domestic" ? "#0F19AF" : "white",
-              color: category === "domestic" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            onClick={() => setCategory("domestic")}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            Domestic
-          </div>
-          <div
-            style={{
-              backgroundColor: category === "women" ? "#0F19AF" : "white",
-              color: category === "women" ? "white" : "black",
-              cursor: "pointer",
-            }}
-            onClick={() => setCategory("women")}
-            className="w-[150px] h-[40px] border rounded-3xl flex justify-center items-center"
-          >
-            Women
-          </div>
-        </div>}
+        )}
         {selectedDiv && (
           <div>
             {selectedDiv === "Current Matches" && (
@@ -730,7 +776,7 @@ const Livescrore = () => {
                       cursor: "pointer",
                       color: liveCategory === "3" ? "#0F19AF" : "black",
                     }}
-                    onClick={()=>navigate("/cricket-match/live-scores")}
+                    onClick={() => navigate("/cricket-match/live-scores")}
                   >
                     Live
                   </p>
@@ -739,7 +785,9 @@ const Livescrore = () => {
                       cursor: "pointer",
                       color: liveCategory === "2" ? "#0F19AF" : "black",
                     }}
-                    onClick={()=>navigate("/cricket-match/live-scores/recent-matches")}
+                    onClick={() =>
+                      navigate("/cricket-match/live-scores/recent-matches")
+                    }
                   >
                     Recent
                   </p>
@@ -748,7 +796,9 @@ const Livescrore = () => {
                       cursor: "pointer",
                       color: liveCategory === "1" ? "#0F19AF" : "black",
                     }}
-                    onClick={()=>navigate("/cricket-match/live-scores/upcoming-matches")}
+                    onClick={() =>
+                      navigate("/cricket-match/live-scores/upcoming-matches")
+                    }
                   >
                     Upcoming
                   </p>
@@ -857,26 +907,30 @@ const Livescrore = () => {
                                   Live Score
                                 </div>
                                 <div
-                                   onClick={() => {
-                                    
-                                      navigate(
-                                        `/live-cricket-scorecard/${
-                                          item?.match?.match_id
-                                        }/${item?.match?.teama?.short_name?.toLowerCase()
-                                          .split(" ")
-                                          .join("-")}-vs-${item?.match?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
-                                          item?.match?.subtitle?.split(" ")?.[1]
-                                        }-${item?.match?.competition?.title
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join(
-                                            "-"
-                                          )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                      );
+                                  onClick={() => {
+                                    navigate(
+                                      `/live-cricket-scorecard/${
+                                        item?.match?.match_id
+                                      }/${item?.match?.teama?.short_name
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join(
+                                          "-"
+                                        )}-vs-${item?.match?.teamb?.short_name
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join("-")}-${
+                                        item?.match?.subtitle?.split(" ")?.[1]
+                                      }-${item?.match?.competition?.title
+                                        ?.toLowerCase()
+                                        .split(" ")
+                                        .join(
+                                          "-"
+                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                    );
                                   }}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
-                                 
                                   Scorecard
                                 </div>
                                 <div
@@ -885,9 +939,15 @@ const Livescrore = () => {
                                       navigate(
                                         `/live-cricket-full-commentary/${
                                           item?.match?.match_id
-                                        }/${item?.match?.teama?.short_name?.toLowerCase()
+                                        }/${item?.match?.teama?.short_name
+                                          ?.toLowerCase()
                                           .split(" ")
-                                          .join("-")}-vs-${item?.match?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                                          .join(
+                                            "-"
+                                          )}-vs-${item?.match?.teamb?.short_name
+                                          ?.toLowerCase()
+                                          .split(" ")
+                                          .join("-")}-${
                                           item?.match?.subtitle?.split(" ")?.[1]
                                         }-${item?.match?.competition?.title
                                           ?.toLowerCase()
@@ -902,9 +962,7 @@ const Livescrore = () => {
                                   Full Commentary
                                 </div>
                                 <div
-                                  onClick={() =>
-                                    navigate(`/cricket-news`)
-                                  }
+                                  onClick={() => navigate(`/cricket-news`)}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
                                   News
@@ -925,7 +983,6 @@ const Livescrore = () => {
                               className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
                             >
                               {item?.competition?.title}
-
                             </div>
                             <div className="flex flex-col gap-5 mt-5">
                               {item?.matches?.map((item, index) => {
@@ -1057,9 +1114,12 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title
+                                      `/cricket-series/${
+                                        item?.cid
+                                      }/${item?.title
+                                        ?.toLowerCase()
                                         ?.split(" ")
-                                        ?.join("-")}/${item?.cid}`
+                                        ?.join("-")}/matches`
                                     )
                                   }
                                   key={item?._id}
@@ -1564,7 +1624,7 @@ const Livescrore = () => {
                                           }}
                                           key={index}
                                         >
-                                          {console.log(competition, "rk")}
+                                          {}
                                           <span>
                                             {" "}
                                             {competition?.title}{" "}
@@ -1603,128 +1663,106 @@ const Livescrore = () => {
                 <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[950px]  ">
-                      {newMatchData?.map((item, index) => {
-                        return (
+                      <div>
+                        {Object.keys(groupedMatches).map((date, index) => (
                           <div key={index}>
-                            {" "}
                             <div
                               style={{
-                                padding: "5px 0px 5px 0px",
+                                padding: "5px 0px",
                                 backgroundColor: "#E7E7E7",
                                 fontWeight: "bold",
                               }}
                             >
                               <p style={{ fontWeight: "bold", padding: "5px" }}>
-                                {}
-                                {}
-                                {convertDate1(item?.datestart)}
+                                {date}
                               </p>
                             </div>
-                            <div
-                              style={{
-                                display: "grid",
-                                gridTemplateColumns: "25% 50%  25%",
-                                gap: "20px",
-                                marginTop: "10px",
-                                marginBottom: "10px",
-                              }}
-                            >
-                              <p
+                            {groupedMatches[date].map((item, index) => (
+                              <div
+                                key={index}
                                 style={{
-                                  fontWeight: "bold",
-                                  color: "black",
-                                  paddingLeft: "5px",
+                                  display: "grid",
+                                  gridTemplateColumns: "25% 50% 25%",
+                                  gap: "20px",
+                                  marginTop: "10px",
+                                  marginBottom: "10px",
                                 }}
-                                // onClick={() =>
-                                //   navigate(
-                                //     `/cricket-series/${item?.title
-                                //       ?.split(" ")
-                                //       ?.join("-")}-${item?.season
-                                //       ?.split(" ")
-                                //       ?.join("-")}/${item?.cid}`
-                                //   )
-                                // }
                               >
-                                {item?.title}
-                                {","} {item?.season}
-                              </p>
-                              <p>
-                                {item?.matches &&
-                                  item?.matches
-                                    ?.filter((m) => m?.status === 2)
-                                    ?.map((item) => (
-                                      <p
-                                        style={{
-                                          display: "flex",
-                                          flexDirection: "column",
-                                        }}
-                                        onClick={() => {
-                                          item?.match_id &&
-                                            navigate(
-                                              `/live-cricket-scores/${
-                                                item?.match_id
-                                              }/${item?.teama?.short_name?.toLowerCase()
-                                                .split(" ")
-                                                .join("-")}-vs-${item?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
-                                                item?.subtitle?.split(" ")?.[1]
-                                              }-${item?.competition?.title
-                                                ?.toLowerCase()
-                                                .split(" ")
-                                                .join(
-                                                  "-"
-                                                )}-${item?.competition?.season?.toLowerCase()}`
-                                            );
-                                        }}
-                                      >
-                                        <span style={{ color: "black" }}>
-                                          {item?.short_title}
-                                          {","} {item?.format_str}
-                                          {","} {item?.date_start?.slice(0, 10)}
-                                        </span>
-                                        <span style={{ color: "#707071" }}>
-                                          {}
-                                          {item?.venue?.location}
-                                          {","} {item?.venue?.name}
-                                        </span>
-                                      </p>
-                                    ))}
-                              </p>
-                              <p>
-                                {item?.matches &&
-                                  item?.matches
-                                    ?.filter((m) => m?.status === 2)
-                                    ?.map((item) => (
-                                      <p
-                                        style={{
-                                          display: "flex",
-                                          flexDirection: "column",
-                                        }}
-                                      >
-                                        <span style={{ color: "black" }}>
-                                          {formatTime11(item?.date_start_ist)}
-                                        </span>
-                                        <span
-                                          style={{
-                                            color: "#707071",
-                                            fontSize: "15px",
-                                          }}
-                                        >
-                                          {formatTime11(item?.date_start) +
-                                            " " +
-                                            "GMT" +
-                                            "/" +
-                                            " " +
-                                            formatTime11(item?.verify_time) +
-                                            " " +
-                                            "Local"}
-                                        </span>
-                                      </p>
-                                    ))}
-                              </p>
-                            </div>
+                                <p
+                                  style={{
+                                    fontWeight: "bold",
+                                    color: "black",
+                                    paddingLeft: "5px",
+                                  }}
+                                >
+                                  {item?.title}, {item?.season}
+                                </p>
+                                <p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                    }}
+                                    onClick={() => {
+                                      navigate(
+                                        `/live-cricket-scores/${
+                                          item?.match_id
+                                        }/${item?.teama?.short_name
+                                          ?.toLowerCase()
+                                          .split(" ")
+                                          .join(
+                                            "-"
+                                          )}-vs-${item?.teamb?.short_name
+                                          ?.toLowerCase()
+                                          .split(" ")
+                                          .join("-")}-${
+                                          item?.subtitle?.split(" ")?.[1]
+                                        }-${item?.competition?.title
+                                          ?.toLowerCase()
+                                          .split(" ")
+                                          .join(
+                                            "-"
+                                          )}-${item?.competition?.season?.toLowerCase()}`
+                                      );
+                                    }}
+                                  >
+                                    <span style={{ color: "black" }}>
+                                      {item?.short_title}, {item?.format_str},{" "}
+                                      {item?.date_start?.slice(0, 10)}
+                                    </span>
+                                    <span style={{ color: "#707071" }}>
+                                      {item?.venue?.name?.split(",")?.[0]},{" "}
+                                      {item?.venue?.location}
+                                    </span>
+                                  </div>
+                                </p>
+                                <p>
+                                  <div
+                                    style={{
+                                      display: "flex",
+                                      flexDirection: "column",
+                                      paddingRight: "3rem",
+                                    }}
+                                  >
+                                    <span style={{ color: "black" }}>
+                                      {formatTime11(item?.date_start_ist)}
+                                    </span>
+                                    <span
+                                      style={{
+                                        color: "#707071",
+                                        fontSize: "15px",
+                                      }}
+                                    >
+                                      {formatTime11(item?.date_start)} GMT /{" "}
+                                      {formatTime11(item?.verify_time)} Local
+                                    </span>
+                                  </div>
+                                </p>
+                              </div>
+                            ))}
                           </div>
-                        );
-                      })}
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1748,83 +1786,230 @@ const Livescrore = () => {
             )}
             {selectedDiv === "Series Archive" && (
               <>
-              <div className="bg-[#E6E6E7] h-[70px] flex items-center mt-5  ">
-                <div className="w-[700px] flex items-center gap-[13.5rem] pl-5 ">
-                  <div className="font-semibold">Month</div>
-                  <div className="font-semibold">Series Name</div>
-                </div>
-              </div>
-              <div className="flex mt-2 justify-center pb-5">
-                <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                  <div className="left w-[950px]  ">
-                    <div className="flex flex-col gap-5">
-                      {competationsTypeR?.map((item) => (
-                        <div className="flex gap-[5rem]">
-                          <div
-                            style={{ width: "150px" }}
-                            className="font-semibold"
-                          >
-                            {convertMonthAndYearR(item?.monthAndYear)}
-                          </div>
-                          <div
-                            style={{ width: "650px" }}
-                            className="text-slate-400"
-                          >
-                            <span>
-                              {item?.competitions?.map(
-                                (competition, index) => {
-                                  return (
-                                    <Link
-                                      to={`/cricket-series/${
-                                        competition?.cid
-                                      }/${competition?.title
-                                        ?.toLowerCase()
-                                        ?.split(" ")
-                                        ?.join("-")}-${
-                                        competition?.season
-                                      }/matches`}
+                {/* <div className="bg-[#E6E6E7] h-[70px] flex items-center mt-5  ">
+                  <div className="w-[700px] flex items-center gap-[13.5rem] pl-5 ">
+                    <div className="font-semibold">Month</div>
+                    <div className="font-semibold">Series Name</div>
+                  </div>
+                </div> */}
+                <div className=" mt-2    pb-5">
+                  <div className="w-[960px] pb-5 bg-[white]  pt-5">
+                    <div>
+                      <div>
+                        <Table className="mb-2" responsive>
+                          <thead>
+                            <tr>
+                              <th
+                                style={{ color: "#028062", fontWeight: "bold" }}
+                              >
+                                International
+                              </th>
+                              <th></th>
+                            </tr>
+                            <tr>
+                              <th></th>
+                              <th style={{ color: "#000", fontWeight: "bold" }}>
+                                {" "}
+                                {seriesArchiveInternation?.map(
+                                  (item, index) => (
+                                    <p
+                                      key={index}
+                                      style={{
+                                        color: "#000",
+                                        fontWeight: "bold",
+                                        cursor: "pointer",
+                                      }}
+                                      onClick={() =>
+                                        navigate(
+                                          `/cricket-series/${
+                                            item?.cid
+                                          }/${item?.title
+                                            ?.toLowerCase()
+                                            ?.split(" ")
+                                            ?.join("-")}/matches`
+                                        )
+                                      }
                                     >
-                                      <p
+                                      {item?.title}
+                                      {","} {item?.season}
+                                      <span
                                         style={{
-                                          cursor: "pointer",
-                                          display: "flex",
-                                          flexDirection: "column",
+                                          marginLeft: "2rem",
+                                          color: "gray",
+                                          fontWeight: "normal",
                                         }}
-                                        key={index}
                                       >
-                                        {console.log(competition, "rk")}
-                                        <span>
-                                          {" "}
-                                          {competition?.title}{" "}
-                                          {competition?.datestart?.slice(
-                                            0,
-                                            4
-                                          ) +
-                                            " - " +
-                                            competition?.dateend?.slice(2, 4)}
-                                        </span>
-                                        <span>
-                                          {formatDateRangeR(
-                                            competition?.datestart,
-                                            competition?.dateend
-                                          )}
-                                        </span>
-                                      </p>
-                                    </Link>
-                                  );
+                                        {formatDate22(item?.datestart)}-
+                                        {formatDate22(item?.dateend)}
+                                      </span>
+                                    </p>
+                                  )
+                                )}
+                              </th>
+                            </tr>
+                          </thead>
+                        </Table>
+                        <Table className="mb-2" responsive>
+                          <thead>
+                            <tr>
+                              <th
+                                style={{ color: "#028062", fontWeight: "bold" }}
+                              >
+                                Domestic
+                              </th>
+                              <th></th>
+                            </tr>
+                            <tr>
+                              <th></th>
+                              <th style={{ color: "#000", fontWeight: "bold" }}>
+                                {" "}
+                                {seriesArchiveDomestic?.map((item, index) => (
+                                  <p
+                                    key={index}
+                                    style={{
+                                      color: "#000",
+                                      fontWeight: "bold",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() =>
+                                      navigate(
+                                        `/cricket-series/${
+                                          item?.cid
+                                        }/${item?.title
+                                          ?.toLowerCase()
+                                          ?.split(" ")
+                                          ?.join("-")}/matches`
+                                      )
+                                    }
+                                  >
+                                    {item?.title}
+                                    {","} {item?.season}
+                                    <span
+                                      style={{
+                                        marginLeft: "2rem",
+                                        color: "gray",
+                                        fontWeight: "normal",
+                                      }}
+                                    >
+                                      {formatDate22(item?.datestart)}-
+                                      {formatDate22(item?.dateend)}
+                                    </span>
+                                  </p>
+                                ))}
+                              </th>
+                            </tr>
+                          </thead>
+                        </Table>
+                        <Table className="mb-2" responsive>
+                          <thead>
+                            <tr>
+                              <th
+                                style={{ color: "#028062", fontWeight: "bold" }}
+                              >
+                                League
+                              </th>
+                              <th></th>
+                            </tr>
+                            <tr>
+                              <th></th>
+                              <th
+                                style={{
+                                  color: "#000",
+                                  fontWeight: "bold",
+                                  cursor: "pointer",
+                                }}
+                                onClick={() =>
+                                  navigate(
+                                    `/cricket-series/${item?.cid}/${item?.title
+                                      ?.toLowerCase()
+                                      ?.split(" ")
+                                      ?.join("-")}/matches`
+                                  )
                                 }
-                              )}
-                            </span>
-
-                            <hr className="mt-2" />
-                          </div>
-                        </div>
-                      ))}
+                              >
+                                {" "}
+                                {seriesArchiveYouth?.map((item, index) => (
+                                  <p
+                                    key={index}
+                                    style={{
+                                      color: "#000",
+                                      fontWeight: "bold",
+                                    }}
+                                  >
+                                    {item?.title}
+                                    {","} {item?.season}
+                                    <span
+                                      style={{
+                                        marginLeft: "2rem",
+                                        color: "gray",
+                                        fontWeight: "normal",
+                                      }}
+                                    >
+                                      {formatDate22(item?.datestart)}-
+                                      {formatDate22(item?.dateend)}
+                                    </span>
+                                  </p>
+                                ))}
+                              </th>
+                            </tr>
+                          </thead>
+                        </Table>
+                        <Table className="mb-2" responsive>
+                          <thead>
+                            <tr>
+                              <th
+                                style={{ color: "#028062", fontWeight: "bold" }}
+                              >
+                                Women
+                              </th>
+                              <th></th>
+                            </tr>
+                            <tr>
+                              <th></th>
+                              <th style={{ color: "#000", fontWeight: "bold" }}>
+                                {" "}
+                                {seriesArchiveWomen?.map((item, index) => (
+                                  <p
+                                    key={index}
+                                    style={{
+                                      color: "#000",
+                                      fontWeight: "bold",
+                                      cursor: "pointer",
+                                    }}
+                                    onClick={() =>
+                                      navigate(
+                                        `/cricket-series/${
+                                          item?.cid
+                                        }/${item?.title
+                                          ?.toLowerCase()
+                                          ?.split(" ")
+                                          ?.join("-")}/matches`
+                                      )
+                                    }
+                                  >
+                                    {item?.title}
+                                    {","} {item?.season}
+                                    <span
+                                      style={{
+                                        marginLeft: "2rem",
+                                        color: "gray",
+                                        fontWeight: "normal",
+                                      }}
+                                    >
+                                      {formatDate22(item?.datestart)}-
+                                      {formatDate22(item?.dateend)}
+                                    </span>
+                                  </p>
+                                ))}
+                              </th>
+                            </tr>
+                          </thead>
+                        </Table>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
+              </>
             )}
           </div>
         )}

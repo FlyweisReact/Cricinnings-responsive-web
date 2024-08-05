@@ -21,7 +21,6 @@ const SeriesById = () => {
       : location.pathname === "/live-cricket-scores/Allseries"
       ? "Current & Future Series"
       : "Current Matches";
-  // console.log(location.pathname);
   const [selectedDiv, setSelectedDiv] = useState(initialLocation);
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
@@ -196,10 +195,8 @@ const SeriesById = () => {
 
       setHomePageBanners(res1?.data);
 
-      // Fetch data from the second endpoint
       const res2 = await axios.get(`${baseUrl}admin/getAllPosts`);
 
-      // Extract and set banners from the second response
       setHompageBanner2(
         res2?.data?.data?.find((item) => item.title === "scorePageBanner1")
           ?.image
@@ -343,7 +340,6 @@ const SeriesById = () => {
         `${baseUrl}user/getCompetitionsAndMatches?&per_page=10&paged=1&include_matches=true&category=${category}`
       )
       .then((res) => {
-        // console.log(res?.data?.competitions);
         setNewMatchData(res?.data?.competitions);
       })
       .catch((err) => {});
@@ -367,7 +363,7 @@ const SeriesById = () => {
     if (!dateString) return "";
 
     const date = new Date(dateString);
-    const options = { year: "numeric", month: "long" }; // Full month name and year
+    const options = { year: "numeric", month: "long" };
 
     return date.toLocaleDateString(undefined, options);
   };
@@ -405,13 +401,10 @@ const SeriesById = () => {
       });
   };
   const formatDate22 = (dateString) => {
-    // Create a new Date object from the input date string
     const date = new Date(dateString);
 
-    // Define options to format the date as "Feb 15"
     const options = { month: "short", day: "numeric" };
 
-    // Use toLocaleDateString with the specified options
     return date.toLocaleDateString("en-US", options);
   };
   useEffect(() => {
@@ -430,7 +423,7 @@ const SeriesById = () => {
           setSeriesMatches(res?.data?.matches);
         });
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
@@ -445,7 +438,7 @@ const SeriesById = () => {
           setSeriesDetails(res?.data);
         });
     } catch (error) {
-      console.log(error); 
+       
     }
   };
 
@@ -459,11 +452,11 @@ const SeriesById = () => {
       const res = axios
         .get(`${baseUrl}user/competitions/${newId}`)
         .then((res) => {
-          console.log(res.data, "current");
+          
           setCurrentSeriesData(res?.data);
         });
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
@@ -491,7 +484,7 @@ const SeriesById = () => {
     getAllSpecialBanners();
   }, []);
   const { pathname } = useLocation();
-  console.log(pathname);
+  
   const [selectedButton, setSelectedButton] = useState('');
 
   useEffect(() => {
@@ -531,7 +524,7 @@ const SeriesById = () => {
             }}
           >
             <span>
-              {console.log(seriesDetails,"sda")}
+              {}
               {seriesDetails?.title}
               {", "}
               {seriesDetails?.season}
@@ -560,7 +553,6 @@ const SeriesById = () => {
                 fontWeight: "bold",
                 color:
                   selectedButton === "Current Matches" ? "#028062" : "black",
-                // borderRadius: "5px",
                 cursor: "pointer",
               }}
               onClick={() =>
@@ -583,7 +575,6 @@ const SeriesById = () => {
                   selectedButton === "squad" ? " 2px solid #028062" : "white",
                 fontWeight: "bold",
                 color: selectedButton === "squad" ? "#028062" : "black",
-                // borderRadius: "5px",
                 cursor: "pointer",
               }}
               onClick={() =>
@@ -608,7 +599,6 @@ const SeriesById = () => {
                     : "white",
                 fontWeight: "bold",
                 color: selectedButton === "Point Table" ? "#028062" : "black",
-                // borderRadius: "5px",
                 cursor: "pointer",
               }}
               onClick={() =>
@@ -633,7 +623,6 @@ const SeriesById = () => {
                     : "white",
                 fontWeight: "bold",
                 color: selectedButton === "State Venu" ? "#028062" : "black",
-                // borderRadius: "5px",
                 cursor: "pointer",
               }}
               onClick={() =>
@@ -656,7 +645,6 @@ const SeriesById = () => {
                   selectedButton === "Venu" ? " 2px solid #028062" : "white",
                 fontWeight: "bold",
                 color: selectedButton === "Venu" ? "#028062" : "black",
-                // borderRadius: "5px",
                 cursor: "pointer",
               }}
               onClick={() =>
@@ -673,7 +661,7 @@ const SeriesById = () => {
               Venues
             </p>
           </div>
-          {/* <hr /> */}
+          {}
         </div>
 
         {selectedDiv && (
@@ -810,85 +798,8 @@ const SeriesById = () => {
                         </tbody>
                       </Table>
 
-                      {/* {seriesMatches?.map((item, index) => {
-                        return (
-                          <div key={index}>
-                            {" "}
-                            <div
-                              style={{
-                                padding: "5px 0px 5px 0px",
-                                backgroundColor: "#E7E7E7",
-                                fontWeight: "bold",
-                              }}
-                            >
-                              <p style={{ fontWeight: "bold", padding: "5px" }}>
-                                {formatDateString123(item?.date_start)}
-                              </p>
-                            </div>
-                            <div
-                              style={{
-                                display: "grid",
-                                gridTemplateColumns: "20% 50% 30%",
-                                gap: "10px",
-                                marginTop: "10px",
-                                marginBottom: "10px",
-                              }}
-                            >
-                              <p
-                                style={{
-                                  fontWeight: "bold",
-                                  color: "black",
-                                  paddingLeft: "5px",
-                                }}
-                              >
-                                {item?.competition?.title}
-                                {","} {item?.competition?.season}
-                              </p>
-                              <p
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <span style={{ color: "#707071" }}>
-                                  {item?.short_title}
-                                  {","} {item?.format_str}
-                                </span>
-                                <span style={{ color: "#707071" }}>
-                                  {formatDateString11(item?.date_start)} at{" "}
-                                  {item?.venue?.location}
-                                  {","} {item?.venue?.name}
-                                </span>
-                              </p>
-                              <p
-                                onClick={() =>
-                                  navigate(
-                                    `/live-cricket-scores/${item?.title
-                                      ?.split(" ")
-                                      ?.join("-")}-${item?.competition?.title
-                                      ?.split(" ")
-                                      ?.join("-")}/commentry/${item?.match_id}`
-                                  )
-                                }
-                                style={{
-                                  display: "flex",
-                                  flexDirection: "column",
-                                }}
-                              >
-                                <span>
-                                  {item?.short_title}
-                                  {","} {item?.format_str}
-                                </span>
-                                <span>
-                                  {formatDateString11(item?.date_start)} at{" "}
-                                  {item?.venue?.location}
-                                  {","} {item?.venue?.name}
-                                </span>
-                              </p>
-                            </div>
-                          </div>
-                        );
-                      })} */}
+                      {
+}
                     </div>
 
                     <div className="w-[250px]">
@@ -1940,7 +1851,7 @@ const SeriesById = () => {
                                           }
                                           className="text-slate-400"
                                         >
-                                          {console.log(item)}
+                                          {}
                                           {item?.title}
                                         </span>
                                         <br />
@@ -1951,16 +1862,8 @@ const SeriesById = () => {
                                       </div>
                                     ))}
                               </div>
-                              {/* <div className="w-[150px]">
-                                <span className="text-slate-400">
-                                  {" "}
-                                  Mar 18  •  9:30 PM
-                                </span>
-                                <span className="text-slate-300">
-                                  {" "}
-                                  9:30 PM GMT/Local
-                                </span>
-                              </div> */}
+                              {
+}
                             </div>
                           </div>
                         ))}
@@ -2466,152 +2369,8 @@ const SeriesById = () => {
                   >
                     <p>Comming Soon ...</p>
                   </div>
-                  {/* <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[700px]  ">
-                      <div className="flex flex-col">
-                        <div className="flex justify-between border-t pt-5 pb-5">
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={indiaflag} alt="" />
-                            </div>
-                            <div>india</div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={usaflag} alt="" />
-                            </div>
-                            <div>USA</div>
-                          </div>
-                        </div>
-                        <div className="flex justify-between border-t pt-5 pb-5">
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={indiaflag} alt="" />
-                            </div>
-                            <div>india</div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={usaflag} alt="" />
-                            </div>
-                            <div>USA</div>
-                          </div>
-                        </div>
-                        <div className="flex justify-between border-t pt-5 pb-5">
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={indiaflag} alt="" />
-                            </div>
-                            <div>india</div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={usaflag} alt="" />
-                            </div>
-                            <div>USA</div>
-                          </div>
-                        </div>
-                        <div className="flex justify-between border-t pt-5 pb-5">
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={indiaflag} alt="" />
-                            </div>
-                            <div>india</div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={usaflag} alt="" />
-                            </div>
-                            <div>USA</div>
-                          </div>
-                        </div>
-                        <div className="flex justify-between border-t pt-5 pb-5">
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={indiaflag} alt="" />
-                            </div>
-                            <div>india</div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={usaflag} alt="" />
-                            </div>
-                            <div>USA</div>
-                          </div>
-                        </div>
-                        <div className="flex justify-between border-t pt-5 pb-5">
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={indiaflag} alt="" />
-                            </div>
-                            <div>india</div>
-                          </div>
-                          <div className="flex items-center gap-2">
-                            <div>
-                              <img src={usaflag} alt="" />
-                            </div>
-                            <div>USA</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="w-[250px] flex flex-col gap-5 ">
-                      <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg ">
-                        RESPONSIVE AD’s
-                      </div>
-                      <div className="bg-[white]  rounded-lg shadow-2xl ">
-                        <div className="text-sm p-3 font-semibold">
-                          FEATURE VIDEOS !!
-                        </div>
-                        <img src={videoframe} alt="" />
-                        <img src={videoframe} alt="" />
-                        <img src={videoframe} alt="" />
-                        <div className="flex justify-center pb-5">
-                          <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
-                            More Videos
-                          </button>
-                        </div>
-                      </div>
-
-                      <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg ">
-                        RESPONSIVE AD’s
-                      </div>
-                      <div className="bg-[white] rounded-lg  pb-5 border">
-                        <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">
-                            SPECIALS
-                          </span>
-                          <img src={camp} alt="" />
-                          <span className="font-semibold text-sm ml-4">
-                            Mumbai Indians Champions
-                          </span>
-                          <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                            Lorem ipsum dolor sit amet consectetur. Amet mus
-                            aliquam vivamus tincidunt. Odio rhoncus pretium eu
-                            vivamus.
-                          </p>
-                          <img src={ipl} alt="" />
-                          <span className="font-semibold text-sm ml-4">
-                            1st Match . IPL 2024
-                          </span>
-                          <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                            Lorem ipsum dolor sit amet consectetur. Amet mus
-                            aliquam vivamus tincidunt. Odio rhoncus pretium eu
-                            vivamus.
-                          </p>
-                          <img src={premier} alt="" />
-                          <span className="font-semibold text-sm ml-4">
-                            1st Match . IPL 2024
-                          </span>
-                          <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                            Lorem ipsum dolor sit amet consectetur. Amet mus
-                            aliquam vivamus tincidunt. Odio rhoncus pretium eu
-                            vivamus.
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
+                  {
+}
                 </div>
               </>
             )}
