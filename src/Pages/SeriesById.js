@@ -80,8 +80,6 @@ const SeriesById = () => {
     }
   };
 
-  
-
   const formatDateToTimer = (dateString) => {
     const date = new Date(dateString.replace(" ", "T"));
     const hours = date.getHours();
@@ -417,14 +415,12 @@ const SeriesById = () => {
     try {
       const res = axios
         .get(
-          `${baseUrl}user/competitions/${newId}/matches?status=1&per_page=15&paged=1`
+          `${baseUrl}user/competitions/${newId}/matches?status=mixed&per_page=15&paged=1`
         )
         .then((res) => {
           setSeriesMatches(res?.data?.matches);
         });
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   const [seriesDetails, setSeriesDetails] = useState({});
@@ -437,9 +433,7 @@ const SeriesById = () => {
         .then((res) => {
           setSeriesDetails(res?.data);
         });
-    } catch (error) {
-       
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -452,12 +446,9 @@ const SeriesById = () => {
       const res = axios
         .get(`${baseUrl}user/competitions/${newId}`)
         .then((res) => {
-          
           setCurrentSeriesData(res?.data);
         });
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -484,30 +475,22 @@ const SeriesById = () => {
     getAllSpecialBanners();
   }, []);
   const { pathname } = useLocation();
-  
-  const [selectedButton, setSelectedButton] = useState('');
+
+  const [selectedButton, setSelectedButton] = useState("");
 
   useEffect(() => {
     if (pathname.includes("/matches")) {
       setSelectedButton("Current Matches");
-    }else if (pathname.includes("/squads")) {
+    } else if (pathname.includes("/squads")) {
       setSelectedButton("squad");
-    }
-    else if (pathname.includes("/stats")) {
+    } else if (pathname.includes("/stats")) {
       setSelectedButton("State Venu");
-    }else if (pathname.includes("/points-table")) {
+    } else if (pathname.includes("/points-table")) {
       setSelectedButton("Point Table");
-    }
-    
-    
-    else {
+    } else {
       setSelectedButton("Venu");
     }
   }, [pathname]);
-
-  
-
-  
 
   return (
     <div className="">
@@ -524,7 +507,6 @@ const SeriesById = () => {
             }}
           >
             <span>
-              {}
               {seriesDetails?.title}
               {", "}
               {seriesDetails?.season}
@@ -557,12 +539,10 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${
-                    seriesDetails?.cid
-                  }/${seriesDetails?.title
+                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
                     ?.toLowerCase()
                     ?.split(" ")
-                    ?.join("-")}/matches`
+                    ?.join("-")}-${seriesDetails?.season}/matches`
                 )
               }
             >
@@ -579,12 +559,10 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${
-                    seriesDetails?.cid
-                  }/${seriesDetails?.title
+                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
                     ?.toLowerCase()
                     ?.split(" ")
-                    ?.join("-")}/squads`
+                    ?.join("-")}-${seriesDetails?.season}/squads`
                 )
               }
             >
@@ -603,12 +581,10 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${
-                    seriesDetails?.cid
-                  }/${seriesDetails?.title
+                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
                     ?.toLowerCase()
                     ?.split(" ")
-                    ?.join("-")}/points-table`
+                    ?.join("-")}-${seriesDetails?.season}/points-table`
                 )
               }
             >
@@ -627,12 +603,10 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${
-                    seriesDetails?.cid
-                  }/${seriesDetails?.title
+                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
                     ?.toLowerCase()
                     ?.split(" ")
-                    ?.join("-")}/stats`
+                    ?.join("-")}-${seriesDetails?.season}/stats`
                 )
               }
             >
@@ -649,12 +623,10 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${
-                    seriesDetails?.cid
-                  }/${seriesDetails?.title
+                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
                     ?.toLowerCase()
                     ?.split(" ")
-                    ?.join("-")}/venues`
+                    ?.join("-")}-${seriesDetails?.season}/venues`
                 )
               }
             >
@@ -670,7 +642,7 @@ const SeriesById = () => {
               <>
                 <div className="flex mt-2 justify-center pb-5">
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[700px]  ">
+                    <div className="left w-[950px]  ">
                       <Table style={{ border: "none", fontSize: "14px" }}>
                         <thead style={{ textAlign: "left" }}>
                           <tr>
@@ -798,11 +770,10 @@ const SeriesById = () => {
                         </tbody>
                       </Table>
 
-                      {
-}
+                      {}
                     </div>
 
-                    <div className="w-[250px]">
+                    {/* <div className="w-[250px]">
                       {allSeries?.length > 0 && (
                         <div
                           style={{
@@ -827,16 +798,16 @@ const SeriesById = () => {
                               if (index >= 4) return null;
                               return (
                                 <div
-                                onClick={() =>
-                                  navigate(
-                                    `/cricket-series/${
-                                      item?.cid
-                                    }/${item?.title
-                                      ?.toLowerCase()
-                                      ?.split(" ")
-                                      ?.join("-")}/matches`
-                                  )
-                                }
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${
+                                        item?.cid
+                                      }/${item?.title
+                                        ?.toLowerCase()
+                                        ?.split(" ")
+                                        ?.join("-")}/matches`
+                                    )
+                                  }
                                   key={item?._id}
                                   style={{
                                     display: "grid",
@@ -1288,7 +1259,7 @@ const SeriesById = () => {
                           ))}
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                   </div>
                 </div>
               </>
@@ -1862,8 +1833,7 @@ const SeriesById = () => {
                                       </div>
                                     ))}
                               </div>
-                              {
-}
+                              {}
                             </div>
                           </div>
                         ))}
@@ -2369,8 +2339,7 @@ const SeriesById = () => {
                   >
                     <p>Comming Soon ...</p>
                   </div>
-                  {
-}
+                  {}
                 </div>
               </>
             )}

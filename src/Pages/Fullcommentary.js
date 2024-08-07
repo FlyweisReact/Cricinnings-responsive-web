@@ -82,7 +82,7 @@ const Fullcommentary = () => {
               {commentaryData?.commentaries
                 ?.slice(0, itemsToShow)
                 .map((item, index) => (
-                  <div>
+                  <div key={index}>
                     {item?.event === "overend" ? (
                       <p
                         style={{
@@ -121,7 +121,10 @@ const Fullcommentary = () => {
                           <span>
                             {" "}
                             {item.bowls.map((bowler, i) => (
-                              <p style={{ display: "flex", gap: "0.5rem" }} key={i}>
+                              <p
+                                style={{ display: "flex", gap: "0.5rem" }}
+                                key={i}
+                              >
                                 <span> M {bowler.maidens}</span>
                                 <span> RC {bowler.runs_conceded}</span>
                                 <span> W {bowler.wickets}</span>
@@ -140,8 +143,9 @@ const Fullcommentary = () => {
                             fontWeight: "bold",
                           }}
                         >
-                          {item?.over}{"."}
-                          {item?.ball} 
+                          {item?.over}
+                          {"."}
+                          {item?.ball}
                         </span>
                         <span>{item?.commentary}</span>
                       </p>

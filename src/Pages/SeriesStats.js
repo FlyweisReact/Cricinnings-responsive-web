@@ -170,40 +170,259 @@ const SeriesStats = () => {
             {initialCondition === "batting" ? (
               <Table>
                 <thead>
-                  <tr>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Player</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>Avg</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>SR</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>4s</th>
-                    <th style={{ backgroundColor: "#EDEBEA" }}>6s</th>
-                  </tr>
+                  {filterByData === "batting_most_runs" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Player</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Avg</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>SR</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>4s</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>6s</th>
+                    </tr>
+                  )}
+                  {filterByData === "batting_highest_average" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Batter</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Avg</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>No</th>
+                    </tr>
+                  )}
+                  {filterByData === "batting_highest_strikerate" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Batter</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Avg</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Sr</th>
+                    </tr>
+                  )}
+                  {filterByData === "batting_most_run4" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Batter</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>4s</th>
+                    </tr>
+                  )}
+                  {filterByData === "batting_most_run6" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Batter</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>6s</th>
+                    </tr>
+                  )}
+                  {filterByData === "batting_most_run100" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Batter</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>H.s</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>100s</th>
+                    </tr>
+                  )}
+                  {filterByData === "batting_most_run50" && (
+                    <tr>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Batter</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Matches</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Inns</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>Runs</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>50s</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>100s</th>
+                      <th style={{ backgroundColor: "#EDEBEA" }}>H.s</th>
+                    </tr>
+                  )}
                 </thead>
                 <tbody>
-                  {competitionData?.stats?.map((item) => (
-                    <tr key={item?.player?.id}>
-                      <td
-                        onClick={() =>
-                          navigate(
-                            `/cricket-players/${item?.player?.title
-                              ?.split(" ")
-                              ?.join("-")}/${item?.player?.pid}`
-                          )
-                        }
-                      >
-                        {item?.player?.first_name} {item?.player?.last_name}
-                      </td>
-                      <td>{item?.matches}</td>
-                      <td>{item?.innings}</td>
-                      <td>{item?.runs}</td>
-                      <td>{item?.average}</td>
-                      <td>{item?.strike}</td>
-                      <td>{item?.run4}</td>
-                      <td>{item?.run6}</td>
-                    </tr>
-                  ))}
+                  {filterByData === "batting_most_runs" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+                          <td>{item?.average}</td>
+                          <td>{item?.strike}</td>
+                          <td>{item?.run4}</td>
+                          <td>{item?.run6}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                  {filterByData === "batting_highest_average" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+                          <td>{item?.average}</td>
+
+                          <td>{item?.notout}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                  {filterByData === "batting_highest_strikerate" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+                          <td>{item?.average}</td>
+                          <td>{item?.strike}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                  {filterByData === "batting_most_run4" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+
+                          <td>{item?.run4}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                  {filterByData === "batting_most_run6" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+
+                          <td>{item?.run6}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                  {filterByData === "batting_most_run100" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+                          <td>{item?.highest}</td>
+                          <td>{item?.run100}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
+                  {filterByData === "batting_most_run50" && (
+                    <>
+                      {" "}
+                      {competitionData?.stats?.map((item) => (
+                        <tr key={item?.player?.id}>
+                          <td
+                            onClick={() =>
+                              navigate(
+                                `/cricket-players/${item?.player?.title
+                                  ?.split(" ")
+                                  ?.join("-")}/${item?.player?.pid}`
+                              )
+                            }
+                          >
+                            {item?.player?.first_name} {item?.player?.last_name}
+                          </td>
+                          <td>{item?.matches}</td>
+                          <td>{item?.innings}</td>
+                          <td>{item?.runs}</td>
+
+                          <td>{item?.run50}</td>
+                          <td>{item?.run100}</td>
+                          <td>{item?.highest}</td>
+                        </tr>
+                      ))}
+                    </>
+                  )}
                 </tbody>
               </Table>
             ) : initialCondition === "bowling" ? (

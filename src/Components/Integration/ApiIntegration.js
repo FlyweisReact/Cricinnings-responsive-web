@@ -110,10 +110,13 @@ export const GetDataWithToken = async ({
 };
 
 export const getOrdinalSuffix = (n) => {
-  if (typeof n !== 'number' || isNaN(n)) {
+  n = Number(n);
+  console.log(n);
+
+  if (isNaN(n)) {
     return "";
   }
-  
+
   const s = ["th", "st", "nd", "rd"];
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);

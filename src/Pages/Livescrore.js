@@ -850,7 +850,31 @@ const Livescrore = () => {
                                 {" ,"}
                                 {item?.match?.venue?.location}
                               </div>
-                              <div className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
+                              <div
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scores/${
+                                      item?.match?.match_id
+                                    }/${item?.match?.short_title
+                                      ?.toLowerCase()
+                                      .split(" ")
+                                      .join("-")}-${getOrdinalSuffix(
+                                      item?.match?.match_number
+                                    )
+                                      ?.toLowerCase()
+                                      ?.split(" ")
+                                      .join(
+                                        "-"
+                                      )}-${item?.match?.competition?.title
+                                      ?.toLowerCase()
+                                      .split(" ")
+                                      .join(
+                                        "-"
+                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
+                                className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
+                              >
                                 <div
                                   style={{ padding: "0.5rem 1rem" }}
                                   className="flex items-center gap-[6rem] "
@@ -1626,15 +1650,24 @@ const Livescrore = () => {
                                         >
                                           {}
                                           <span>
-                                            {" "}
                                             {competition?.title}{" "}
                                             {competition?.datestart?.slice(
                                               0,
                                               4
-                                            ) +
-                                              " - " +
-                                              competition?.dateend?.slice(2, 4)}
+                                            ) ===
+                                            competition?.dateend?.slice(0, 4)
+                                              ? `${competition?.datestart?.slice(
+                                                  0,
+                                                  4
+                                                )}`
+                                              : `${competition?.datestart?.slice(
+                                                0,
+                                                4
+                                              )}-${competition?.dateend?.slice(
+                                                2,4
+                                              )}`}
                                           </span>
+
                                           <span>
                                             {formatDateRangeR(
                                               competition?.datestart,

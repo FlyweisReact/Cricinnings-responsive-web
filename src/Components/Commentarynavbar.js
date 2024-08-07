@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { baseUrl } from "./Integration/ApiIntegration";
+import { getOrdinalSuffix } from "./Integration/ApiIntegration";
 
 const Commentarynavbar = () => {
   const navigate = useNavigate();
@@ -72,12 +73,12 @@ const Commentarynavbar = () => {
     getSquadData();
     getMatchDetails();
     getMatchData1();
-  }, []);
+  }, [pathname]);
   return (
     <div className="bg-[white] pl-2 pt-2 pr-2">
       <div className="font-semibold ">
         <p
-           onClick={() =>
+          onClick={() =>
             navigate(
               `/cricket-series/${
                 matchDetails?.competition?.cid
@@ -142,24 +143,39 @@ const Commentarynavbar = () => {
       </div>
 
       <div className="topBarCommentary">
-        {console.log(matchDetails )}
         <p
           onClick={() => {
-            matchDetails?.match_id &&
-              navigate(
-                `/live-cricket-scores/${
-                  matchDetails?.match_id
-                }/${matchDetails?.teama?.short_name?.toLowerCase()
-                  .split(" ")
-                  .join("-")}-vs-${matchDetails?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
-                  matchDetails?.subtitle?.split(" ")?.[1]
-                }-${matchDetails?.competition?.title
-                  ?.toLowerCase()
-                  .split(" ")
-                  .join(
-                    "-"
-                  )}-${matchDetails?.competition?.season?.toLowerCase()}`
-              );
+            console.log(matchDetails, "CheckId");
+            if (matchDetails?.match_id) {
+              const teamAShortName = matchDetails.teama?.short_name
+                ?.toLowerCase()
+                .split(" ")
+                .join("-");
+              const teamBShortName = matchDetails.teamb?.short_name
+                ?.toLowerCase()
+                .split(" ")
+                .join("-");
+              const matchNumber =
+                matchDetails?.match_number ||
+                matchDetails?.subtitle?.split("Match")?.[1]
+              console.log(matchDetails?.subtitle?.split("Match")?.[1]);
+              const matchSuffix =
+                matchDetails?.competition?.type === "tournament"
+                  ? `match-${getOrdinalSuffix(matchDetails?.match_number)}`
+                  : `${getOrdinalSuffix(
+                      +matchNumber
+                    )}-${matchDetails?.format_str?.toLowerCase()}`;
+              const competitionTitle = matchDetails?.competition?.title
+                ?.toLowerCase()
+                .split(" ")
+                .join("-");
+              const competitionSeason =
+                matchDetails?.competition?.season?.toLowerCase();
+
+              const url = `/live-cricket-scores/${matchDetails.match_id}/${teamAShortName}-vs-${teamBShortName}-${matchSuffix}-${competitionTitle}-${competitionSeason}`;
+
+              navigate(url);
+            }
           }}
           style={{
             color: /\/live-cricket-scores\//i.test(pathname)
@@ -172,6 +188,7 @@ const Commentarynavbar = () => {
             padding: /\/live-cricket-scores\//i.test(pathname) ? "14px" : "0px",
           }}
         >
+          {console.log(matchDetails?.competition?.type)}
           Live
         </p>
 
@@ -182,9 +199,13 @@ const Commentarynavbar = () => {
               navigate(
                 `/live-cricket-scorecard/${
                   matchDetails?.match_id
-                }/${matchDetails?.teama?.short_name?.toLowerCase()
+                }/${matchDetails?.teama?.short_name
+                  ?.toLowerCase()
                   .split(" ")
-                  .join("-")}-vs-${matchDetails?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                  .join("-")}-vs-${matchDetails?.teamb?.short_name
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${
                   matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
@@ -216,9 +237,13 @@ const Commentarynavbar = () => {
               navigate(
                 `/cricket-match-squads/${
                   matchDetails?.match_id
-                }/${matchDetails?.teama?.short_name?.toLowerCase()
+                }/${matchDetails?.teama?.short_name
+                  ?.toLowerCase()
                   .split(" ")
-                  .join("-")}-vs-${matchDetails?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                  .join("-")}-vs-${matchDetails?.teamb?.short_name
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${
                   matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
@@ -267,9 +292,13 @@ const Commentarynavbar = () => {
               navigate(
                 `/live-cricket-full-commentary/${
                   matchDetails?.match_id
-                }/${matchDetails?.teama?.short_name?.toLowerCase()
+                }/${matchDetails?.teama?.short_name
+                  ?.toLowerCase()
                   .split(" ")
-                  .join("-")}-vs-${matchDetails?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                  .join("-")}-vs-${matchDetails?.teamb?.short_name
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${
                   matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
@@ -339,9 +368,13 @@ const Commentarynavbar = () => {
               navigate(
                 `/cricket-match-facts/${
                   matchDetails?.match_id
-                }/${matchDetails?.teama?.short_name?.toLowerCase()
+                }/${matchDetails?.teama?.short_name
+                  ?.toLowerCase()
                   .split(" ")
-                  .join("-")}-vs-${matchDetails?.teamb?.short_name?.toLowerCase().split(" ").join("-")}-${
+                  .join("-")}-vs-${matchDetails?.teamb?.short_name
+                  ?.toLowerCase()
+                  .split(" ")
+                  .join("-")}-${
                   matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()

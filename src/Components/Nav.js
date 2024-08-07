@@ -176,12 +176,10 @@ const Nav = () => {
                         className="no-border-radius-text"
                       >
                         <Link
-                          to={`/cricket-series/${
-                                item?.cid
-                              }/${item?.title
-                                ?.toLowerCase()
-                                ?.split(" ")
-                                ?.join("-")}/matches`}
+                          to={`/cricket-series/${item?.cid}/${item?.title
+                            ?.toLowerCase()
+                            ?.split(" ")
+                            ?.join("-")}/matches`}
                         >
                           {item?.title}
                         </Link>
@@ -517,7 +515,7 @@ const Nav = () => {
       <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
         <div className="UseFlexMenu">
           <div
-            onClick={() => navigate("/live-cricket-scores")}
+            onClick={() => navigate("/cricket-match/live-scores")}
             className="w-[100px] h-[48px] flex justify-center items-center text-white border-white border text-[10px] cursor-pointer"
           >
             MATCHES
@@ -528,13 +526,13 @@ const Nav = () => {
               style={{ textDecoration: "none", color: "white" }}
               href={`/live-cricket-scorecard/${
                 item?.match_id
-              }/${item?.short_title
-                ?.toLowerCase()
-                .split(" ")
-                .join("-")}-${getOrdinalSuffix(item?.match_number)
-                ?.toLowerCase()
-                ?.split(" ")
-                .join("-")}-${item?.competition?.title
+              }/${item?.short_title?.toLowerCase().split(" ").join("-")}-${
+                item?.competition?.type === "tournament"
+                  ? `match-${getOrdinalSuffix(item?.match_number)}`
+                  : `${getOrdinalSuffix(
+                      item?.match_number
+                    )}-${item?.format_str?.toLowerCase()?.split(" ")?.join("-")}`
+              }-${item?.competition?.title
                 ?.toLowerCase()
                 .split(" ")
                 .join("-")}-${item?.competition?.season?.toLowerCase()}`}

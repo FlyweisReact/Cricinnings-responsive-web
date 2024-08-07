@@ -49,10 +49,15 @@ const Scorecard = () => {
     return formattedDate;
   }
   function extractPowerplayData2(matchNotes) {
-    if (!matchNotes || !matchNotes.length) return null;
+    if (
+      !matchNotes ||
+      !Array.isArray(matchNotes) ||
+      !Array.isArray(matchNotes[1])
+    )
+      return null;
 
     for (const note of matchNotes[1]) {
-      if (note.startsWith("Powerplay 1")) {
+      if (typeof note === "string" && note.startsWith("Powerplay 1")) {
         const match = note.match(/Powerplay 1 \((.*?)\) Run (\d+), wicket \d+/);
         if (match) {
           return {
@@ -64,11 +69,17 @@ const Scorecard = () => {
     }
     return null;
   }
-  function extractPowerplayData1(matchNotes) {
-    if (!matchNotes || !matchNotes.length) return null;
 
-    for (const note of matchNotes[0]) {
-      if (note.startsWith("Powerplay 1")) {
+  function extractPowerplayData1(matchNotes) {
+    if (
+      !matchNotes ||
+      !Array.isArray(matchNotes) ||
+      !Array.isArray(matchNotes[1])
+    )
+      return null;
+
+    for (const note of matchNotes[1]) {
+      if (typeof note === "string" && note.startsWith("Powerplay 1")) {
         const match = note.match(/Powerplay 1 \((.*?)\) Run (\d+), wicket \d+/);
         if (match) {
           return {
