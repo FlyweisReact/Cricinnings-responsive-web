@@ -172,7 +172,7 @@ const Homepage = () => {
         },
       }
     );
-    console.log(response?.data?.response, "dashboard");
+    
     setSliderData(response?.data?.response?.matches);
   };
 
@@ -448,7 +448,7 @@ const Homepage = () => {
     prevArrow: currentSlide === 0 ? null : <CustomPrevArrow />,
     beforeChange: (oldIndex, newIndex) => {
       setCurrentSlide(newIndex);
-      console.log(newIndex);
+      
     },
   };
 

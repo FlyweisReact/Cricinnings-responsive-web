@@ -54,7 +54,7 @@ const Womenrankingpage = () => {
   }, []);
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    // console.log(res?.data?.rankingData);
+    // 
     setOdiBestman(res?.data?.rankingData?.women_ranks?.batsmen?.odis);
     setT20Bestman(res?.data?.rankingData?.women_ranks?.batsmen?.t20s);
     setTestBestman(res?.data?.rankingData?.women_ranks?.batsmen?.tests);

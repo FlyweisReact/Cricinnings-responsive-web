@@ -15,7 +15,7 @@ const Venu = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      // console.log(banner);
+      // 
     });
   };
 
@@ -45,7 +45,7 @@ const Venu = () => {
       .get(baseUrl + "user/getCompetitionOverview/" + seriesId)
       .then((res) => {
         setSquadData(res?.data?.response);
-        console.log(res?.data?.response);
+        
       });
   };
 

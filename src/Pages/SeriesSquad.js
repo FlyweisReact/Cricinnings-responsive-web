@@ -18,7 +18,7 @@ const SeriesSquad = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      // console.log(banner);
+      // 
     });
   };
 

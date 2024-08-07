@@ -11,7 +11,7 @@ import { useParams } from "react-router";
 const LivescroreById = () => {
   const [selectedDiv, setSelectedDiv] = useState("Current Matches");
   const params=useParams();
-  // console.log(params.id)
+  // 
  
   return (
     <div className="">

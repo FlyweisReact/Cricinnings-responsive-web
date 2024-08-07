@@ -22,7 +22,7 @@ const Stats = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      // console.log(banner);
+      // 
     });
   };
 
@@ -30,7 +30,7 @@ const Stats = () => {
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`)
       .then((res) => {
-        // console.log(res?.data);
+        // 
         setCompetitionData(res?.data);
       });
   };
@@ -43,7 +43,7 @@ const Stats = () => {
 
   const getCompetationId = async () => {
     axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
-      // console.log(res?.data);
+      // 
       setCompetitionId(res?.data?.match?.competition?.cid);
       if (res?.data?.match?.competition?.cid) {
         getStatesData(res?.data?.match?.competition?.cid);

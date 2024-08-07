@@ -14,7 +14,7 @@ const SeriesPoints = () => {
 
   const getMatchData = async () => {
     axios.get(baseUrl + "user/getpoints/" + seriesId).then((res) => {
-      console.log(res);
+      
       setSquadData(res?.data);
     });
   };
@@ -31,7 +31,7 @@ const SeriesPoints = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      // console.log(banner)
+      // 
     });
   };
 

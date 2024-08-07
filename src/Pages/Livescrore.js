@@ -378,8 +378,6 @@ const Livescrore = () => {
         `${baseUrl}user/getcompetitionsMatchesListDayByDay?category=${category}&status=1`
       )
       .then((res) => {
-        console.log(res?.data);
-
         setNewMatchData(res?.data?.response?.matches);
       })
       .catch((err) => {});
@@ -880,7 +878,7 @@ const Livescrore = () => {
                                 }
                                 className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                               >
-                                {console.log(item?.match)}
+                                {}
                                 <div
                                   style={{ padding: "0.5rem 1rem" }}
                                   className="flex items-center gap-[6rem] "
@@ -1786,17 +1784,18 @@ const Livescrore = () => {
                                           ?.toLowerCase()
                                           .split(" ")
                                           .join("-")}-${
-                                        item?.competition?.type === "tournament"
-                                          ? `match-${getOrdinalSuffix(
-                                              item?.match_number
-                                            )}`
-                                          : `${getOrdinalSuffix(
-                                              item?.match_number
-                                            )}-${item?.format_str
-                                              ?.toLowerCase()
-                                              ?.split(" ")
-                                              ?.join("-")}`
-                                      }-${item?.competition?.title
+                                          item?.competition?.type ===
+                                          "tournament"
+                                            ? `match-${getOrdinalSuffix(
+                                                item?.match_number
+                                              )}`
+                                            : `${getOrdinalSuffix(
+                                                item?.match_number
+                                              )}-${item?.format_str
+                                                ?.toLowerCase()
+                                                ?.split(" ")
+                                                ?.join("-")}`
+                                        }-${item?.competition?.title
                                           ?.toLowerCase()
                                           .split(" ")
                                           .join(
@@ -1997,14 +1996,14 @@ const Livescrore = () => {
                                   fontWeight: "bold",
                                   cursor: "pointer",
                                 }}
-                                onClick={() =>
-                                  navigate(
-                                    `/cricket-series/${item?.cid}/${item?.title
-                                      ?.toLowerCase()
-                                      ?.split(" ")
-                                      ?.join("-")}/matches`
-                                  )
-                                }
+                                // onClick={() =>
+                                //   navigate(
+                                //     `/cricket-series/${item?.cid}/${item?.title
+                                //       ?.toLowerCase()
+                                //       ?.split(" ")
+                                //       ?.join("-")}/matches`
+                                //   )
+                                // }
                               >
                                 {" "}
                                 {seriesArchiveYouth?.map((item, index) => (

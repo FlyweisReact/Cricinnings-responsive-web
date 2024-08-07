@@ -8,7 +8,7 @@ const AboutPage = () => {
   const getAllTermsData = () => {
     GetData("userAuth/getAll/About").then((res) => {
       setTerms(res?.data);
-      // console.log(res?.data);
+      // 
     });
   };
 

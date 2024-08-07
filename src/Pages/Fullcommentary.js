@@ -41,12 +41,12 @@ const Fullcommentary = () => {
       const res = await axios.get(
         `${baseUrl}user/matches/${matchId}/innings/${initialInning}/commentary`
       );
-      // console.log(res?.data);
+      // 
       setCommentaryData(res?.data);
       const reverseData = res?.data?.commentaries?.reverse();
       setCommentaryData({ ...res?.data, commentaries: reverseData });
     } catch (error) {
-      console.log(error);
+      
     }
   };
 
