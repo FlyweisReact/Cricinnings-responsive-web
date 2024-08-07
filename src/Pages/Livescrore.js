@@ -845,7 +845,7 @@ const Livescrore = () => {
                               <div className="text-slate-400">
                                 {formatDateStringRkt(
                                   item?.match?.date_start_ist
-                                )}
+                                )}{" "}
                                 at {item?.match?.venue?.name}
                                 {" ,"}
                                 {item?.match?.venue?.location}
@@ -858,14 +858,19 @@ const Livescrore = () => {
                                     }/${item?.match?.short_title
                                       ?.toLowerCase()
                                       .split(" ")
-                                      .join("-")}-${getOrdinalSuffix(
-                                      item?.match?.match_number
-                                    )
-                                      ?.toLowerCase()
-                                      ?.split(" ")
-                                      .join(
-                                        "-"
-                                      )}-${item?.match?.competition?.title
+                                      .join("-")}-${
+                                      item?.match?.competition?.type ===
+                                      "tournament"
+                                        ? `match-${getOrdinalSuffix(
+                                            item?.match?.match_number
+                                          )}`
+                                        : `${getOrdinalSuffix(
+                                            item?.match?.match_number
+                                          )}-${item?.match?.format_str
+                                            ?.toLowerCase()
+                                            ?.split(" ")
+                                            ?.join("-")}`
+                                    }-${item?.match?.competition?.title
                                       ?.toLowerCase()
                                       .split(" ")
                                       .join(
@@ -875,6 +880,7 @@ const Livescrore = () => {
                                 }
                                 className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                               >
+                                {console.log(item?.match)}
                                 <div
                                   style={{ padding: "0.5rem 1rem" }}
                                   className="flex items-center gap-[6rem] "
@@ -911,14 +917,19 @@ const Livescrore = () => {
                                       }/${item?.match?.short_title
                                         ?.toLowerCase()
                                         .split(" ")
-                                        .join("-")}-${getOrdinalSuffix(
-                                        item?.match?.match_number
-                                      )
-                                        ?.toLowerCase()
-                                        ?.split(" ")
-                                        .join(
-                                          "-"
-                                        )}-${item?.match?.competition?.title
+                                        .join("-")}-${
+                                        item?.match?.competition?.type ===
+                                        "tournament"
+                                          ? `match-${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}`
+                                          : `${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}-${item?.match?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
+                                      }-${item?.match?.competition?.title
                                         ?.toLowerCase()
                                         .split(" ")
                                         .join(
@@ -944,7 +955,17 @@ const Livescrore = () => {
                                         ?.toLowerCase()
                                         .split(" ")
                                         .join("-")}-${
-                                        item?.match?.subtitle?.split(" ")?.[1]
+                                        item?.match?.competition?.type ===
+                                        "tournament"
+                                          ? `match-${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}`
+                                          : `${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}-${item?.match?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
                                       }-${item?.match?.competition?.title
                                         ?.toLowerCase()
                                         .split(" ")
@@ -972,7 +993,17 @@ const Livescrore = () => {
                                           ?.toLowerCase()
                                           .split(" ")
                                           .join("-")}-${
-                                          item?.match?.subtitle?.split(" ")?.[1]
+                                          item?.match?.competition?.type ===
+                                          "tournament"
+                                            ? `match-${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}`
+                                            : `${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}-${item?.match?.format_str
+                                                ?.toLowerCase()
+                                                ?.split(" ")
+                                                ?.join("-")}`
                                         }-${item?.match?.competition?.title
                                           ?.toLowerCase()
                                           .split(" ")
@@ -1072,14 +1103,19 @@ const Livescrore = () => {
                                             }/${item?.match?.short_title
                                               ?.toLowerCase()
                                               .split(" ")
-                                              .join("-")}-${getOrdinalSuffix(
-                                              item?.match?.match_number
-                                            )
-                                              ?.toLowerCase()
-                                              ?.split(" ")
-                                              .join(
-                                                "-"
-                                              )}-${item?.match?.competition?.title
+                                              .join("-")}-${
+                                              item?.match?.competition?.type ===
+                                              "tournament"
+                                                ? `match-${getOrdinalSuffix(
+                                                    item?.match?.match_number
+                                                  )}`
+                                                : `${getOrdinalSuffix(
+                                                    item?.match?.match_number
+                                                  )}-${item?.match?.format_str
+                                                    ?.toLowerCase()
+                                                    ?.split(" ")
+                                                    ?.join("-")}`
+                                            }-${item?.match?.competition?.title
                                               ?.toLowerCase()
                                               .split(" ")
                                               .join(
@@ -1661,11 +1697,12 @@ const Livescrore = () => {
                                                   4
                                                 )}`
                                               : `${competition?.datestart?.slice(
-                                                0,
-                                                4
-                                              )}-${competition?.dateend?.slice(
-                                                2,4
-                                              )}`}
+                                                  0,
+                                                  4
+                                                )}-${competition?.dateend?.slice(
+                                                  2,
+                                                  4
+                                                )}`}
                                           </span>
 
                                           <span>
@@ -1749,8 +1786,17 @@ const Livescrore = () => {
                                           ?.toLowerCase()
                                           .split(" ")
                                           .join("-")}-${
-                                          item?.subtitle?.split(" ")?.[1]
-                                        }-${item?.competition?.title
+                                        item?.competition?.type === "tournament"
+                                          ? `match-${getOrdinalSuffix(
+                                              item?.match_number
+                                            )}`
+                                          : `${getOrdinalSuffix(
+                                              item?.match_number
+                                            )}-${item?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
+                                      }-${item?.competition?.title
                                           ?.toLowerCase()
                                           .split(" ")
                                           .join(

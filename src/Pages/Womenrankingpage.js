@@ -100,7 +100,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "batting" ? "underline" : "none",
             }}
-            onClick={() =>{ setMainCategory("batting");  window.history.pushState({}, '', '/icc/women/batting');}}
+            onClick={() =>{ setMainCategory("batting");  window.history.pushState({}, '', '/icc-rankings/women/batting');}}
           >
             Batting
           </div>
@@ -109,7 +109,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "bowling" ? "underline" : "none",
             }}
-            onClick={() => { setMainCategory("bowling"); window.history.pushState({}, '', '/icc/women/bowling'); }}
+            onClick={() => { setMainCategory("bowling"); window.history.pushState({}, '', '/icc-rankings/bowling'); }}
           >
             Bowling
           </div>
@@ -118,7 +118,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "alr" ? "underline" : "none",
             }}
-            onClick={() =>{ setMainCategory("alr");  window.history.pushState({}, '', '/icc/women/alr'); setMainCategory("alr")}}
+            onClick={() =>{ setMainCategory("alr");  window.history.pushState({}, '', '/icc-rankings/women/all-rounder'); setMainCategory("alr")}}
           >
             All-rounders
           </div>
@@ -127,7 +127,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "teams" ? "underline" : "none",
             }}
-            onClick={() =>{     window.history.pushState({}, '', '/icc/women/teams') ;setMainCategory("teams")}}
+            onClick={() =>{     window.history.pushState({}, '', '/icc-rankings/women/teams') ;setMainCategory("teams")}}
           >
             Teams
           </div>

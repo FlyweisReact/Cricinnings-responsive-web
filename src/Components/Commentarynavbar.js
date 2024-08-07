@@ -157,7 +157,7 @@ const Commentarynavbar = () => {
                 .join("-");
               const matchNumber =
                 matchDetails?.match_number ||
-                matchDetails?.subtitle?.split("Match")?.[1]
+                matchDetails?.subtitle?.split("Match")?.[1];
               console.log(matchDetails?.subtitle?.split("Match")?.[1]);
               const matchSuffix =
                 matchDetails?.competition?.type === "tournament"
@@ -465,11 +465,10 @@ const Commentarynavbar = () => {
         </Link>
       </div> */}
 
-      {/\/commentry\//i.test(pathname) && (
+      {/\/live-cricket-scores\//i.test(pathname) && (
         <div
           style={{
             fontSize: "12px",
-            paddingLeft: "30px",
           }}
           className=" text-[#0F19AF] mt-2"
         >

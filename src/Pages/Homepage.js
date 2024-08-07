@@ -469,10 +469,16 @@ const Homepage = () => {
                           }/${item?.short_title
                             ?.toLowerCase()
                             .split(" ")
-                            .join("-")}-${getOrdinalSuffix(item?.match_number)
-                            ?.toLowerCase()
-                            ?.split(" ")
-                            .join("-")}-${item?.competition?.title
+                            .join("-")}-${
+                            item?.competition?.type === "tournament"
+                              ? `match-${getOrdinalSuffix(item?.match_number)}`
+                              : `${getOrdinalSuffix(
+                                  item?.match_number
+                                )}-${item?.format_str
+                                  ?.toLowerCase()
+                                  ?.split(" ")
+                                  ?.join("-")}`
+                          }-${item?.competition?.title
                             ?.toLowerCase()
                             .split(" ")
                             .join(
@@ -630,7 +636,9 @@ const Homepage = () => {
                               }/${item?.competition?.title
                                 ?.toLowerCase()
                                 ?.split(" ")
-                                ?.join("-")}-${item?.competition?.season}/matches`
+                                ?.join("-")}-${
+                                item?.competition?.season
+                              }/matches`
                             )
                           }
                         >
@@ -839,9 +847,7 @@ const Homepage = () => {
                         <p
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${
-                                item?.cid
-                              }/${item?.title
+                              `/cricket-series/${item?.cid}/${item?.title
                                 ?.toLowerCase()
                                 ?.split(" ")
                                 ?.join("-")}/matches`

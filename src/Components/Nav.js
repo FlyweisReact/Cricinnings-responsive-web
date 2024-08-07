@@ -529,9 +529,10 @@ const Nav = () => {
               }/${item?.short_title?.toLowerCase().split(" ").join("-")}-${
                 item?.competition?.type === "tournament"
                   ? `match-${getOrdinalSuffix(item?.match_number)}`
-                  : `${getOrdinalSuffix(
-                      item?.match_number
-                    )}-${item?.format_str?.toLowerCase()?.split(" ")?.join("-")}`
+                  : `${getOrdinalSuffix(item?.match_number)}-${item?.format_str
+                      ?.toLowerCase()
+                      ?.split(" ")
+                      ?.join("-")}`
               }-${item?.competition?.title
                 ?.toLowerCase()
                 .split(" ")
