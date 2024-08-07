@@ -10,6 +10,7 @@ import {
   AuthUrl,
   GetData,
   baseUrl,
+  formatTitle,
   getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
@@ -172,7 +173,7 @@ const Homepage = () => {
         },
       }
     );
-    
+
     setSliderData(response?.data?.response?.matches);
   };
 
@@ -448,7 +449,6 @@ const Homepage = () => {
     prevArrow: currentSlide === 0 ? null : <CustomPrevArrow />,
     beforeChange: (oldIndex, newIndex) => {
       setCurrentSlide(newIndex);
-      
     },
   };
 
@@ -466,10 +466,7 @@ const Homepage = () => {
                         navigate(
                           `/live-cricket-scores/${
                             item?.match_id
-                          }/${item?.short_title
-                            ?.toLowerCase()
-                            .split(" ")
-                            .join("-")}-${
+                          }/${formatTitle(item?.short_title)}-${
                             item?.competition?.type === "tournament"
                               ? `match-${getOrdinalSuffix(item?.match_number)}`
                               : `${getOrdinalSuffix(
@@ -478,12 +475,8 @@ const Homepage = () => {
                                   ?.toLowerCase()
                                   ?.split(" ")
                                   ?.join("-")}`
-                          }-${item?.competition?.title
-                            ?.toLowerCase()
-                            .split(" ")
-                            .join(
-                              "-"
-                            )}-${item?.competition?.season?.toLowerCase()}`
+                          }-${formatTitle(item?.competition?.title)
+                            }-${item?.competition?.season?.toLowerCase()}`
                         )
                       }
                       style={{ cursor: "pointer" }}
@@ -612,10 +605,7 @@ const Homepage = () => {
                               navigate(
                                 `/cricket-series/${
                                   item?.competition?.cid
-                                }/${item?.competition?.title
-                                  ?.toLowerCase()
-                                  ?.split(" ")
-                                  ?.join("-")}/points-table`
+                                }/${formatTitle(item?.competition?.title)}/points-table`
                               )
                             }
                           >
@@ -633,10 +623,8 @@ const Homepage = () => {
                             navigate(
                               `/cricket-series/${
                                 item?.competition?.cid
-                              }/${item?.competition?.title
-                                ?.toLowerCase()
-                                ?.split(" ")
-                                ?.join("-")}-${
+                              }/${formatTitle(item?.competition?.title
+                                )}-${
                                 item?.competition?.season
                               }/matches`
                             )
@@ -847,10 +835,7 @@ const Homepage = () => {
                         <p
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.cid}/${item?.title
-                                ?.toLowerCase()
-                                ?.split(" ")
-                                ?.join("-")}/matches`
+                              `/cricket-series/${item?.cid}/${formatTitle(item?.title)}/matches`
                             )
                           }
                         >

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 import { Table } from "react-bootstrap";
@@ -251,9 +251,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -278,9 +276,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -304,9 +300,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -329,9 +323,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -354,9 +346,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -379,9 +369,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -404,9 +392,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.player?.title
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.player?.pid}`
+                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                               )
                             }
                           >
@@ -446,9 +432,7 @@ const SeriesStats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title
-                              ?.split(" ")
-                              ?.join("-")}/${item?.player?.pid}`
+                            `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                           )
                         }
                       >
@@ -485,9 +469,7 @@ const SeriesStats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title
-                              ?.split(" ")
-                              ?.join("-")}/${item?.player?.pid}`
+                            `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
                           )
                         }
                       >

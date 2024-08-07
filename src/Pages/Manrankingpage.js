@@ -2,7 +2,7 @@ import topnews from "../Assets/Homepage/topnews.svg";
 import videoframe from "../Assets/Homepage/videoframe.svg";
 import men from "../Assets/Homepage/men.svg";
 import { useEffect, useState } from "react";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -212,9 +212,7 @@ const Manrankingpage = () => {
                                 <span
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-players/${item?.player
-                                        ?.split(" ")
-                                        ?.join("-")}/${item?.pid}`
+                                      `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                     )
                                   }
                                   style={{ fontWeight: "bold" }}
@@ -265,9 +263,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -318,9 +314,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -465,9 +459,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -518,9 +510,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -571,9 +561,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -718,9 +706,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -771,9 +757,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -824,9 +808,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -971,9 +953,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -1024,9 +1004,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >
@@ -1077,9 +1055,7 @@ const Manrankingpage = () => {
                                 }}
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.player
-                                      ?.split(" ")
-                                      ?.join("-")}/${item?.pid}`
+                                    `/cricket-players/${formatTitle(item?.player)}/${item?.pid}`
                                   )
                                 }
                               >

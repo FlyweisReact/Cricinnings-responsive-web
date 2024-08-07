@@ -4,6 +4,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  formatTitle,
   getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
@@ -853,10 +854,9 @@ const Livescrore = () => {
                                   navigate(
                                     `/live-cricket-scores/${
                                       item?.match?.match_id
-                                    }/${item?.match?.short_title
-                                      ?.toLowerCase()
-                                      .split(" ")
-                                      .join("-")}-${
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${
                                       item?.match?.competition?.type ===
                                       "tournament"
                                         ? `match-${getOrdinalSuffix(
@@ -868,12 +868,9 @@ const Livescrore = () => {
                                             ?.toLowerCase()
                                             ?.split(" ")
                                             ?.join("-")}`
-                                    }-${item?.match?.competition?.title
-                                      ?.toLowerCase()
-                                      .split(" ")
-                                      .join(
-                                        "-"
-                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                    }-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
                                   )
                                 }
                                 className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
@@ -912,10 +909,9 @@ const Livescrore = () => {
                                     navigate(
                                       `/live-cricket-scores/${
                                         item?.match?.match_id
-                                      }/${item?.match?.short_title
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join("-")}-${
+                                      }/${formatTitle(
+                                        item?.match?.short_title
+                                      )}-${
                                         item?.match?.competition?.type ===
                                         "tournament"
                                           ? `match-${getOrdinalSuffix(
@@ -927,12 +923,9 @@ const Livescrore = () => {
                                               ?.toLowerCase()
                                               ?.split(" ")
                                               ?.join("-")}`
-                                      }-${item?.match?.competition?.title
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join(
-                                          "-"
-                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      }-${formatTitle(
+                                        item?.match?.competition?.title
+                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
@@ -944,15 +937,11 @@ const Livescrore = () => {
                                     navigate(
                                       `/live-cricket-scorecard/${
                                         item?.match?.match_id
-                                      }/${item?.match?.teama?.short_name
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join(
-                                          "-"
-                                        )}-vs-${item?.match?.teamb?.short_name
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join("-")}-${
+                                      }/${formatTitle(
+                                        item?.match?.teama?.short_name
+                                      )}-vs-${formatTitle(
+                                        item?.match?.teamb?.short_name
+                                      )}-${
                                         item?.match?.competition?.type ===
                                         "tournament"
                                           ? `match-${getOrdinalSuffix(
@@ -964,12 +953,9 @@ const Livescrore = () => {
                                               ?.toLowerCase()
                                               ?.split(" ")
                                               ?.join("-")}`
-                                      }-${item?.match?.competition?.title
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join(
-                                          "-"
-                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      }-${formatTitle(
+                                        item?.match?.competition?.title
+                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
                                     );
                                   }}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
@@ -982,15 +968,11 @@ const Livescrore = () => {
                                       navigate(
                                         `/live-cricket-full-commentary/${
                                           item?.match?.match_id
-                                        }/${item?.match?.teama?.short_name
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join(
-                                            "-"
-                                          )}-vs-${item?.match?.teamb?.short_name
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join("-")}-${
+                                        }/${formatTitle(
+                                          item?.match?.teama?.short_name
+                                        )}-vs-${formatTitle(
+                                          item?.match?.teamb?.short_name
+                                        )}-${
                                           item?.match?.competition?.type ===
                                           "tournament"
                                             ? `match-${getOrdinalSuffix(
@@ -1002,12 +984,9 @@ const Livescrore = () => {
                                                 ?.toLowerCase()
                                                 ?.split(" ")
                                                 ?.join("-")}`
-                                        }-${item?.match?.competition?.title
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join(
-                                            "-"
-                                          )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                        }-${formatTitle(
+                                          item?.match?.competition?.title
+                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
                                       );
                                   }}
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
@@ -1098,10 +1077,7 @@ const Livescrore = () => {
                                           navigate(
                                             `/live-cricket-scores/${
                                               item?.match?.match_id
-                                            }/${item?.match?.short_title
-                                              ?.toLowerCase()
-                                              .split(" ")
-                                              .join("-")}-${
+                                            }/${formatTitle(item?.match?.short_title)}-${
                                               item?.match?.competition?.type ===
                                               "tournament"
                                                 ? `match-${getOrdinalSuffix(
@@ -1113,12 +1089,7 @@ const Livescrore = () => {
                                                     ?.toLowerCase()
                                                     ?.split(" ")
                                                     ?.join("-")}`
-                                            }-${item?.match?.competition?.title
-                                              ?.toLowerCase()
-                                              .split(" ")
-                                              .join(
-                                                "-"
-                                              )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                            }-${formatTitle(item?.match?.competition?.title)}-${item?.match?.competition?.season?.toLowerCase()}`
                                           )
                                         }
                                         className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center"
@@ -1174,10 +1145,7 @@ const Livescrore = () => {
                                     navigate(
                                       `/cricket-series/${
                                         item?.cid
-                                      }/${item?.title
-                                        ?.toLowerCase()
-                                        ?.split(" ")
-                                        ?.join("-")}/matches`
+                                      }/${formatTitle(item?.title)}/matches`
                                     )
                                   }
                                   key={item?._id}
@@ -1775,12 +1743,7 @@ const Livescrore = () => {
                                       navigate(
                                         `/live-cricket-scores/${
                                           item?.match_id
-                                        }/${item?.teama?.short_name
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join(
-                                            "-"
-                                          )}-vs-${item?.teamb?.short_name
+                                        }/${formatTitle(item?.teama?.short_name)}-vs-${item?.teamb?.short_name
                                           ?.toLowerCase()
                                           .split(" ")
                                           .join("-")}-${
@@ -1795,12 +1758,7 @@ const Livescrore = () => {
                                                 ?.toLowerCase()
                                                 ?.split(" ")
                                                 ?.join("-")}`
-                                        }-${item?.competition?.title
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join(
-                                            "-"
-                                          )}-${item?.competition?.season?.toLowerCase()}`
+                                        }-${formatTitle(item?.competition?.title)}-${item?.competition?.season?.toLowerCase()}`
                                       );
                                     }}
                                   >
@@ -1901,10 +1859,7 @@ const Livescrore = () => {
                                         navigate(
                                           `/cricket-series/${
                                             item?.cid
-                                          }/${item?.title
-                                            ?.toLowerCase()
-                                            ?.split(" ")
-                                            ?.join("-")}/matches`
+                                          }/${formatTitle(item?.title)}/matches`
                                         )
                                       }
                                     >
@@ -1953,10 +1908,7 @@ const Livescrore = () => {
                                       navigate(
                                         `/cricket-series/${
                                           item?.cid
-                                        }/${item?.title
-                                          ?.toLowerCase()
-                                          ?.split(" ")
-                                          ?.join("-")}/matches`
+                                        }/${formatTitle(item?.title)}/matches`
                                       )
                                     }
                                   >
@@ -2058,10 +2010,7 @@ const Livescrore = () => {
                                       navigate(
                                         `/cricket-series/${
                                           item?.cid
-                                        }/${item?.title
-                                          ?.toLowerCase()
-                                          ?.split(" ")
-                                          ?.join("-")}/matches`
+                                        }/${formatTitle(item?.title)}/matches`
                                       )
                                     }
                                   >

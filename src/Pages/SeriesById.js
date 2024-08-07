@@ -3,6 +3,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  formatTitle,
   getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
@@ -539,10 +540,7 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
-                    ?.toLowerCase()
-                    ?.split(" ")
-                    ?.join("-")}-${seriesDetails?.season}/matches`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/matches`
                 )
               }
             >
@@ -559,10 +557,7 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
-                    ?.toLowerCase()
-                    ?.split(" ")
-                    ?.join("-")}-${seriesDetails?.season}/squads`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/squads`
                 )
               }
             >
@@ -581,10 +576,7 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
-                    ?.toLowerCase()
-                    ?.split(" ")
-                    ?.join("-")}-${seriesDetails?.season}/points-table`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/points-table`
                 )
               }
             >
@@ -603,10 +595,7 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
-                    ?.toLowerCase()
-                    ?.split(" ")
-                    ?.join("-")}-${seriesDetails?.season}/stats`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/stats`
                 )
               }
             >
@@ -623,10 +612,7 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${seriesDetails?.title
-                    ?.toLowerCase()
-                    ?.split(" ")
-                    ?.join("-")}-${seriesDetails?.season}/venues`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/venues`
                 )
               }
             >
@@ -691,10 +677,7 @@ const SeriesById = () => {
                                     navigate(
                                       `/live-cricket-scores/${
                                         item?.match_id
-                                      }/${item?.short_title
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join("-")}-${getOrdinalSuffix(
+                                      }/${formatTitle(item?.short_title)}-${getOrdinalSuffix(
                                         item?.match_number
                                       )
                                         ?.toLowerCase()
@@ -1324,9 +1307,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${formatTitle(item?.title)}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1809,13 +1790,7 @@ const SeriesById = () => {
                                         <span
                                           onClick={() =>
                                             navigate(
-                                              `/live-cricket-scores/${item?.title
-                                                ?.split(" ")
-                                                ?.join(
-                                                  "-"
-                                                )}-${item?.competition?.title
-                                                ?.split(" ")
-                                                ?.join("-")}/commentry/${
+                                              `/live-cricket-scores/${formatTitle(item?.title)}-${formatTitle(item?.competition?.title)}/commentry/${
                                                 item?.match_id
                                               }`
                                             )
@@ -1866,9 +1841,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${formatTitle(item?.title)}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -2431,9 +2404,7 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${item?.title
-                                        ?.split(" ")
-                                        ?.join("-")}/${item?.cid}`
+                                      `/cricket-series/${formatTitle(item?.title)}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}

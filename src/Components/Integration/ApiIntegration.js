@@ -111,7 +111,7 @@ export const GetDataWithToken = async ({
 
 export const getOrdinalSuffix = (n) => {
   n = Number(n);
-  console.log(n);
+  
 
   if (isNaN(n)) {
     return "";
@@ -121,3 +121,13 @@ export const getOrdinalSuffix = (n) => {
   const v = n % 100;
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
+
+
+export const formatTitle=(title) =>{
+  return title
+    .toLowerCase()
+    .replace(/[^\w\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .trim();
+}
