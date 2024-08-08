@@ -966,6 +966,121 @@ const Scorecard = () => {
                           ))}
                         </tbody>
                       </table>
+                      <div className="mt-5 shadow-2xl">
+                      <div
+                        style={{ borderRadius: "10px 10px 0 0" }}
+                        className="bg-[#0F19AF] h-[45px] flex items-center text-white pl-2"
+                      >
+                        Match Info
+                      </div>
+
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Match
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.short_title}
+                          {","}
+                          {squadData?.subtitle}
+                          {","}
+                          {squadData?.competition?.title}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Series
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.competition?.title}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Date
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {formatDate11(squadData?.date_start)}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Time
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {formatDateTime(squadData?.date_start)}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Toss
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.toss?.text}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Venue
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.venue?.name} {","}
+                          {squadData?.venue?.location}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Umpires
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.umpires?.split(",")[0]}
+                          {","}
+                          {squadData?.umpires?.split(",")[1]}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          3rd Umpire
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.umpires?.split(",")[2]}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Referee
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.referee}
+                        </div>
+                      </div>
+                    </div>
                     </div>
                   </div>
                   <div>
@@ -1231,6 +1346,121 @@ const Scorecard = () => {
                           ))}
                         </tbody>
                       </table>
+                      <div className="mt-5 shadow-2xl">
+                      <div
+                        style={{ borderRadius: "10px 10px 0 0" }}
+                        className="bg-[#0F19AF] h-[45px] flex items-center text-white pl-2"
+                      >
+                        Match Info
+                      </div>
+
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Match
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.short_title}
+                          {","}
+                          {squadData?.subtitle}
+                          {","}
+                          {squadData?.competition?.title}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Series
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.competition?.title}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Date
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {formatDate11(squadData?.date_start)}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Time
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {formatDateTime(squadData?.date_start)}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Toss
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.toss?.text}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Venue
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.venue?.name} {","}
+                          {squadData?.venue?.location}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Umpires
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.umpires?.split(",")[0]}
+                          {","}
+                          {squadData?.umpires?.split(",")[1]}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          3rd Umpire
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.umpires?.split(",")[2]}
+                        </div>
+                      </div>
+                      <div className="flex justify-between border-b">
+                        <div
+                          className="text-slate-400 ml-2"
+                          style={{ color: "black", fontWeight: "bold" }}
+                        >
+                          Referee
+                        </div>
+                        <div className="text-slate-400 mr-2">
+                          {squadData?.referee}
+                        </div>
+                      </div>
+                    </div>
                     </div>
                   </div>
 
