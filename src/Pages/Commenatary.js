@@ -29,8 +29,8 @@ const Commenatary = () => {
       <div className="bg-[white] pl-2 pt-2">
         <Commentarynavbar />
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          
-          <img style={{ height: "96px" ,width:"100%"}} src={banner1?.image} alt="" />
+
+          <img style={{ height: "96px", width: "100%" }} src={banner1?.image} alt="" />
         </div>
         {/* <div className="text-xl text-slate-500">Player Of The Match</div>
         <div className="text-xl">Suresh Raina</div> */}
@@ -41,7 +41,7 @@ const Commenatary = () => {
         >
           <p>Comming Soon ...</p>
         </div>
-       
+
       </div>
     </div>
   );

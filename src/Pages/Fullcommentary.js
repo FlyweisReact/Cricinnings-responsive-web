@@ -72,11 +72,7 @@ const Fullcommentary = () => {
       <div className="bg-[white] pt-3">
         <Commentarynavbar matchDetails={matchDetails} />
         <div>
-          {/* <div
-            style={{ display: "grid", placeItems: "center", marginTop: "4rem" }}
-          >
-            <p>Comming Soon ...</p>
-          </div> */}
+        
           <div>
             <div>
 
@@ -92,9 +88,8 @@ const Fullcommentary = () => {
                           fontSize: "15px",
                           fontWeight: "bold",
                           padding: "1rem",
-                          backgroundColor: "#F6F7F7",
+                          backgroundColor: "#E1E0E1",
                           color: "700",
-                          borderRadius: "5px",
 
                         }}
                       >
@@ -121,6 +116,29 @@ const Fullcommentary = () => {
                         <span>{item?.commentary}</span>
                       </p>
                     )}
+                    {item?.six || item?.four &&(
+                      <p
+                        style={{
+                          fontSize: "14px",
+                          fontWeight: "bold",
+                          width:"30px",height:"30px",
+                          
+                          backgroundColor: "#D15CEF",
+                          color: "700",
+                          borderRadius: "50%",
+                          textAlign: "center",
+                          display:"grid",placeItems:"center",
+                          marginLeft:"1rem"
+
+                        }}
+                      >
+                        <span>
+
+                      {item?.six?"6":item?.four?"4":""}
+                        </span>
+                      </p>
+                    )}
+                    
                   </div>
                 ))}
               <div onClick={handleViewMore}>
