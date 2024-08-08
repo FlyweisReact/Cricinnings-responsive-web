@@ -835,10 +835,7 @@ const Livescrore = () => {
                                 <span className="text-slate-400">
                                   {item?.match?.title}
                                   {","}{" "}
-                                  {getOrdinalSuffix(
-                                    +item?.match?.subtitle?.split(" ")?.[1] ||
-                                      ""
-                                  )}{" "}
+                                  {item?.match?.subtitle}{" "}
                                 </span>
                               </div>
                               <div className="text-slate-400">
@@ -1004,116 +1001,184 @@ const Livescrore = () => {
                           );
                         })}
                       </div>
-                      {comp1?.map((item, index) => {
-                        if (index === 0) {
-                          return null;
-                        }
-                        return (
-                          <>
+                      {comp1?.matches?.map((item, index) => {
+                        if(index===0) return null;
+                          return (
                             <div
                               key={index}
-                              className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4"
+                              style={{ borderRadius: "10px" }}
+                              className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer"
                             >
-                              {item?.competition?.title}
-                            </div>
-                            <div className="flex flex-col gap-5 mt-5">
-                              {item?.matches?.map((item, index) => {
-                                return (
-                                  <div
-                                    key={index}
-                                    style={{
-                                      borderRadius: "10px",
-                                      boxShadow:
-                                        "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                    }}
-                                    className=" h-[300px] pt-2 pl-2  flex flex-col gap-2"
-                                  >
-                                    <div className="flex">
-                                      <span className="font-semibold"></span>
-                                      <span className="text-slate-400">{}</span>
+                              <div className="flex">
+                                <span className="font-semibold"></span>
+                                <span className="text-slate-400">
+                                  {item?.match?.title}
+                                  {","}{" "}
+                                  {item?.match?.subtitle}{" "}
+                                </span>
+                              </div>
+                              <div className="text-slate-400">
+                                {formatDateStringRkt(
+                                  item?.match?.date_start_ist
+                                )}{" "}
+                                at {item?.match?.venue?.name}
+                                {" ,"}
+                                {item?.match?.venue?.location}
+                              </div>
+                              <div
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scores/${
+                                      item?.match?.match_id
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${
+                                      item?.match?.competition?.type ===
+                                      "tournament"
+                                        ? `match-${getOrdinalSuffix(
+                                            item?.match?.match_number
+                                          )}`
+                                        : `${getOrdinalSuffix(
+                                            item?.match?.match_number
+                                          )}-${item?.match?.format_str
+                                            ?.toLowerCase()
+                                            ?.split(" ")
+                                            ?.join("-")}`
+                                    }-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
+                                className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
+                              >
+                                {}
+                                <div
+                                  style={{ padding: "0.5rem 1rem" }}
+                                  className="flex items-center gap-[6rem] "
+                                >
+                                  <div>
+                                    <div className="flex gap-5 text-white">
+                                      <span>{item?.match?.teama?.name}</span>
+                                      <span>
+                                        {item?.match?.teama?.scores_full}
+                                      </span>
                                     </div>
-                                    <div className="text-slate-400">
-                                      {item?.match?.date_start
-                                        ?.split("T")?.[0]
-                                        ?.split("-")
-                                        ?.reverse()
-                                        ?.join("-")}
-                                      at {item?.match?.venue?.name}
-                                      {" ,"}
-                                      {item?.match?.venue?.location}
+                                    <div className="flex gap-7 text-white">
+                                      <span>{item?.match?.teamb?.name}</span>
+                                      <span>
+                                        {item?.match?.teamb?.scores_full}
+                                      </span>
                                     </div>
-                                    <div className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center">
-                                      <div className="flex items-center gap-[6rem] ">
-                                        <div>
-                                          <div className="flex gap-5 text-white">
-                                            <span>
-                                              {item?.match?.teama?.name}
-                                            </span>
-                                            <span>
-                                              {item?.match?.teama?.scores_full}
-                                            </span>
-                                          </div>
-                                          <div className="flex gap-7 text-white">
-                                            <span>
-                                              {item?.match?.teamb?.name}
-                                            </span>
-                                            <span>
-                                              {item?.match?.teamb?.scores_full}
-                                            </span>
-                                          </div>
-                                          <div className="text-slate-300">
-                                            {getWinningTeamName(item)} won by{" "}
-                                            {item?.match?.win_margin}
-                                          </div>
-                                        </div>
-                                        <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                          <IoCaretForwardOutline />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="flex ">
-                                      <div
-                                        onClick={() =>
-                                          navigate(
-                                            `/live-cricket-scores/${
-                                              item?.match?.match_id
-                                            }/${formatTitle(item?.match?.short_title)}-${
-                                              item?.match?.competition?.type ===
-                                              "tournament"
-                                                ? `match-${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}`
-                                                : `${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}-${item?.match?.format_str
-                                                    ?.toLowerCase()
-                                                    ?.split(" ")
-                                                    ?.join("-")}`
-                                            }-${formatTitle(item?.match?.competition?.title)}-${item?.match?.competition?.season?.toLowerCase()}`
-                                          )
-                                        }
-                                        className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center"
-                                      >
-                                        Live Score
-                                      </div>
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                        Scorecard
-                                      </div>
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                        Full Commentary
-                                      </div>
-                                      <div className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center">
-                                        News
-                                      </div>
+                                    <div className="text-slate-300">
+                                      {getWinningTeamName(item)} won by{" "}
+                                      {item?.match?.win_margin}
                                     </div>
                                   </div>
-                                );
-                              })}
-                              {}
+                                  <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                    <IoCaretForwardOutline />
+                                  </div>
+                                </div>
+                              </div>
+                              <div className="flex ">
+                                <div
+                                  onClick={() =>
+                                    navigate(
+                                      `/live-cricket-scores/${
+                                        item?.match?.match_id
+                                      }/${formatTitle(
+                                        item?.match?.short_title
+                                      )}-${
+                                        item?.match?.competition?.type ===
+                                        "tournament"
+                                          ? `match-${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}`
+                                          : `${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}-${item?.match?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
+                                      }-${formatTitle(
+                                        item?.match?.competition?.title
+                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                    )
+                                  }
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
+                                >
+                                  Live Score
+                                </div>
+                                <div
+                                  onClick={() => {
+                                    navigate(
+                                      `/live-cricket-scorecard/${
+                                        item?.match?.match_id
+                                      }/${formatTitle(
+                                        item?.match?.teama?.short_name
+                                      )}-vs-${formatTitle(
+                                        item?.match?.teamb?.short_name
+                                      )}-${
+                                        item?.match?.competition?.type ===
+                                        "tournament"
+                                          ? `match-${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}`
+                                          : `${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}-${item?.match?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
+                                      }-${formatTitle(
+                                        item?.match?.competition?.title
+                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                    );
+                                  }}
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
+                                >
+                                  Scorecard
+                                </div>
+                                <div
+                                  onClick={() => {
+                                    item?.match?.match_id &&
+                                      navigate(
+                                        `/live-cricket-full-commentary/${
+                                          item?.match?.match_id
+                                        }/${formatTitle(
+                                          item?.match?.teama?.short_name
+                                        )}-vs-${formatTitle(
+                                          item?.match?.teamb?.short_name
+                                        )}-${
+                                          item?.match?.competition?.type ===
+                                          "tournament"
+                                            ? `match-${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}`
+                                            : `${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}-${item?.match?.format_str
+                                                ?.toLowerCase()
+                                                ?.split(" ")
+                                                ?.join("-")}`
+                                        }-${formatTitle(
+                                          item?.match?.competition?.title
+                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      );
+                                  }}
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
+                                >
+                                  Full Commentary
+                                </div>
+                                <div
+                                  onClick={() => navigate(`/cricket-news`)}
+                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
+                                >
+                                  News
+                                </div>
+                              </div>
                             </div>
-                          </>
-                        );
-                      })}
+                          );
+                        })}
                     </div>
 
                     <div className="w-[250px]">

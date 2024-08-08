@@ -46,7 +46,7 @@ const Fullcommentary = () => {
       const reverseData = res?.data?.commentaries?.reverse();
       setCommentaryData({ ...res?.data, commentaries: reverseData });
     } catch (error) {
-      
+
     }
   };
 
@@ -69,7 +69,7 @@ const Fullcommentary = () => {
   };
   return (
     <div className="">
-      <div className="bg-[white] pl-2 pt-2 pr-2">
+      <div className="bg-[white] pt-3">
         <Commentarynavbar matchDetails={matchDetails} />
         <div>
           {/* <div
@@ -79,9 +79,9 @@ const Fullcommentary = () => {
           </div> */}
           <div>
             <div>
-              
+
             </div>
-            <div style={{ padding: "1rem" }}>
+            <div >
               {commentaryData?.commentaries
                 ?.slice(0, itemsToShow)
                 .map((item, index) => (
@@ -89,61 +89,29 @@ const Fullcommentary = () => {
                     {item?.event === "overend" ? (
                       <p
                         style={{
-                          fontSize: "20px",
+                          fontSize: "15px",
                           fontWeight: "bold",
-                          padding: "0.5rem 0.5rem",
-                          backgroundColor: "#0E19AE",
-                          color: "white",
+                          padding: "1rem",
+                          backgroundColor: "#F6F7F7",
+                          color: "700",
                           borderRadius: "5px",
-                          display: "flex",
-                          gap: "2rem",
-                          alignItems: "center",
-                          gap: "1rem",
+
                         }}
                       >
-                        <span
-                          style={{
-                            borderRight: "1px solid white",
-                            marginLeft: "0.5rem",
-                            paddingRight: "0.5rem",
-                          }}
-                        >
-                          {item?.over}
-                        </span>
-                        <span
-                          style={{
-                            display: "flex",
-                            alignItems: "center",
-                            paddingRight: "0.8rem",
-                            borderRight: "1px solid white",
-                            flexDirection: "column",
-                            fontSize: "15px",
-                          }}
-                        >
-                          <span>Runs Scored : {item?.runs}</span>
-                          <span>
-                            {" "}
-                            {item.bowls.map((bowler, i) => (
-                              <p
-                                style={{ display: "flex", gap: "0.5rem" }}
-                                key={i}
-                              >
-                                <span> M {bowler.maidens}</span>
-                                <span> RC {bowler.runs_conceded}</span>
-                                <span> W {bowler.wickets}</span>
-                              </p>
-                            ))}
-                          </span>
-                        </span>
-                        <span></span>
+
+                        <p>Overs {item?.over}{" "}Runs {item?.runs}{console.log(item)}</p>
+                        <p>{item?.commentary}</p>
                       </p>
+
+
                     ) : (
-                      <p style={{ display: "flex", gap: "2.5rem" }}>
+                      <p style={{ display: "flex", gap: "2.5rem",alignItems:"center" }}>
                         <span
                           style={{
                             color: "black",
                             fontSize: "18px",
                             fontWeight: "bold",
+                            padding: "1rem",
                           }}
                         >
                           {item?.over}
