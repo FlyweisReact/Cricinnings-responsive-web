@@ -145,30 +145,30 @@ const Scorecard = () => {
     return `${extraRuns.total} (${formattedValues.join(", ")})`;
   }
 
-  const  convertScoreFormat=(scores_full)=> {
-  const regex = /^(\d+)\/(\d+) \((\d+) ov\)$/;
-  const match = scores_full.match(regex);
+  const convertScoreFormat = (scores_full) => {
+    const regex = /^(\d+)\/(\d+) \((\d+) ov\)$/;
+    const match = scores_full.match(regex);
 
-  if (match) {
-    const runs = match[1];
-    const wickets = match[2];
-    const overs = match[3];
+    if (match) {
+      const runs = match[1];
+      const wickets = match[2];
+      const overs = match[3];
 
-    return `${runs}-${wickets} (${overs} Ov)`;
-  } else {
-    return "Invalid score format";
+      return `${runs}-${wickets} (${overs} Ov)`;
+    } else {
+      return "Invalid score format";
+    }
   }
-}
 
   useEffect(() => {
     getSquadData();
   }, []);
   return (
     <div className="">
-      
+
       <div className="bg-[white] pl-2 pt-2">
         <Commentarynavbar />
-      
+
         <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
           <img
             style={{ height: "96px", width: "100%" }}
@@ -177,11 +177,11 @@ const Scorecard = () => {
           />
         </div>
         <div>
-  
-  <p style={{color:"#1995EB",fontWeight:"bold",marginLeft:"1rem",marginTop:"1rem"}}>
-    {squadData?.result && <span>{squadData?.status_note}</span>}
-  </p>
-</div>
+
+          <p style={{ color: "#1995EB", fontWeight: "bold", marginLeft: "1rem", marginTop: "1rem" }}>
+            {squadData?.result && <span>{squadData?.status_note}</span>}
+          </p>
+        </div>
       </div>
 
       <div className="bg-white pb-5  ">
@@ -189,7 +189,7 @@ const Scorecard = () => {
           <div>
             <div>
 
-              {squadData?.latest_inning_number === 2 || squadData?.latest_inning_number === 3 && (
+              {(squadData?.latest_inning_number === 2 || squadData?.latest_inning_number === 3) && (
                 <>
                   <div>
                     <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
@@ -198,7 +198,7 @@ const Scorecard = () => {
                           {squadData?.innings?.[1]?.name}
                         </div>
                         <div className="mr-2">
-                          {console.log(squadData,"BOSS")}
+                          {console.log(squadData, "BOSS")}
                           {convertScoreFormat(squadData?.innings?.[1]?.scores_full)}
                           {/* {squadData?.innings?.[1]?.scores_full} */}
                         </div>
@@ -265,7 +265,7 @@ const Scorecard = () => {
                         <div className="flex  justify-between w-[550px]">
                           <div className="text-slate-400">TOTAL</div>
                           <div className=" flex">
-                          {convertScoreFormat(squadData?.innings?.[0]?.scores_full)}
+                            {convertScoreFormat(squadData?.innings?.[0]?.scores_full)}
                             {/* {(squadData?.innings?.[0]?.scores_full)} */}
                           </div>
                         </div>
@@ -1500,7 +1500,7 @@ const Scorecard = () => {
               )}
             </div>
           </div>
-          <div className="w-[250px] ">
+          {(squadData?.latest_inning_number === 0 || squadData?.latest_inning_number === 1 || squadData?.latest_inning_number === 2 || squadData?.latest_inning_number === 3) && <div className="w-[250px] ">
             {banner1 && (
               <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
                 <img
@@ -1538,7 +1538,7 @@ const Scorecard = () => {
                 />
               </div>
             )}
-          </div>
+          </div>}
         </div>
       </div>
     </div>
