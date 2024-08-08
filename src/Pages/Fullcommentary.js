@@ -72,7 +72,7 @@ const Fullcommentary = () => {
       <div className="bg-[white] pt-3">
         <Commentarynavbar matchDetails={matchDetails} />
         <div>
-        
+
           <div>
             <div>
 
@@ -94,13 +94,13 @@ const Fullcommentary = () => {
                         }}
                       >
 
-                        <p>Overs {item?.over}{" "}Runs {item?.runs}{console.log(item)}</p>
+                        <p>Overs {item?.over}{" "}Runs {item?.runs}</p>
                         <p>{item?.commentary}</p>
                       </p>
 
 
                     ) : (
-                      <p style={{ display: "flex", gap: "2.5rem",alignItems:"center" }}>
+                      <p style={{ display: "flex", gap: "2.5rem", alignItems: "center" }}>
                         <span
                           style={{
                             color: "black",
@@ -116,29 +116,29 @@ const Fullcommentary = () => {
                         <span>{item?.commentary}</span>
                       </p>
                     )}
-                    {item?.six || item?.four &&(
+                    {item?.six || item?.four && (
                       <p
                         style={{
                           fontSize: "14px",
                           fontWeight: "bold",
-                          width:"30px",height:"30px",
-                          
+                          width: "30px", height: "30px",
+
                           backgroundColor: "#D15CEF",
-                          color: "700",
+                          color: "white",
                           borderRadius: "50%",
                           textAlign: "center",
-                          display:"grid",placeItems:"center",
-                          marginLeft:"1rem"
+                          display: "grid", placeItems: "center",
+                          marginLeft: "1rem"
 
                         }}
                       >
                         <span>
 
-                      {item?.six?"6":item?.four?"4":""}
+                          {item?.six ? "6" : item?.four ? "4" : ""}
                         </span>
                       </p>
                     )}
-                    
+
                   </div>
                 ))}
               <div onClick={handleViewMore}>
