@@ -1010,7 +1010,7 @@ const Livescrore = () => {
                                   {item?.competition?.title}
                                   {","}{" "}
                                   {item?.competition?.season ||
-                                    item?.matches?.match?.competition?.season}
+                                    item?.matches?.[0]?.match?.competition?.season}
                                 </div>
                               </>
                             )}
