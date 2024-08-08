@@ -411,7 +411,7 @@ const Livescrore = () => {
     const current_year = new Date().getFullYear();
     const res = await axios
       .get(
-        `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&paged=1'&status=live&category=${category}`
+        `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&status=live&paged=1&category=${category}`
       )
       .then((res) => {
         setCompetationsType(res?.data?.response?.competitionsByMonthAndYear);
@@ -892,9 +892,8 @@ const Livescrore = () => {
                                     </div>
                                     <div className="text-slate-300">
                                       {getWinningTeamName(item)} {" "}
-                                      {item?.match?.win_margin ? ` won by ${
-                                        item?.match?.win_margin 
-                                      }` : "N/A"}
+                                      {item?.match?.win_margin ? ` won by ${item?.match?.win_margin
+                                        }` : "N/A"}
                                     </div>
                                   </div>
                                   <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
@@ -1794,6 +1793,7 @@ const Livescrore = () => {
                                   marginBottom: "10px",
                                 }}
                               >
+                                {console.log(item)}
                                 <p
                                   style={{
                                     fontWeight: "bold",
@@ -1831,8 +1831,9 @@ const Livescrore = () => {
                                     }}
                                   >
                                     <span style={{ color: "black" }}>
-                                      {item?.short_title}, {item?.format_str},{" "}
-                                      {item?.date_start?.slice(0, 10)}
+                                      {item?.teama?.name && item?.teamb?.name ? `${item.teama.name} vs ${item.teamb.name}` : 'Match details not available'}
+                                      ,{" "}{item?.subtitle}{" "} {item?.format_str === "Test" && "," + " " + "Day" + " " + item?.day}
+                                      {/* {item?.date_start?.slice(0, 10)} */}
                                     </span>
                                     <span style={{ color: "#707071" }}>
                                       {item?.venue?.name?.split(",")?.[0]},{" "}

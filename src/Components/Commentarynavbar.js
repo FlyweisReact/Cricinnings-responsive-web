@@ -80,8 +80,7 @@ const Commentarynavbar = () => {
         <p
           onClick={() =>
             navigate(
-              `/cricket-series/${
-                matchDetails?.competition?.cid
+              `/cricket-series/${matchDetails?.competition?.cid
               }/${matchDetails?.competition?.title
                 ?.toLowerCase()
                 ?.split(" ")
@@ -96,16 +95,15 @@ const Commentarynavbar = () => {
           {matchDetails?.statue === 3
             ? "Live"
             : matchDetails?.statue === 1
-            ? "Match Not Started Yet"
-            : ""}{" "}
+              ? "Match Not Started Yet"
+              : ""}{" "}
         </p>
       </div>
       <div className="flex justify-between mt-3">
         <div
           onClick={() =>
             navigate(
-              `/cricket-series/${
-                matchDetails?.competition?.cid
+              `/cricket-series/${matchDetails?.competition?.cid
               }/${matchDetails?.competition?.title
                 ?.toLowerCase()
                 ?.split(" ")
@@ -120,7 +118,7 @@ const Commentarynavbar = () => {
           }}
           className="text-slate-500"
         >
-          Series: 
+          Series:
           {matchDetails?.competition?.title +
             "," +
             " " +
@@ -163,8 +161,8 @@ const Commentarynavbar = () => {
                 matchDetails?.competition?.type === "tournament"
                   ? `match-${getOrdinalSuffix(matchDetails?.match_number)}`
                   : `${getOrdinalSuffix(
-                      +matchNumber
-                    )}-${matchDetails?.format_str?.toLowerCase()}`;
+                    +matchNumber
+                  )}-${matchDetails?.format_str?.toLowerCase()}`;
               const competitionTitle = matchDetails?.competition?.title
                 ?.toLowerCase()
                 .split(" ")
@@ -197,16 +195,14 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-scorecard/${
-                  matchDetails?.match_id
+                `/live-cricket-scorecard/${matchDetails?.match_id
                 }/${matchDetails?.teama?.short_name
                   ?.toLowerCase()
                   .split(" ")
                   .join("-")}-vs-${matchDetails?.teamb?.short_name
-                  ?.toLowerCase()
-                  .split(" ")
-                  .join("-")}-${
-                  matchDetails?.subtitle?.split(" ")?.[1]
+                    ?.toLowerCase()
+                    .split(" ")
+                    .join("-")}-${matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
                   .split(" ")
@@ -235,16 +231,14 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-match-squads/${
-                  matchDetails?.match_id
+                `/cricket-match-squads/${matchDetails?.match_id
                 }/${matchDetails?.teama?.short_name
                   ?.toLowerCase()
                   .split(" ")
                   .join("-")}-vs-${matchDetails?.teamb?.short_name
-                  ?.toLowerCase()
-                  .split(" ")
-                  .join("-")}-${
-                  matchDetails?.subtitle?.split(" ")?.[1]
+                    ?.toLowerCase()
+                    .split(" ")
+                    .join("-")}-${matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
                   .split(" ")
@@ -290,16 +284,14 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/live-cricket-full-commentary/${
-                  matchDetails?.match_id
+                `/live-cricket-full-commentary/${matchDetails?.match_id
                 }/${matchDetails?.teama?.short_name
                   ?.toLowerCase()
                   .split(" ")
                   .join("-")}-vs-${matchDetails?.teamb?.short_name
-                  ?.toLowerCase()
-                  .split(" ")
-                  .join("-")}-${
-                  matchDetails?.subtitle?.split(" ")?.[1]
+                    ?.toLowerCase()
+                    .split(" ")
+                    .join("-")}-${matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
                   .split(" ")
@@ -341,13 +333,11 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-series/${
-                  matchDetails?.competition?.cid
+                `/cricket-series/${matchDetails?.competition?.cid
                 }/${matchDetails?.competition?.title
                   ?.toLowerCase()
                   ?.split(" ")
-                  ?.join("-")}-${
-                  matchDetails?.competition?.season
+                  ?.join("-")}-${matchDetails?.competition?.season
                 }/points-table`
               );
           }}
@@ -366,16 +356,14 @@ const Commentarynavbar = () => {
           onClick={() => {
             matchDetails?.match_id &&
               navigate(
-                `/cricket-match-facts/${
-                  matchDetails?.match_id
+                `/cricket-match-facts/${matchDetails?.match_id
                 }/${matchDetails?.teama?.short_name
                   ?.toLowerCase()
                   .split(" ")
                   .join("-")}-vs-${matchDetails?.teamb?.short_name
-                  ?.toLowerCase()
-                  .split(" ")
-                  .join("-")}-${
-                  matchDetails?.subtitle?.split(" ")?.[1]
+                    ?.toLowerCase()
+                    .split(" ")
+                    .join("-")}-${matchDetails?.subtitle?.split(" ")?.[1]
                 }-${matchDetails?.competition?.title
                   ?.toLowerCase()
                   .split(" ")
@@ -470,10 +458,11 @@ const Commentarynavbar = () => {
           style={{
             fontSize: "12px",
           }}
-          className=" text-[#0F19AF] mt-2"
+          className=" text-[#0F19AF] mt-2 ml-6"
         >
-          <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
-            <span>{matchDetails?.teama?.name}</span>{" "}
+          <p style={{ color: "#666666", fontSize: "20px", fontWeight: "bold" }}>
+            {console.log(matchDetails)}
+            <span>{matchDetails?.teama?.short_name}</span>{" "}
             <span>
               {matchDetails?.teama?.scores}
               {matchDetails?.teama?.overs && (
@@ -481,8 +470,8 @@ const Commentarynavbar = () => {
               )}{" "}
             </span>
           </p>
-          <p style={{ color: "black", fontSize: "20px", fontWeight: "bold" }}>
-            <span>{matchDetails?.teamb?.name}</span>{" "}
+          <p style={{ color: "#222222", fontSize: "20px", fontWeight: "bold" }}>
+            <span>{matchDetails?.teamb?.short_name}</span>{" "}
             <span>
               {matchDetails?.teamb?.scores}
               {matchDetails?.teamb?.overs && (
@@ -490,6 +479,32 @@ const Commentarynavbar = () => {
               )}{" "}
             </span>
           </p>
+          {/\/live-cricket-scores\//i.test(pathname) && (
+            <div className="ml-2 mb-1">
+              {matchDetails?.status === 2 && matchDetails?.status_note}
+              <div className="d-flex gap-4 ">
+
+                {squadData?.man_of_the_match && (
+                  <p className="CommentartyData1">
+                    Man of the match :{" "}
+                    <span className="CommentartyData2">
+                      {" "}
+                      {squadData?.man_of_the_match?.name}
+                    </span>
+                  </p>
+                )}
+                {squadData?.man_of_the_series && (
+                  <p className="CommentartyData1">
+                    Man of the series :{" "}
+                    <span className="CommentartyData2">
+                      {" "}
+                      {squadData?.man_of_the_series}
+                    </span>
+                  </p>
+                )}
+              </div>
+            </div>
+          )}
 
           <div>
             <div style={{ width: "400px" }}>
@@ -585,8 +600,8 @@ const Commentarynavbar = () => {
                           {item?.role_str === "(WK)"
                             ? "(WK)"
                             : item?.role_str === "(C)"
-                            ? "(C)"
-                            : ""}{" "}
+                              ? "(C)"
+                              : ""}{" "}
                           {item.name}
                         </td>
                         <td>{item.how_out}</td>
@@ -602,6 +617,7 @@ const Commentarynavbar = () => {
                   </tbody>
                 </table>
               </div>
+
               {matchData1?.status !== 1 && (
                 <div>
                   <table className="m-2">
@@ -695,8 +711,8 @@ const Commentarynavbar = () => {
                             {item?.role_str === "(WK)"
                               ? "(WK)"
                               : item?.role_str === "(C)"
-                              ? "(C)"
-                              : ""}{" "}
+                                ? "(C)"
+                                : ""}{" "}
                             {item.name}
                           </td>
                           <td></td>
@@ -715,31 +731,7 @@ const Commentarynavbar = () => {
           </div>
         </div>
       )}
-      {/\/scorecard\//i.test(pathname) && (
-        <div>
-          {matchDetails?.status === 2 && matchDetails?.status_note}
-          <div className="d-flex gap-2">
-            {squadData?.man_of_the_match && (
-              <p className="CommentartyData1">
-                Man of the match :{" "}
-                <span className="CommentartyData2">
-                  {" "}
-                  {squadData?.man_of_the_match?.name}
-                </span>
-              </p>
-            )}
-            {squadData?.man_of_the_series && (
-              <p className="CommentartyData1">
-                Man of the series :{" "}
-                <span className="CommentartyData2">
-                  {" "}
-                  {squadData?.man_of_the_series?.name}
-                </span>
-              </p>
-            )}
-          </div>
-        </div>
-      )}
+
     </div>
   );
 };

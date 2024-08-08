@@ -502,7 +502,7 @@
 }
 
 .CommentartyData1 {
-  font-size: 12px;
+  font-size: 15px;
   color: rgb(102, 102, 102);
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   line-height: 18px;
@@ -515,7 +515,7 @@
   text-decoration: underline solid rgb(34, 34, 34);
   outline: rgb(34, 34, 34) none 0px;
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
-  font-size: 14px;
+  font-size: 17px;
   line-height: 21px;
   background: none 0% 0% / auto repeat scroll padding-box border-box
     rgb(255, 255, 255);
