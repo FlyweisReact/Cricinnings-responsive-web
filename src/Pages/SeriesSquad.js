@@ -78,7 +78,7 @@ const SeriesSquad = () => {
                       onClick={() => setFilterByteamId(item?.team?.tid)}
                       className="statsDivSpantag"
                     >
-                      {item?.title}
+                      {item?.title} {item?.format_str}
                     </span>
                   );
                 })}
@@ -212,7 +212,7 @@ const SeriesSquad = () => {
                   }}
                   className="pl-1"
                 >
-                Wicket Keeper
+                  Wicket Keeper
                 </p>
                 <div
                   style={{

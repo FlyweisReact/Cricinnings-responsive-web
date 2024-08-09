@@ -83,7 +83,7 @@ export const GetData = async (path) => {
     const res = await axios.get(`${baseUrl}${path}`);
 
     return res?.data;
-  } catch (error) {}
+  } catch (error) { }
 };
 
 export const GetDataWithToken = async ({
@@ -142,7 +142,6 @@ function convertToOrdinal1(number) {
   const n = parseInt(number, 10);
   const suffixes = ["th", "st", "nd", "rd"];
   const mod100 = n % 100;
-  return `${n}${
-    suffixes[(mod100 - 20) % 10] || suffixes[mod100] || suffixes[0]
-  }`;
+  return `${n}${suffixes[(mod100 - 20) % 10] || suffixes[mod100] || suffixes[0]
+    }`;
 }

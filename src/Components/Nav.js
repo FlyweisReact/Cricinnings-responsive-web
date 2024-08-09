@@ -128,7 +128,7 @@ const Nav = () => {
       <nav>
         <div className="navBar">
           <div className="navBar_content">
-            <div>
+          <div>
               <img
                 onClick={() => navigate("/")}
                 className="logo"
@@ -141,7 +141,7 @@ const Nav = () => {
                 <p
                 // onClick={() => navigate("/Livescrore")}
                 >
-                  Live Scores
+               <span style={{fontSize:"8px",marginBottom:"8px"}}>🔴</span>Live Scores
                 </p>
               </a>
               <a href="/cricket-schedule/upcoming-series/international">

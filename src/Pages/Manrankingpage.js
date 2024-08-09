@@ -23,7 +23,7 @@ const Manrankingpage = () => {
   const [teamRankings, setTeamRankings] = useState([]);
   const [mainCategory, setMainCategory] = useState("batting");
   const [currentCategory, setCurrentCategory] = useState("test");
-  const navigate=useNavigate();
+  const navigate = useNavigate();
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
@@ -41,7 +41,9 @@ const Manrankingpage = () => {
     setT20s(res?.data?.rankingData?.ranks?.teams?.t20s);
     setTest(res?.data?.rankingData?.ranks?.teams?.tests);
     setTeamRankings(res?.response?.items);
+
   };
+  
 
   useEffect(() => {
     getAllTeamRankingsData();
@@ -54,10 +56,10 @@ const Manrankingpage = () => {
           {mainCategory === "batting"
             ? "Batsmen"
             : mainCategory === "bowling"
-            ? "Bowling"
-            : mainCategory === "alr"
-            ? "All-rounders"
-            : "Team"}{" "}
+              ? "Bowling"
+              : mainCategory === "alr"
+                ? "All-rounders"
+                : "Team"}{" "}
         </div>
         <div className="flex gap-5 mt-3">
           <div

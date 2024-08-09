@@ -4,6 +4,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  convertStringFormat,
   formatTitle,
   getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
@@ -18,8 +19,8 @@ const Livescrore = () => {
     location.pathname === "/live-cricket-scores/Schedule"
       ? "Match Day By Day"
       : location.pathname === "/live-cricket-scores/Allseries"
-      ? "Current & Future Series"
-      : "Current Matches";
+        ? "Current & Future Series"
+        : "Current Matches";
   const [selectedDiv, setSelectedDiv] = useState(initialLocation);
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
@@ -74,14 +75,14 @@ const Livescrore = () => {
 
     const winningTeamId = match?.match?.winning_team_id;
 
-    if (!winningTeamId) return "No winner yet";
+    // if (!winningTeamId) return "No winner yet";
 
     if (match?.match?.teama?.team_id === winningTeamId) {
       return match?.match?.teama?.name;
     } else if (match?.match?.teamb?.team_id === winningTeamId) {
       return match?.match?.teamb?.name;
     } else {
-      return "Unknown";
+      return "";
     }
   };
 
@@ -186,9 +187,8 @@ const Livescrore = () => {
     hours = hours % 12 || 12;
 
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${month} ${
-      day < 10 ? "0" + day : day
-    } • ${hours}:${formattedMinutes} ${ampm}`;
+    return `${month} ${day < 10 ? "0" + day : day
+      } • ${hours}:${formattedMinutes} ${ampm}`;
   };
 
   const getAllSeriesData = async () => {
@@ -198,7 +198,7 @@ const Livescrore = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getAllHomePageBanners = async () => {
@@ -387,7 +387,7 @@ const Livescrore = () => {
       .then((res) => {
         setNewMatchData(res?.data?.response?.matches);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   useEffect(() => {
@@ -405,7 +405,7 @@ const Livescrore = () => {
       .then((res) => {
         setComp1(res?.data?.response);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   const getAllCompetationsType = async () => {
     const current_year = new Date().getFullYear();
@@ -414,9 +414,10 @@ const Livescrore = () => {
         `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&status=mixed&paged=1&category=${category}`
       )
       .then((res) => {
-        setCompetationsType(res?.data?.response?.competitionsByMonthAndYear);
+        const reverseData = res?.data?.response?.competitionsByMonthAndYear?.reverse();
+        setCompetationsType(reverseData);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   const [seriesArchiveInternation, setSeriesArchiveInternation] = useState([]);
@@ -433,16 +434,20 @@ const Livescrore = () => {
       )
       .then((res) => {
         if (currentCategory === "international") {
-          setSeriesArchiveInternation(res?.data?.response?.items);
+          const reverseData = res?.data?.response?.items?.reverse();
+          setSeriesArchiveInternation(reverseData);
         } else if (currentCategory === "domestic") {
-          setSeriesArchiveDomestic(res?.data?.response?.items);
+          const reverseData2 = res?.data?.response?.items?.reverse();
+          setSeriesArchiveDomestic(reverseData2);
         } else if (currentCategory === "youth") {
-          setSeriesArchiveYouth(res?.data?.response?.items);
+          const reverseData3 = res?.data?.response?.items?.reverse();
+          setSeriesArchiveYouth(reverseData3);
         } else if (currentCategory === "women") {
-          setSeriesArchiveWomen(res?.data?.response?.items);
+          const reverseData4 = res?.data?.response?.items?.reverse();
+          setSeriesArchiveWomen(reverseData4);
         }
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
   useEffect(() => {
@@ -518,10 +523,10 @@ const Livescrore = () => {
       .then((res) => {
         setCurrentMatches(res?.response?.items);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => { }, []);
 
   const getAllSpecialBanners = () => {
     GetData("userAuth/getSpecials").then((res) => {
@@ -537,7 +542,7 @@ const Livescrore = () => {
       .then((res) => {
         setCurrentSeries(res?.response?.items);
       })
-      .catch((err) => {});
+      .catch((err) => { });
   };
   useEffect(() => {
     getAllSpecialBanners();
@@ -592,31 +597,28 @@ const Livescrore = () => {
         <div className="font-semibold">Live Cricket Score</div>
         <div className="flex  gap-5 mt-2">
           <div
-            className={`cursor-pointer ${
-              selectedDiv === "Current Matches"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
+            className={`cursor-pointer ${selectedDiv === "Current Matches"
+              ? "underline text-[#0F19AF] underline-offset-8"
+              : ""
+              }`}
             onClick={() => navigate("/cricket-match/live-scores")}
           >
             Current Matches
           </div>
           <div
-            className={`cursor-pointer ${
-              selectedDiv === "Current & Future Series"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
+            className={`cursor-pointer ${selectedDiv === "Current & Future Series"
+              ? "underline text-[#0F19AF] underline-offset-8"
+              : ""
+              }`}
             onClick={() => navigate("/cricket-schedule/series")}
           >
             Current & Future Series
           </div>
           <div
-            className={`cursor-pointer ${
-              selectedDiv === "Match Day By Day"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
+            className={`cursor-pointer ${selectedDiv === "Match Day By Day"
+              ? "underline text-[#0F19AF] underline-offset-8"
+              : ""
+              }`}
             onClick={() =>
               navigate("/cricket-schedule/upcoming-series/international")
             }
@@ -624,17 +626,16 @@ const Livescrore = () => {
             Match Day By Day
           </div>
           <div
-            className={`cursor-pointer ${
-              selectedDiv === "Series Archive"
-                ? "underline text-[#0F19AF] underline-offset-8"
-                : ""
-            }`}
+            className={`cursor-pointer ${selectedDiv === "Series Archive"
+              ? "underline text-[#0F19AF] underline-offset-8"
+              : ""
+              }`}
             onClick={() => navigate("/cricket-scorecard-archives")}
           >
             Series Archive
           </div>
-          {}
-          {}
+          { }
+          { }
         </div>
         <hr className="mt-2" />
         {selectedDiv === "Match Day By Day" ? (
@@ -706,14 +707,14 @@ const Livescrore = () => {
                 selectedDiv === "Teams"
                   ? "none"
                   : selectedDiv === "Series Archive"
-                  ? "none"
-                  : "flex",
+                    ? "none"
+                    : "flex",
               marginTop:
                 selectedDiv === "Teams"
                   ? "0rem"
                   : selectedDiv === "Series Archive"
-                  ? "0rem"
-                  : "1rem",
+                    ? "0rem"
+                    : "1rem",
             }}
             className="flex gap-5 "
           >
@@ -816,9 +817,14 @@ const Livescrore = () => {
                 )}
                 {comp1[0]?.competition?.title && (
                   <>
-                    <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
+                    <div onClick={() =>
+                      navigate(
+                        `/cricket-series/${comp1[0]?.competition?.cid
+                        }/${formatTitle(comp1[0]?.competition?.title)}-${comp1[0]?.matches?.[0]?.match?.competition?.season}/matches`
+                      )
+                    } className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer">
                       {comp1[0]?.competition?.title}
-                      {","}{" "}
+                      {","}{" "}{console.log(comp1[0])}
                       {comp1[0]?.competition?.season ||
                         comp1[0]?.matches?.[0]?.match?.competition?.season}
                     </div>
@@ -854,30 +860,16 @@ const Livescrore = () => {
                               <div
                                 onClick={() =>
                                   navigate(
-                                    `/live-cricket-scores/${
-                                      item?.match?.match_id
-                                    }/${formatTitle(
-                                      item?.match?.short_title
-                                    )}-${
-                                      item?.match?.competition?.type ===
-                                      "tournament"
-                                        ? `match-${getOrdinalSuffix(
-                                            item?.match?.match_number
-                                          )}`
-                                        : `${getOrdinalSuffix(
-                                            item?.match?.match_number
-                                          )}-${item?.match?.format_str
-                                            ?.toLowerCase()
-                                            ?.split(" ")
-                                            ?.join("-")}`
-                                    }-${formatTitle(
-                                      item?.match?.competition?.title
-                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                    `/live-cricket-scores/${item?.match?.match_id
+                                    }/${formatTitle(item?.match?.short_title)}-${convertStringFormat(
+                                      item?.match?.subtitle
+                                    )}-${formatTitle(item?.match?.competition?.title)
+                                    }-${item?.match?.competition?.season?.toLowerCase()}`
                                   )
                                 }
                                 className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                               >
-                                
+
                                 <div
                                   style={{ padding: "0.5rem 1rem" }}
                                   className="flex items-center gap-[6rem] "
@@ -899,7 +891,7 @@ const Livescrore = () => {
                                       {getWinningTeamName(item)}{" "}
                                       {item?.match?.win_margin
                                         ? ` won by ${item?.match?.win_margin}`
-                                        : "N/A"}
+                                        : ""}
                                     </div>
                                   </div>
                                   <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
@@ -911,25 +903,11 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${
-                                        item?.match?.match_id
-                                      }/${formatTitle(
-                                        item?.match?.short_title
-                                      )}-${
-                                        item?.match?.competition?.type ===
-                                        "tournament"
-                                          ? `match-${getOrdinalSuffix(
-                                              item?.match?.match_number
-                                            )}`
-                                          : `${getOrdinalSuffix(
-                                              item?.match?.match_number
-                                            )}-${item?.match?.format_str
-                                              ?.toLowerCase()
-                                              ?.split(" ")
-                                              ?.join("-")}`
-                                      }-${formatTitle(
-                                        item?.match?.competition?.title
-                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      `/live-cricket-scores/${item?.match?.match_id
+                                      }/${formatTitle(item?.match?.short_title)}-${convertStringFormat(
+                                        item?.match?.subtitle
+                                      )}-${formatTitle(item?.match?.competition?.title)
+                                      }-${item?.match?.competition?.season?.toLowerCase()}`
                                     )
                                   }
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
@@ -937,62 +915,33 @@ const Livescrore = () => {
                                   Live Score
                                 </div>
                                 <div
-                                  onClick={() => {
+
+                                  onClick={() =>
                                     navigate(
-                                      `/live-cricket-scorecard/${
-                                        item?.match?.match_id
-                                      }/${formatTitle(
-                                        item?.match?.teama?.short_name
-                                      )}-vs-${formatTitle(
-                                        item?.match?.teamb?.short_name
-                                      )}-${
-                                        item?.match?.competition?.type ===
-                                        "tournament"
-                                          ? `match-${getOrdinalSuffix(
-                                              item?.match?.match_number
-                                            )}`
-                                          : `${getOrdinalSuffix(
-                                              item?.match?.match_number
-                                            )}-${item?.match?.format_str
-                                              ?.toLowerCase()
-                                              ?.split(" ")
-                                              ?.join("-")}`
-                                      }-${formatTitle(
-                                        item?.match?.competition?.title
-                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                    );
-                                  }}
+                                      `/live-cricket-scorecard/${item?.match?.match_id
+                                      }/${formatTitle(item?.match?.short_title)}-${convertStringFormat(
+                                        item?.match?.subtitle
+                                      )}-${formatTitle(item?.match?.competition?.title)
+                                      }-${item?.match?.competition?.season?.toLowerCase()}`
+                                    )
+                                  }
+
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
                                   Scorecard
                                 </div>
                                 <div
-                                  onClick={() => {
-                                    item?.match?.match_id &&
-                                      navigate(
-                                        `/live-cricket-full-commentary/${
-                                          item?.match?.match_id
-                                        }/${formatTitle(
-                                          item?.match?.teama?.short_name
-                                        )}-vs-${formatTitle(
-                                          item?.match?.teamb?.short_name
-                                        )}-${
-                                          item?.match?.competition?.type ===
-                                          "tournament"
-                                            ? `match-${getOrdinalSuffix(
-                                                item?.match?.match_number
-                                              )}`
-                                            : `${getOrdinalSuffix(
-                                                item?.match?.match_number
-                                              )}-${item?.match?.format_str
-                                                ?.toLowerCase()
-                                                ?.split(" ")
-                                                ?.join("-")}`
-                                        }-${formatTitle(
-                                          item?.match?.competition?.title
-                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                      );
-                                  }}
+
+                                  onClick={() =>
+                                    navigate(
+                                      `/live-cricket-full-commentary/${item?.match?.match_id
+                                      }/${formatTitle(item?.match?.short_title)}-${convertStringFormat(
+                                        item?.match?.subtitle
+                                      )}-${formatTitle(item?.match?.competition?.title)
+                                      }-${item?.match?.competition?.season?.toLowerCase()}`
+                                    )
+                                  }
+
                                   className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
                                 >
                                   Full Commentary
@@ -1014,7 +963,12 @@ const Livescrore = () => {
                           <>
                             {item?.competition?.title && (
                               <>
-                                <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
+                                <div onClick={() =>
+                                  navigate(
+                                    `/cricket-series/${item?.competition?.cid
+                                    }/${formatTitle(item?.competition?.title)}-${item?.matches?.[0]?.match?.competition?.season}/matches`
+                                  )
+                                } className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer">
                                   {item?.competition?.title}
                                   {","}{" "}
                                   {item?.competition?.season ||
@@ -1049,22 +1003,20 @@ const Livescrore = () => {
                                     <div
                                       onClick={() =>
                                         navigate(
-                                          `/live-cricket-scores/${
-                                            item?.match?.match_id
+                                          `/live-cricket-scores/${item?.match?.match_id
                                           }/${formatTitle(
                                             item?.match?.short_title
-                                          )}-${
-                                            item?.match?.competition?.type ===
+                                          )}-${item?.match?.competition?.type ===
                                             "tournament"
-                                              ? `match-${getOrdinalSuffix(
-                                                  item?.match?.match_number
-                                                )}`
-                                              : `${getOrdinalSuffix(
-                                                  item?.match?.match_number
-                                                )}-${item?.match?.format_str
-                                                  ?.toLowerCase()
-                                                  ?.split(" ")
-                                                  ?.join("-")}`
+                                            ? `match-${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}`
+                                            : `${getOrdinalSuffix(
+                                              item?.match?.match_number
+                                            )}-${item?.match?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
                                           }-${formatTitle(
                                             item?.match?.competition?.title
                                           )}-${item?.match?.competition?.season?.toLowerCase()}`
@@ -1072,7 +1024,7 @@ const Livescrore = () => {
                                       }
                                       className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                                     >
-                                      {}
+                                      { }
                                       <div
                                         style={{ padding: "0.5rem 1rem" }}
                                         className="flex items-center gap-[6rem] "
@@ -1108,22 +1060,20 @@ const Livescrore = () => {
                                       <div
                                         onClick={() =>
                                           navigate(
-                                            `/live-cricket-scores/${
-                                              item?.match?.match_id
+                                            `/live-cricket-scores/${item?.match?.match_id
                                             }/${formatTitle(
                                               item?.match?.short_title
-                                            )}-${
-                                              item?.match?.competition?.type ===
+                                            )}-${item?.match?.competition?.type ===
                                               "tournament"
-                                                ? `match-${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}`
-                                                : `${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}-${item?.match?.format_str
-                                                    ?.toLowerCase()
-                                                    ?.split(" ")
-                                                    ?.join("-")}`
+                                              ? `match-${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}`
+                                              : `${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}-${item?.match?.format_str
+                                                ?.toLowerCase()
+                                                ?.split(" ")
+                                                ?.join("-")}`
                                             }-${formatTitle(
                                               item?.match?.competition?.title
                                             )}-${item?.match?.competition?.season?.toLowerCase()}`
@@ -1136,24 +1086,22 @@ const Livescrore = () => {
                                       <div
                                         onClick={() => {
                                           navigate(
-                                            `/live-cricket-scorecard/${
-                                              item?.match?.match_id
+                                            `/live-cricket-scorecard/${item?.match?.match_id
                                             }/${formatTitle(
                                               item?.match?.teama?.short_name
                                             )}-vs-${formatTitle(
                                               item?.match?.teamb?.short_name
-                                            )}-${
-                                              item?.match?.competition?.type ===
+                                            )}-${item?.match?.competition?.type ===
                                               "tournament"
-                                                ? `match-${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}`
-                                                : `${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}-${item?.match?.format_str
-                                                    ?.toLowerCase()
-                                                    ?.split(" ")
-                                                    ?.join("-")}`
+                                              ? `match-${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}`
+                                              : `${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}-${item?.match?.format_str
+                                                ?.toLowerCase()
+                                                ?.split(" ")
+                                                ?.join("-")}`
                                             }-${formatTitle(
                                               item?.match?.competition?.title
                                             )}-${item?.match?.competition?.season?.toLowerCase()}`
@@ -1167,24 +1115,22 @@ const Livescrore = () => {
                                         onClick={() => {
                                           item?.match?.match_id &&
                                             navigate(
-                                              `/live-cricket-full-commentary/${
-                                                item?.match?.match_id
+                                              `/live-cricket-full-commentary/${item?.match?.match_id
                                               }/${formatTitle(
                                                 item?.match?.teama?.short_name
                                               )}-vs-${formatTitle(
                                                 item?.match?.teamb?.short_name
-                                              )}-${
-                                                item?.match?.competition
-                                                  ?.type === "tournament"
-                                                  ? `match-${getOrdinalSuffix(
-                                                      item?.match?.match_number
-                                                    )}`
-                                                  : `${getOrdinalSuffix(
-                                                      item?.match?.match_number
-                                                    )}-${item?.match?.format_str
-                                                      ?.toLowerCase()
-                                                      ?.split(" ")
-                                                      ?.join("-")}`
+                                              )}-${item?.match?.competition
+                                                ?.type === "tournament"
+                                                ? `match-${getOrdinalSuffix(
+                                                  item?.match?.match_number
+                                                )}`
+                                                : `${getOrdinalSuffix(
+                                                  item?.match?.match_number
+                                                )}-${item?.match?.format_str
+                                                  ?.toLowerCase()
+                                                  ?.split(" ")
+                                                  ?.join("-")}`
                                               }-${formatTitle(
                                                 item?.match?.competition?.title
                                               )}-${item?.match?.competition?.season?.toLowerCase()}`
@@ -1239,8 +1185,7 @@ const Livescrore = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${
-                                        item?.cid
+                                      `/cricket-series/${item?.cid
                                       }/${formatTitle(item?.title)}/matches`
                                     )
                                   }
@@ -1729,14 +1674,12 @@ const Livescrore = () => {
                                   (competition, index) => {
                                     return (
                                       <Link
-                                        to={`/cricket-series/${
-                                          competition?.cid
-                                        }/${competition?.title
-                                          ?.toLowerCase()
-                                          ?.split(" ")
-                                          ?.join("-")}-${
-                                          competition?.season
-                                        }/matches`}
+                                        to={
+                                          `/cricket-series/${competition?.cid
+                                          }/${formatTitle(competition?.title)}-${competition?.season}/matches`
+
+                                        }
+
                                       >
                                         <p
                                           style={{
@@ -1746,25 +1689,25 @@ const Livescrore = () => {
                                           }}
                                           key={index}
                                         >
-                                          
+
                                           <span>
                                             {competition?.title}{" "}
                                             {competition?.datestart?.slice(
                                               0,
                                               4
                                             ) ===
-                                            competition?.dateend?.slice(0, 4)
+                                              competition?.dateend?.slice(0, 4)
                                               ? `${competition?.datestart?.slice(
-                                                  0,
-                                                  4
-                                                )}`
+                                                0,
+                                                4
+                                              )}`
                                               : `${competition?.datestart?.slice(
-                                                  0,
-                                                  4
-                                                )}-${competition?.dateend?.slice(
-                                                  2,
-                                                  4
-                                                )}`}
+                                                0,
+                                                4
+                                              )}-${competition?.dateend?.slice(
+                                                2,
+                                                4
+                                              )}`}
                                           </span>
 
                                           <span>
@@ -1796,7 +1739,7 @@ const Livescrore = () => {
                   <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
                     <div className="left w-[950px]  ">
                       <div>
-                        {Object.keys(groupedMatches).map((date, index) => (
+                        {Object?.keys(groupedMatches).map((date, index) => (
                           <div key={index}>
                             <div
                               style={{
@@ -1820,13 +1763,22 @@ const Livescrore = () => {
                                   marginBottom: "10px",
                                 }}
                               >
-                                {console.log(item)}
+
+
+
                                 <p
                                   style={{
                                     fontWeight: "bold",
                                     color: "black",
                                     paddingLeft: "5px",
+                                    cursor: "pointer"
                                   }}
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${item?.competition?.cid
+                                      }/${formatTitle(item?.competition?.title)}-${item?.competition?.season}/matches`
+                                    )
+                                  }
                                 >
                                   {item?.competition?.title},{" "}
                                   {item?.competition?.season}-
@@ -1840,25 +1792,23 @@ const Livescrore = () => {
                                     }}
                                     onClick={() => {
                                       navigate(
-                                        `/live-cricket-scores/${
-                                          item?.match_id
+                                        `/live-cricket-scores/${item?.match_id
                                         }/${formatTitle(
                                           item?.teama?.short_name
                                         )}-vs-${item?.teamb?.short_name
                                           ?.toLowerCase()
                                           .split(" ")
-                                          .join("-")}-${
-                                          item?.competition?.type ===
-                                          "tournament"
+                                          .join("-")}-${item?.competition?.type ===
+                                            "tournament"
                                             ? `match-${getOrdinalSuffix(
-                                                item?.match_number
-                                              )}`
+                                              item?.match_number
+                                            )}`
                                             : `${getOrdinalSuffix(
-                                                item?.match_number
-                                              )}-${item?.format_str
-                                                ?.toLowerCase()
-                                                ?.split(" ")
-                                                ?.join("-")}`
+                                              item?.match_number
+                                            )}-${item?.format_str
+                                              ?.toLowerCase()
+                                              ?.split(" ")
+                                              ?.join("-")}`
                                         }-${formatTitle(
                                           item?.competition?.title
                                         )}-${item?.competition?.season?.toLowerCase()}`
@@ -1924,7 +1874,7 @@ const Livescrore = () => {
                   >
                     <p>Comming Soon ...</p>
                   </div>
-                  {}
+                  { }
                 </div>
               </>
             )}
@@ -1965,9 +1915,8 @@ const Livescrore = () => {
                                       }}
                                       onClick={() =>
                                         navigate(
-                                          `/cricket-series/${
-                                            item?.cid
-                                          }/${formatTitle(item?.title)}/matches`
+                                          `/cricket-series/${item?.cid
+                                          }/${formatTitle(item?.title)}-${item?.season}/matches`
                                         )
                                       }
                                     >
@@ -2014,9 +1963,8 @@ const Livescrore = () => {
                                     }}
                                     onClick={() =>
                                       navigate(
-                                        `/cricket-series/${
-                                          item?.cid
-                                        }/${formatTitle(item?.title)}/matches`
+                                        `/cricket-series/${item?.cid
+                                        }/${formatTitle(item?.title)}-${item?.season}/matches`
                                       )
                                     }
                                   >
@@ -2056,14 +2004,14 @@ const Livescrore = () => {
                                   fontWeight: "bold",
                                   cursor: "pointer",
                                 }}
-                                // onClick={() =>
-                                //   navigate(
-                                //     `/cricket-series/${item?.cid}/${item?.title
-                                //       ?.toLowerCase()
-                                //       ?.split(" ")
-                                //       ?.join("-")}/matches`
-                                //   )
-                                // }
+                              // onClick={() =>
+                              //   navigate(
+                              //     `/cricket-series/${item?.cid}/${item?.title
+                              //       ?.toLowerCase()
+                              //       ?.split(" ")
+                              //       ?.join("-")}/matches`
+                              //   )
+                              // }
                               >
                                 {" "}
                                 {seriesArchiveYouth?.map((item, index) => (
@@ -2073,6 +2021,12 @@ const Livescrore = () => {
                                       color: "#000",
                                       fontWeight: "bold",
                                     }}
+                                    onClick={() =>
+                                      navigate(
+                                        `/cricket-series/${item?.cid
+                                        }/${formatTitle(item?.title)}-${item?.season}/matches`
+                                      )
+                                    }
                                   >
                                     {item?.title}
                                     {","} {item?.season}
@@ -2116,9 +2070,8 @@ const Livescrore = () => {
                                     }}
                                     onClick={() =>
                                       navigate(
-                                        `/cricket-series/${
-                                          item?.cid
-                                        }/${formatTitle(item?.title)}/matches`
+                                        `/cricket-series/${item?.cid
+                                        }/${formatTitle(item?.title)}-${item?.season}/matches`
                                       )
                                     }
                                   >

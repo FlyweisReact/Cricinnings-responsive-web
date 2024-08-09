@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
+import { Form } from "react-bootstrap";
 import { Table } from "react-bootstrap";
 const SeriesStats = () => {
   const [banner1, setBanner1] = useState();
@@ -11,6 +12,8 @@ const SeriesStats = () => {
   const [filterByData, setFilterByData] = useState("batting_most_runs");
   const { seriesId } = useParams();
   const [competitionData, setCompetitionData] = useState([]);
+  const [formatType, setFormatType] = useState([]);
+  const [formatValue, setFormatValue] = useState("");
   const [initialCondition, setInitialCondition] = useState("batting");
   const navigate = useNavigate();
   const getAllBanner = async () => {
@@ -27,14 +30,33 @@ const SeriesStats = () => {
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`)
       .then((res) => {
-        // 
+        console.log(res?.data);
+        setFormatType(res?.data?.formats);
         setCompetitionData(res?.data);
       });
   };
 
   useEffect(() => {
     getStatesData(seriesId);
-  }, [filterByData, seriesId]);
+  }, [seriesId]);
+
+  const getStatesData1 = async (payload) => {
+    const params = {};
+
+    if (formatType) params.formats = formatValue;
+    axios
+      .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`, {
+        params
+      })
+      .then((res) => {
+
+        setCompetitionData(res?.data);
+      });
+  };
+
+  useEffect(() => {
+    getStatesData1(seriesId);
+  }, [formatValue, filterByData]);
 
   useEffect(() => {
     getAllBanner();
@@ -50,7 +72,19 @@ const SeriesStats = () => {
             alt=""
           />
         </div>
-        <div className="flex mt-2 g-4 p-3">
+        {formatType?.length > 0 && <div style={{ width: "150px", marginLeft: "2rem" }}>
+          <Form.Select className="mt-3" onChange={(e) => {
+            setFormatValue(e.target.value);
+          }}>
+            {formatType?.length > 0 && formatType.map((item, index) => (
+              <option key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </Form.Select>
+        </div>}
+
+        <div className="flex mt-2 g-4 p-3 pt-0">
           <div className="mt-3 p-1" style={{ width: "250px" }}>
             <div
               onClick={() => setInitialCondition("batting")}

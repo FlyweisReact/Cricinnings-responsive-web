@@ -3,6 +3,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  convertStringFormat,
   formatTitle,
   getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
@@ -673,23 +674,15 @@ const SeriesById = () => {
                                     border: "none",
                                     cursor: "pointer",
                                   }}
-                                  onClick={() => {
+                                  onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${
-                                        item?.match_id
-                                      }/${formatTitle(item?.short_title)}-${getOrdinalSuffix(
-                                        item?.match_number
-                                      )
-                                        ?.toLowerCase()
-                                        ?.split(" ")
-                                        .join("-")}-${item?.competition?.title
-                                        ?.toLowerCase()
-                                        .split(" ")
-                                        .join(
-                                          "-"
-                                        )}-${item?.competition?.season?.toLowerCase()}/matches`
-                                    );
-                                  }}
+                                      `/live-cricket-scores/${item?.match_id
+                                      }/${formatTitle(item?.short_title)}-${convertStringFormat(
+                                        item?.subtitle
+                                      )}-${formatTitle(item?.competition?.title)
+                                      }-${item?.competition?.season?.toLowerCase()}`
+                                    )
+                                  }
                                 >
                                   <p
                                     style={{

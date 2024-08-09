@@ -5,6 +5,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import editorpick from "../Assets/Homepage/editorpick.svg";
 import { useEffect, useState } from "react";
+import { convertStringFormat } from "../Components/Integration/ApiIntegration";
 import {
   AuthToken,
   AuthUrl,
@@ -306,7 +307,7 @@ const Homepage = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getAllTeamRankingsData = async () => {
@@ -398,9 +399,8 @@ const Homepage = () => {
     if (hoursDifference > 0) {
       return `${hoursDifference} hour${hoursDifference > 1 ? "s" : ""} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference > 1 ? "s" : ""
-      } ago`;
+      return `${minutesDifference} minute${minutesDifference > 1 ? "s" : ""
+        } ago`;
     } else {
       return "just now";
     }
@@ -461,22 +461,15 @@ const Homepage = () => {
               {sliderData &&
                 sliderData?.map((item, index) => (
                   <div key={index} className="top_slider_card">
+
                     <div
                       onClick={() =>
                         navigate(
-                          `/live-cricket-scores/${
-                            item?.match_id
-                          }/${formatTitle(item?.short_title)}-${
-                            item?.competition?.type === "tournament"
-                              ? `match-${getOrdinalSuffix(item?.match_number)}`
-                              : `${getOrdinalSuffix(
-                                  item?.match_number
-                                )}-${item?.format_str
-                                  ?.toLowerCase()
-                                  ?.split(" ")
-                                  ?.join("-")}`
-                          }-${formatTitle(item?.competition?.title)
-                            }-${item?.competition?.season?.toLowerCase()}`
+                          `/live-cricket-scores/${item?.match_id
+                          }/${formatTitle(item?.short_title)}-${convertStringFormat(
+                            item?.subtitle
+                          )}-${formatTitle(item?.competition?.title)
+                          }-${item?.competition?.season?.toLowerCase()}`
                         )
                       }
                       style={{ cursor: "pointer" }}
@@ -603,8 +596,7 @@ const Homepage = () => {
                             style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(
-                                `/cricket-series/${
-                                  item?.competition?.cid
+                                `/cricket-series/${item?.competition?.cid
                                 }/${formatTitle(item?.competition?.title)}/points-table`
                               )
                             }
@@ -621,11 +613,9 @@ const Homepage = () => {
                           // }
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${
-                                item?.competition?.cid
+                              `/cricket-series/${item?.competition?.cid
                               }/${formatTitle(item?.competition?.title
-                                )}-${
-                                item?.competition?.season
+                              )}-${item?.competition?.season
                               }/matches`
                             )
                           }
