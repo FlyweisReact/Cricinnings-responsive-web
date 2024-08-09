@@ -35,13 +35,13 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
   if (email) payload.email = email;
   try {
     const res = await axios.post(`${baseUrl}userAuth/resendOtp`, payload);
-
+    console.log(res);
     showMsg("success", "OTP Sent", res?.data?.message);
     alert(res?.data?.newOtp);
     setOtpSent(true);
     return;
   } catch (error) {
-    showMsg("error", "Error", error?.response?.data?.message);
+    showMsg("danger", "Error", error?.response?.data?.message);
   }
 };
 
@@ -111,7 +111,6 @@ export const GetDataWithToken = async ({
 
 export const getOrdinalSuffix = (n) => {
   n = Number(n);
-  
 
   if (isNaN(n)) {
     return "";
@@ -122,12 +121,28 @@ export const getOrdinalSuffix = (n) => {
   return n + (s[(v - 20) % 10] || s[v] || s[0]);
 };
 
-
-export const formatTitle=(title) =>{
+export const formatTitle = (title) => {
   return title
     .toLowerCase()
-    .replace(/[^\w\s-]/g, '')
-    .replace(/\s+/g, '-')
-    .replace(/-+/g, '-')
+    .replace(/[^\w\s-]/g, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
     .trim();
+};
+
+export const convertStringFormat = (subtitle) => {
+  subtitle = subtitle.replace(/(\d+)(?!\w)/g, (number) => {
+    return convertToOrdinal1(number);
+  });
+
+  return subtitle.replace(/\s+/g, "-").toLowerCase();
+};
+
+function convertToOrdinal1(number) {
+  const n = parseInt(number, 10);
+  const suffixes = ["th", "st", "nd", "rd"];
+  const mod100 = n % 100;
+  return `${n}${
+    suffixes[(mod100 - 20) % 10] || suffixes[mod100] || suffixes[0]
+  }`;
 }

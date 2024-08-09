@@ -687,7 +687,7 @@ const SeriesById = () => {
                                         .split(" ")
                                         .join(
                                           "-"
-                                        )}-${item?.competition?.season?.toLowerCase()}`
+                                        )}-${item?.competition?.season?.toLowerCase()}/matches`
                                     );
                                   }}
                                 >

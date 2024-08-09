@@ -18,8 +18,8 @@ const Livescrore = () => {
     location.pathname === "/live-cricket-scores/Schedule"
       ? "Match Day By Day"
       : location.pathname === "/live-cricket-scores/Allseries"
-        ? "Current & Future Series"
-        : "Current Matches";
+      ? "Current & Future Series"
+      : "Current Matches";
   const [selectedDiv, setSelectedDiv] = useState(initialLocation);
   const [currentSeries, setCurrentSeries] = useState([]);
   const [currentMatches, setCurrentMatches] = useState([]);
@@ -68,7 +68,6 @@ const Livescrore = () => {
   const [scorePageBanner3, setScorePageBanner3] = useState("");
   const navigate = useNavigate();
   const getWinningTeamName = (match) => {
-
     if (match?.match?.status_note === "Match Drawn") {
       return "Match Drawn";
     }
@@ -187,8 +186,9 @@ const Livescrore = () => {
     hours = hours % 12 || 12;
 
     const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
-    return `${month} ${day < 10 ? "0" + day : day
-      } • ${hours}:${formattedMinutes} ${ampm}`;
+    return `${month} ${
+      day < 10 ? "0" + day : day
+    } • ${hours}:${formattedMinutes} ${ampm}`;
   };
 
   const getAllSeriesData = async () => {
@@ -198,7 +198,7 @@ const Livescrore = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getAllHomePageBanners = async () => {
@@ -387,7 +387,7 @@ const Livescrore = () => {
       .then((res) => {
         setNewMatchData(res?.data?.response?.matches);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
 
   useEffect(() => {
@@ -405,7 +405,7 @@ const Livescrore = () => {
       .then((res) => {
         setComp1(res?.data?.response);
       })
-      .catch((err) => { });
+      .catch((err) => {});
   };
   const getAllCompetationsType = async () => {
     const current_year = new Date().getFullYear();
@@ -877,7 +877,7 @@ const Livescrore = () => {
                                 }
                                 className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                               >
-                                {}
+                                
                                 <div
                                   style={{ padding: "0.5rem 1rem" }}
                                   className="flex items-center gap-[6rem] "
@@ -1746,7 +1746,7 @@ const Livescrore = () => {
                                           }}
                                           key={index}
                                         >
-                                          {}
+                                          
                                           <span>
                                             {competition?.title}{" "}
                                             {competition?.datestart?.slice(
@@ -1828,7 +1828,9 @@ const Livescrore = () => {
                                     paddingLeft: "5px",
                                   }}
                                 >
-                                  {item?.competition?.title}, {item?.competition?.season}-{item?.competition?.dateend?.slice(2,4)}
+                                  {item?.competition?.title},{" "}
+                                  {item?.competition?.season}-
+                                  {item?.competition?.dateend?.slice(2, 4)}
                                 </p>
                                 <p>
                                   <div

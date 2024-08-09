@@ -1,5 +1,3 @@
-import { FcGoogle } from "react-icons/fc";
-import { FaApple } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
@@ -15,7 +13,7 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    if (!btnChecked) return alert("Please");
+    // if (!btnChecked) return alert("Please");
     LoginHandler({
       email,
       phone,
@@ -26,7 +24,7 @@ const Login = () => {
   const veriFyOtp = (e) => {
     e.preventDefault();
     VerifyOtp({ email, otp });
-    alert(otp);
+    // alert(otp);
   };
   const renderButton = (buttonProps) => {
     return (

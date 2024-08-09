@@ -109,7 +109,7 @@ const Womenrankingpage = () => {
               cursor: "pointer",
               textDecoration: mainCategory === "bowling" ? "underline" : "none",
             }}
-            onClick={() => { setMainCategory("bowling"); window.history.pushState({}, '', '/icc-rankings/bowling'); }}
+            onClick={() => { setMainCategory("bowling"); window.history.pushState({}, '', '/icc-rankings/women/bowling'); }}
           >
             Bowling
           </div>
