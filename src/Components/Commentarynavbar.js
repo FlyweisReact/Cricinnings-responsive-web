@@ -183,11 +183,9 @@ const Commentarynavbar = () => {
             padding: /\/live-cricket-scores\//i.test(pathname) ? "14px" : "0px",
           }}
         >
-          {console.log(matchDetails?.competition?.type)}
           Live
         </p>
 
-        {/* {matchDetails?.status !== 1  && ( */}
         <p
           onClick={() => {
             matchDetails?.match_id &&
@@ -224,7 +222,7 @@ const Commentarynavbar = () => {
         >
           Scorecard
         </p>
-        {/* )} */}
+
         <p
           onClick={() => {
             matchDetails?.match_id &&
@@ -458,30 +456,34 @@ const Commentarynavbar = () => {
           style={{
             fontSize: "12px",
           }}
-          className=" text-[#0F19AF] mt-2 ml-6"
+          className=" text-[#0F19AF] mt-2"
         >
-          <p style={{ color: "#666666", fontSize: "20px", fontWeight: "bold" }}>
-            {console.log(matchDetails)}
-            <span>{matchDetails?.teama?.short_name}</span>{" "}
-            <span>
-              {matchDetails?.teama?.scores}
-              {matchDetails?.teama?.overs && (
-                <> ({matchDetails.teama.overs})</>
-              )}{" "}
-            </span>
-          </p>
-          <p style={{ color: "#222222", fontSize: "20px", fontWeight: "bold" }}>
-            <span>{matchDetails?.teamb?.short_name}</span>{" "}
-            <span>
-              {matchDetails?.teamb?.scores}
-              {matchDetails?.teamb?.overs && (
-                <> ({matchDetails.teamb.overs})</>
-              )}{" "}
-            </span>
-          </p>
+          <div style={{ lineHeight: ".5" }}>
+            <p style={{ color: "#666666", fontSize: "16px", fontWeight: "bold", marginLeft: "1rem" }}>
+              {console.log(matchDetails)}
+              <span>{matchDetails?.teama?.short_name}</span>{" "}
+              <span>
+                {matchDetails?.teama?.scores}
+                {matchDetails?.teama?.overs && (
+                  <> ({matchDetails.teama.overs})</>
+                )}{" "}
+              </span>
+            </p>
+            <p style={{ color: "#000", fontSize: "20px", fontWeight: "bold", marginLeft: "1rem" }}>
+              <span>{matchDetails?.teamb?.short_name}</span>{" "}
+              <span>
+                {matchDetails?.teamb?.scores}
+                {matchDetails?.teamb?.overs && (
+                  <> ({matchDetails.teamb.overs})</>
+                )}{" "}
+              </span>
+            </p>
+            <p style={{ color: matchDetails?.statue !== 2 ? "#d0021b" : "#187EE5", marginLeft: "1rem", fontSize: "14px" }}>{matchDetails?.status_note}</p>
+
+          </div>
           {/\/live-cricket-scores\//i.test(pathname) && (
-            <div className="ml-2 mb-1">
-              {matchDetails?.status === 2 && matchDetails?.status_note}
+            <div className="ml-4 mb-1">
+
               <div className="d-flex gap-4 ">
                 {squadData?.man_of_the_match && (
                   <p className="CommentartyData1">
@@ -506,9 +508,10 @@ const Commentarynavbar = () => {
           )}
 
           <div>
-            <div style={{ width: "400px" }}>
+            {console.log(matchData1, "Boss")}
+            {matchData1?.status === 3 && <div style={{ width: "400px" }}>
               <div>
-                <table className="m-2">
+                <table className="m-2 ml-0">
                   <thead>
                     <tr className="border-b">
                       <th
@@ -590,9 +593,7 @@ const Commentarynavbar = () => {
                           className="text-[#0F19AF]"
                           onClick={() =>
                             navigate(
-                              `/cricket-players/${item?.name
-                                ?.split(" ")
-                                ?.join("-")}/${item?.batsman_id}`
+                              `/profiles/${item?.batsman_id}/${formatTitle(item?.name)}`
                             )
                           }
                         >
@@ -701,9 +702,7 @@ const Commentarynavbar = () => {
                             className="text-[#0F19AF]"
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.name
-                                  ?.split(" ")
-                                  ?.join("-")}/${item?.batsman_id}`
+                                `/profiles/${item?.batsman_id}/${formatTitle(item?.name)}`
                               )
                             }
                           >
@@ -726,7 +725,7 @@ const Commentarynavbar = () => {
                   </table>
                 </div>
               )}
-            </div>
+            </div>}
           </div>
         </div>
       )}

@@ -112,12 +112,12 @@ const PlayerProfile = () => {
                     {playerData?.playing_role === "bat"
                       ? "Batter"
                       : playerData?.playing_role === "bowl"
-                      ? "Bowler"
-                      : playerData?.playing_role === "all"
-                      ? "All-Rounder"
-                      : playerData?.playing_role === "wk"
-                      ? "Wicket-keeper"
-                      : playerData?.playing_role || "Role"}
+                        ? "Bowler"
+                        : playerData?.playing_role === "all"
+                          ? "All-Rounder"
+                          : playerData?.playing_role === "wk"
+                            ? "Wicket-keeper"
+                            : playerData?.playing_role || "Role"}
                   </span>
                 </p>
                 <p className="d-flex gap-2 justify-between">
@@ -205,6 +205,51 @@ const PlayerProfile = () => {
                     <td>{playerData1?.batting?.odi?.run4 || "-"}</td>
                     <td>{playerData1?.batting?.odi?.run6 || "-"}</td>
                   </tr>
+                  <tr>
+                    <td className="lef-co-header1">List A</td>
+                    <td>{playerData1?.batting?.lista?.matches || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.innings || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.notout || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.runs || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.highest || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.average || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.balls || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.strike || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.run100 || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.run50 || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.run4 || "-"}</td>
+                    <td>{playerData1?.batting?.lista?.run6 || "-"}</td>
+                  </tr>
+                  <tr>
+                    <td className="lef-co-header1">1st Class</td>
+                    <td>{playerData1?.batting?.firstclass?.matches || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.innings || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.notout || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.runs || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.highest || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.average || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.balls || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.strike || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.run100 || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.run50 || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.run4 || "-"}</td>
+                    <td>{playerData1?.batting?.firstclass?.run6 || "-"}</td>
+                  </tr>
+                  <tr>
+                    <td className="lef-co-header1">T10</td>
+                    <td>{playerData1?.batting?.t10?.matches || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.innings || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.notout || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.runs || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.highest || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.average || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.balls || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.strike || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.run100 || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.run50 || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.run4 || "-"}</td>
+                    <td>{playerData1?.batting?.t10?.run6 || "-"}</td>
+                  </tr>
                 </tbody>
               </Table>
               <p className="lef-co-header1 mt-5">Bowling Career Summary</p>
@@ -240,6 +285,19 @@ const PlayerProfile = () => {
                     <td>{playerData1?.bowling?.test?.wicket5i || "-"}</td>
                     <td>{playerData1?.bowling?.test?.wicket10m || "-"}</td>
                   </tr>
+                  <tr className="text-center">
+                    <td className="lef-co-header1">T20</td>
+                    <td>{playerData1?.bowling?.t20?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.balls || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.average || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.t20?.wicket10m || "-"}</td>
+                  </tr>
                   <tr>
                     <td className="lef-co-header1">ODI</td>
                     <td>{playerData1?.bowling?.odi?.matches || "-"}</td>
@@ -253,18 +311,45 @@ const PlayerProfile = () => {
                     <td>{playerData1?.bowling?.odi?.wicket5i || "-"}</td>
                     <td>{playerData1?.bowling?.odi?.wicket10m || "-"}</td>
                   </tr>
+
                   <tr className="text-center">
-                    <td className="lef-co-header1">T20</td>
-                    <td>{playerData1?.bowling?.t20?.matches || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.innings || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.balls || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.runs || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.wickets || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.econ || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.average || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.strike || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.wicket5i || "-"}</td>
-                    <td>{playerData1?.bowling?.t20?.wicket10m || "-"}</td>
+                    <td className="lef-co-header1">List A</td>
+                    <td>{playerData1?.bowling?.lista?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.balls || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.average || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.lista?.wicket10m || "-"}</td>
+                  </tr>
+                  <tr className="text-center">
+                    <td className="lef-co-header1">1st Class</td>
+                    <td>{playerData1?.bowling?.firstclass?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.balls || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.average || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.firstclass?.wicket10m || "-"}</td>
+                  </tr>
+                  <tr className="text-center">
+                    <td className="lef-co-header1">T10</td>
+                    <td>{playerData1?.bowling?.t10?.matches || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.innings || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.balls || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.runs || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.wickets || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.econ || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.average || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.strike || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.wicket5i || "-"}</td>
+                    <td>{playerData1?.bowling?.t10?.wicket10m || "-"}</td>
                   </tr>
                 </tbody>
               </Table>

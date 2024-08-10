@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import Commentarynavbar from "../Components/Commentarynavbar";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 
 import videoframe from "../Assets/Homepage/videoframe.svg";
@@ -203,7 +203,7 @@ const Stats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
+                            `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                           )
                         }
                       >
@@ -241,7 +241,7 @@ const Stats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
+                            `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                           )
                         }
                       >
@@ -278,7 +278,7 @@ const Stats = () => {
                       <td
                         onClick={() =>
                           navigate(
-                            `/cricket-players/${item?.player?.title?.split(" ")?.join("-")}/${item?.player?.pid}`
+                            `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                           )
                         }
                       >

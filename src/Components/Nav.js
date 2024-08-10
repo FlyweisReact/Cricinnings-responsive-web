@@ -214,14 +214,14 @@ const Nav = () => {
                     ref={dropdownRef}
                   >
                     <Dropdown.Item
-                      onClick={() => navigate("/icc-rankings/men")}
+                      onClick={() => navigate("/icc-rankings/men/batting")}
                       className="no-border-radius-text"
                     >
                       ICC - Men's Ranking
                     </Dropdown.Item>
                     <Dropdown.Item
                       className="no-border-radius-text"
-                      onClick={() => navigate("/icc-rankings/women")}
+                      onClick={() => navigate("/icc-rankings/women/batting")}
                     >
                       ICC - Women's Ranking
                     </Dropdown.Item>

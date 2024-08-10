@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useNavigate, useParams } from "react-router-dom";
 const SeriesSquad = () => {
@@ -136,7 +136,11 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "bat")
                     ?.map((item) => {
                       return (
-                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                        <div onClick={() =>
+                          navigate(
+                            `/profiles/${item?.pid}/${formatTitle(item?.title)}`
+                          )
+                        } style={{ fontSize: "1.2rem", fontWeight: "400", cursor: "pointer" }}>
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );
@@ -166,7 +170,11 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "bowl")
                     ?.map((item) => {
                       return (
-                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                        <div onClick={() =>
+                          navigate(
+                            `/profiles/${item?.pid}/${formatTitle(item?.title)}`
+                          )
+                        }  style={{ fontSize: "1.2rem", fontWeight: "400" }}>
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );
@@ -196,7 +204,11 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "all")
                     ?.map((item) => {
                       return (
-                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                        <div onClick={() =>
+                          navigate(
+                            `/profiles/${item?.pid}/${formatTitle(item?.title)}`
+                          )
+                        }  style={{ fontSize: "1.2rem", fontWeight: "400" }}>
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );

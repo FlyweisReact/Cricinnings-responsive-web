@@ -123,12 +123,13 @@ export const getOrdinalSuffix = (n) => {
 
 export const formatTitle = (title) => {
   return title
+    .trim() 
     .toLowerCase()
-    .replace(/[^\w\s-]/g, "")
+    .replace(/[^\w\s-]/g, "") 
     .replace(/\s+/g, "-")
-    .replace(/-+/g, "-")
-    .trim();
+    .replace(/-+/g, "-"); 
 };
+
 
 export const convertStringFormat = (subtitle) => {
   subtitle = subtitle.replace(/(\d+)(?!\w)/g, (number) => {

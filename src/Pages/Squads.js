@@ -3,7 +3,7 @@ import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import { useEffect, useState } from "react";
 const Squads = () => {
   const { matchId } = useParams();
@@ -103,7 +103,7 @@ const Squads = () => {
                           ?.map((item, index) => (
                             <div onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                               )
                             }
                               key={index}
@@ -119,7 +119,7 @@ const Squads = () => {
                               <div className="flex flex-col">
                                 <span  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 } className="font-semibold">
                                  {item?.role_str==="(C)"?"(C)":""}    {item?.name || "Player Name"}
@@ -135,7 +135,7 @@ const Squads = () => {
                           ?.map((item, index) => (
                             <div onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                               )
                             }
                               key={index}
@@ -150,7 +150,7 @@ const Squads = () => {
                             </div> */}
                               <div  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 } className="flex flex-col">
                                 <span className="font-semibold">
@@ -210,7 +210,7 @@ const Squads = () => {
                               <div
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 }
                                 style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }}
@@ -235,7 +235,7 @@ const Squads = () => {
                               <div
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 }
                                 className="abc"
@@ -291,7 +291,7 @@ const Squads = () => {
                               <div className="flex flex-col">
                                 <span  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 } className="font-semibold">
                                 {item?.role_str==="(C)"?"(C)":""}     {item?.name || "Player Name"}
@@ -307,7 +307,7 @@ const Squads = () => {
                           ?.map((item, index) => (
                             <div  onClick={() =>
                               navigate(
-                                `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                               )
                             }
                               key={index}
@@ -322,7 +322,7 @@ const Squads = () => {
                             </div> */}
                               <div  onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 } className="flex flex-col">
                                 <span className="font-semibold">
@@ -382,7 +382,7 @@ const Squads = () => {
                               <div
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 }
                                 style={{ width: "200px", textAlign: "left",display:"flex",flexDirection:"column",justifyContent:"center" }}
@@ -407,7 +407,7 @@ const Squads = () => {
                               <div
                                 onClick={() =>
                                   navigate(
-                                    `/cricket-players/${item?.name?.split(" ")?.join("-")}/${item?.player_id}`
+                                    `/profiles/${item?.player_id}/${formatTitle(item?.name)}`
                                   )
                                 }
                                 className="abc"

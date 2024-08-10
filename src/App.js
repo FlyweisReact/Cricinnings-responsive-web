@@ -68,7 +68,7 @@ const router = createBrowserRouter([
       //   element: <Squads />,
       // },
       {
-        path: "/cricket-players/:playerName/:playerId",
+        path: "/profiles/:playerId/:playerName",
         element: <PlayerProfile />,
       },
     
@@ -195,11 +195,11 @@ const router = createBrowserRouter([
         element: <Iccseriesschedule />,
       },
       {
-        path: "/icc-rankings/men",
+        path: "/icc-rankings/men/:category",
         element: <Manrankingpage />,
       },
       {
-        path: "/icc-rankings/women",
+        path: "/icc-rankings/women/:category",
         element: <Womenrankingpage />,
       },
       {

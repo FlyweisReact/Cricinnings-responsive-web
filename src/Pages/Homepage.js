@@ -597,7 +597,7 @@ const Homepage = () => {
                             onClick={() =>
                               navigate(
                                 `/cricket-series/${item?.competition?.cid
-                                }/${formatTitle(item?.competition?.title)}/points-table`
+                                }/${formatTitle(item?.competition?.title)}-${item?.competition?.season}/points-table`
                               )
                             }
                           >
@@ -788,48 +788,27 @@ const Homepage = () => {
 
           <div className="w-[250px]  mt-10">
             {allSeries?.length > 0 && (
-              <div className="bg-[white] pb-3 pt-3 rounded-lg mb-3">
-                <span
-                  style={{
-                    color: "black",
-                    fontWeight: "bold",
-                    fontSize: "12px",
-                    paddingLeft: "10px",
-                  }}
-                >
+              <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                <span className="text-black font-bold text-sm pl-2">
                   CURRENT SERIES
                 </span>
-                <div className="flex flex-col mt-4 gap-3 items-center text-center">
+                <div className="flex flex-col mt-4 gap-4">
                   {allSeries?.map((item, index) => {
                     if (index >= 4) return null;
                     return (
                       <div
-                        // onClick={() =>
-                        //   navigate(`/live-cricket-scores/Allseries`)
-                        // }
                         key={item?._id}
-                        style={{
-                          display: "grid",
-                          placeItems: "center",
-                          justifyContent: "center",
-                          width: "90%",
-                          margin: "auto",
-                          boxShadow:
-                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                          textAlign: "center",
-                          paddingTop: "0.5rem",
-                          borderRadius: "4px",
-                          cursor: "pointer",
-                        }}
+                        className="bg-gray-100 p-3 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
+                        onClick={() =>
+                          navigate(
+                            `/cricket-series/${item?.cid
+                            }/${formatTitle(item?.title)}-${item?.season}/matches`
+                          )
+                        }
                       >
-                        <p
-                          onClick={() =>
-                            navigate(
-                              `/cricket-series/${item?.cid}/${formatTitle(item?.title)}/matches`
-                            )
-                          }
-                        >
+                        <p className="text-left text-sm font-medium text-gray-800">
                           {item?.title}
+                          {console.log(item)}
                         </p>
                       </div>
                     );
@@ -837,6 +816,7 @@ const Homepage = () => {
                 </div>
               </div>
             )}
+
             {hompageBanner7?.image && (
               <img
                 style={{

@@ -285,7 +285,7 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -308,9 +308,9 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                            onClick={() =>
+                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -332,9 +332,9 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                            onClick={() =>
+                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -355,9 +355,9 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                            onClick={() =>
+                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -378,9 +378,9 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                            onClick={() =>
+                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -401,9 +401,9 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                            onClick={() =>
+                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -424,9 +424,9 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                            onClick={() =>
+                             onClick={() =>
                               navigate(
-                                `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                               )
                             }
                           >
@@ -464,9 +464,9 @@ const SeriesStats = () => {
                   {competitionData?.stats?.map((item) => (
                     <tr key={item?.player?.id}>
                       <td
-                        onClick={() =>
+                         onClick={() =>
                           navigate(
-                            `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
+                            `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
                           )
                         }
                       >
@@ -501,11 +501,11 @@ const SeriesStats = () => {
                   {competitionData?.stats?.map((item) => (
                     <tr key={item?.player?.id}>
                       <td
-                        onClick={() =>
-                          navigate(
-                            `/cricket-players/${formatTitle(item?.player?.title)}/${item?.player?.pid}`
-                          )
-                        }
+                          onClick={() =>
+                            navigate(
+                              `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                            )
+                          }
                       >
                         {item?.team?.title}
                       </td>
