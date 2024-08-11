@@ -49,9 +49,11 @@ const Commentarynavbar = () => {
   const [matchDetails, setMatchDetails] = useState({});
   const [squadData, setSquadData] = useState({});
 
+
   const getMatchDetails = async () => {
     axios.get(baseUrl + "user/getMatchById/" + matchId).then((res) => {
       setMatchDetails(res?.data?.match);
+
     });
   };
 
@@ -74,6 +76,15 @@ const Commentarynavbar = () => {
     getMatchDetails();
     getMatchData1();
   }, [pathname]);
+
+
+  const [commentaryData, setCommentaryData] = useState({});
+
+
+
+
+
+
   return (
     <div className="bg-[white] pl-2 pt-2 pr-2">
       <div className="font-semibold ">
@@ -460,13 +471,15 @@ const Commentarynavbar = () => {
         >
           <div style={{ lineHeight: ".5" }}>
             <p style={{ color: "#666666", fontSize: "16px", fontWeight: "bold", marginLeft: "1rem" }}>
-              {console.log(matchDetails)}
+
               <span>{matchDetails?.teama?.short_name}</span>{" "}
               <span>
+
                 {matchDetails?.teama?.scores}
                 {matchDetails?.teama?.overs && (
-                  <> ({matchDetails.teama.overs})</>
-                )}{" "}
+                  <> ({matchDetails?.teama.overs})</>
+                )}{" "}{matchDetails?.status === 3 && matchData1?.live_inning?.batting_team_id === matchDetails?.teama?.team_id && <span style={{ color: "#666666", fontSize: "14px", fontWeight: "bold" }}>cRR: {matchData1?.live_inning?.equations?.runrate}</span>} {console.log(matchData1, "RK")}
+                {console.log(matchDetails, "INNING")}
               </span>
             </p>
             <p style={{ color: "#000", fontSize: "20px", fontWeight: "bold", marginLeft: "1rem" }}>
@@ -475,7 +488,7 @@ const Commentarynavbar = () => {
                 {matchDetails?.teamb?.scores}
                 {matchDetails?.teamb?.overs && (
                   <> ({matchDetails.teamb.overs})</>
-                )}{" "}
+                )}{" "}{matchDetails?.status === 3 && matchData1?.live_inning?.batting_team_id === matchDetails?.teamb?.team_id && <span style={{ color: "#666666", fontSize: "14px", fontWeight: "bold" }}>cRR: {matchData1?.live_inning?.equations?.runrate}</span>}
               </span>
             </p>
             <p style={{ color: matchDetails?.statue !== 2 ? "#d0021b" : "#187EE5", marginLeft: "1rem", fontSize: "14px" }}>{matchDetails?.status_note}</p>
