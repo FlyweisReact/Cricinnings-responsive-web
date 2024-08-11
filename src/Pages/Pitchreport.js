@@ -3,6 +3,7 @@ import ipl from "../Assets/Homepage/ipl.svg";
 import {
   GetData,
   GetDataWithToken,
+  formatTitle,
 } from "../Components/Integration/ApiIntegration";
 import { useNavigate } from "react-router-dom";
 const Pitchreport = () => {
@@ -79,7 +80,7 @@ const Pitchreport = () => {
         setMatches(res?.response?.items);
       })
       .catch((err) => {
-        
+
       });
     // HomepageSliderData().then((res) => {
     //   setMatches(res);
@@ -190,7 +191,7 @@ const Pitchreport = () => {
         <div className="flex mt-5 justify-center pb-5">
           <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
             <div className="left w-[700px]   boxShadowFantsyTips">
-              <div className="flex justify-center mt-3 flex-col items-center gap-5">
+              <div className="flex justify-center mt-3 flex-col p-1">
                 {fantasyBanner &&
                   fantasyBanner?.map((item) => (
                     <>
@@ -199,7 +200,7 @@ const Pitchreport = () => {
                           <div>
                             <img
                               alt=""
-                              style={{ width: "650px", height: "300px" }}
+                              style={{ width: "100%", height: "300px",}}
                               src={item?.image || ipl}
                               className="w-[650px]"
                             />
@@ -259,18 +260,28 @@ const Pitchreport = () => {
             </div>
             <div className="w-[250px]  mt-10">
               {allSeries?.length > 0 && (
-                <div className="bg-[white] pb-3 pt-3 rounded-lg">
-                  <span className="text-sm ml-5 font-semibold">
+                <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                  <span className="text-black font-bold text-sm pl-2">
                     CURRENT SERIES
                   </span>
-                  <div className="flex flex-col mt-4 gap-3 items-center">
-                    {allSeries?.map((item) => {
+                  <div className="flex flex-col mt-4 gap-4">
+                    {allSeries?.map((item, index) => {
+                      if (index >= 4) return null;
                       return (
                         <div
                           key={item?._id}
-                          className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center"
+                          className="bg-gray-100 pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
+                          onClick={() =>
+                            navigate(
+                              `/cricket-series/${item?.cid
+                              }/${formatTitle(item?.title)}-${item?.season}/matches`
+                            )
+                          }
                         >
-                          {item?.title}
+                          <p className="text-left text-sm font-medium text-gray-800">
+                            {item?.title}
+                            {console.log(item)}
+                          </p>
                         </div>
                       );
                     })}

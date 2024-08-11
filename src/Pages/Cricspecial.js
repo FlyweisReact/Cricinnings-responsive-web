@@ -4,6 +4,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
+  formatTitle,
 } from "../Components/Integration/ApiIntegration";
 
 import { useNavigate } from "react-router-dom";
@@ -262,25 +263,35 @@ const Cricspecial = () => {
               </div>
             </div>
             <div className="w-[250px]  mt-10">
-              {allSeries?.length > 0 && (
-                <div className="bg-[white] pb-3 pt-3 rounded-lg">
-                  <span className="text-sm ml-5 font-semibold">
-                    CURRENT SERIES
-                  </span>
-                  <div className="flex flex-col mt-4 gap-3 items-center">
-                    {allSeries?.map((item) => {
-                      return (
-                        <div onClick={() => navigate('/live-cricket-scores/Allseries')}
-                          key={item?._id}
-                          className="h-[50px] w-[220px] shadow text-sm flex justify-center items-center"
-                        >
+            {allSeries?.length > 0 && (
+              <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                <span className="text-black font-bold text-sm pl-2">
+                  CURRENT SERIES
+                </span>
+                <div className="flex flex-col mt-4 gap-4">
+                  {allSeries?.map((item, index) => {
+                    if (index >= 4) return null;
+                    return (
+                      <div
+                        key={item?._id}
+                        className="bg-gray-100 pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
+                        onClick={() =>
+                          navigate(
+                            `/cricket-series/${item?.cid
+                            }/${formatTitle(item?.title)}-${item?.season}/matches`
+                          )
+                        }
+                      >
+                        <p className="text-left text-sm font-medium text-gray-800">
                           {item?.title}
-                        </div>
-                      );
-                    })}
-                  </div>
+                          {console.log(item)}
+                        </p>
+                      </div>
+                    );
+                  })}
                 </div>
-              )}
+              </div>
+            )}
 
               {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s

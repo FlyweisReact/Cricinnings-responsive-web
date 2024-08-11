@@ -798,7 +798,7 @@ const Homepage = () => {
                     return (
                       <div
                         key={item?._id}
-                        className="bg-gray-100 p-3 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
+                        className="bg-gray-100 pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
                         onClick={() =>
                           navigate(
                             `/cricket-series/${item?.cid

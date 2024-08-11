@@ -1160,50 +1160,28 @@ const Livescrore = () => {
 
                     <div className="w-[250px]">
                       {allSeries?.length > 0 && (
-                        <div
-                          style={{
-                            boxShadow:
-                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                          }}
-                          className="bg-[white] pb-3 rounded-lg mb-3"
-                        >
-                          <span
-                            style={{
-                              color: "black",
-                              fontWeight: "bold",
-                              fontSize: "12px",
-                              paddingLeft: "10px",
-                              paddingTop: "10px",
-                            }}
-                          >
+                        <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                          <span className="text-black font-bold text-sm pl-2">
                             CURRENT SERIES
                           </span>
-                          <div className="flex flex-col mt-4 gap-3 items-center text-center">
+                          <div className="flex flex-col mt-4 gap-4">
                             {allSeries?.map((item, index) => {
                               if (index >= 4) return null;
                               return (
                                 <div
+                                  key={item?._id}
+                                  className="bg-gray-100 pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
                                   onClick={() =>
                                     navigate(
                                       `/cricket-series/${item?.cid
-                                      }/${formatTitle(item?.title)}/matches`
+                                      }/${formatTitle(item?.title)}-${item?.season}/matches`
                                     )
                                   }
-                                  key={item?._id}
-                                  style={{
-                                    display: "grid",
-                                    placeItems: "center",
-                                    justifyContent: "center",
-                                    width: "90%",
-                                    margin: "auto",
-                                    boxShadow:
-                                      "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                                    textAlign: "center",
-                                    paddingTop: "0.5rem",
-                                    borderRadius: "4px",
-                                  }}
                                 >
-                                  <p>{item?.title}</p>
+                                  <p className="text-left text-sm font-medium text-gray-800">
+                                    {item?.title}
+                                    {console.log(item)}
+                                  </p>
                                 </div>
                               );
                             })}
