@@ -324,7 +324,7 @@ const Cricketnews = () => {
                   </div>
                   <div>
                     <button
-                      onClick={() => navigate("/icc-rankings/men")}
+                      onClick={() => navigate("/icc-rankings/men/batting")}
                       className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                     >
                       View all

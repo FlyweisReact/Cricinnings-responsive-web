@@ -118,10 +118,10 @@ const Navbar = () => {
                   className="absolute bg-white w-[200px] h-[80px] font-semibold p-2 flex flex-col gap-3   z-10"
                 >
                   <li>
-                    <Link to="/icc-rankings/men">ICC Men's Ranking </Link>
+                    <Link to="/icc-rankings/men/batting">ICC Men's Ranking </Link>
                   </li>
                   <li>
-                    <Link to="/icc-rankings/women">ICC Women's Ranking </Link>
+                    <Link to="/icc-rankings/women/batting">ICC Women's Ranking </Link>
                   </li>
                 </ul>
               )}
