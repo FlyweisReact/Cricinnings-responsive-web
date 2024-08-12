@@ -67,7 +67,6 @@ const Commentarynavbar = () => {
 
   const getMatchData1 = async () => {
     axios.get(baseUrl + "user/getLiveMatchById/" + matchId).then((res) => {
-      console.log(res?.data?.response);
       setMatchData1(res?.data?.response);
     });
   };
