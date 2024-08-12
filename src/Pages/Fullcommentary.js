@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import Commentarynavbar from "../Components/Commentarynavbar";
-import { baseUrl } from "../Components/Integration/ApiIntegration";
+import {
+  baseUrl,
+  highlightKeywords,
+} from "../Components/Integration/ApiIntegration";
 import { useParams } from "react-router-dom";
 import axios from "axios";
 
@@ -144,10 +147,10 @@ const Fullcommentary = () => {
                               {"."}
                               {item?.ball}
                             </span>
-                            <span>{item?.commentary}</span>
+                            <span>{highlightKeywords(item?.commentary)}</span>
                           </p>
                         )}
-                        {item?.six ||
+                        {/* {item?.six ||
                           (item?.four && (
                             <p
                               style={{
@@ -169,7 +172,7 @@ const Fullcommentary = () => {
                                 {item?.six ? "6" : item?.four ? "4" : ""}
                               </span>
                             </p>
-                          ))}
+                          ))} */}
                       </div>
                     ))}
                   {itemsToShow < commantryInning1Data?.commentaries?.length && (
@@ -222,10 +225,10 @@ const Fullcommentary = () => {
                               {"."}
                               {item?.ball}
                             </span>
-                            <span>{item?.commentary}</span>
+                            <span>{highlightKeywords(item?.commentary)}</span>
                           </p>
                         )}
-                        {item?.six ||
+                        {/* {item?.six ||
                           (item?.four && (
                             <p
                               style={{
@@ -247,7 +250,7 @@ const Fullcommentary = () => {
                                 {item?.six ? "6" : item?.four ? "4" : ""}
                               </span>
                             </p>
-                          ))}
+                          ))} */}
                       </div>
                     ))}
                   {commantryInning2Data?.commentaries?.length > itemsToShow && (
@@ -302,10 +305,10 @@ const Fullcommentary = () => {
                               {"."}
                               {item?.ball}
                             </span>
-                            <span>{item?.commentary}</span>
+                            <span>{highlightKeywords(item?.commentary)}</span>
                           </p>
                         )}
-                        {item?.six ||
+                        {/* {item?.six ||
                           (item?.four && (
                             <p
                               style={{
@@ -327,7 +330,7 @@ const Fullcommentary = () => {
                                 {item?.six ? "6" : item?.four ? "4" : ""}
                               </span>
                             </p>
-                          ))}
+                          ))} */}
                       </div>
                     ))}
                   {commantryInning1Data?.commentaries?.length > itemsToShow && (
@@ -379,10 +382,10 @@ const Fullcommentary = () => {
                               {"."}
                               {item?.ball}
                             </span>
-                            <span>{item?.commentary}</span>
+                            <span>{highlightKeywords(item?.commentary)}</span>
                           </p>
                         )}
-                        {item?.six ||
+                        {/* {item?.six ||
                           (item?.four && (
                             <p
                               style={{
@@ -404,7 +407,7 @@ const Fullcommentary = () => {
                                 {item?.six ? "6" : item?.four ? "4" : ""}
                               </span>
                             </p>
-                          ))}
+                          ))} */}
                       </div>
                     ))}
                   {commantryInning2Data?.commentaries?.length > itemsToShow && (

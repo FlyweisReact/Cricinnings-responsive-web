@@ -35,7 +35,7 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
   if (email) payload.email = email;
   try {
     const res = await axios.post(`${baseUrl}userAuth/resendOtp`, payload);
-    
+
     showMsg("success", "OTP Sent", res?.data?.message);
     alert(res?.data?.newOtp);
     setOtpSent(true);
@@ -83,7 +83,7 @@ export const GetData = async (path) => {
     const res = await axios.get(`${baseUrl}${path}`);
 
     return res?.data;
-  } catch (error) { }
+  } catch (error) {}
 };
 
 export const GetDataWithToken = async ({
@@ -123,13 +123,12 @@ export const getOrdinalSuffix = (n) => {
 
 export const formatTitle = (title) => {
   return title
-    .trim() 
+    .trim()
     .toLowerCase()
-    .replace(/[^\w\s-]/g, "") 
+    .replace(/[^\w\s-]/g, "")
     .replace(/\s+/g, "-")
-    .replace(/-+/g, "-"); 
+    .replace(/-+/g, "-");
 };
-
 
 export const convertStringFormat = (subtitle) => {
   subtitle = subtitle.replace(/(\d+)(?!\w)/g, (number) => {
@@ -143,6 +142,21 @@ function convertToOrdinal1(number) {
   const n = parseInt(number, 10);
   const suffixes = ["th", "st", "nd", "rd"];
   const mod100 = n % 100;
-  return `${n}${suffixes[(mod100 - 20) % 10] || suffixes[mod100] || suffixes[0]
-    }`;
+  return `${n}${
+    suffixes[(mod100 - 20) % 10] || suffixes[mod100] || suffixes[0]
+  }`;
 }
+
+export const highlightKeywords = (text) => {
+  const regex = /\b(four|six|wicket)\b/gi;
+
+  return text.split(regex).map((part, index) =>
+    regex.test(part) ? (
+      <strong style={{ color: "#000" }} key={index}>
+        {part}
+      </strong>
+    ) : (
+      part
+    )
+  );
+};

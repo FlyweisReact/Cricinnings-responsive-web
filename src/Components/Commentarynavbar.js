@@ -93,7 +93,6 @@ const Commentarynavbar = () => {
                 ?.join("-")}-${matchDetails?.competition?.season}/matches`
             )
           }
-          // onClick={()=>console.log(matchDetails)}
           style={{ fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
         >
           {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket Score,
@@ -125,7 +124,7 @@ const Commentarynavbar = () => {
           }}
           className="text-slate-500"
         >
-          Series:
+          Series:{" "}
           {matchDetails?.competition?.title +
             "," +
             " " +
@@ -136,8 +135,7 @@ const Commentarynavbar = () => {
           className="text-slate-500"
         >
           Venue: {matchDetails?.venue?.name}
-          {","}
-          {matchDetails?.venue?.location}
+          {","} {matchDetails?.venue?.location}
         </div>
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
@@ -267,24 +265,7 @@ const Commentarynavbar = () => {
         >
           Squads
         </p>
-        {/* <p
-          onClick={() => {
-            matchDetails?.match_id &&
-              navigate(
-                `/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/highlights/${matchDetails?.match_id}`
-              );
-          }}
-          style={{
-            color: /\/highlights\//i.test(pathname) ? "white" : "black",
-            fontWeight: "bold",
-            backgroundColor: /\/highlights\//i.test(pathname)
-              ? "#0F19AF"
-              : "white",
-            padding: /\/highlights\//i.test(pathname) ? "14px" : "0px",
-          }}
-        >
-          Highlights
-        </p> */}
+
         <p
           onClick={() => {
             matchDetails?.match_id &&
@@ -322,20 +303,7 @@ const Commentarynavbar = () => {
         >
           Full Commentary
         </p>
-        {/* <p
-          onClick={() => {
-            matchDetails?.match_id &&
-              navigate(`/live-cricket-scores/${matchDetails?.title}-${matchDetails?.competition?.title}/overs/${matchDetails?.match_id}`);
-          }}
-          style={{
-            color: /\/overs\//i.test(pathname) ? "white" : "black",
-            fontWeight: "bold",
-            backgroundColor: /\/overs\//i.test(pathname) ? "#0F19AF" : "white",
-            padding: /\/overs\//i.test(pathname) ? "14px" : "0px",
-          }}
-        >
-          Overs
-        </p> */}
+
         <p
           onClick={() => {
             matchDetails?.match_id &&
@@ -433,39 +401,6 @@ const Commentarynavbar = () => {
           Stats
         </p>
       </div>
-      {/* <div className="flex items-center gap-5 mt-4">
-        <div className="bg-[#0F19AF] flex justify-center items-center rounded w-[110px] h-[40px] text-white">
-          Commentary
-        </div>
-        <Link to="/Scorecard">
-          <div className="text-[#121212]">Scorecard</div>
-        </Link>
-        <Link to="/Squads">
-          <div className="text-[#121212]">Squads</div>{" "}
-        </Link>
-        <Link to="/Highlights">
-          <div className="text-[#121212]">Higlights</div>
-        </Link>
-        <Link to="/Fullcommentary">
-          <div className="text-[#121212]">Full Commentary</div>
-        </Link>
-        <Link to="/Overs">
-          <div className="text-[#121212]">Overs</div>{" "}
-        </Link>
-        <Link to="/Pointtable">
-          <div className="text-[#121212]">Point Table</div>{" "}
-        </Link>
-        <Link to="/Matchinfo">
-          <div className="text-[#121212]">Match Info</div>
-        </Link>
-        <Link to="/News">
-          <div className="text-[#121212]">News</div>
-        </Link>
-
-        <Link to="/Stats">
-          <div className="text-[#121212]">Stats</div>
-        </Link>
-      </div> */}
 
       {/\/live-cricket-scores\//i.test(pathname) && (
         <div
@@ -474,7 +409,7 @@ const Commentarynavbar = () => {
           }}
           className=" text-[#0F19AF] mt-2"
         >
-          <div style={{ lineHeight: ".5" }}>
+          <div style={{ lineHeight: "1.1rem" }}>
             <p
               style={{
                 color: "#666666",
@@ -483,12 +418,15 @@ const Commentarynavbar = () => {
                 marginLeft: "1rem",
               }}
             >
-              <span>{matchDetails?.teama?.short_name}</span>{" "}
+              {matchDetails?.status !== 1 && (
+                <span>{matchDetails?.teama?.short_name}</span>
+              )}{" "}
               <span>
                 {matchDetails?.teama?.scores}
                 {matchDetails?.teama?.overs && (
                   <> ({matchDetails?.teama.overs})</>
                 )}{" "}
+                {console.log(matchData1)}
                 {matchDetails?.status === 3 &&
                   matchData1?.live_inning?.batting_team_id ===
                     matchDetails?.teama?.team_id && (
@@ -499,7 +437,14 @@ const Commentarynavbar = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      cRR: {matchData1?.live_inning?.equations?.runrate}
+                      CRR: {matchData1?.live_inning?.equations?.runrate}{" "}
+                      {matchData1?.live_inning_number === 2 &&
+                        matchData1?.live_inning?.batting_team_id ===
+                          matchDetails?.teama?.team_id && (
+                          <span>
+                            | RR: {matchData1?.live_score?.required_runrate}
+                          </span>
+                        )}
                     </span>
                   )}{" "}
               </span>
@@ -512,7 +457,10 @@ const Commentarynavbar = () => {
                 marginLeft: "1rem",
               }}
             >
-              <span>{matchDetails?.teamb?.short_name}</span>{" "}
+              {matchDetails?.status === 1 && <span>Match Not Started Yet</span>}
+              {matchDetails?.status !== 1 && (
+                <span> {matchDetails?.teamb?.short_name}</span>
+              )}{" "}
               <span>
                 {matchDetails?.teamb?.scores}
                 {matchDetails?.teamb?.overs && (
@@ -528,7 +476,15 @@ const Commentarynavbar = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      cRR: {matchData1?.live_inning?.equations?.runrate}
+                      cRR:{" "}
+                      {matchData1?.live_inning?.equations?.required_runrate}{" "}
+                      {matchData1?.live_inning_number === 2 &&
+                        matchData1?.live_inning?.batting_team_id ===
+                          matchDetails?.teamb?.team_id && (
+                          <span>
+                            | RR: {matchData1?.live_score?.required_runrate}
+                          </span>
+                        )}
                     </span>
                   )}
               </span>
@@ -570,7 +526,7 @@ const Commentarynavbar = () => {
 
           <div>
             {matchData1?.status === 3 && (
-              <div style={{ width: "400px" }}>
+              <div style={{ width: "600px", fontSize: "14px" }}>
                 <div>
                   <table className="m-2 ml-0">
                     <thead>

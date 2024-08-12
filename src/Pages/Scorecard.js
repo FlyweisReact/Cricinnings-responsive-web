@@ -193,6 +193,11 @@ const Scorecard = () => {
         <div className="flex justify-center pt-2 gap-5">
           <div>
             <div>
+              {squadData?.status === 1 && (
+                <div className="w-[680px]  mt-5 mb-5 pb-5  text-center">
+                  <p>No Data Found</p>
+                </div>
+              )}
               {squadData?.status === 2 && (
                 <>
                   <div>
@@ -2583,10 +2588,8 @@ const Scorecard = () => {
               </div>
               <div className="text-slate-400 mr-2">
                 {squadData?.short_title}
-                {","}
-                {squadData?.subtitle}
-                {","}
-                {squadData?.competition?.title}
+                {","} {squadData?.subtitle}
+                {","} {squadData?.competition?.title}
               </div>
             </div>
             <div className="flex justify-between border-b">
@@ -2639,8 +2642,8 @@ const Scorecard = () => {
                 Venue
               </div>
               <div className="text-slate-400 mr-2">
-                {squadData?.venue?.name} {","}
-                {squadData?.venue?.location}
+                {squadData?.venue?.name}
+                {","} {squadData?.venue?.location}
               </div>
             </div>
             <div className="flex justify-between border-b">

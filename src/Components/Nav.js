@@ -1,9 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {
-  GetDataWithToken,
-  getOrdinalSuffix,
-} from "./Integration/ApiIntegration";
+import { formatTitle, GetDataWithToken } from "./Integration/ApiIntegration";
 import "../App.css";
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
@@ -99,7 +96,7 @@ const Nav = () => {
     const banner = res?.data?.data?.filter(
       (item) => item.title === "hompageBanner1"
     )?.[0]?.image;
-    // 
+    //
     setTopBanner1(banner);
   };
   useEffect(() => {
@@ -128,7 +125,7 @@ const Nav = () => {
       <nav>
         <div className="navBar">
           <div className="navBar_content">
-          <div>
+            <div>
               <img
                 onClick={() => navigate("/")}
                 className="logo"
@@ -141,7 +138,10 @@ const Nav = () => {
                 <p
                 // onClick={() => navigate("/Livescrore")}
                 >
-               <span style={{fontSize:"8px",marginBottom:"8px"}}>🔴</span>Live Scores
+                  <span style={{ fontSize: "8px", marginBottom: "8px" }}>
+                    🔴
+                  </span>
+                  Live Scores
                 </p>
               </a>
               <a href="/cricket-schedule/upcoming-series/international">
@@ -176,10 +176,9 @@ const Nav = () => {
                         className="no-border-radius-text"
                       >
                         <Link
-                          to={`/cricket-series/${item?.cid}/${item?.title
-                            ?.toLowerCase()
-                            ?.split(" ")
-                            ?.join("-")}/matches`}
+                          to={`/cricket-series/${item?.cid}/${formatTitle(
+                            item?.title
+                          )}-${item?.season}/matches`}
                         >
                           {item?.title}
                         </Link>
@@ -524,19 +523,11 @@ const Nav = () => {
           {matchesList?.slice(0, 5).map((item) => (
             <a
               style={{ textDecoration: "none", color: "white" }}
-              href={`/live-cricket-scorecard/${
-                item?.match_id
-              }/${item?.short_title?.toLowerCase().split(" ").join("-")}-${
-                item?.competition?.type === "tournament"
-                  ? `match-${getOrdinalSuffix(item?.match_number)}`
-                  : `${getOrdinalSuffix(item?.match_number)}-${item?.format_str
-                      ?.toLowerCase()
-                      ?.split(" ")
-                      ?.join("-")}`
-              }-${item?.competition?.title
-                ?.toLowerCase()
-                .split(" ")
-                .join("-")}-${item?.competition?.season?.toLowerCase()}`}
+              href={`/live-cricket-scorecard/${item?.match_id}/${formatTitle(
+                item?.short_title
+              )}-${formatTitle(item?.subtitle)}-${formatTitle(
+                item?.competition?.title
+              )}-${item?.competition?.season?.toLowerCase()}`}
             >
               <div
                 // onClick={() => navigate(`/Scorecard/${match?.match_id}`)}
