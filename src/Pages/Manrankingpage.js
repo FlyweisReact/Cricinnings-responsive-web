@@ -97,7 +97,7 @@ const Manrankingpage = () => {
               textDecoration: mainCategory === "bowling" ? "underline" : "none",
             }}
             onClick={() => {
-              console.log("clicked");
+              
               navigate("/icc-rankings/men/bowling")
             }}
           >

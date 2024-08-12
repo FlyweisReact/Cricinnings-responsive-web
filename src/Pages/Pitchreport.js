@@ -280,7 +280,7 @@ const Pitchreport = () => {
                         >
                           <p className="text-left text-sm font-medium text-gray-800">
                             {item?.title}
-                            {console.log(item)}
+                            {}
                           </p>
                         </div>
                       );

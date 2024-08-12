@@ -30,7 +30,7 @@ const SeriesStats = () => {
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`)
       .then((res) => {
-        console.log(res?.data);
+        
         setFormatType(res?.data?.formats);
         setCompetitionData(res?.data);
       });
@@ -43,7 +43,7 @@ const SeriesStats = () => {
   const getStatesData1 = async (payload) => {
     const params = {};
 
-    if (formatType) params.formats = formatValue;
+    if (formatType) params.format = formatValue;
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`, {
         params
@@ -129,18 +129,18 @@ const SeriesStats = () => {
                 >
                   Best Strike Rate{" "}
                 </span>
-                <span onClick={() => setFilterByData("batting_most_run4")}>
+                <span className={filterByData === "batting_most_run4"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run4")}>
                   {" "}
                   Most Fours
                 </span>
-                <span onClick={() => setFilterByData("batting_most_run6")}>
+                <span className={filterByData === "batting_most_run6"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run6")}>
                   {" "}
                   Most Sixes
                 </span>
-                <span onClick={() => setFilterByData("batting_most_run100")}>
+                <span className={filterByData === "batting_most_run100"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run100")}>
                   Most Centuries
                 </span>
-                <span onClick={() => setFilterByData("batting_most_run50")}>
+                <span className={filterByData === "batting_most_run50"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run50")}>
                   Most Fiftes
                 </span>
               </p>
@@ -159,37 +159,33 @@ const SeriesStats = () => {
                 className="statsDivSpantag123"
               >
                 <span
-                  className={
-                    filterByData === "batting_most_runs"
-                      ? "statsDivSpantag1"
-                      : "statsDivSpantag"
-                  }
+                  className={filterByData === "bowling_top_wicket_takers"?"statsDivSpantag1":"statsDivSpantag"}
                   onClick={() => setFilterByData("bowling_top_wicket_takers")}
                 >
                   Most Wickets{" "}
                 </span>
-                <span onClick={() => setFilterByData("bowling_four_wickets")}>
+                <span className={filterByData === "bowling_four_wickets"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("bowling_four_wickets")}>
                   {" "}
                   Four Wickets
                 </span>
-                <span onClick={() => setFilterByData("bowling_five_wickets")}>
+                <span className={filterByData === "bowling_five_wickets"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("bowling_five_wickets")}>
                   {" "}
                   Five Wickets
                 </span>
-                <span onClick={() => setFilterByData("bowling_best_averages")}>
+                <span className={filterByData === "bowling_best_averages"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("bowling_best_averages")}>
                   Best Averages
                 </span>
-                <span
+                <span className={filterByData === "bowling_best_strike_rates"?"statsDivSpantag1":"statsDivSpantag"}
                   onClick={() => setFilterByData("bowling_best_strike_rates")}
                 >
                   Best Strike Rate
                 </span>
-                <span
+                <span className={filterByData === "bowling_best_economy_rates"?"statsDivSpantag1":"statsDivSpantag"}
                   onClick={() => setFilterByData("bowling_best_economy_rates")}
                 >
                   Best Economy
                 </span>
-                <span
+                <span className={filterByData === "bowling_best_bowling_figures"?"statsDivSpantag1":"statsDivSpantag"}
                   onClick={() =>
                     setFilterByData("bowling_best_bowling_figures")
                   }

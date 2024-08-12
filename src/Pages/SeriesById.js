@@ -3,9 +3,7 @@ import {
   GetData,
   GetDataWithToken,
   baseUrl,
-  convertStringFormat,
   formatTitle,
-  getOrdinalSuffix,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -541,7 +539,9 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/matches`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(
+                    seriesDetails?.title
+                  )}-${seriesDetails?.season}/matches`
                 )
               }
             >
@@ -558,7 +558,9 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/squads`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(
+                    seriesDetails?.title
+                  )}-${seriesDetails?.season}/squads`
                 )
               }
             >
@@ -577,7 +579,9 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/points-table`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(
+                    seriesDetails?.title
+                  )}-${seriesDetails?.season}/points-table`
                 )
               }
             >
@@ -596,7 +600,9 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/stats`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(
+                    seriesDetails?.title
+                  )}-${seriesDetails?.season}/stats`
                 )
               }
             >
@@ -613,14 +619,16 @@ const SeriesById = () => {
               }}
               onClick={() =>
                 navigate(
-                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(seriesDetails?.title)}-${seriesDetails?.season}/venues`
+                  `/cricket-series/${seriesDetails?.cid}/${formatTitle(
+                    seriesDetails?.title
+                  )}-${seriesDetails?.season}/venues`
                 )
               }
             >
               Venues
             </p>
           </div>
-          {}
+     
         </div>
 
         {selectedDiv && (
@@ -676,11 +684,15 @@ const SeriesById = () => {
                                   }}
                                   onClick={() =>
                                     navigate(
-                                      `/live-cricket-scores/${item?.match_id
-                                      }/${formatTitle(item?.short_title)}-${convertStringFormat(
+                                      `/live-cricket-scores/${
+                                        item?.match_id
+                                      }/${formatTitle(
+                                        item?.short_title
+                                      )}-${formatTitle(
                                         item?.subtitle
-                                      )}-${formatTitle(item?.competition?.title)
-                                      }-${item?.competition?.season?.toLowerCase()}`
+                                      )}-${formatTitle(
+                                        item?.competition?.title
+                                      )}-${item?.competition?.season?.toLowerCase()}`
                                     )
                                   }
                                 >
@@ -694,9 +706,8 @@ const SeriesById = () => {
                                     <span>
                                       {item?.title +
                                         "," +
-                                        getOrdinalSuffix(item?.match_number) +
-                                        " " +
-                                        item?.format_str}
+                                        formatTitle(item?.subtitle)}
+
                                     </span>
                                     <span style={{ color: "gray" }}>
                                       {item?.venue?.name +
@@ -1300,7 +1311,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${formatTitle(item?.title)}/${item?.cid}`
+                                      `/cricket-series/${formatTitle(
+                                        item?.title
+                                      )}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1355,7 +1368,9 @@ const SeriesById = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/icc-rankings/men/batting")}
+                              onClick={() =>
+                                navigate("/icc-rankings/men/batting")
+                              }
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all
@@ -1783,9 +1798,11 @@ const SeriesById = () => {
                                         <span
                                           onClick={() =>
                                             navigate(
-                                              `/live-cricket-scores/${formatTitle(item?.title)}-${formatTitle(item?.competition?.title)}/commentry/${
-                                                item?.match_id
-                                              }`
+                                              `/live-cricket-scores/${formatTitle(
+                                                item?.title
+                                              )}-${formatTitle(
+                                                item?.competition?.title
+                                              )}/commentry/${item?.match_id}`
                                             )
                                           }
                                           className="text-slate-400"
@@ -1834,7 +1851,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${formatTitle(item?.title)}/${item?.cid}`
+                                      `/cricket-series/${formatTitle(
+                                        item?.title
+                                      )}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -1889,7 +1908,9 @@ const SeriesById = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/icc-rankings/men/batting")}
+                              onClick={() =>
+                                navigate("/icc-rankings/men/batting")
+                              }
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all
@@ -2397,7 +2418,9 @@ const SeriesById = () => {
                                 <div
                                   onClick={() =>
                                     navigate(
-                                      `/cricket-series/${formatTitle(item?.title)}/${item?.cid}`
+                                      `/cricket-series/${formatTitle(
+                                        item?.title
+                                      )}/${item?.cid}`
                                     )
                                   }
                                   key={item?._id}
@@ -2444,7 +2467,9 @@ const SeriesById = () => {
                           </div>
                           <div>
                             <button
-                              onClick={() => navigate("/icc-rankings/men/batting")}
+                              onClick={() =>
+                                navigate("/icc-rankings/men/batting")
+                              }
                               className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
                             >
                               View all

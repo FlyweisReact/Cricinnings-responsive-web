@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
-
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import { useNavigate, useParams } from "react-router-dom";
 import { Table } from "react-bootstrap";
 const Stats = () => {

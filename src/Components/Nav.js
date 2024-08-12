@@ -99,7 +99,7 @@ const Nav = () => {
     const banner = res?.data?.data?.filter(
       (item) => item.title === "hompageBanner1"
     )?.[0]?.image;
-    // console.log(res?.data);
+    // 
     setTopBanner1(banner);
   };
   useEffect(() => {

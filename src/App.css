@@ -596,15 +596,18 @@
   font-size: 14px;
   border-bottom: 1px solid #d1d1d1;
   padding-bottom:  5px;
+  cursor: pointer;
 }
 
 .statsDivSpantag1 {
-  color: rgb(34, 34, 34);
+  /* color: rgb(34, 34, 34); */
   font-weight: normal;
   padding: 6px 10px;
   font-size: 14px;
   border-bottom: 1px solid rgb(34, 34, 34);
   padding-bottom:  5px;
+  background-color: #D1D1D1;
+color: black;
 }
 
 .statsDivSpantag123>span:hover {

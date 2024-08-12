@@ -1363,7 +1363,7 @@ const Livescrore = () => {
                                     </tr>
                                   ))}
                                 {teamSelector === "t20" &&
-                                  t20s?.slice(0, 6).map((item, index) => (
+                                  t20s?.slice(0, 6)?.map((item, index) => (
                                     <tr
                                       key={index}
                                       style={{ textAlign: "center" }}
@@ -1730,7 +1730,7 @@ const Livescrore = () => {
                                 {date}
                               </p>
                             </div>
-                            {groupedMatches[date].map((item, index) => (
+                            {groupedMatches[date]?.map((item, index) => (
                               <div
                                 key={index}
                                 style={{

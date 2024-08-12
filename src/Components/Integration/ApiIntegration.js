@@ -35,7 +35,7 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
   if (email) payload.email = email;
   try {
     const res = await axios.post(`${baseUrl}userAuth/resendOtp`, payload);
-    console.log(res);
+    
     showMsg("success", "OTP Sent", res?.data?.message);
     alert(res?.data?.newOtp);
     setOtpSent(true);

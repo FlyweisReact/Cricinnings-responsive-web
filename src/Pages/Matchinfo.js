@@ -21,7 +21,7 @@ const Matchinfo = () => {
   };
 
   useEffect(() => {
-    getAllBanner();
+    // getAllBanner();
   }, []);
 
   function formatDateTime(dateString) {
@@ -48,7 +48,7 @@ const Matchinfo = () => {
   };
 
   useEffect(() => {
-    getSquadData();
+    // getSquadData();
   }, []);
   return (
     <div className="">
