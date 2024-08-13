@@ -431,21 +431,22 @@ const Livescrore = () => {
     const current_year = new Date().getFullYear();
     const res = await axios
       .get(
-        `${baseUrl}user/getAllCompetitionsList?category=${currentCategory}&season=${seriesArchieveSeason}`
+        `${baseUrl}user/getAllCompetitionsList?category=${currentCategory}&status=result&per_page=30&page=1&season=${seriesArchieveSeason}`
       )
       .then((res) => {
+        console.log(res?.data);
         if (currentCategory === "international") {
-          const reverseData = res?.data?.response?.items?.reverse();
-          setSeriesArchiveInternation(res?.data?.response?.items);
+          const reverseData = res?.data?.competitions?.reverse();
+          setSeriesArchiveInternation(reverseData);
         } else if (currentCategory === "domestic") {
-          const reverseData2 = res?.data?.response?.items?.reverse();
-          setSeriesArchiveDomestic(res?.data?.response?.items);
+          const reverseData2 = res?.data?.competitions?.reverse();
+          setSeriesArchiveDomestic(reverseData2);
         } else if (currentCategory === "youth") {
-          const reverseData3 = res?.data?.response?.items?.reverse();
-          setSeriesArchiveYouth(res?.data?.response?.items);
+          const reverseData3 = res?.data?.competitions?.reverse();
+          setSeriesArchiveYouth(reverseData3);
         } else if (currentCategory === "women") {
-          const reverseData4 = res?.data?.response?.items?.reverse();
-          setSeriesArchiveWomen(res?.data?.response?.items);
+          const reverseData4 = res?.data?.competitions?.reverse();
+          setSeriesArchiveWomen(reverseData4);
         }
       })
       .catch((err) => {});
