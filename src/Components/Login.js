@@ -1,8 +1,8 @@
-import { Link } from "react-router-dom";
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
-import { LoginHandler, VerifyOtp } from "./Integration/ApiIntegration";
+import { LoginHandler, showMsg, VerifyOtp } from "./Integration/ApiIntegration";
 import OTPInput, { ResendOTP } from "otp-input-react";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [btnChecked, setBtnChecked] = useState(false);
@@ -13,7 +13,8 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // if (!btnChecked) return alert("Please");
+    if (!btnChecked)
+      return showMsg("danger", "Please agree to terms and conditions");
     LoginHandler({
       email,
       phone,
@@ -36,6 +37,7 @@ const Login = () => {
     );
   };
   const renderTime = () => React.Fragment;
+  const navigate = useNavigate();
   return (
     <div className="h-[700px]">
       <div className="text-center font-semibold text-3xl  mt-10">Log In</div>
@@ -47,8 +49,19 @@ const Login = () => {
             checked={btnChecked}
           />
           I agree to the{" "}
-          <span className="text-[#1866DB] underline">Privacy Policy</span> and{" "}
-          <span className="text-[#1866DB] underline">T & C</span>{" "}
+          <span
+            className="text-[#1866DB] underline cursor-pointer"
+            onClick={() => navigate("/privacy-policy")}
+          >
+            Privacy Policy
+          </span>{" "}
+          and{" "}
+          <span
+            className="text-[#1866DB] underline cursor-pointer"
+            onClick={() => navigate("/terms-conditions")}
+          >
+            T & C
+          </span>{" "}
         </div>
       </div>
       <Form onSubmit={otpSent ? veriFyOtp : handleLogin}>
@@ -122,12 +135,12 @@ const Login = () => {
           </button>
         </div>
       </Form>
-      <div className="flex justify-center mt-5">
+      {/* <div className="flex justify-center mt-5">
         Don't have an account?{" "}
         <Link to="/signup">
           <span className="text-[#1866DB] underline">Sign Up</span>{" "}
         </Link>
-      </div>
+      </div> */}
 
       {/* <div className="flex justify-center mt-10">OR</div>
       <div className="flex flex-col items-center gap-4 justify-center mt-5">
