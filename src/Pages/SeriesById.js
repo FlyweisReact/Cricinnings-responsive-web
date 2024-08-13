@@ -628,7 +628,6 @@ const SeriesById = () => {
               Venues
             </p>
           </div>
-     
         </div>
 
         {selectedDiv && (
@@ -703,12 +702,12 @@ const SeriesById = () => {
                                       gap: "2px",
                                     }}
                                   >
-                                    <span>
+                                    <span className="hover:underline">
                                       {item?.title +
                                         "," +
                                         formatTitle(item?.subtitle)}
-
                                     </span>
+
                                     <span style={{ color: "gray" }}>
                                       {item?.venue?.name +
                                         " - " +

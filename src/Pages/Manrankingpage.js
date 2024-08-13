@@ -1,5 +1,3 @@
-import topnews from "../Assets/Homepage/topnews.svg";
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import men from "../Assets/Homepage/men.svg";
 import { useEffect, useState } from "react";
 import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
@@ -27,11 +25,9 @@ const Manrankingpage = () => {
   const location = useLocation();
   const { pathname } = useLocation();
 
-
-
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    // 
+    //
     setOdiBestman(res?.data?.rankingData?.ranks?.batsmen?.odis);
     setT20Bestman(res?.data?.rankingData?.ranks?.batsmen?.t20s);
     setTestBestman(res?.data?.rankingData?.ranks?.batsmen?.tests);
@@ -45,9 +41,7 @@ const Manrankingpage = () => {
     setT20s(res?.data?.rankingData?.ranks?.teams?.t20s);
     setTest(res?.data?.rankingData?.ranks?.teams?.tests);
     setTeamRankings(res?.response?.items);
-
   };
-
 
   useEffect(() => {
     if (pathname === "/icc-rankings/men/batting") {
@@ -61,11 +55,23 @@ const Manrankingpage = () => {
     }
 
     getAllTeamRankingsData();
-
   }, [pathname]);
+  const [banner1, setBanner1] = useState();
+  const [banner2, setBanner2] = useState();
+  const [banner3, setBanner3] = useState();
+  const getAllBanner = async () => {
+    axios.get(baseUrl + "admin/getAllPosts").then((res) => {
+      const banner = res?.data?.data;
+      setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
+      setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
+      setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
+      //
+    });
+  };
 
-
-
+  useEffect(() => {
+    getAllBanner();
+  }, []);
   return (
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
@@ -74,10 +80,10 @@ const Manrankingpage = () => {
           {mainCategory === "batting"
             ? "Batsmen"
             : mainCategory === "bowling"
-              ? "Bowling"
-              : mainCategory === "all-rounder"
-                ? "All-rounders"
-                : "Team"}{" "}
+            ? "Bowling"
+            : mainCategory === "all-rounder"
+            ? "All-rounders"
+            : "Team"}{" "}
         </div>
         <div className="flex gap-5 mt-3">
           <div
@@ -86,7 +92,7 @@ const Manrankingpage = () => {
               textDecoration: mainCategory === "batting" ? "underline" : "none",
             }}
             onClick={() => {
-              navigate("/icc-rankings/men/batting")
+              navigate("/icc-rankings/men/batting");
             }}
           >
             Batting
@@ -97,8 +103,7 @@ const Manrankingpage = () => {
               textDecoration: mainCategory === "bowling" ? "underline" : "none",
             }}
             onClick={() => {
-              
-              navigate("/icc-rankings/men/bowling")
+              navigate("/icc-rankings/men/bowling");
             }}
           >
             Bowling
@@ -106,10 +111,11 @@ const Manrankingpage = () => {
           <div
             style={{
               cursor: "pointer",
-              textDecoration: mainCategory === "all-rounder" ? "underline" : "none",
+              textDecoration:
+                mainCategory === "all-rounder" ? "underline" : "none",
             }}
             onClick={() => {
-              navigate("/icc-rankings/men/all-rounder")
+              navigate("/icc-rankings/men/all-rounder");
             }}
           >
             All-rounders
@@ -120,7 +126,7 @@ const Manrankingpage = () => {
               textDecoration: mainCategory === "teams" ? "underline" : "none",
             }}
             onClick={() => {
-              navigate("/icc-rankings/men/teams")
+              navigate("/icc-rankings/men/teams");
             }}
           >
             Teams
@@ -225,7 +231,9 @@ const Manrankingpage = () => {
                                 <span
                                   onClick={() =>
                                     navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
+                                      `/profiles/${item?.pid}/${formatTitle(
+                                        item?.player
+                                      )}`
                                     )
                                   }
                                   style={{ fontWeight: "bold" }}
@@ -275,10 +283,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -326,10 +336,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -471,10 +483,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -522,10 +536,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -573,10 +589,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -718,10 +736,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -769,10 +789,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -820,10 +842,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -965,10 +989,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -1016,10 +1042,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -1067,10 +1095,12 @@ const Manrankingpage = () => {
                                   flexDirection: "column",
                                 }}
                                 onClick={() =>
-                                    navigate(
-                                      `/profiles/${item?.pid}/${formatTitle(item?.player)}`
-                                    )
-                                  }
+                                  navigate(
+                                    `/profiles/${item?.pid}/${formatTitle(
+                                      item?.player
+                                    )}`
+                                  )
+                                }
                               >
                                 <span style={{ fontWeight: "bold" }}>
                                   {item.player}
@@ -1151,7 +1181,7 @@ const Manrankingpage = () => {
               </div>
             </>
           )}
-          <div className="w-[250px] ">
+          {/* <div className="w-[250px] ">
             <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s
             </div>
@@ -1235,6 +1265,60 @@ const Manrankingpage = () => {
                 </div>
               </div>
             </div>
+          </div> */}
+          <div className="w-[250px] ">
+            {banner1 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner1?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
+            {/* <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
+                <div className="text-sm p-3 font-semibold">
+                  FEATURE VIDEOS !!
+                </div>
+                <img src={videoframe} alt="" />
+                <img src={videoframe} alt="" />
+                <img src={videoframe} alt="" />
+                <div className="flex justify-center pb-5">
+                  <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
+                    More Videos
+                  </button>
+                </div>
+              </div> */}
+            {banner2 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner2?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
+            {banner2 && (
+              <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                <img
+                  src={banner2?.image}
+                  style={{
+                    width: "100%",
+                    height: "100%",
+                    borderRadius: "10px",
+                  }}
+                  alt=""
+                />
+              </div>
+            )}
           </div>
         </div>
       </div>

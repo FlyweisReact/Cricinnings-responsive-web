@@ -105,31 +105,24 @@ const Commentarynavbar = () => {
         </p>
       </div>
       <div className="flex justify-between mt-3">
-        <div
-          onClick={() =>
-            navigate(
-              `/cricket-series/${
-                matchDetails?.competition?.cid
-              }/${matchDetails?.competition?.title
-                ?.toLowerCase()
-                ?.split(" ")
-                ?.join("-")}-${matchDetails?.competition?.season}/matches`
-            )
-          }
-          style={{
-            fontSize: "14px",
-            fontWeight: "bold",
-            color: "#7E7F7E",
-            cursor: "pointer",
-          }}
-          className="text-slate-500"
-        >
-          Series:{" "}
-          {matchDetails?.competition?.title +
-            "," +
-            " " +
-            matchDetails?.competition?.season}
-        </div>
+      <div
+  onClick={() =>
+    navigate(
+      `/cricket-series/${matchDetails?.competition?.cid}/${matchDetails?.competition?.title
+        ?.toLowerCase()
+        ?.split(" ")
+        ?.join("-")}-${matchDetails?.competition?.season}/matches`
+    )
+  }
+  className="text-slate-500 text-sm font-bold cursor-pointer hover:underline"
+>
+  Series:{" "}
+  {matchDetails?.competition?.title +
+    "," +
+    " " +
+    matchDetails?.competition?.season}
+</div>
+
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
           className="text-slate-500"

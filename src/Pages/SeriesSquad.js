@@ -18,7 +18,7 @@ const SeriesSquad = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      // 
+      //
     });
   };
 
@@ -136,11 +136,16 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "bat")
                     ?.map((item) => {
                       return (
-                        <div onClick={() =>
-                          navigate(
-                            `/profiles/${item?.pid}/${formatTitle(item?.title)}`
-                          )
-                        } style={{ fontSize: "1.2rem", fontWeight: "400", cursor: "pointer" }}>
+                        <div
+                          onClick={() =>
+                            navigate(
+                              `/profiles/${item?.pid}/${formatTitle(
+                                item?.title
+                              )}`
+                            )
+                          }
+                          className="text-lg font-normal cursor-pointer hover:underline"
+                        >
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );
@@ -170,11 +175,16 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "bowl")
                     ?.map((item) => {
                       return (
-                        <div onClick={() =>
-                          navigate(
-                            `/profiles/${item?.pid}/${formatTitle(item?.title)}`
-                          )
-                        }  style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                        <div
+                          onClick={() =>
+                            navigate(
+                              `/profiles/${item?.pid}/${formatTitle(
+                                item?.title
+                              )}`
+                            )
+                          }
+                          className="text-lg font-normal cursor-pointer hover:underline"
+                        >
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );
@@ -204,11 +214,16 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "all")
                     ?.map((item) => {
                       return (
-                        <div onClick={() =>
-                          navigate(
-                            `/profiles/${item?.pid}/${formatTitle(item?.title)}`
-                          )
-                        }  style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                        <div
+                          onClick={() =>
+                            navigate(
+                              `/profiles/${item?.pid}/${formatTitle(
+                                item?.title
+                              )}`
+                            )
+                          }
+                          className="text-lg font-normal cursor-pointer hover:underline"
+                        >
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );
@@ -238,7 +253,13 @@ const SeriesSquad = () => {
                     ?.filter((item) => item?.playing_role === "wk")
                     ?.map((item) => {
                       return (
-                        <div style={{ fontSize: "1.2rem", fontWeight: "400" }}>
+                        <div onClick={() =>
+                          navigate(
+                            `/profiles/${item?.pid}/${formatTitle(
+                              item?.title
+                            )}`
+                          )
+                        } className="text-lg font-normal cursor-pointer hover:underline">
                           <p>{item?.first_name + " " + item?.last_name}</p>
                         </div>
                       );

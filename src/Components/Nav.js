@@ -231,9 +231,7 @@ const Nav = () => {
               <p onClick={() => navigate("/pitch-report")}>Pitch Report</p>
             </div>
             <div className="navBar_icons">
-              <p>
-                <Icon icon="iconamoon:search" />
-              </p>
+              <p>{/* <Icon icon="iconamoon:search" /> */}</p>
               <p>
                 <Icon onClick={() => navigate("/login")} icon="gg:profile" />
               </p>

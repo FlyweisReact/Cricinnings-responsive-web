@@ -10,7 +10,6 @@ import {
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
-import { Link } from "react-router-dom";
 import { Table } from "react-bootstrap";
 const Livescrore = () => {
   const location = useLocation();
@@ -409,17 +408,17 @@ const Livescrore = () => {
       .catch((err) => {});
   };
   const getAllCompetationsType = async () => {
-    const current_year = new Date().getFullYear();
-    const res = await axios
-      .get(
-        `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&status=mixed&paged=1&category=${category}`
-      )
-      .then((res) => {
-        const reverseData =
-          res?.data?.response?.competitionsByMonthAndYear?.reverse();
-        setCompetationsType(reverseData);
-      })
-      .catch((err) => {});
+    try {
+      const res = await axios.get(
+        `${baseUrl}user/getCompetitionsListByMonthAndDate?per_page=30&paged=1&category=${category}`
+      );
+
+      const actualData = res?.data?.response?.competitionsByMonthAndYear;
+
+      setCompetationsType(actualData);
+    } catch (err) {
+      console.error("Error fetching competitions:", err);
+    }
   };
 
   const [seriesArchiveInternation, setSeriesArchiveInternation] = useState([]);
@@ -437,16 +436,16 @@ const Livescrore = () => {
       .then((res) => {
         if (currentCategory === "international") {
           const reverseData = res?.data?.response?.items?.reverse();
-          setSeriesArchiveInternation(reverseData);
+          setSeriesArchiveInternation(res?.data?.response?.items);
         } else if (currentCategory === "domestic") {
           const reverseData2 = res?.data?.response?.items?.reverse();
-          setSeriesArchiveDomestic(reverseData2);
+          setSeriesArchiveDomestic(res?.data?.response?.items);
         } else if (currentCategory === "youth") {
           const reverseData3 = res?.data?.response?.items?.reverse();
-          setSeriesArchiveYouth(reverseData3);
+          setSeriesArchiveYouth(res?.data?.response?.items);
         } else if (currentCategory === "women") {
           const reverseData4 = res?.data?.response?.items?.reverse();
-          setSeriesArchiveWomen(reverseData4);
+          setSeriesArchiveWomen(res?.data?.response?.items);
         }
       })
       .catch((err) => {});
@@ -836,7 +835,7 @@ const Livescrore = () => {
                       className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer"
                     >
                       {comp1[0]?.competition?.title}
-                      {","} {console.log(comp1[0])}
+                      {","} {}
                       {comp1[0]?.competition?.season ||
                         comp1[0]?.matches?.[0]?.match?.competition?.season}
                     </div>
@@ -1223,7 +1222,7 @@ const Livescrore = () => {
                                 >
                                   <p className="text-left text-sm font-medium text-gray-800">
                                     {item?.title}
-                                    {console.log(item)}
+                                    {}
                                   </p>
                                 </div>
                               );
@@ -1696,49 +1695,49 @@ const Livescrore = () => {
                                 {item?.competitions?.map(
                                   (competition, index) => {
                                     return (
-                                      <Link
-                                        to={`/cricket-series/${
-                                          competition?.cid
-                                        }/${formatTitle(competition?.title)}-${
-                                          competition?.season
-                                        }/matches`}
+                                      //   <Link
+                                      //   to={``}
+                                      // >
+                                      <p
+                                        onClick={() =>
+                                          navigate(
+                                            `/cricket-series/${
+                                              competition?.cid
+                                            }/${formatTitle(
+                                              competition?.title
+                                            )}-${competition?.season}/matches`
+                                          )
+                                        }
+                                        className="cursor-pointer flex flex-col text-black hover:underline"
+                                        key={index}
                                       >
-                                        <p
-                                          style={{
-                                            cursor: "pointer",
-                                            display: "flex",
-                                            flexDirection: "column",
-                                          }}
-                                          key={index}
-                                        >
-                                          <span>
-                                            {competition?.title}{" "}
-                                            {competition?.datestart?.slice(
-                                              0,
-                                              4
-                                            ) ===
-                                            competition?.dateend?.slice(0, 4)
-                                              ? `${competition?.datestart?.slice(
-                                                  0,
-                                                  4
-                                                )}`
-                                              : `${competition?.datestart?.slice(
-                                                  0,
-                                                  4
-                                                )}-${competition?.dateend?.slice(
-                                                  2,
-                                                  4
-                                                )}`}
-                                          </span>
-
-                                          <span>
-                                            {formatDateRangeR(
-                                              competition?.datestart,
-                                              competition?.dateend
-                                            )}
-                                          </span>
-                                        </p>
-                                      </Link>
+                                        <span>
+                                          {competition?.title}{" "}
+                                          {competition?.datestart?.slice(
+                                            0,
+                                            4
+                                          ) ===
+                                          competition?.dateend?.slice(0, 4)
+                                            ? `${competition?.datestart?.slice(
+                                                0,
+                                                4
+                                              )}`
+                                            : `${competition?.datestart?.slice(
+                                                0,
+                                                4
+                                              )}-${competition?.dateend?.slice(
+                                                2,
+                                                4
+                                              )}`}
+                                        </span>
+                                        <span>
+                                          {formatDateRangeR(
+                                            competition?.datestart,
+                                            competition?.dateend
+                                          )}
+                                        </span>
+                                      </p>
+                                      // </Link>
                                     );
                                   }
                                 )}
@@ -1785,12 +1784,6 @@ const Livescrore = () => {
                                 }}
                               >
                                 <p
-                                  style={{
-                                    fontWeight: "bold",
-                                    color: "black",
-                                    paddingLeft: "5px",
-                                    cursor: "pointer",
-                                  }}
                                   onClick={() =>
                                     navigate(
                                       `/cricket-series/${
@@ -1800,11 +1793,13 @@ const Livescrore = () => {
                                       )}-${item?.competition?.season}/matches`
                                     )
                                   }
+                                  className="font-bold text-black pl-1 cursor-pointer hover:underline"
                                 >
                                   {item?.competition?.title},{" "}
                                   {item?.competition?.season}-
                                   {item?.competition?.dateend?.slice(2, 4)}
                                 </p>
+
                                 <p>
                                   <div
                                     style={{
@@ -1838,15 +1833,15 @@ const Livescrore = () => {
                                       );
                                     }}
                                   >
-                                    <span style={{ color: "black" }}>
+                                    <span className="text-black hover:underline hover:cursor-pointer">
                                       {item?.teama?.name && item?.teamb?.name
                                         ? `${item.teama.name} vs ${item.teamb.name}`
                                         : "Match details not available"}
                                       , {item?.subtitle}{" "}
                                       {item?.format_str === "Test" &&
-                                        "," + " " + "Day" + " " + item?.day}
-                                      {/* {item?.date_start?.slice(0, 10)} */}
+                                        `, Day ${item?.day}`}
                                     </span>
+
                                     <span style={{ color: "#707071" }}>
                                       {item?.venue?.name?.split(",")?.[0]},{" "}
                                       {item?.venue?.location}

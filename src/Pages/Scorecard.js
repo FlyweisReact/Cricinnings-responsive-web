@@ -1,4 +1,3 @@
-import videoframe from "../Assets/Homepage/videoframe.svg";
 import Commentarynavbar from "../Components/Commentarynavbar";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
@@ -236,7 +235,7 @@ const Scorecard = () => {
                             (item, index) => (
                               <tr key={index} className="border-b">
                                 <td
-                                  className="text-[#0F19AF]"
+                                  className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                   onClick={() =>
                                     navigate(
                                       `/profiles/${
@@ -252,6 +251,7 @@ const Scorecard = () => {
                                     ? "(C)"
                                     : ""}
                                 </td>
+
                                 <td>{item.how_out}</td>
                                 <td>{item.runs}</td>
                                 <td>{item.balls_faced}</td>
@@ -317,6 +317,7 @@ const Scorecard = () => {
                                       }/${formatTitle(player?.name)}`
                                     )
                                   }
+                                  className="hover:underline hover:cursor-pointer"
                                   key={index}
                                 >
                                   {player?.name}
@@ -370,7 +371,7 @@ const Scorecard = () => {
                                       }/${formatTitle(item?.name)}`
                                     )
                                   }
-                                  className="text-[#0F19AF]  pl-3"
+                                  className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                 >
                                   {item?.role_str === "(WK)"
                                     ? "(WK)"
@@ -379,6 +380,7 @@ const Scorecard = () => {
                                     : ""}{" "}
                                   {item.name}
                                 </td>
+
                                 <td>{item.overs}</td>
                                 <td>{item.maidens}</td>
                                 <td>{item.run0}</td>
@@ -451,7 +453,8 @@ const Scorecard = () => {
                           {squadData?.innings?.[0]?.fows?.map((item, index) => (
                             <tr className="border-b">
                               <td
-                                style={{ color: "blue" }}
+                                style={{ color: "#0F19B6" }}
+                                className="pl-3 hover:underline hover:cursor-pointer"
                                 onClick={() =>
                                   navigate(
                                     `/profiles/${
@@ -459,15 +462,304 @@ const Scorecard = () => {
                                     }/${formatTitle(item?.name)}`
                                   )
                                 }
-                                className="pl-3"
                               >
                                 {item?.role_str === "(WK)"
                                   ? "(WK)"
                                   : item?.role_str === "(C)"
                                   ? "(C)"
                                   : ""}{" "}
-                                {item?.name}{" "}
+                                {item?.name}
                               </td>
+
+                              <td className="pr-3">{item?.how_out}</td>
+                              <td className="pl-3">
+                                {item?.score_at_dismissal}
+                              </td>
+                              <td className="text-[#0F19AF] pt-2 pl-3">
+                                {item?.overs_at_dismissal}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+
+                  <div>
+                    <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
+                      <div className="bg-[#0F19AF] flex justify-between items-center  rounded-t-lg w-full h-[45px] text-white">
+                        <div className="ml-2">
+                          {squadData?.innings?.[1]?.name}
+                        </div>
+                        <div className="mr-2">
+                          {squadData?.innings?.[1]?.scores
+                            ?.split("/")
+                            ?.join("-")}{" "}
+                          {squadData?.innings?.[1]?.scores_full &&
+                            "(" +
+                              squadData?.innings?.[1]?.scores_full
+                                ?.split("(")?.[1]
+                                ?.split(" ")?.[0] +
+                              ") Ov"}
+                          {/* {squadData?.innings?.[1]?.scores_full} */}
+                        </div>
+                      </div>
+
+                      <table className="m-2">
+                        <thead>
+                          <tr className="border-b">
+                            <th className="w-[150px] text-left">Batter</th>
+                            <th className="w-[300px]"></th>
+                            <th className="w-[50px] text-left">R</th>
+                            <th className="w-[50px] text-left">B</th>
+                            <th className="w-[50px] text-left">4S</th>
+                            <th className="w-[50px] text-left">6S</th>
+                            <th className="w-[50px]">SR </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {squadData?.innings?.[1]?.batsmen?.map(
+                            (item, index) => (
+                              <tr key={index} className="border-b">
+                                <td
+                                  className="text-[#0F19AF] hover:underline hover:cursor-pointer"
+                                  onClick={() =>
+                                    navigate(
+                                      `/profiles/${
+                                        item?.batsman_id
+                                      }/${formatTitle(item?.name)}`
+                                    )
+                                  }
+                                >
+                                  {item.name}{" "}
+                                  {item?.role_str === "(WK)"
+                                    ? "(WK)"
+                                    : item?.role_str === "(C)"
+                                    ? "(C)"
+                                    : ""}
+                                </td>
+
+                                <td>{item.how_out}</td>
+                                <td>{item.runs}</td>
+                                <td>{item.balls_faced}</td>
+                                <td>{item.fours}</td>
+                                <td>{item.sixes}</td>
+                                <td className="flex items-center">
+                                  {item.strike_rate}
+                                </td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </table>
+                      <div className="border-b  ml-2 mr-2">
+                        <div className="flex justify-between w-[550px]">
+                          <div className="text-slate-400">EXTRAS</div>
+                          <div className="text-slate-400 flex">
+                            {formatExtraRuns(
+                              squadData?.innings?.[1]?.extra_runs
+                            )}
+                            {}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="border-b ml-2 mr-2">
+                        <div className="flex  justify-between w-[550px]">
+                          <div className="text-slate-400">TOTAL</div>
+                          <div className=" flex">
+                            {squadData?.innings?.[1]?.scores?.split("/")?.[0]}{" "}
+                            {squadData?.innings?.[1]?.scores?.split("/")?.[1]
+                              ? "(" +
+                                squadData?.innings?.[1]?.scores?.split(
+                                  "/"
+                                )?.[1] +
+                                " wkts" +
+                                "," +
+                                " " +
+                                squadData?.innings?.[1]?.scores_full
+                                  ?.split("(")?.[1]
+                                  ?.split(" ")?.[0] +
+                                " " +
+                                "Ov)"
+                              : ""}
+                            {/* {(squadData?.innings?.[0]?.scores_full)} */}
+                          </div>
+                        </div>
+                      </div>
+
+                      <div className="flex ml-2 w-[680px]">
+                        <div
+                          style={{ width: "150px" }}
+                          className="text-slate-400 pr-14"
+                        >
+                          Didn’t Bat
+                        </div>
+                        <div className="text-[#0F19AF] ml-4">
+                          <div className="flex flex-wrap gap-1">
+                            {squadData?.innings?.[1]?.did_not_bat?.map(
+                              (player, index) => (
+                                <span
+                                  onClick={() =>
+                                    navigate(
+                                      `/profiles/${
+                                        player?.player_id
+                                      }/${formatTitle(player?.name)}`
+                                    )
+                                  }
+                                  className="hover:underline hover:cursor-pointer"
+                                  key={index}
+                                >
+                                  {player?.name}
+                                  {index !==
+                                    squadData.innings[1].did_not_bat.length -
+                                      1 && ","}
+                                </span>
+                              )
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
+                      <table className="p-2">
+                        <thead className="border-b">
+                          <tr
+                            style={{ borderRadius: "10px 0 10px 0" }}
+                            className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
+                          >
+                            <th
+                              style={{ borderRadius: "10px 0 0 0" }}
+                              className="w-[350px] pl-3 text-left"
+                            >
+                              Bowler
+                            </th>
+                            <th className="w-[50px] text-left">O</th>
+                            <th className="w-[50px] text-left">M</th>
+                            <th className="w-[50px] text-left">R</th>
+                            <th className="w-[50px] text-left">W</th>
+                            <th className="w-[50px] text-left">NB</th>
+                            <th className="w-[50px] text-left">WD</th>
+                            <th
+                              style={{ borderRadius: "0 10px 0 0" }}
+                              className="w-[50px] text-left"
+                            >
+                              ECO
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {squadData?.innings?.[1]?.bowlers?.map(
+                            (item, index) => (
+                              <tr style={{ borderBottom: "1px solid #E5E7EB" }}>
+                                <td
+                                  onClick={() =>
+                                    navigate(
+                                      `/profiles/${
+                                        item?.bowler_id
+                                      }/${formatTitle(item?.name)}`
+                                    )
+                                  }
+                                  className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
+                                >
+                                  {item?.role_str === "(WK)"
+                                    ? "(WK)"
+                                    : item?.role_str === "(C)"
+                                    ? "(C)"
+                                    : ""}{" "}
+                                  {item.name}
+                                </td>
+
+                                <td>{item.overs}</td>
+                                <td>{item.maidens}</td>
+                                <td>{item.run0}</td>
+                                <td>{item.wickets}</td>
+                                <td>{item.noballs}</td>
+                                <td>{item.wides}</td>
+                                <td>{item.econ}</td>
+                                <td>{item.zeros}</td>
+                              </tr>
+                            )
+                          )}
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
+                      <table className="w-full">
+                        <thead className="border-b">
+                          <tr
+                            className="bg-[#0F19AF] w-full h-[45px] text-white"
+                            style={{ borderRadius: "10px 10px 0 0" }}
+                          >
+                            <th
+                              style={{ borderRadius: "10px 0 0 0" }}
+                              className="w-[350px] pl-3 text-left overflow-hidden"
+                            >
+                              Powerplays
+                            </th>
+                            <th className="w-[150px] text-left"> Over</th>
+                            <th
+                              style={{ borderRadius: "0 10px 0 0" }}
+                              className="w-[150px] text-left"
+                            >
+                              Runs
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr className="border-b">
+                            <td></td>
+                            <td>
+                              {
+                                squadData?.innings?.[1]?.powerplay?.p1
+                                  ?.startover
+                              }
+                              -{" "}
+                              {squadData?.innings?.[1]?.powerplay?.p1?.endover}
+                            </td>
+
+                            <td>{squadData?.innings?.[1]?.result}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
+                      <table className="w-full">
+                        <thead className="border-b">
+                          <tr
+                            className="bg-[#0F19AF] w-full h-[45px] text-white"
+                            style={{ borderRadius: "10px 10px 0 0" }}
+                          >
+                            <th className="w-[350px] pl-3 text-left overflow-hidden">
+                              Fall Of Wickets
+                            </th>
+                            <th className="w-[150px] text-left"></th>
+                            <th className="w-[150px] text-left">Score</th>
+                            <th className="w-[150px] text-left">Over</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {squadData?.innings?.[1]?.fows?.map((item, index) => (
+                            <tr className="border-b">
+                              <td
+                                style={{ color: "#0F19B6" }}
+                                className="pl-3 hover:underline hover:cursor-pointer"
+                                onClick={() =>
+                                  navigate(
+                                    `/profiles/${
+                                      item?.batsman_id
+                                    }/${formatTitle(item?.name)}`
+                                  )
+                                }
+                              >
+                                {item?.role_str === "(WK)"
+                                  ? "(WK)"
+                                  : item?.role_str === "(C)"
+                                  ? "(C)"
+                                  : ""}{" "}
+                                {item?.name}
+                              </td>
+
                               <td className="pr-3">{item?.how_out}</td>
                               <td className="pl-3">
                                 {item?.score_at_dismissal}
@@ -518,7 +810,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr key={index} className="border-b">
                                   <td
-                                    className="text-[#0F19AF]"
+                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -534,6 +826,7 @@ const Scorecard = () => {
                                       ? "(C)"
                                       : ""}
                                   </td>
+
                                   <td>{item.how_out}</td>
                                   <td>{item.runs}</td>
                                   <td>{item.balls_faced}</td>
@@ -600,6 +893,7 @@ const Scorecard = () => {
                                         }/${formatTitle(player?.name)}`
                                       )
                                     }
+                                    className="hover:underline hover:cursor-pointer"
                                     key={index}
                                   >
                                     {player?.name}
@@ -655,7 +949,7 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="text-[#0F19AF]  pl-3"
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -664,6 +958,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item.name}
                                   </td>
+
                                   <td>{item.overs}</td>
                                   <td>{item.maidens}</td>
                                   <td>{item.run0}</td>
@@ -740,7 +1035,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr className="border-b">
                                   <td
-                                    style={{ color: "blue" }}
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -748,7 +1043,6 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="pl-3"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -757,6 +1051,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item?.name}{" "}
                                   </td>
+
                                   <td className="pr-3">{item?.how_out}</td>
                                   <td className="pl-3">
                                     {item?.score_at_dismissal}
@@ -772,290 +1067,6 @@ const Scorecard = () => {
                       </div>
                     </div>
                   )}
-                  <div>
-                    <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
-                      <div className="bg-[#0F19AF] flex justify-between items-center  rounded-t-lg w-full h-[45px] text-white">
-                        <div className="ml-2">
-                          {squadData?.innings?.[1]?.name}
-                        </div>
-                        <div className="mr-2">
-                          {squadData?.innings?.[1]?.scores
-                            ?.split("/")
-                            ?.join("-")}{" "}
-                          {squadData?.innings?.[1]?.scores_full &&
-                            "(" +
-                              squadData?.innings?.[1]?.scores_full
-                                ?.split("(")?.[1]
-                                ?.split(" ")?.[0] +
-                              ") Ov"}
-                          {/* {squadData?.innings?.[1]?.scores_full} */}
-                        </div>
-                      </div>
-
-                      <table className="m-2">
-                        <thead>
-                          <tr className="border-b">
-                            <th className="w-[150px] text-left">Batter</th>
-                            <th className="w-[300px]"></th>
-                            <th className="w-[50px] text-left">R</th>
-                            <th className="w-[50px] text-left">B</th>
-                            <th className="w-[50px] text-left">4S</th>
-                            <th className="w-[50px] text-left">6S</th>
-                            <th className="w-[50px]">SR </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {squadData?.innings?.[1]?.batsmen?.map(
-                            (item, index) => (
-                              <tr key={index} className="border-b">
-                                <td
-                                  className="text-[#0F19AF]"
-                                  onClick={() =>
-                                    navigate(
-                                      `/profiles/${
-                                        item?.batsman_id
-                                      }/${formatTitle(item?.name)}`
-                                    )
-                                  }
-                                >
-                                  {item.name}{" "}
-                                  {item?.role_str === "(WK)"
-                                    ? "(WK)"
-                                    : item?.role_str === "(C)"
-                                    ? "(C)"
-                                    : ""}
-                                </td>
-                                <td>{item.how_out}</td>
-                                <td>{item.runs}</td>
-                                <td>{item.balls_faced}</td>
-                                <td>{item.fours}</td>
-                                <td>{item.sixes}</td>
-                                <td className="flex items-center">
-                                  {item.strike_rate}
-                                </td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </table>
-                      <div className="border-b  ml-2 mr-2">
-                        <div className="flex justify-between w-[550px]">
-                          <div className="text-slate-400">EXTRAS</div>
-                          <div className="text-slate-400 flex">
-                            {formatExtraRuns(
-                              squadData?.innings?.[1]?.extra_runs
-                            )}
-                            {}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="border-b ml-2 mr-2">
-                        <div className="flex  justify-between w-[550px]">
-                          <div className="text-slate-400">TOTAL</div>
-                          <div className=" flex">
-                            {squadData?.innings?.[1]?.scores?.split("/")?.[0]}{" "}
-                            {squadData?.innings?.[1]?.scores?.split("/")?.[1]
-                              ? "(" +
-                                squadData?.innings?.[1]?.scores?.split(
-                                  "/"
-                                )?.[1] +
-                                " wkts" +
-                                "," +
-                                " " +
-                                squadData?.innings?.[1]?.scores_full
-                                  ?.split("(")?.[1]
-                                  ?.split(" ")?.[0] +
-                                " " +
-                                "Ov)"
-                              : ""}
-                            {/* {(squadData?.innings?.[0]?.scores_full)} */}
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="flex ml-2 w-[680px]">
-                        <div
-                          style={{ width: "150px" }}
-                          className="text-slate-400 pr-14"
-                        >
-                          Didn’t Bat
-                        </div>
-                        <div className="text-[#0F19AF] ml-4">
-                          <div className="flex flex-wrap gap-1">
-                            {squadData?.innings?.[1]?.did_not_bat?.map(
-                              (player, index) => (
-                                <span
-                                  onClick={() =>
-                                    navigate(
-                                      `/profiles/${
-                                        player?.player_id
-                                      }/${formatTitle(player?.name)}`
-                                    )
-                                  }
-                                  key={index}
-                                >
-                                  {player?.name}
-                                  {index !==
-                                    squadData.innings[1].did_not_bat.length -
-                                      1 && ","}
-                                </span>
-                              )
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-                      <table className="p-2">
-                        <thead className="border-b">
-                          <tr
-                            style={{ borderRadius: "10px 0 10px 0" }}
-                            className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
-                          >
-                            <th
-                              style={{ borderRadius: "10px 0 0 0" }}
-                              className="w-[350px] pl-3 text-left"
-                            >
-                              Bowler
-                            </th>
-                            <th className="w-[50px] text-left">O</th>
-                            <th className="w-[50px] text-left">M</th>
-                            <th className="w-[50px] text-left">R</th>
-                            <th className="w-[50px] text-left">W</th>
-                            <th className="w-[50px] text-left">NB</th>
-                            <th className="w-[50px] text-left">WD</th>
-                            <th
-                              style={{ borderRadius: "0 10px 0 0" }}
-                              className="w-[50px] text-left"
-                            >
-                              ECO
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {squadData?.innings?.[1]?.bowlers?.map(
-                            (item, index) => (
-                              <tr style={{ borderBottom: "1px solid #E5E7EB" }}>
-                                <td
-                                  onClick={() =>
-                                    navigate(
-                                      `/profiles/${
-                                        item?.bowler_id
-                                      }/${formatTitle(item?.name)}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF]  pl-3"
-                                >
-                                  {item?.role_str === "(WK)"
-                                    ? "(WK)"
-                                    : item?.role_str === "(C)"
-                                    ? "(C)"
-                                    : ""}{" "}
-                                  {item.name}
-                                </td>
-                                <td>{item.overs}</td>
-                                <td>{item.maidens}</td>
-                                <td>{item.run0}</td>
-                                <td>{item.wickets}</td>
-                                <td>{item.noballs}</td>
-                                <td>{item.wides}</td>
-                                <td>{item.econ}</td>
-                                <td>{item.zeros}</td>
-                              </tr>
-                            )
-                          )}
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
-                      <table className="w-full">
-                        <thead className="border-b">
-                          <tr
-                            className="bg-[#0F19AF] w-full h-[45px] text-white"
-                            style={{ borderRadius: "10px 10px 0 0" }}
-                          >
-                            <th
-                              style={{ borderRadius: "10px 0 0 0" }}
-                              className="w-[350px] pl-3 text-left overflow-hidden"
-                            >
-                              Powerplays
-                            </th>
-                            <th className="w-[150px] text-left"> Over</th>
-                            <th
-                              style={{ borderRadius: "0 10px 0 0" }}
-                              className="w-[150px] text-left"
-                            >
-                              Runs
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr className="border-b">
-                            <td></td>
-                            <td>
-                              {
-                                squadData?.innings?.[1]?.powerplay?.p1
-                                  ?.startover
-                              }
-                              -{" "}
-                              {squadData?.innings?.[1]?.powerplay?.p1?.endover}
-                            </td>
-
-                            <td>{squadData?.innings?.[1]?.result}</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                    <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
-                      <table className="w-full">
-                        <thead className="border-b">
-                          <tr
-                            className="bg-[#0F19AF] w-full h-[45px] text-white"
-                            style={{ borderRadius: "10px 10px 0 0" }}
-                          >
-                            <th className="w-[350px] pl-3 text-left overflow-hidden">
-                              Fall Of Wickets
-                            </th>
-                            <th className="w-[150px] text-left"></th>
-                            <th className="w-[150px] text-left">Score</th>
-                            <th className="w-[150px] text-left">Over</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {squadData?.innings?.[1]?.fows?.map((item, index) => (
-                            <tr className="border-b">
-                              <td
-                                style={{ color: "blue" }}
-                                onClick={() =>
-                                  navigate(
-                                    `/profiles/${
-                                      item?.batsman_id
-                                    }/${formatTitle(item?.name)}`
-                                  )
-                                }
-                                className="pl-3"
-                              >
-                                {item?.role_str === "(WK)"
-                                  ? "(WK)"
-                                  : item?.role_str === "(C)"
-                                  ? "(C)"
-                                  : ""}{" "}
-                                {item?.name}{" "}
-                              </td>
-                              <td className="pr-3">{item?.how_out}</td>
-                              <td className="pl-3">
-                                {item?.score_at_dismissal}
-                              </td>
-                              <td className="text-[#0F19AF] pt-2 pl-3">
-                                {item?.overs_at_dismissal}
-                              </td>
-                            </tr>
-                          ))}
-                        </tbody>
-                      </table>
-                    </div>
-                  </div>
                   {squadData?.innings?.length === 4 && (
                     <div>
                       <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
@@ -1093,7 +1104,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr key={index} className="border-b">
                                   <td
-                                    className="text-[#0F19AF]"
+                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -1109,6 +1120,7 @@ const Scorecard = () => {
                                       ? "(C)"
                                       : ""}
                                   </td>
+
                                   <td>{item.how_out}</td>
                                   <td>{item.runs}</td>
                                   <td>{item.balls_faced}</td>
@@ -1175,6 +1187,7 @@ const Scorecard = () => {
                                         }/${formatTitle(player?.name)}`
                                       )
                                     }
+                                    className="hover:underline hover:cursor-pointer"
                                     key={index}
                                   >
                                     {player?.name}
@@ -1230,7 +1243,7 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="text-[#0F19AF]  pl-3"
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -1239,6 +1252,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item.name}
                                   </td>
+
                                   <td>{item.overs}</td>
                                   <td>{item.maidens}</td>
                                   <td>{item.run0}</td>
@@ -1315,7 +1329,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr className="border-b">
                                   <td
-                                    style={{ color: "blue" }}
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -1323,7 +1337,6 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="pl-3"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -1332,6 +1345,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item?.name}{" "}
                                   </td>
+
                                   <td className="pr-3">{item?.how_out}</td>
                                   <td className="pl-3">
                                     {item?.score_at_dismissal}
@@ -1390,7 +1404,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr key={index} className="border-b">
                                   <td
-                                    className="text-[#0F19AF]"
+                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -1406,6 +1420,7 @@ const Scorecard = () => {
                                       ? "(C)"
                                       : ""}
                                   </td>
+
                                   <td>{item.how_out}</td>
                                   <td>{item.runs}</td>
                                   <td>{item.balls_faced}</td>
@@ -1473,6 +1488,7 @@ const Scorecard = () => {
                                         }/${formatTitle(player?.name)}`
                                       )
                                     }
+                                    className="hover:underline hover:cursor-pointer"
                                     key={index}
                                   >
                                     {player?.name}
@@ -1528,7 +1544,7 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="text-[#0F19AF]  pl-3"
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -1537,6 +1553,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item.name}
                                   </td>
+
                                   <td>{item.overs}</td>
                                   <td>{item.maidens}</td>
                                   <td>{item.run0}</td>
@@ -1681,7 +1698,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr key={index} className="border-b">
                                   <td
-                                    className="text-[#0F19AF]"
+                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -1697,6 +1714,7 @@ const Scorecard = () => {
                                       ? "(C)"
                                       : ""}
                                   </td>
+
                                   <td>{item.how_out}</td>
                                   <td>{item.runs}</td>
                                   <td>{item.balls_faced}</td>
@@ -1763,6 +1781,7 @@ const Scorecard = () => {
                                         }/${formatTitle(player?.name)}`
                                       )
                                     }
+                                    className="hover:underline hover:cursor-pointer"
                                     key={index}
                                   >
                                     {player?.name}
@@ -1818,7 +1837,7 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="text-[#0F19AF]  pl-3"
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -1827,6 +1846,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item.name}
                                   </td>
+
                                   <td>{item.overs}</td>
                                   <td>{item.maidens}</td>
                                   <td>{item.run0}</td>
@@ -1976,7 +1996,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr key={index} className="border-b">
                                   <td
-                                    className="text-[#0F19AF]"
+                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -1992,6 +2012,7 @@ const Scorecard = () => {
                                       ? "(C)"
                                       : ""}
                                   </td>
+
                                   <td>{item.how_out}</td>
                                   <td>{item.runs}</td>
                                   <td>{item.balls_faced}</td>
@@ -2058,6 +2079,7 @@ const Scorecard = () => {
                                         }/${formatTitle(player?.name)}`
                                       )
                                     }
+                                    className="hover:underline hover:cursor-pointer"
                                     key={index}
                                   >
                                     {player?.name}
@@ -2113,7 +2135,7 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="text-[#0F19AF]  pl-3"
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -2122,6 +2144,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item.name}
                                   </td>
+
                                   <td>{item.overs}</td>
                                   <td>{item.maidens}</td>
                                   <td>{item.run0}</td>
@@ -2198,7 +2221,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr className="border-b">
                                   <td
-                                    style={{ color: "blue" }}
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -2206,7 +2229,6 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="pl-3"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -2215,6 +2237,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item?.name}{" "}
                                   </td>
+
                                   <td className="pr-3">{item?.how_out}</td>
                                   <td className="pl-3">
                                     {item?.score_at_dismissal}
@@ -2267,7 +2290,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr key={index} className="border-b">
                                   <td
-                                    className="text-[#0F19AF]"
+                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -2283,6 +2306,7 @@ const Scorecard = () => {
                                       ? "(C)"
                                       : ""}
                                   </td>
+
                                   <td>{item.how_out}</td>
                                   <td>{item.runs}</td>
                                   <td>{item.balls_faced}</td>
@@ -2350,6 +2374,7 @@ const Scorecard = () => {
                                         }/${formatTitle(player?.name)}`
                                       )
                                     }
+                                    className="hover:underline hover:cursor-pointer"
                                     key={index}
                                   >
                                     {player?.name}
@@ -2405,7 +2430,7 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="text-[#0F19AF]  pl-3"
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -2414,6 +2439,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item.name}
                                   </td>
+
                                   <td>{item.overs}</td>
                                   <td>{item.maidens}</td>
                                   <td>{item.run0}</td>
@@ -2490,7 +2516,7 @@ const Scorecard = () => {
                               (item, index) => (
                                 <tr className="border-b">
                                   <td
-                                    style={{ color: "blue" }}
+                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
                                     onClick={() =>
                                       navigate(
                                         `/profiles/${
@@ -2498,7 +2524,6 @@ const Scorecard = () => {
                                         }/${formatTitle(item?.name)}`
                                       )
                                     }
-                                    className="pl-3"
                                   >
                                     {item?.role_str === "(WK)"
                                       ? "(WK)"
@@ -2507,6 +2532,7 @@ const Scorecard = () => {
                                       : ""}{" "}
                                     {item?.name}{" "}
                                   </td>
+
                                   <td className="pr-3">{item?.how_out}</td>
                                   <td className="pl-3">
                                     {item?.score_at_dismissal}
@@ -2525,7 +2551,7 @@ const Scorecard = () => {
                 )}
             </div>
           </div>
-          {console.log(squadData)}
+
           {squadData?.innings?.length !== 0 && (
             <div className="w-[250px] ">
               {banner1 && (
@@ -2541,7 +2567,7 @@ const Scorecard = () => {
                   />
                 </div>
               )}
-              <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
+              {/* <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
                 <div className="text-sm p-3 font-semibold">
                   FEATURE VIDEOS !!
                 </div>
@@ -2553,7 +2579,20 @@ const Scorecard = () => {
                     More Videos
                   </button>
                 </div>
-              </div>
+              </div> */}
+               {banner2 && (
+                <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
+                  <img
+                    src={banner2?.image}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "10px",
+                    }}
+                    alt=""
+                  />
+                </div>
+              )}
               {banner2 && (
                 <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
                   <img

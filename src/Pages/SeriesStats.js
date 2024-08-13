@@ -22,7 +22,7 @@ const SeriesStats = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      // 
+      //
     });
   };
 
@@ -30,7 +30,6 @@ const SeriesStats = () => {
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`)
       .then((res) => {
-        
         setFormatType(res?.data?.formats);
         setCompetitionData(res?.data);
       });
@@ -46,10 +45,9 @@ const SeriesStats = () => {
     if (formatType) params.format = formatValue;
     axios
       .get(baseUrl + `user/competitions/${payload}/stats/${filterByData}`, {
-        params
+        params,
       })
       .then((res) => {
-
         setCompetitionData(res?.data);
       });
   };
@@ -72,17 +70,23 @@ const SeriesStats = () => {
             alt=""
           />
         </div>
-        {formatType?.length > 0 && <div style={{ width: "150px", marginLeft: "2rem" }}>
-          <Form.Select className="mt-3" onChange={(e) => {
-            setFormatValue(e.target.value);
-          }}>
-            {formatType?.length > 0 && formatType.map((item, index) => (
-              <option key={index} value={item}>
-                {item}
-              </option>
-            ))}
-          </Form.Select>
-        </div>}
+        {formatType?.length > 0 && (
+          <div style={{ width: "150px", marginLeft: "2rem" }}>
+            <Form.Select
+              className="mt-3"
+              onChange={(e) => {
+                setFormatValue(e.target.value);
+              }}
+            >
+              {formatType?.length > 0 &&
+                formatType.map((item, index) => (
+                  <option key={index} value={item}>
+                    {item}
+                  </option>
+                ))}
+            </Form.Select>
+          </div>
+        )}
 
         <div className="flex mt-2 g-4 p-3 pt-0">
           <div className="mt-3 p-1" style={{ width: "250px" }}>
@@ -129,18 +133,46 @@ const SeriesStats = () => {
                 >
                   Best Strike Rate{" "}
                 </span>
-                <span className={filterByData === "batting_most_run4"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run4")}>
+                <span
+                  className={
+                    filterByData === "batting_most_run4"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_most_run4")}
+                >
                   {" "}
                   Most Fours
                 </span>
-                <span className={filterByData === "batting_most_run6"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run6")}>
+                <span
+                  className={
+                    filterByData === "batting_most_run6"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_most_run6")}
+                >
                   {" "}
                   Most Sixes
                 </span>
-                <span className={filterByData === "batting_most_run100"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run100")}>
+                <span
+                  className={
+                    filterByData === "batting_most_run100"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_most_run100")}
+                >
                   Most Centuries
                 </span>
-                <span className={filterByData === "batting_most_run50"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("batting_most_run50")}>
+                <span
+                  className={
+                    filterByData === "batting_most_run50"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("batting_most_run50")}
+                >
                   Most Fiftes
                 </span>
               </p>
@@ -159,33 +191,73 @@ const SeriesStats = () => {
                 className="statsDivSpantag123"
               >
                 <span
-                  className={filterByData === "bowling_top_wicket_takers"?"statsDivSpantag1":"statsDivSpantag"}
+                  className={
+                    filterByData === "bowling_top_wicket_takers"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
                   onClick={() => setFilterByData("bowling_top_wicket_takers")}
                 >
                   Most Wickets{" "}
                 </span>
-                <span className={filterByData === "bowling_four_wickets"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("bowling_four_wickets")}>
+                <span
+                  className={
+                    filterByData === "bowling_four_wickets"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("bowling_four_wickets")}
+                >
                   {" "}
                   Four Wickets
                 </span>
-                <span className={filterByData === "bowling_five_wickets"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("bowling_five_wickets")}>
+                <span
+                  className={
+                    filterByData === "bowling_five_wickets"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("bowling_five_wickets")}
+                >
                   {" "}
                   Five Wickets
                 </span>
-                <span className={filterByData === "bowling_best_averages"?"statsDivSpantag1":"statsDivSpantag"} onClick={() => setFilterByData("bowling_best_averages")}>
+                <span
+                  className={
+                    filterByData === "bowling_best_averages"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
+                  onClick={() => setFilterByData("bowling_best_averages")}
+                >
                   Best Averages
                 </span>
-                <span className={filterByData === "bowling_best_strike_rates"?"statsDivSpantag1":"statsDivSpantag"}
+                <span
+                  className={
+                    filterByData === "bowling_best_strike_rates"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
                   onClick={() => setFilterByData("bowling_best_strike_rates")}
                 >
                   Best Strike Rate
                 </span>
-                <span className={filterByData === "bowling_best_economy_rates"?"statsDivSpantag1":"statsDivSpantag"}
+                <span
+                  className={
+                    filterByData === "bowling_best_economy_rates"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
                   onClick={() => setFilterByData("bowling_best_economy_rates")}
                 >
                   Best Economy
                 </span>
-                <span className={filterByData === "bowling_best_bowling_figures"?"statsDivSpantag1":"statsDivSpantag"}
+                <span
+                  className={
+                    filterByData === "bowling_best_bowling_figures"
+                      ? "statsDivSpantag1"
+                      : "statsDivSpantag"
+                  }
                   onClick={() =>
                     setFilterByData("bowling_best_bowling_figures")
                   }
@@ -281,12 +353,16 @@ const SeriesStats = () => {
                           <td
                             onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
+
                           <td>{item?.matches}</td>
                           <td>{item?.innings}</td>
                           <td>{item?.runs}</td>
@@ -304,11 +380,14 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                             onClick={() =>
+                            onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
@@ -328,11 +407,14 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                             onClick={() =>
+                            onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
@@ -351,11 +433,14 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                             onClick={() =>
+                            onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
@@ -374,11 +459,14 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                             onClick={() =>
+                            onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
@@ -397,11 +485,14 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                             onClick={() =>
+                            onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
@@ -420,11 +511,14 @@ const SeriesStats = () => {
                       {competitionData?.stats?.map((item) => (
                         <tr key={item?.player?.id}>
                           <td
-                             onClick={() =>
+                            onClick={() =>
                               navigate(
-                                `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                                `/profiles/${item?.player?.pid}/${formatTitle(
+                                  item?.player?.title
+                                )}`
                               )
                             }
+                            className="hover:underline hover:cursor-pointer"
                           >
                             {item?.player?.first_name} {item?.player?.last_name}
                           </td>
@@ -460,11 +554,14 @@ const SeriesStats = () => {
                   {competitionData?.stats?.map((item) => (
                     <tr key={item?.player?.id}>
                       <td
-                         onClick={() =>
+                        onClick={() =>
                           navigate(
-                            `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
+                            `/profiles/${item?.player?.pid}/${formatTitle(
+                              item?.player?.title
+                            )}`
                           )
                         }
+                        className="hover:underline hover:cursor-pointer"
                       >
                         {item?.player?.first_name} {item?.player?.last_name}
                       </td>
@@ -497,11 +594,13 @@ const SeriesStats = () => {
                   {competitionData?.stats?.map((item) => (
                     <tr key={item?.player?.id}>
                       <td
-                          onClick={() =>
-                            navigate(
-                              `/profiles/${item?.player?.pid}/${formatTitle(item?.player?.title)}`
-                            )
-                          }
+                        onClick={() =>
+                          navigate(
+                            `/profiles/${item?.player?.pid}/${formatTitle(
+                              item?.player?.title
+                            )}`
+                          )
+                        }
                       >
                         {item?.team?.title}
                       </td>
