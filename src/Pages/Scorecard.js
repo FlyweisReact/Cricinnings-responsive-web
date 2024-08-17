@@ -12,102 +12,71 @@ const Scorecard = () => {
   const navigate = useNavigate();
 
   function formatDate11(dateString) {
-    const date = new Date(dateString);
-
-    const daysOfWeek = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ];
-    const months = [
-      "January",
-      "February",
-      "March",
-      "April",
-      "May",
-      "June",
-      "July",
-      "August",
-      "September",
-      "October",
-      "November",
-      "December",
-    ];
-
-    const dayOfWeek = daysOfWeek[date.getUTCDay()];
-    const month = months[date.getUTCMonth()];
-    const day = date.getUTCDate();
-    const year = date.getUTCFullYear();
-
-    const formattedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
-
-    return formattedDate;
-  }
-
-  function extractPowerplayData2(matchNotes) {
-    if (
-      !matchNotes ||
-      !Array.isArray(matchNotes) ||
-      !Array.isArray(matchNotes[1])
-    )
-      return null;
-
-    for (const note of matchNotes[1]) {
-      if (typeof note === "string" && note.startsWith("Powerplay 1")) {
-        const match = note.match(/Powerplay 1 \((.*?)\) Run (\d+), wicket \d+/);
-        if (match) {
-          return {
-            over: match[1],
-            run: match[2],
-          };
-        }
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        throw new Error("Invalid date");
       }
-    }
-    return null;
-  }
 
-  function extractPowerplayData1(matchNotes) {
-    if (
-      !matchNotes ||
-      !Array.isArray(matchNotes) ||
-      !Array.isArray(matchNotes[1])
-    )
-      return null;
+      const daysOfWeek = [
+        "Sunday",
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+        "Saturday",
+      ];
+      const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+      ];
 
-    for (const note of matchNotes[1]) {
-      if (typeof note === "string" && note.startsWith("Powerplay 1")) {
-        const match = note.match(/Powerplay 1 \((.*?)\) Run (\d+), wicket \d+/);
-        if (match) {
-          return {
-            over: match[1],
-            run: match[2],
-          };
-        }
-      }
+      const dayOfWeek = daysOfWeek[date.getUTCDay()];
+      const month = months[date.getUTCMonth()];
+      const day = date.getUTCDate();
+      const year = date.getUTCFullYear();
+
+      const formattedDate = `${dayOfWeek}, ${month} ${day}, ${year}`;
+
+      return formattedDate;
+    } catch (error) {
+      return "";
     }
-    return null;
   }
 
   function formatDateTime(dateString) {
-    const date = new Date(dateString);
+    try {
+      const date = new Date(dateString);
+      if (isNaN(date.getTime())) {
+        throw new Error("Invalid date");
+      }
 
-    const day = date.getUTCDate();
-    const month = date.toLocaleString("default", { month: "short" });
-    const hours = date.getUTCHours();
-    const minutes = date.getUTCMinutes();
+      const day = date.getUTCDate();
+      const month = date.toLocaleString("default", { month: "short" });
+      const hours = date.getUTCHours();
+      const minutes = date.getUTCMinutes();
 
-    const period = hours >= 12 ? "PM" : "AM";
-    const formattedHours = hours % 12 || 12;
+      const period = hours >= 12 ? "PM" : "AM";
+      const formattedHours = hours % 12 || 12;
+      const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
 
-    const formattedMinutes = minutes < 10 ? "0" + minutes : minutes;
+      const formattedDateTime = `${formattedHours}:${formattedMinutes} ${period} (${month} ${day})`;
 
-    const formattedDateTime = `${formattedHours}:${formattedMinutes} ${period} (${month} ${day})`;
-
-    return formattedDateTime;
+      return formattedDateTime;
+    } catch (error) {
+      return "";
+    }
   }
 
   const getAllBanner = async () => {
@@ -143,21 +112,6 @@ const Scorecard = () => {
 
     return `${extraRuns.total} (${formattedValues.join(", ")})`;
   }
-
-  const convertScoreFormat = (scores_full) => {
-    const regex = /^(\d+)\/(\d+) \((\d+) ov\)$/;
-    const match = scores_full.match(regex);
-
-    if (match) {
-      const runs = match[1];
-      const wickets = match[2];
-      const overs = match[3];
-
-      return `${runs}-${wickets} (${overs} Ov)`;
-    } else {
-      return "Invalid score format";
-    }
-  };
 
   useEffect(() => {
     getSquadData();
@@ -2580,7 +2534,7 @@ const Scorecard = () => {
                   </button>
                 </div>
               </div> */}
-               {banner2 && (
+              {banner2 && (
                 <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
                   <img
                     src={banner2?.image}

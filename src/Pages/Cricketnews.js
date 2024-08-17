@@ -77,20 +77,13 @@ const Cricketnews = () => {
       path: "teams/25/matches",
     })
       .then((res) => {
-        // 
         setMatches(res?.response?.items);
       })
-      .catch((err) => {
-        
-      });
-    // HomepageSliderData().then((res) => {
-    //   setMatches(res);
-    // });
+      .catch((err) => {});
   };
 
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      // 
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"
@@ -234,56 +227,27 @@ const Cricketnews = () => {
                         />
                       </div>
                     </>
-                    // <div className="w-[650px] h-[250px] border-b flex justify-center gap-5">
-                    //   <div>
-                    //     <img
-                    //       alt=""
-                    //       style={{ width: "250px", height: "100px" }}
-                    //       src={item?.image || fantasy}
-                    //       className="w-[250px]"
-                    //     />
-                    //   </div>
-                    //   <div className="w-[500px] flex flex-col gap-1">
-                    //     <div className="text-slate-400">IPL 2024 - FINAL</div>
-                    //     <div className="text-[#0F19AF] font-semibold ">
-                    //       The Claim Call MS Dhoni -->Thaliva
-                    //     </div>
-                    //     <div className="text-slate-400 ">
-                    //       Calm' has been the buzzword right through RCB's
-                    //       title-winning campaign and their captain was its
-                    //       perfect personification on the red-letter day
-                    //     </div>
-                    //     <div className="text-slate-400">
-                    //       Calm' has been the buzzword right through RCB's
-                    //       title-winning campaign and their captain was its
-                    //       perfect personification on the red-letter day
-                    //     </div>
-                    //     <div className="flex">
-                    //       <span className="text-slate-400">1 day ago . </span>
-                    //       <span className="text-black">vishal bansali</span>
-                    //     </div>
-                    //   </div>
-                    // </div>
                   ))}
               </div>
             </div>
             <div className="w-[250px]  mt-10">
-            {allSeries?.length > 0 && (
-              <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
-                <span className="text-black font-bold text-sm pl-2">
-                  CURRENT SERIES
-                </span>
-                <div className="flex flex-col mt-4 gap-4">
+              {allSeries?.length > 0 && (
+                <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                  <span className="text-black font-bold text-sm pl-2">
+                    CURRENT SERIES
+                  </span>
+                  <div className="flex flex-col mt-4 gap-2">
                   {allSeries?.map((item, index) => {
                     if (index >= 4) return null;
                     return (
                       <div
                         key={item?._id}
-                        className="bg-gray-100 pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:bg-gray-200 transition duration-300"
+                        className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
                         onClick={() =>
                           navigate(
-                            `/cricket-series/${item?.cid
-                            }/${formatTitle(item?.title)}-${item?.season}/matches`
+                            `/cricket-series/${item?.cid}/${formatTitle(
+                              item?.title
+                            )}-${item?.season}/matches`
                           )
                         }
                       >
@@ -295,8 +259,8 @@ const Cricketnews = () => {
                     );
                   })}
                 </div>
-              </div>
-            )}
+                </div>
+              )}
 
               {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s
@@ -314,7 +278,7 @@ const Cricketnews = () => {
                 />
               )}
 
-<div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
+              <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
                 <div className="flex justify-between p-2">
                   <div
                     className="text-sm font-semibold"

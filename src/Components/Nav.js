@@ -90,7 +90,7 @@ const Nav = () => {
   const [bottomBanner1, setBottomBanner1] = useState("");
   const [bottomBanner2, setBottomBanner2] = useState("");
   const [homePageBanners, setHomePageBanners] = useState([]);
-  const baseUrl = "https://vipin-jha-cricbuzz.vercel.app/";
+  const baseUrl = "https://cricinnings.in/api/";
   const getAllHomePageBanners = async () => {
     const res = await axios.get(`${baseUrl}admin/getAllPosts`);
     const banner = res?.data?.data?.filter(

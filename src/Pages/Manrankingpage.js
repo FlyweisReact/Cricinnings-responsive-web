@@ -27,7 +27,7 @@ const Manrankingpage = () => {
 
   const getAllTeamRankingsData = async () => {
     const res = await axios.get(baseUrl + "user/getRankings");
-    //
+
     setOdiBestman(res?.data?.rankingData?.ranks?.batsmen?.odis);
     setT20Bestman(res?.data?.rankingData?.ranks?.batsmen?.t20s);
     setTestBestman(res?.data?.rankingData?.ranks?.batsmen?.tests);
@@ -65,7 +65,6 @@ const Manrankingpage = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      //
     });
   };
 
@@ -216,11 +215,7 @@ const Manrankingpage = () => {
                           <td>
                             <p>
                               <span>
-                                {/* <img
-                                  style={{ maxWidth: "100px" }}
-                                  src={men}
-                                  alt="playerImage"
-                                /> */}
+                             
                               </span>
                               <span
                                 style={{
@@ -261,15 +256,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -314,15 +301,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -461,22 +440,8 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
-                              {/* <span>
-                                <img
-                                  style={{ maxWidth: "100px" }}
-                                  src={men}
-                                  alt="playerImage"
-                                />
-                              </span> */}
+                            <p>
+                             
                               <span
                                 style={{
                                   display: "flex",
@@ -514,15 +479,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -567,15 +524,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -714,15 +663,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -767,15 +708,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -820,15 +753,7 @@ const Manrankingpage = () => {
                             <p> - </p>
                           </td>
                           <td>
-                            <p
-                            // style={{
-                            //   display: "flex",
-                            //   gap: "30px",
-                            //   alignItems: "center",
-                            //   justifyContent: "left",
-                            //   marginLeft: "10px",
-                            // }}
-                            >
+                            <p>
                               {/* <span>
                                 <img
                                   style={{ maxWidth: "100px" }}
@@ -1181,91 +1106,7 @@ const Manrankingpage = () => {
               </div>
             </>
           )}
-          {/* <div className="w-[250px] ">
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div>
-            <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
-              <div className="text-sm p-3 font-semibold">FEATURE VIDEOS !!</div>
-              <img src={videoframe} alt="" />
-              <img src={videoframe} alt="" />
-              <img src={videoframe} alt="" />
-              <div className="flex justify-center pb-5">
-                <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
-                  More Videos
-                </button>
-              </div>
-            </div>
 
-            <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
-              RESPONSIVE AD’s
-            </div>
-            <div className="bg-[white] rounded-lg mt-2 shadow-2xl">
-              <div className="p-1">
-                <span className="font-semibold text-sm ml-4">TOP NEWS</span>
-                <div className="flex mt-5">
-                  <div className="w-[200px]">
-                    <img src={topnews} alt="" />
-                  </div>
-
-                  <div>
-                    <div className="text-[12px] font-bold">
-                      Wankhade Stadium likely to host Ranji Final
-                    </div>
-                    <div className="text-slate-400 text-[10px]">
-                      Mon,Mar03 2024
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[12px] text-slate-400">
-                  Lorem ipsum dolor sit amet consectetur. Elit eget mauris
-                  egestas viverra urna sit. Tincidunt proin nulla dolor amet
-                  purus adipiscing at ut. Nulla duis lorem venenatis mi dui
-                  risus.
-                </div>
-                <div className="flex mt-5">
-                  <div className="w-[200px]">
-                    <img src={topnews} alt="" />
-                  </div>
-
-                  <div>
-                    <div className="text-[12px] font-bold">
-                      I found a 2007 study on effects of hand sanitizers
-                    </div>
-                    <div className="text-slate-400 text-[10px]">
-                      Mon,Mar03 2024
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[12px] text-slate-400">
-                  Lorem ipsum dolor sit amet consectetur. Elit eget mauris
-                  egestas viverra urna sit. Tincidunt proin nulla dolor amet
-                  purus adipiscing at ut. Nulla duis lorem venenatis mi dui
-                  risus.
-                </div>
-                <div className="flex mt-5">
-                  <div className="w-[200px]">
-                    <img src={topnews} alt="" />
-                  </div>
-
-                  <div>
-                    <div className="text-[12px] font-bold">
-                      The study was repeated with three brands of hand
-                    </div>
-                    <div className="text-slate-400 text-[10px]">
-                      Mon,Mar03 2024
-                    </div>
-                  </div>
-                </div>
-                <div className="text-[12px] text-slate-400">
-                  Lorem ipsum dolor sit amet consectetur. Elit eget mauris
-                  egestas viverra urna sit. Tincidunt proin nulla dolor amet
-                  purus adipiscing at ut. Nulla duis lorem venenatis mi dui
-                  risus.
-                </div>
-              </div>
-            </div>
-          </div> */}
           <div className="w-[250px] ">
             {banner1 && (
               <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
@@ -1280,19 +1121,7 @@ const Manrankingpage = () => {
                 />
               </div>
             )}
-            {/* <div className="bg-[white]  rounded-lg shadow-2xl mt-2">
-                <div className="text-sm p-3 font-semibold">
-                  FEATURE VIDEOS !!
-                </div>
-                <img src={videoframe} alt="" />
-                <img src={videoframe} alt="" />
-                <img src={videoframe} alt="" />
-                <div className="flex justify-center pb-5">
-                  <button className="w-[100px] h-[30px] text-[12px] rounded flex justify-center items-center bg-[#0F19AF] text-white">
-                    More Videos
-                  </button>
-                </div>
-              </div> */}
+
             {banner2 && (
               <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
                 <img

@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Store } from "react-notifications-component";
 
-export const baseUrl = "https://vipin-jha-cricbuzz.vercel.app/";
+export const baseUrl = "https://cricinnings.in/api/";
 
 export const auth = () => {
   return {
