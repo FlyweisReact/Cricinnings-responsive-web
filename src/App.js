@@ -219,7 +219,7 @@ const router = createBrowserRouter([
         element: <LivescroreById />,
       },
       {
-        path: "/feature_posts",
+        path: "/feature-posts",
         element: <FeacturePosts />,
       },
       {

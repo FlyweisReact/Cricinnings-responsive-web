@@ -1,6 +1,7 @@
 import Footer from "../Components/Footer";
 import { Outlet } from "react-router-dom";
 import Nav from "../Components/Nav";
+import MobileNavBar from "../Components/MobileNavBar";
 
 const Layout = () => {
   return (
@@ -8,7 +9,11 @@ const Layout = () => {
       <div className="lg:flex lg:justify-center lg:flex-col lg:items-center lg:bg-slate-100 main-div">
         {/* <Navbar /> */}
         {/* <Nav /> */}
-        <Nav />
+        
+      
+
+          <Nav />
+      
         <div className="flex flex-col bg-white  w-[1000px]">
           <Outlet />
           <Footer />

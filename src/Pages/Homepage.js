@@ -303,7 +303,7 @@ const Homepage = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) {}
+    } catch (error) { }
   };
 
   const getAllTeamRankingsData = async () => {
@@ -395,9 +395,8 @@ const Homepage = () => {
     if (hoursDifference > 0) {
       return `${hoursDifference} hour${hoursDifference > 1 ? "s" : ""} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${
-        minutesDifference > 1 ? "s" : ""
-      } ago`;
+      return `${minutesDifference} minute${minutesDifference > 1 ? "s" : ""
+        } ago`;
     } else {
       return "just now";
     }
@@ -440,10 +439,11 @@ const Homepage = () => {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 4,
     slidesToScroll: 1,
+    slidesToShow: 4,
     nextArrow: <CustomNextArrow1 />,
     prevArrow: currentSlide === 0 ? null : <CustomPrevArrow />,
+
     beforeChange: (oldIndex, newIndex) => {
       setCurrentSlide(newIndex);
     },
@@ -594,10 +594,8 @@ const Homepage = () => {
                             style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(
-                                `/cricket-series/${
-                                  item?.competition?.cid
-                                }/${formatTitle(item?.competition?.title)}-${
-                                  item?.competition?.season
+                                `/cricket-series/${item?.competition?.cid
+                                }/${formatTitle(item?.competition?.title)}-${item?.competition?.season
                                 }/points-table`
                               )
                             }
@@ -609,10 +607,8 @@ const Homepage = () => {
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${
-                                item?.competition?.cid
-                              }/${formatTitle(item?.competition?.title)}-${
-                                item?.competition?.season
+                              `/cricket-series/${item?.competition?.cid
+                              }/${formatTitle(item?.competition?.title)}-${item?.competition?.season
                               }/matches`
                             )
                           }
@@ -654,7 +650,7 @@ const Homepage = () => {
               <div className="font-semibold">FEATURE POSTS</div>
               <div
                 className="text-[#0F19AF] font-semibold cursor-pointer"
-                onClick={() => navigate("/feature_posts")}
+                onClick={() => navigate("/cricket-news")}
               >
                 SEE ALL
               </div>
@@ -699,7 +695,7 @@ const Homepage = () => {
               <div className="font-semibold mt-2">TOP STORIES</div>
               <div
                 className="text-[#0F19AF] font-semibold cursor-pointer"
-                onClick={() => navigate("/feature_posts")}
+                onClick={() => navigate("/feature-posts")}
               >
                 {/* Sell All */}
               </div>
@@ -806,7 +802,7 @@ const Homepage = () => {
                       >
                         <p className="text-left text-sm font-medium text-gray-800">
                           {item?.title}
-                          {}
+                          { }
                         </p>
                       </div>
                     );

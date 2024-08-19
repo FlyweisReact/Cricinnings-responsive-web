@@ -5,6 +5,7 @@ import "../App.css";
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Dropdown } from "react-bootstrap";
+import MobileNavBar from "./MobileNavBar";
 const Nav = () => {
   const [isOpen, setIsOpen] = useState(false);
   const navigate = useNavigate();
@@ -67,7 +68,7 @@ const Nav = () => {
       );
 
       setAllSeries(res?.data?.competitions?.slice(0, 5));
-    } catch (error) {}
+    } catch (error) { }
   };
 
   useEffect(() => {
@@ -84,6 +85,7 @@ const Nav = () => {
     setSelectedMatch(match);
   };
   const [topBanner1, setTopBanner1] = useState("");
+  const [bannerLink, setBannerLink] = useState("");
   const [topBanner2, setTopBanner2] = useState("");
   const [middleBanner1, setMiddleBanner1] = useState("");
   const [middleBanner2, setMiddleBanner2] = useState("");
@@ -94,9 +96,13 @@ const Nav = () => {
   const getAllHomePageBanners = async () => {
     const res = await axios.get(`${baseUrl}admin/getAllPosts`);
     const banner = res?.data?.data?.filter(
-      (item) => item.title === "hompageBanner1"
+      (item) => item.page === "HomePage" && item.type === "Top-Banner"
     )?.[0]?.image;
-    //
+    const bannerLink1 = res?.data?.data?.filter(
+      (item) => item.page === "HomePage" && item.type === "Top-Banner"
+    )
+
+    setBannerLink(bannerLink1?.[0]?.link);
     setTopBanner1(banner);
   };
   useEffect(() => {
@@ -106,139 +112,142 @@ const Nav = () => {
   return (
     <>
       {topBanner1 && (
-        <div
-          style={{
-            width: "800px",
-            height: "96px",
-            margin: "auto",
-            marginBottom: "10px",
-            marginTop: "10px",
-          }}
-        >
-          <img
-            src={topBanner1}
-            style={{ width: "100%", height: "96px", objectFit: "cover" }}
-            alt="topBanner"
-          />
+        <div className="lg:w-[80%] h-auto p-4 bg-gray-100 text-center md:w-[100%] md:p-6 md:h-48 ">
+          <Link to={bannerLink}>
+            <img
+              src={topBanner1}
+              className="w-[80%] h-full object-contain mx-auto"
+              alt="topBanner"
+            />
+          </Link>
         </div>
       )}
-      <nav>
-        <div className="navBar">
-          <div className="navBar_content">
-            <div>
-              <img
-                onClick={() => navigate("/")}
-                className="logo"
-                src="/logo.png"
-                alt="logo"
-              />
-            </div>
-            <div className="navBar_links">
-              <a href="/cricket-match/live-scores">
-                <p
-                // onClick={() => navigate("/Livescrore")}
-                >
-                  <span style={{ fontSize: "8px", marginBottom: "8px" }}>
-                    🔴
-                  </span>
-                  Live Scores
-                </p>
-              </a>
-              <a href="/cricket-schedule/upcoming-series/international">
-                <p
-                //  onClick={() => navigate("/Livescrore/Schedule")}
-                >
-                  Schedule
-                </p>
-              </a>
-              {/* <a href="/Livescrore/Allseries"> */}
-              <p onClick={() => navigate("/fantasy-cricket-tips")}>
-                Fantasy Tips
-              </p>
-              {/* </a> */}
-              <p>
-                <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
-                  Series
-                </p>
-                <Dropdown
-                  className="dropdown_nav"
-                  show={showDropdown1}
-                  onToggle={(isOpen) => setShowDropdown1(isOpen)}
-                >
-                  <Dropdown.Menu
-                    className="no-border-radius"
-                    show={showDropdown1}
-                    ref={dropdownRef1}
+
+      <div className="mobileCssNavbar1">
+
+        <MobileNavBar />
+      </div>
+
+
+      <div className="myClassRKt">
+        <nav>
+          <div className="navBar">
+            <div className="navBar_content">
+              <div>
+                <img
+                  onClick={() => navigate("/")}
+                  className="logo"
+                  src="/logo.png"
+                  alt="logo"
+                />
+              </div>
+              <div className="navBar_links">
+                <a href="/cricket-match/live-scores">
+                  <p
+                  // onClick={() => navigate("/Livescrore")}
                   >
-                    {allSeries?.slice(0, 5)?.map((item) => (
+                    <span style={{ fontSize: "8px", marginBottom: "8px" }}>
+                      🔴
+                    </span>
+                    Live Scores
+                  </p>
+                </a>
+                <a href="/cricket-schedule/upcoming-series/international">
+                  <p
+                  //  onClick={() => navigate("/Livescrore/Schedule")}
+                  >
+                    Schedule
+                  </p>
+                </a>
+                {/* <a href="/Livescrore/Allseries"> */}
+                <p onClick={() => navigate("/fantasy-cricket-tips")}>
+                  Fantasy Tips
+                </p>
+                {/* </a> */}
+                <p>
+                  <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
+                    Series
+                  </p>
+                  <Dropdown
+                    className="dropdown_nav"
+                    show={showDropdown1}
+                    onToggle={(isOpen) => setShowDropdown1(isOpen)}
+                  >
+                    <Dropdown.Menu
+                      className="no-border-radius"
+                      show={showDropdown1}
+                      ref={dropdownRef1}
+                    >
+                      {allSeries?.slice(0, 5)?.map((item) => (
+                        <Dropdown.Item
+                          key={item?.cid}
+                          className="no-border-radius-text"
+                        >
+                          <Link
+                            to={`/cricket-series/${item?.cid}/${formatTitle(
+                              item?.title
+                            )}-${item?.season}/matches`}
+                          >
+                            {item?.title}
+                          </Link>
+                        </Dropdown.Item>
+                      ))}
+                      <a className="no1" href="/live-cricket-scores/Allseries">
+                        <Dropdown.Item
+                          className="no-border-radius-text1"
+                          onClick={() =>
+                            navigate("/live-cricket-scores/Allseries")
+                          }
+                        >
+                          All Series {">>"}
+                        </Dropdown.Item>
+                      </a>
+                    </Dropdown.Menu>
+                  </Dropdown>
+                </p>
+                <p onClick={() => navigate("/cricket-news")}>Cricket News</p>
+                <p>
+                  <p onClick={handleToggle} style={{ cursor: "pointer" }}>
+                    ICC Ranking
+                  </p>
+                  <Dropdown
+                    className="dropdown_nav"
+                    show={showDropdown}
+                    onToggle={(isOpen) => setShowDropdown(isOpen)}
+                  >
+                    <Dropdown.Menu
+                      className="no-border-radius"
+                      show={showDropdown}
+                      ref={dropdownRef}
+                    >
                       <Dropdown.Item
-                        key={item?.cid}
+                        onClick={() => navigate("/icc-rankings/men/batting")}
                         className="no-border-radius-text"
                       >
-                        <Link
-                          to={`/cricket-series/${item?.cid}/${formatTitle(
-                            item?.title
-                          )}-${item?.season}/matches`}
-                        >
-                          {item?.title}
-                        </Link>
+                        ICC - Men's Ranking
                       </Dropdown.Item>
-                    ))}
-                    <a className="no1" href="/live-cricket-scores/Allseries">
                       <Dropdown.Item
-                        className="no-border-radius-text1"
-                        onClick={() =>
-                          navigate("/live-cricket-scores/Allseries")
-                        }
+                        className="no-border-radius-text"
+                        onClick={() => navigate("/icc-rankings/women/batting")}
                       >
-                        All Series {">>"}
+                        ICC - Women's Ranking
                       </Dropdown.Item>
-                    </a>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </p>
-              <p onClick={() => navigate("/cricket-news")}>Cricket News</p>
-              <p>
-                <p onClick={handleToggle} style={{ cursor: "pointer" }}>
-                  ICC Ranking
+                    </Dropdown.Menu>
+                  </Dropdown>
                 </p>
-                <Dropdown
-                  className="dropdown_nav"
-                  show={showDropdown}
-                  onToggle={(isOpen) => setShowDropdown(isOpen)}
-                >
-                  <Dropdown.Menu
-                    className="no-border-radius"
-                    show={showDropdown}
-                    ref={dropdownRef}
-                  >
-                    <Dropdown.Item
-                      onClick={() => navigate("/icc-rankings/men/batting")}
-                      className="no-border-radius-text"
-                    >
-                      ICC - Men's Ranking
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      className="no-border-radius-text"
-                      onClick={() => navigate("/icc-rankings/women/batting")}
-                    >
-                      ICC - Women's Ranking
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </p>
-              <p onClick={() => navigate("/cric-special")}>Cricspecial</p>
-              <p onClick={() => navigate("/pitch-report")}>Pitch Report</p>
-            </div>
-            <div className="navBar_icons">
-              <p>{/* <Icon icon="iconamoon:search" /> */}</p>
-              <p>
-                <Icon onClick={() => navigate("/login")} icon="gg:profile" />
-              </p>
+                <p onClick={() => navigate("/cric-special")}>Cricspecial</p>
+                <p onClick={() => navigate("/pitch-report")}>Pitch Report</p>
+              </div>
+              <div className="navBar_icons">
+                <p>{/* <Icon icon="iconamoon:search" /> */}</p>
+                <p>
+                  <Icon onClick={() => navigate("/login")} icon="gg:profile" />
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-      </nav>
+        </nav>
+      </div>
 
       {/* <nav className="bg-[#0F19AF] w-[1000px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 ">
@@ -509,7 +518,7 @@ const Nav = () => {
           </div>
         </div>
       </nav> */}
-      <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over">
+      <div className="bg-[#B3B3B3] w-[1000px] h-[48px] flex over mobileCssNavbar">
         <div className="UseFlexMenu">
           <div
             onClick={() => navigate("/cricket-match/live-scores")}

@@ -22,6 +22,7 @@
   font-style: normal;
   text-align: center;
 }
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -52,6 +53,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -89,7 +91,7 @@
   row-gap: 1rem;
 }
 
-.fantasyTips > div:first-child > img {
+.fantasyTips>div:first-child>img {
   width: 100%;
   max-height: 150px;
   border-radius: 10px;
@@ -106,12 +108,13 @@
   border-radius: 10px;
 }
 
-.homePageSlider > div:first-child > p:first-child {
+.homePageSlider>div:first-child>p:first-child {
   color: black;
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 0.8rem;
 }
+
 .homePageSlider2 {
   background-color: rgb(14, 24, 175);
   display: flex;
@@ -119,7 +122,7 @@
   border-radius: 0 0 10px 10px;
 }
 
-.homePageSlider2 > div:nth-child(2) {
+.homePageSlider2>div:nth-child(2) {
   color: white;
   font-size: 0.8rem;
   display: flex;
@@ -133,6 +136,7 @@
   max-width: 980px;
   margin: 0 auto;
   border: 1px solid black;
+
 }
 
 .navbar-top-banner {
@@ -153,6 +157,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+  @media screen and (max-width: 480px) {
+    display: none;
+
+  }
 }
 
 .navBar_content {
@@ -161,7 +170,10 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+
+
 }
+
 .logo {
   height: 26px;
   max-width: 150px;
@@ -175,7 +187,8 @@
   font-size: 0.8rem;
   font-weight: bold;
 }
-.navBar_links > a,
+
+.navBar_links>a,
 .no1 {
   cursor: pointer;
   padding-top: 1.8rem;
@@ -184,12 +197,12 @@
   font-weight: 700;
 }
 
-.navBar_links > p {
+.navBar_links>p {
   cursor: pointer;
   padding-top: 1.8rem;
 }
 
-.navBar_links > p:hover {
+.navBar_links>p:hover {
   color: #b3b3b3;
 }
 
@@ -214,6 +227,7 @@
   color: black !important;
   font-weight: bold !important;
 }
+
 .no-border-radius-text1 {
   color: #0f19af !important;
   font-weight: bold !important;
@@ -234,17 +248,30 @@
 
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   overflow: hidden;
+
+  @media screen and (max-width: 480px) {
+    max-width: 400px;
+    max-height: 164px;
+    margin: auto;
+
+
+  }
 }
+
+
+
+
 .top_slider_card_div1 {
   padding: 12px;
 }
+
 .top_slider_card_div1_text {
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-.top_slider_card_div1_text > p:first-child {
+.top_slider_card_div1_text>p:first-child {
   display: flex;
   align-items: center;
   gap: 4px;
@@ -259,7 +286,7 @@
   width: 200px;
 }
 
-.top_slider_card_div1_text > p:last-child {
+.top_slider_card_div1_text>p:last-child {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -297,18 +324,20 @@
   border-radius: 0 0 10px 10px;
   overflow: hidden;
 }
+
 .top_slider_card_div2_text11_text23 {
   display: flex;
   gap: 10px;
 }
-.top_slider_card_div2_text11_text23 > p {
+
+.top_slider_card_div2_text11_text23>p {
   color: white;
   font-size: 10px;
   font-weight: bold;
   padding: 0.2rem;
 }
 
-.top_slider_card_div2_text11_text23 > p:hover {
+.top_slider_card_div2_text11_text23>p:hover {
   text-decoration: underline;
   text-decoration-color: white;
 }
@@ -344,7 +373,7 @@
   margin: auto;
 }
 
-.middleBannerImage > img {
+.middleBannerImage>img {
   width: 100%;
   height: 100%;
   object-fit: cover;
@@ -358,7 +387,7 @@
   border-radius: 10px;
 }
 
-.middleBannerText > p:first-child {
+.middleBannerText>p:first-child {
   font-size: 20px;
   font-weight: bold;
   margin-top: 0.5rem;
@@ -366,7 +395,7 @@
   color: #000;
 }
 
-.middleBannerText > p:last-child {
+.middleBannerText>p:last-child {
   font-size: 14px;
   color: #929394;
 }
@@ -387,7 +416,7 @@
   cursor: pointer;
 }
 
-.matchList > p {
+.matchList>p {
   font-size: 14px;
   padding-top: 0.7rem;
   font-weight: 500;
@@ -402,7 +431,7 @@
   gap: 1rem;
 }
 
-.topBarCommentary > p {
+.topBarCommentary>p {
   font-size: 14px;
   font-weight: 500;
   color: #0f19af;
@@ -416,8 +445,7 @@
   margin: 0px;
   color: rgb(34, 34, 34);
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .player-country {
@@ -426,8 +454,7 @@
   margin: 0px;
   color: rgb(102, 102, 102);
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .player-profile {
@@ -445,8 +472,7 @@
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(245, 245, 245);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245);
   font-weight: 700;
   font-size: 16px;
   margin-top: 2rem;
@@ -465,8 +491,7 @@
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(245, 245, 245);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245);
   color: #000;
 }
 
@@ -481,8 +506,7 @@
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(245, 245, 245);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(245, 245, 245);
 }
 
 .commentryData {
@@ -496,8 +520,7 @@
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
   line-height: 21px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .CommentartyData1 {
@@ -505,8 +528,7 @@
   color: rgb(102, 102, 102);
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   line-height: 18px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .CommentartyData2 {
@@ -516,8 +538,7 @@
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   font-size: 17px;
   line-height: 21px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .abc {
@@ -532,8 +553,7 @@
   color: rgb(34, 34, 34);
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
   font-size: 14px;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .lef-co-header {
@@ -552,8 +572,7 @@
   line-height: 24px;
   color: rgb(34, 34, 34);
   font-family: helvetica, "Segoe UI", Arial, sans-serif;
-  background: none 0% 0% / auto repeat scroll padding-box border-box
-    rgb(255, 255, 255);
+  background: none 0% 0% / auto repeat scroll padding-box border-box rgb(255, 255, 255);
 }
 
 .commentryDataClass {
@@ -581,7 +600,7 @@
   margin-bottom: 10px;
 }
 
-.stats_div > p:first-child {
+.stats_div>p:first-child {
   background-color: #4b4b4a;
   color: white;
   font-size: 14px;
@@ -608,12 +627,12 @@
   color: black;
 }
 
-.statsDivSpantag123 > span:hover {
+.statsDivSpantag123>span:hover {
   background-color: #d1d1d1;
   color: black;
 }
 
-.statsDivSpantag123 > span {
+.statsDivSpantag123>span {
   color: black;
   font-weight: normal;
   padding: 6px 10px;
@@ -629,34 +648,58 @@
   text-align: left;
   width: 100%;
   padding-top: 1rem;
-  
+
+  @media screen and (max-width: 468px) {
+    display: none;
+
+  }
+
 }
 
-.Footer_Div > div {
+.Footer_Div>div {
   width: 90%;
   margin: auto;
-  display: flex;
-  justify-content: space-between;
+
   padding-top: 1rem;
 }
 
-.footer_logo_div{
+.footer_logo_div {
   display: flex;
   align-items: center;
 }
 
 
-.footer_logo{
+.footer_logo {
   max-width: 220px;
-  
+  cursor: pointer;
+
+}
+
+.mobileCssNavbar {
+
+  display: block;
+
+  @media screen and (max-width: 468px) {
+    display: none;
+  }
+}
+
+.mobileCssNavbar1 {
+
+  display: none;
+
+  @media screen and (max-width: 468px) {
+    display: block;
+  }
 }
 
 
 
-.footer_copyright{
+.footer_copyright {
   display: flex;
   align-items: center;
   font-size: 14px;
   padding-top: 1rem;
   justify-content: center;
+  border-top: 1px solid #d1d1d1;
 }
