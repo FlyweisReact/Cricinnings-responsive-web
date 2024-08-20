@@ -68,7 +68,7 @@ const Nav = () => {
       );
 
       setAllSeries(res?.data?.competitions?.slice(0, 5));
-    } catch (error) { }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -100,7 +100,7 @@ const Nav = () => {
     )?.[0]?.image;
     const bannerLink1 = res?.data?.data?.filter(
       (item) => item.page === "HomePage" && item.type === "Top-Banner"
-    )
+    );
 
     setBannerLink(bannerLink1?.[0]?.link);
     setTopBanner1(banner);
@@ -112,7 +112,7 @@ const Nav = () => {
   return (
     <>
       {topBanner1 && (
-        <div className="lg:w-[80%] h-auto p-4 bg-gray-100 text-center md:w-[100%] md:p-6 md:h-48 ">
+        <div className="lg:max-w-[1100px] h-auto p-4 bg-gray-100 text-center md:w-[100%] md:p-6 md:h-48 ">
           <Link to={bannerLink}>
             <img
               src={topBanner1}
@@ -124,10 +124,8 @@ const Nav = () => {
       )}
 
       <div className="mobileCssNavbar1">
-
         <MobileNavBar />
       </div>
-
 
       <div className="myClassRKt">
         <nav>
