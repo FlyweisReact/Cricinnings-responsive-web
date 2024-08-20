@@ -10,6 +10,7 @@ import {
   AuthUrl,
   GetData,
   baseUrl,
+  convertStringFormat,
   formatTitle,
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
@@ -303,7 +304,7 @@ const Homepage = () => {
       );
 
       setAllSeries(res?.data?.competitions);
-    } catch (error) { }
+    } catch (error) {}
   };
 
   const getAllTeamRankingsData = async () => {
@@ -395,8 +396,9 @@ const Homepage = () => {
     if (hoursDifference > 0) {
       return `${hoursDifference} hour${hoursDifference > 1 ? "s" : ""} ago`;
     } else if (minutesDifference > 0) {
-      return `${minutesDifference} minute${minutesDifference > 1 ? "s" : ""
-        } ago`;
+      return `${minutesDifference} minute${
+        minutesDifference > 1 ? "s" : ""
+      } ago`;
     } else {
       return "just now";
     }
@@ -459,15 +461,35 @@ const Homepage = () => {
                 sliderData?.map((item, index) => (
                   <div key={index} className="top_slider_card">
                     <div
-                      onClick={() =>
-                        navigate(
-                          `/live-cricket-scores/${item?.match_id}/${formatTitle(
-                            item?.short_title
-                          )}-${formatTitle(item?.subtitle)}-${formatTitle(
-                            item?.competition?.title
-                          )}-${item?.competition?.season?.toLowerCase()}`
-                        )
-                      }
+                      onClick={() => {
+                        if (item?.match_id) {
+                          const teamAShortName = item.teama?.short_name
+                            ?.toLowerCase()
+                            .split(" ")
+                            .join("-");
+                          const teamBShortName = item.teamb?.short_name
+                            ?.toLowerCase()
+                            .split(" ")
+                            .join("-");
+                          const matchNumber =
+                            item?.match_number ||
+                            item?.subtitle?.split("Match")?.[1];
+                          console.log(item?.subtitle?.split("Match")?.[1]);
+                          const matchSuffix = convertStringFormat(
+                            item?.subtitle
+                          )?.toLowerCase();
+                          const competitionTitle = item?.competition?.title
+                            ?.toLowerCase()
+                            .split(" ")
+                            .join("-");
+                          const competitionSeason =
+                            item?.competition?.season?.toLowerCase();
+            
+                          const url = `/live-cricket-scores/${item.match_id}/${teamAShortName}-vs-${teamBShortName}-${matchSuffix}-${competitionTitle}-${competitionSeason}`;
+            
+                          navigate(url);
+                        }
+                      }}
                       style={{ cursor: "pointer" }}
                       className="top_slider_card_div1"
                     >
@@ -594,8 +616,10 @@ const Homepage = () => {
                             style={{ cursor: "pointer" }}
                             onClick={() =>
                               navigate(
-                                `/cricket-series/${item?.competition?.cid
-                                }/${formatTitle(item?.competition?.title)}-${item?.competition?.season
+                                `/cricket-series/${
+                                  item?.competition?.cid
+                                }/${formatTitle(item?.competition?.title)}-${
+                                  item?.competition?.season
                                 }/points-table`
                               )
                             }
@@ -607,8 +631,10 @@ const Homepage = () => {
                           style={{ cursor: "pointer" }}
                           onClick={() =>
                             navigate(
-                              `/cricket-series/${item?.competition?.cid
-                              }/${formatTitle(item?.competition?.title)}-${item?.competition?.season
+                              `/cricket-series/${
+                                item?.competition?.cid
+                              }/${formatTitle(item?.competition?.title)}-${
+                                item?.competition?.season
                               }/matches`
                             )
                           }
@@ -802,7 +828,7 @@ const Homepage = () => {
                       >
                         <p className="text-left text-sm font-medium text-gray-800">
                           {item?.title}
-                          { }
+                          {}
                         </p>
                       </div>
                     );

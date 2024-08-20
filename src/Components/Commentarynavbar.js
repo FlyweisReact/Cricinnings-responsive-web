@@ -83,17 +83,17 @@ const Commentarynavbar = () => {
     <div className="bg-[white] pl-2 pt-2 pr-2">
       <div className="font-semibold ">
         <p
-          onClick={() =>
-            navigate(
-              `/cricket-series/${
-                matchDetails?.competition?.cid
-              }/${matchDetails?.competition?.title
-                ?.toLowerCase()
-                ?.split(" ")
-                ?.join("-")}-${matchDetails?.competition?.season}/matches`
-            )
-          }
-          style={{ fontSize: "14px", fontWeight: "bold", cursor: "pointer" }}
+          // onClick={() =>
+          //   navigate(
+          //     `/cricket-series/${
+          //       matchDetails?.competition?.cid
+          //     }/${matchDetails?.competition?.title
+          //       ?.toLowerCase()
+          //       ?.split(" ")
+          //       ?.join("-")}-${matchDetails?.competition?.season}/matches`
+          //   )
+          // }
+          style={{ fontSize: "14px", fontWeight: "bold",  }}
         >
           {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket Score,
           Commentary
