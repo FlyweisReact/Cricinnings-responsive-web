@@ -546,10 +546,7 @@ const Homepage = () => {
                             }}
                           >
                             <span>
-                              {item?.teama?.name
-                                ?.split(" ")
-                                ?.slice(0, 2)
-                                ?.join(" ")}
+                            {item?.teama?.name?.slice(0, 10) + "..."}
                             </span>
                             <span>{item?.teama?.scores_full}</span>
                           </p>
@@ -571,10 +568,8 @@ const Homepage = () => {
                             }}
                           >
                             <span>
-                              {item?.teamb?.name
-                                .split(" ")
-                                ?.slice(0, 2)
-                                ?.join(" ")}
+                             
+                              {item?.teamb?.name?.slice(0, 10) + "..."}
                             </span>
                             <span>
                               {item?.teamb?.scores_full?.split("&")?.[0]}
