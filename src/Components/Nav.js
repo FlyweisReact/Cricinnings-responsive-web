@@ -141,11 +141,9 @@ const Nav = () => {
               </div>
               <div className="navBar_links">
                 <a href="/cricket-match/live-scores">
-                  <p
-                  // onClick={() => navigate("/Livescrore")}
-                  >
-                    <span style={{ fontSize: "8px", marginBottom: "8px" }}>
-                      🔴
+                  <p className="d-flex gap-1 items-center">
+                    <span style={{ fontSize: "8px" }}>
+                      <img src="/dot.svg" alt="dot" />
                     </span>
                     Live Scores
                   </p>
