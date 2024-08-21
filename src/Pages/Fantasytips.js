@@ -8,6 +8,7 @@ import {
 } from "../Components/Integration/ApiIntegration";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 const Fantasytips = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
   const getAllData = async () => {
@@ -78,12 +79,10 @@ const Fantasytips = () => {
       path: "teams/25/matches",
     })
       .then((res) => {
-        // 
+        //
         setMatches(res?.response?.items);
       })
-      .catch((err) => {
-        
-      });
+      .catch((err) => {});
     // HomepageSliderData().then((res) => {
     //   setMatches(res);
     // });
@@ -91,7 +90,7 @@ const Fantasytips = () => {
 
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      // 
+      //
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"
@@ -126,11 +125,9 @@ const Fantasytips = () => {
         baseUrl + "user/getCompetitionsList?status=live&per_page=30&paged=1"
       );
 
-      // 
+      //
       setAllSeries(res?.data?.competitions);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   const getAllTeamRankingsData = () => {
@@ -193,6 +190,13 @@ const Fantasytips = () => {
   }, []);
   return (
     <div className="">
+      <Helmet>
+        <title>{`Cricket Fantasy Tips | Cricinnings.com`}</title>
+        <meta
+          name="description"
+          content={`Cricket Fantasy Tips | Cricinnings.com`}
+        />
+      </Helmet>
       <div className="bg-[white] pl-2 pt-2 pr-2">
         {/* <div className="bg-[#B3B3B3] text-white h-[100px]  flex justify-center items-center rounded-lg mt-2">
           RESPONSIVE AD’s
@@ -277,36 +281,36 @@ const Fantasytips = () => {
               </div>
             </div>
             <div className="w-[250px]  mt-10">
-            {allSeries?.length > 0 && (
-              <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
-                <span className="text-black font-bold text-sm pl-2">
-                  CURRENT SERIES
-                </span>
-                <div className="flex flex-col mt-4 gap-2">
-                  {allSeries?.map((item, index) => {
-                    if (index >= 4) return null;
-                    return (
-                      <div
-                        key={item?._id}
-                        className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
-                        onClick={() =>
-                          navigate(
-                            `/cricket-series/${item?.cid}/${formatTitle(
-                              item?.title
-                            )}-${item?.season}/matches`
-                          )
-                        }
-                      >
-                        <p className="text-left text-sm font-medium text-gray-800">
-                          {item?.title}
-                          {}
-                        </p>
-                      </div>
-                    );
-                  })}
+              {allSeries?.length > 0 && (
+                <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                  <span className="text-black font-bold text-sm pl-2">
+                    CURRENT SERIES
+                  </span>
+                  <div className="flex flex-col mt-4 gap-2">
+                    {allSeries?.map((item, index) => {
+                      if (index >= 4) return null;
+                      return (
+                        <div
+                          key={item?._id}
+                          className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
+                          onClick={() =>
+                            navigate(
+                              `/cricket-series/${item?.cid}/${formatTitle(
+                                item?.title
+                              )}-${item?.season}/matches`
+                            )
+                          }
+                        >
+                          <p className="text-left text-sm font-medium text-gray-800">
+                            {item?.title}
+                            {}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
-              </div>
-            )}
+              )}
 
               {/* <div className="bg-[#B3B3B3] text-white h-[550px]  flex justify-center items-center rounded-lg mt-2">
               RESPONSIVE AD’s

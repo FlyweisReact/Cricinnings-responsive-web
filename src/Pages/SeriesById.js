@@ -12,6 +12,7 @@ import SeriesPoints from "./SeriesPoints";
 import SeriesStats from "./SeriesStats";
 import Venu from "./Venu";
 import { Table } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 const SeriesById = () => {
   const location = useLocation();
 
@@ -494,6 +495,105 @@ const SeriesById = () => {
 
   return (
     <div className="">
+      { selectedButton === "Current Matches"  ? (
+        <Helmet>
+          <title>
+            {`${seriesDetails?.title}, ${
+              seriesDetails?.datestart?.slice(0, 4)
+            } - ${
+              seriesDetails?.dateend?.slice(2, 4)
+            } schedule, live scores and commentary`}
+          </title>
+          <meta
+            name="description"
+            content={`${seriesDetails?.title}, ${
+              seriesDetails?.season
+            } ${formatDate22(seriesDetails?.datestart)} - ${formatDate22(
+              seriesDetails?.dateend
+            )} schedule, live scores and commentary`}
+          />
+        </Helmet>
+      ) :
+      selectedButton === "squad"  ? (
+        <Helmet>
+          <title>
+            {`${seriesDetails?.title}, ${
+              seriesDetails?.datestart?.slice(0, 4)
+            } - ${
+              seriesDetails?.dateend?.slice(2, 4)
+            } Team Caption and Players`}
+          </title>
+          <meta
+            name="description"
+            content={`${seriesDetails?.title}, ${
+              seriesDetails?.season
+            } ${formatDate22(seriesDetails?.datestart)} - ${formatDate22(
+              seriesDetails?.dateend
+            )}  Team Caption and Players`}
+          />
+        </Helmet>
+      ) :
+      selectedButton === "Point Table"  ? (
+        <Helmet>
+          <title>
+            {`${seriesDetails?.title}, ${
+              seriesDetails?.datestart?.slice(0, 4)
+            } - ${
+              seriesDetails?.dateend?.slice(2, 4)
+            } Points Table | Cricinnings.com`}
+          </title>
+          <meta
+            name="description"
+            content={`${seriesDetails?.title}, ${
+              seriesDetails?.season
+            } ${formatDate22(seriesDetails?.datestart)} - ${formatDate22(
+              seriesDetails?.dateend
+            )} Points Table | Cricinnings.com`}
+          />
+        </Helmet>
+      ) :
+      selectedButton === "Venu" ? (
+        <Helmet>
+          <title>
+            {`${seriesDetails?.title}, ${
+              seriesDetails?.datestart?.slice(0, 4)
+            } - ${
+              seriesDetails?.dateend?.slice(2, 4)
+            } Venues and Grounds`}
+          </title>
+          <meta
+            name="description"
+            content={`${seriesDetails?.title}, ${
+              seriesDetails?.season
+            } ${formatDate22(seriesDetails?.datestart)} - ${formatDate22(
+              seriesDetails?.dateend
+            )}  Venues and Grounds`}
+          />
+        </Helmet>
+      ) :
+      selectedButton === "State Venu"  ? (
+        <Helmet>
+          <title>
+            {`${seriesDetails?.title}, ${
+              seriesDetails?.datestart?.slice(0, 4)
+            } - ${
+              seriesDetails?.dateend?.slice(2, 4)
+            } Statics | Cricinnings.com`}
+          </title>
+          <meta
+            name="description"
+            content={`${seriesDetails?.title}, ${
+              seriesDetails?.season
+            } ${formatDate22(seriesDetails?.datestart)} - ${formatDate22(
+              seriesDetails?.dateend
+            )} Statics | Cricinnings.com`}
+          />
+        </Helmet>
+      ) :
+      
+      (
+        ""
+      )}
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <div>
           <p

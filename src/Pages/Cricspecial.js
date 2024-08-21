@@ -9,6 +9,7 @@ import {
 
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { Helmet } from "react-helmet";
 
 const Cricspecial = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
@@ -177,6 +178,10 @@ const Cricspecial = () => {
   };
   return (
     <div className="">
+       <Helmet>
+        <title>{`Cricket Special | Cricinnings.com`}</title>
+        <meta name="description" content={`Cricket Special | Cricinnings.com`} />
+      </Helmet>
       <div className="bg-[white] pl-2 pt-2 pr-2">
         {/* <div className="bg-[#B3B3B3] text-white h-[300px]  flex justify-center items-center rounded-lg mt-2">
           RESPONSIVE AD’s

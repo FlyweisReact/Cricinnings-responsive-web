@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Table } from "react-bootstrap";
+import { Helmet } from "react-helmet";
 const Livescrore = () => {
   const location = useLocation();
 
@@ -595,6 +596,50 @@ const Livescrore = () => {
 
   return (
     <div className="">
+      {selectedDiv === "Current Matches" &&
+      (liveCategory === "3" || liveCategory === "2" || liveCategory === "1") ? (
+        <Helmet>
+          <title>
+            {`Live Cricket Score | Scorecard | Live Commentary | Cricinnings.com`}
+          </title>
+          <meta
+            name="description"
+            content={`Live cricket score | Live scorecard | Live commentary | Cricinnings.com`}
+          />
+        </Helmet>
+      ) : selectedDiv === "Current & Future Series" ? (
+        <Helmet>
+          <title>
+            {`Cricket Schedule - Upcomming international, domestic, youth and women series`}
+          </title>
+          <meta
+            name="description"
+            content={`Cricket Schedule - Upcomming international, domestic, youth and women series`}
+          />
+        </Helmet>
+      ) : selectedDiv === "Match Day By Day" ? (
+        <Helmet>
+          <title>
+            {`Cricket Schedule - international, domestic, youth and women matches -`}
+          </title>
+          <meta
+            name="description"
+            content={`Cricket Schedule - international, domestic, youth and women matches -`}
+          />
+        </Helmet>
+      ) : selectedDiv === "Series Archive" ? (
+        <Helmet>
+          <title>
+            {`Cricket Archives - Series results, scorecard for | Cricinnings.com`}
+          </title>
+          <meta
+            name="description"
+            content={`Cricket Archives - Series results, scorecard for | Cricinnings.com`}
+          />
+        </Helmet>
+      ) : (
+        ""
+      )}
       <div className="bg-[white] pl-2 pt-2 pr-2">
         <div className="font-semibold">Live Cricket Score</div>
         <div className="flex  gap-5 mt-2">

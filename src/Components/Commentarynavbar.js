@@ -6,6 +6,7 @@ import {
   convertStringFormat,
   formatTitle,
 } from "./Integration/ApiIntegration";
+import { Helmet } from "react-helmet";
 
 const Commentarynavbar = () => {
   const navigate = useNavigate();
@@ -81,20 +82,121 @@ const Commentarynavbar = () => {
 
   return (
     <div className="bg-[white] pl-2 pt-2 pr-2">
+      {/\/live-cricket-scores\//i.test(pathname) ? (
+        <Helmet>
+          <title>
+            {`${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Score, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          </title>
+          <meta
+            name="description"
+            content={`${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Score, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          />
+        </Helmet>
+      ) : /\/live-cricket-scorecard\//i.test(pathname) ? (
+        <Helmet>
+          <title>
+            Cricket scorecard -{" "}
+            {`${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Scorecard, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          </title>
+          <meta
+            name="description"
+            content={`Cricket scorecard - ${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Score, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          />
+        </Helmet>
+      ) : /\/cricket-match-squads\//i.test(pathname) ? (
+        <Helmet>
+          <title>
+            Cricket match squads -{" "}
+            {`${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Scorecard, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          </title>
+          <meta
+            name="description"
+            content={`Cricket match squads - ${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Score, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          />
+        </Helmet>
+      ) : 
+      /\/live-cricket-full-commentary\//i.test(pathname) ? (
+        <Helmet>
+          <title>
+            Catch the Full Commentary of -{" "}
+            {`${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Scorecard, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          </title>
+          <meta
+            name="description"
+            content={`Catch the Full Commentary of - ${matchDetails?.title}, ${
+              matchDetails?.subtitle
+            } - Live Cricket Score, Commentary ${
+              matchDetails?.statue === 3
+                ? "Live"
+                : matchDetails?.statue === 1
+                ? "Match Not Started Yet"
+                : ""
+            }`}
+          />
+        </Helmet>
+      ) :
+      (
+        ""
+      )}
+
       <div className="font-semibold ">
-        <p
-          // onClick={() =>
-          //   navigate(
-          //     `/cricket-series/${
-          //       matchDetails?.competition?.cid
-          //     }/${matchDetails?.competition?.title
-          //       ?.toLowerCase()
-          //       ?.split(" ")
-          //       ?.join("-")}-${matchDetails?.competition?.season}/matches`
-          //   )
-          // }
-          style={{ fontSize: "14px", fontWeight: "bold",  }}
-        >
+        <p style={{ fontSize: "14px", fontWeight: "bold" }}>
           {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket Score,
           Commentary
           {matchDetails?.statue === 3
@@ -105,23 +207,25 @@ const Commentarynavbar = () => {
         </p>
       </div>
       <div className="flex justify-between mt-3">
-      <div
-  onClick={() =>
-    navigate(
-      `/cricket-series/${matchDetails?.competition?.cid}/${matchDetails?.competition?.title
-        ?.toLowerCase()
-        ?.split(" ")
-        ?.join("-")}-${matchDetails?.competition?.season}/matches`
-    )
-  }
-  className="text-slate-500 text-sm font-bold cursor-pointer hover:underline"
->
-  Series:{" "}
-  {matchDetails?.competition?.title +
-    "," +
-    " " +
-    matchDetails?.competition?.season}
-</div>
+        <div
+          onClick={() =>
+            navigate(
+              `/cricket-series/${
+                matchDetails?.competition?.cid
+              }/${matchDetails?.competition?.title
+                ?.toLowerCase()
+                ?.split(" ")
+                ?.join("-")}-${matchDetails?.competition?.season}/matches`
+            )
+          }
+          className="text-slate-500 text-sm font-bold cursor-pointer hover:underline"
+        >
+          Series:{" "}
+          {matchDetails?.competition?.title +
+            "," +
+            " " +
+            matchDetails?.competition?.season}
+        </div>
 
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
@@ -137,7 +241,6 @@ const Commentarynavbar = () => {
           Date: {formatDate(matchDetails?.date_start)}
         </div>
       </div>
-
       <div className="topBarCommentary">
         <p
           onClick={() => {
@@ -394,7 +497,6 @@ const Commentarynavbar = () => {
           Stats
         </p>
       </div>
-
       {/\/live-cricket-scores\//i.test(pathname) && (
         <div
           style={{

@@ -6,6 +6,7 @@ import {
   formatTitle,
 } from "../Components/Integration/ApiIntegration";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 
 const Cricketnews = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
@@ -175,6 +176,10 @@ const Cricketnews = () => {
   }, []);
   return (
     <div className="">
+      <Helmet>
+        <title>{`Cricket News | Cricinnings.com`}</title>
+        <meta name="description" content={`Cricket News | Cricinnings.com`} />
+      </Helmet>
       <div className="bg-[white] pl-2 pt-2 pr-2">
         {/* <div className="bg-[#B3B3B3] text-white h-[300px]  flex justify-center items-center rounded-lg mt-2">
           RESPONSIVE AD’s
@@ -237,28 +242,28 @@ const Cricketnews = () => {
                     CURRENT SERIES
                   </span>
                   <div className="flex flex-col mt-4 gap-2">
-                  {allSeries?.map((item, index) => {
-                    if (index >= 4) return null;
-                    return (
-                      <div
-                        key={item?._id}
-                        className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
-                        onClick={() =>
-                          navigate(
-                            `/cricket-series/${item?.cid}/${formatTitle(
-                              item?.title
-                            )}-${item?.season}/matches`
-                          )
-                        }
-                      >
-                        <p className="text-left text-sm font-medium text-gray-800">
-                          {item?.title}
-                          {}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
+                    {allSeries?.map((item, index) => {
+                      if (index >= 4) return null;
+                      return (
+                        <div
+                          key={item?._id}
+                          className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
+                          onClick={() =>
+                            navigate(
+                              `/cricket-series/${item?.cid}/${formatTitle(
+                                item?.title
+                              )}-${item?.season}/matches`
+                            )
+                          }
+                        >
+                          <p className="text-left text-sm font-medium text-gray-800">
+                            {item?.title}
+                            {}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 

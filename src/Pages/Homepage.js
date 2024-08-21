@@ -15,6 +15,7 @@ import {
 } from "../Components/Integration/ApiIntegration";
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
+import { Helmet } from "react-helmet";
 
 const Homepage = () => {
   const CustomNextArrow = (props) => {
@@ -453,6 +454,15 @@ const Homepage = () => {
 
   return (
     <div className="">
+      <Helmet>
+        <title>
+          Cricinnings : Cricket Live Score, Cricket News, Predictions, Stats
+        </title>
+        <meta
+          name="description"
+          content="Live Cricket: Get live cricket scores, news, schedules, highlights, commentary, rankings, stats, & more updates for all international & domestic"
+        />
+      </Helmet>
       {sliderData && (
         <div className="homePageSlider">
           <div style={{ overflow: "hidden" }} className="slider-container">

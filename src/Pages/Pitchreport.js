@@ -6,6 +6,7 @@ import {
   formatTitle,
 } from "../Components/Integration/ApiIntegration";
 import { useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 const Pitchreport = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
   const getAllData = async () => {
@@ -76,12 +77,10 @@ const Pitchreport = () => {
       path: "teams/25/matches",
     })
       .then((res) => {
-        // 
+        //
         setMatches(res?.response?.items);
       })
-      .catch((err) => {
-
-      });
+      .catch((err) => {});
     // HomepageSliderData().then((res) => {
     //   setMatches(res);
     // });
@@ -89,7 +88,7 @@ const Pitchreport = () => {
 
   const getAllHomePageBanners = () => {
     GetData("userAuth/getPostsByPosition").then((res) => {
-      // 
+      //
       const topBanner = res?.data?.filter((item) => item?.title === "top");
       const middleBanner = res?.data?.filter(
         (item) => item?.title === "middle"
@@ -171,6 +170,13 @@ const Pitchreport = () => {
   };
   return (
     <div className="">
+      <Helmet>
+        <title>{`Cricket Special | Cricinnings.com`}</title>
+        <meta
+          name="description"
+          content={`Cricket Special | Cricinnings.com`}
+        />
+      </Helmet>
       <div className="bg-[white] pl-2 pt-2 pr-2">
         {/* <div className="bg-[#B3B3B3] text-white h-[100px]  flex justify-center items-center rounded-lg mt-4">
           RESPONSIVE AD’s
@@ -200,7 +206,7 @@ const Pitchreport = () => {
                           <div>
                             <img
                               alt=""
-                              style={{ width: "100%", height: "300px",}}
+                              style={{ width: "100%", height: "300px" }}
                               src={item?.image || ipl}
                               className="w-[650px]"
                             />
@@ -265,28 +271,28 @@ const Pitchreport = () => {
                     CURRENT SERIES
                   </span>
                   <div className="flex flex-col mt-4 gap-2">
-                  {allSeries?.map((item, index) => {
-                    if (index >= 4) return null;
-                    return (
-                      <div
-                        key={item?._id}
-                        className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
-                        onClick={() =>
-                          navigate(
-                            `/cricket-series/${item?.cid}/${formatTitle(
-                              item?.title
-                            )}-${item?.season}/matches`
-                          )
-                        }
-                      >
-                        <p className="text-left text-sm font-medium text-gray-800">
-                          {item?.title}
-                          {}
-                        </p>
-                      </div>
-                    );
-                  })}
-                </div>
+                    {allSeries?.map((item, index) => {
+                      if (index >= 4) return null;
+                      return (
+                        <div
+                          key={item?._id}
+                          className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
+                          onClick={() =>
+                            navigate(
+                              `/cricket-series/${item?.cid}/${formatTitle(
+                                item?.title
+                              )}-${item?.season}/matches`
+                            )
+                          }
+                        >
+                          <p className="text-left text-sm font-medium text-gray-800">
+                            {item?.title}
+                            {}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
                 </div>
               )}
 

@@ -4,6 +4,7 @@ import { baseUrl, formatTitle } from "../Components/Integration/ApiIntegration";
 import { Table } from "react-bootstrap";
 import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
+import { Helmet } from "react-helmet";
 const Manrankingpage = () => {
   const [rank, setRank] = useState([]);
   const [odiBestman, setOdiBestman] = useState([]);
@@ -73,6 +74,20 @@ const Manrankingpage = () => {
   }, []);
   return (
     <div className="">
+      <Helmet>
+        <title>{`ICC Player Ranking | Men's Ranking | Top ${
+          mainCategory !== "Teams" ? "50" : ""
+        } ${
+          mainCategory === "batting"
+            ? "Batsmen"
+            : mainCategory === "bowling"
+            ? "Bowler"
+            : mainCategory === "all-rounder"
+            ? "All-rounder"
+            : "Teams"
+        } | Cricinnings.com`}</title>
+        <meta name="description" content={`Cricket News | Cricinnings.com`} />
+      </Helmet>
       <div className="bg-[white] pl-2 pt-2">
         <div className="font-semibold">
           ICC Cricket Rankings-Men’s{" "}
@@ -214,9 +229,7 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p>
-                              <span>
-                             
-                              </span>
+                              <span></span>
                               <span
                                 style={{
                                   display: "flex",
@@ -441,7 +454,6 @@ const Manrankingpage = () => {
                           </td>
                           <td>
                             <p>
-                             
                               <span
                                 style={{
                                   display: "flex",
