@@ -484,9 +484,9 @@ const Homepage = () => {
                             .join("-");
                           const competitionSeason =
                             item?.competition?.season?.toLowerCase();
-            
+
                           const url = `/live-cricket-scores/${item.match_id}/${teamAShortName}-vs-${teamBShortName}-${matchSuffix}-${competitionTitle}-${competitionSeason}`;
-            
+
                           navigate(url);
                         }
                       }}
