@@ -85,7 +85,6 @@ const Scorecard = () => {
       setBanner1(banner?.find((item) => item?.title === "scorePageBanner1"));
       setBanner2(banner?.find((item) => item?.title === "scorePageBanner2"));
       setBanner3(banner?.find((item) => item?.title === "scorePageBanner3"));
-      //
     });
   };
 
@@ -121,13 +120,15 @@ const Scorecard = () => {
       <div className="bg-[white] pl-2 pt-2">
         <Commentarynavbar />
 
-        <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          <img
-            style={{ height: "96px", width: "100%" }}
-            src={banner1?.image}
-            alt="ad-Image2"
-          />
-        </div>
+        {banner1?.image && (
+          <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
+            <img
+              style={{ height: "96px", width: "100%" }}
+              src={banner1?.image}
+              alt="ad-Image2"
+            />
+          </div>
+        )}
         <div>
           <p
             style={{
@@ -151,6 +152,7 @@ const Scorecard = () => {
                   <p>No Data Found</p>
                 </div>
               )}
+
               {squadData?.status === 2 && (
                 <>
                   <div>
@@ -1317,6 +1319,7 @@ const Scorecard = () => {
                   )}
                 </>
               )}
+
               {(squadData?.latest_inning_number === 2 ||
                 squadData?.latest_inning_number === 3) &&
                 squadData?.status !== 2 && (
@@ -1911,7 +1914,7 @@ const Scorecard = () => {
                   </>
                 )}
               {squadData?.latest_inning_number === 1 &&
-                (squadData?.status !== 2)(
+                squadData?.status !== 2 && (
                   <>
                     <div>
                       <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
@@ -2172,301 +2175,6 @@ const Scorecard = () => {
                           </thead>
                           <tbody>
                             {squadData?.innings?.[0]?.fows?.map(
-                              (item, index) => (
-                                <tr className="border-b">
-                                  <td
-                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
-                                    onClick={() =>
-                                      navigate(
-                                        `/profiles/${
-                                          item?.batsman_id
-                                        }/${formatTitle(item?.name)}`
-                                      )
-                                    }
-                                  >
-                                    {item?.role_str === "(WK)"
-                                      ? "(WK)"
-                                      : item?.role_str === "(C)"
-                                      ? "(C)"
-                                      : ""}{" "}
-                                    {item?.name}{" "}
-                                  </td>
-
-                                  <td className="pr-3">{item?.how_out}</td>
-                                  <td className="pl-3">
-                                    {item?.score_at_dismissal}
-                                  </td>
-                                  <td className="text-[#0F19AF] pt-2 pl-3">
-                                    {item?.overs_at_dismissal}
-                                  </td>
-                                </tr>
-                              )
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                    </div>
-                    <div>
-                      <div className="w-[680px]  mt-2 mb-2 bg-[white] rounded-lg  shadow-lg">
-                        <div className="bg-[#0F19AF] flex justify-between items-center  rounded-t-lg w-full h-[45px] text-white">
-                          <div className="ml-2">
-                            {squadData?.innings?.[1]?.name}
-                          </div>
-                          <div className="mr-2">
-                            {}
-                            {squadData?.innings?.[1]?.scores
-                              ?.split("/")
-                              ?.join("-")}{" "}
-                            {squadData?.innings?.[1]?.scores_full &&
-                              "(" +
-                                squadData?.innings?.[1]?.scores_full
-                                  ?.split("(")?.[1]
-                                  ?.split(" ")?.[0] +
-                                ") Ov"}
-                            {/* {squadData?.innings?.[1]?.scores_full} */}
-                          </div>
-                        </div>
-
-                        <table className="m-2">
-                          <thead>
-                            <tr className="border-b">
-                              <th className="w-[150px] text-left">Batter</th>
-                              <th className="w-[300px]"></th>
-                              <th className="w-[50px] text-left">R</th>
-                              <th className="w-[50px] text-left">B</th>
-                              <th className="w-[50px] text-left">4S</th>
-                              <th className="w-[50px] text-left">6S</th>
-                              <th className="w-[50px]">SR </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {squadData?.innings?.[1]?.batsmen?.map(
-                              (item, index) => (
-                                <tr key={index} className="border-b">
-                                  <td
-                                    className="text-[#0F19AF] hover:underline hover:cursor-pointer"
-                                    onClick={() =>
-                                      navigate(
-                                        `/profiles/${
-                                          item?.batsman_id
-                                        }/${formatTitle(item?.name)}`
-                                      )
-                                    }
-                                  >
-                                    {item.name}{" "}
-                                    {item?.role_str === "(WK)"
-                                      ? "(WK)"
-                                      : item?.role_str === "(C)"
-                                      ? "(C)"
-                                      : ""}
-                                  </td>
-
-                                  <td>{item.how_out}</td>
-                                  <td>{item.runs}</td>
-                                  <td>{item.balls_faced}</td>
-                                  <td>{item.fours}</td>
-                                  <td>{item.sixes}</td>
-                                  <td className="flex items-center">
-                                    {item.strike_rate}
-                                  </td>
-                                </tr>
-                              )
-                            )}
-                          </tbody>
-                        </table>
-                        <div className="border-b  ml-2 mr-2">
-                          <div className="flex justify-between w-[550px]">
-                            <div className="text-slate-400">EXTRAS</div>
-                            <div className="text-slate-400 flex">
-                              {formatExtraRuns(
-                                squadData?.innings?.[1]?.extra_runs
-                              )}
-                              {}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="border-b ml-2 mr-2">
-                          <div className="flex  justify-between w-[550px]">
-                            <div className="text-slate-400">TOTAL</div>
-                            <div className=" flex">
-                              {squadData?.innings?.[1]?.scores?.split("/")?.[0]}{" "}
-                              {squadData?.innings?.[1]?.scores?.split("/")?.[1]
-                                ? "(" +
-                                  squadData?.innings?.[1]?.scores?.split(
-                                    "/"
-                                  )?.[1] +
-                                  " wkts" +
-                                  "," +
-                                  " " +
-                                  squadData?.innings?.[1]?.scores_full
-                                    ?.split("(")?.[1]
-                                    ?.split(" ")?.[0] +
-                                  " " +
-                                  "Ov)"
-                                : ""}
-                              {/* {(squadData?.innings?.[0]?.scores_full)} */}
-                            </div>
-                          </div>
-                        </div>
-
-                        <div className="flex ml-2 w-[680px]">
-                          <div
-                            style={{ width: "150px" }}
-                            className="text-slate-400 pr-14"
-                          >
-                            Didn’t Bat
-                          </div>
-                          <div className="text-[#0F19AF] ml-4">
-                            <div className="flex flex-wrap gap-1">
-                              {squadData?.innings?.[1]?.did_not_bat?.map(
-                                (player, index) => (
-                                  <span
-                                    onClick={() =>
-                                      navigate(
-                                        `/profiles/${
-                                          player?.player_id
-                                        }/${formatTitle(player?.name)}`
-                                      )
-                                    }
-                                    className="hover:underline hover:cursor-pointer"
-                                    key={index}
-                                  >
-                                    {player?.name}
-                                    {index !==
-                                      squadData.innings[1].did_not_bat.length -
-                                        1 && ","}
-                                  </span>
-                                )
-                              )}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="w-[680px]  mt-2 bg-[white] rounded-lg  shadow-lg">
-                        <table className="p-2">
-                          <thead className="border-b">
-                            <tr
-                              style={{ borderRadius: "10px 0 10px 0" }}
-                              className="bg-[#0F19AF] rounded-t-lg w-[680px] h-[45px] text-white"
-                            >
-                              <th
-                                style={{ borderRadius: "10px 0 0 0" }}
-                                className="w-[350px] pl-3 text-left"
-                              >
-                                Bowler
-                              </th>
-                              <th className="w-[50px] text-left">O</th>
-                              <th className="w-[50px] text-left">M</th>
-                              <th className="w-[50px] text-left">R</th>
-                              <th className="w-[50px] text-left">W</th>
-                              <th className="w-[50px] text-left">NB</th>
-                              <th className="w-[50px] text-left">WD</th>
-                              <th
-                                style={{ borderRadius: "0 10px 0 0" }}
-                                className="w-[50px] text-left"
-                              >
-                                ECO
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {squadData?.innings?.[1]?.bowlers?.map(
-                              (item, index) => (
-                                <tr
-                                  style={{ borderBottom: "1px solid #E5E7EB" }}
-                                >
-                                  <td
-                                    onClick={() =>
-                                      navigate(
-                                        `/profiles/${
-                                          item?.bowler_id
-                                        }/${formatTitle(item?.name)}`
-                                      )
-                                    }
-                                    className="text-[#0F19AF] pl-3 hover:underline hover:cursor-pointer"
-                                  >
-                                    {item?.role_str === "(WK)"
-                                      ? "(WK)"
-                                      : item?.role_str === "(C)"
-                                      ? "(C)"
-                                      : ""}{" "}
-                                    {item.name}
-                                  </td>
-
-                                  <td>{item.overs}</td>
-                                  <td>{item.maidens}</td>
-                                  <td>{item.run0}</td>
-                                  <td>{item.wickets}</td>
-                                  <td>{item.noballs}</td>
-                                  <td>{item.wides}</td>
-                                  <td>{item.econ}</td>
-                                  <td>{item.zeros}</td>
-                                </tr>
-                              )
-                            )}
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
-                        <table className="w-full">
-                          <thead className="border-b">
-                            <tr
-                              className="bg-[#0F19AF] w-full h-[45px] text-white"
-                              style={{ borderRadius: "10px 10px 0 0" }}
-                            >
-                              <th
-                                style={{ borderRadius: "10px 0 0 0" }}
-                                className="w-[350px] pl-3 text-left overflow-hidden"
-                              >
-                                Powerplays
-                              </th>
-                              <th className="w-[150px] text-left"> Over</th>
-                              <th
-                                style={{ borderRadius: "0 10px 0 0" }}
-                                className="w-[150px] text-left"
-                              >
-                                Runs
-                              </th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            <tr className="border-b">
-                              <td></td>
-                              <td>
-                                {
-                                  squadData?.innings?.[1]?.powerplay?.p1
-                                    ?.startover
-                                }
-                                -{" "}
-                                {
-                                  squadData?.innings?.[1]?.powerplay?.p1
-                                    ?.endover
-                                }
-                              </td>
-
-                              <td>{squadData?.innings?.[1]?.result}</td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </div>
-                      <div className="w-[680px] mt-2 bg-white rounded-lg shadow-lg">
-                        <table className="w-full">
-                          <thead className="border-b">
-                            <tr
-                              className="bg-[#0F19AF] w-full h-[45px] text-white"
-                              style={{ borderRadius: "10px 10px 0 0" }}
-                            >
-                              <th className="w-[350px] pl-3 text-left overflow-hidden">
-                                Fall Of Wickets
-                              </th>
-                              <th className="w-[150px] text-left"></th>
-                              <th className="w-[150px] text-left">Score</th>
-                              <th className="w-[150px] text-left">Over</th>
-                            </tr>
-                          </thead>
-                          <tbody>
-                            {squadData?.innings?.[1]?.fows?.map(
                               (item, index) => (
                                 <tr className="border-b">
                                   <td
