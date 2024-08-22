@@ -571,7 +571,7 @@ const Commentarynavbar = () => {
                         fontWeight: "bold",
                       }}
                     >
-                      cRR:{" "}
+                      CRR:{" "}
                       {matchData1?.live_inning?.equations?.required_runrate}{" "}
                       {matchData1?.live_inning_number === 2 &&
                         matchData1?.live_inning?.batting_team_id ===
