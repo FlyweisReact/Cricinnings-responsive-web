@@ -29,6 +29,7 @@ import FeacturePosts from "./Pages/FeacturePosts";
 import AboutPage from "./Pages/AboutPage";
 import PlayerProfile from "./Pages/PlayerProfile";
 import SeriesById from "./Pages/SeriesById";
+import SingleBlogPage from "./Pages/singleBlogPage";
 const router = createBrowserRouter([
   {
     path: "/",
@@ -71,7 +72,10 @@ const router = createBrowserRouter([
         path: "/profiles/:playerId/:playerName",
         element: <PlayerProfile />,
       },
-    
+      {
+        path: "/cricket-news/:blogId/:blogName",
+        element: <SingleBlogPage />,
+      },
       {
         path: "/cricket-match-squads/:matchId/:matchName",
         element: <Squads />,
@@ -121,7 +125,7 @@ const router = createBrowserRouter([
         path: "/cricket-series/:matchId/:matchName/point-table",
         element: <Pointtable />,
       },
-      
+
       {
         path: "/cricket-match-facts/:matchId/:matchName",
         element: <Matchinfo />,

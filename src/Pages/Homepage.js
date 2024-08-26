@@ -546,9 +546,11 @@ const Homepage = () => {
                             }}
                           >
                             <span>
-                            {item?.teama?.name?.slice(0, 10) + "..."}
+                              {item?.teama?.name?.slice(0, 10) + "..."}
                             </span>
-                            <span>{item?.teama?.scores_full}</span>
+                            <span>
+                              {item?.teama?.scores_full?.slice(0, 17)}
+                            </span>
                           </p>
                         </div>
                         <div className="top_slider_card_div2_text">
@@ -568,11 +570,10 @@ const Homepage = () => {
                             }}
                           >
                             <span>
-                             
                               {item?.teamb?.name?.slice(0, 10) + "..."}
                             </span>
                             <span>
-                              {item?.teamb?.scores_full?.split("&")?.[0]}
+                              {item?.teamb?.scores_full?.slice(0, 17)}
                             </span>
                           </p>
                         </div>
