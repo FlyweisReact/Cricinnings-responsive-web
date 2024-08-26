@@ -541,13 +541,11 @@ const Homepage = () => {
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              gap: "8px",
                               justifyContent: "space-between",
+                              width: "100%",
                             }}
                           >
-                            <span>
-                              {item?.teama?.name?.slice(0, 10) + "..."}
-                            </span>
+                            <span>{item?.teama?.short_name}</span>
                             <span>
                               {item?.teama?.scores_full?.slice(0, 17)}
                             </span>
@@ -565,13 +563,11 @@ const Homepage = () => {
                             style={{
                               display: "flex",
                               alignItems: "center",
-                              gap: "8px",
                               justifyContent: "space-between",
+                              width: "100%",
                             }}
                           >
-                            <span>
-                              {item?.teamb?.name?.slice(0, 10) + "..."}
-                            </span>
+                            <span>{item?.teamb?.short_name}</span>
                             <span>
                               {item?.teamb?.scores_full?.slice(0, 17)}
                             </span>

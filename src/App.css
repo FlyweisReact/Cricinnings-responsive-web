@@ -243,7 +243,7 @@
 
 .top_slider_card {
   width: 250px;
-  height: 164px;
+  height: 151px;
   border-radius: 10px;
 
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
@@ -251,7 +251,7 @@
 
   @media screen and (max-width: 480px) {
     max-width: 400px;
-    max-height: 164px;
+    max-height: 141px;
     margin: auto;
 
 
@@ -303,8 +303,8 @@
 }
 
 .top_slider_card_div2_img {
-  width: 25px;
-  height: 25px;
+  width: 17px;
+  height: 17px;
   border-radius: 50%;
 }
 
@@ -312,7 +312,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 12px;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .top_slider_card_div2_text11 {

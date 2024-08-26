@@ -685,8 +685,7 @@ const Livescrore = () => {
           >
             Series Archive
           </div>
-          {}
-          {}
+            
         </div>
         <hr className="mt-2" />
         {selectedDiv === "Match Day By Day" ? (

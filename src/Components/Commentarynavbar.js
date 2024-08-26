@@ -162,8 +162,7 @@ const Commentarynavbar = () => {
             }`}
           />
         </Helmet>
-      ) : 
-      /\/live-cricket-full-commentary\//i.test(pathname) ? (
+      ) : /\/live-cricket-full-commentary\//i.test(pathname) ? (
         <Helmet>
           <title>
             Catch the Full Commentary of -{" "}
@@ -190,15 +189,17 @@ const Commentarynavbar = () => {
             }`}
           />
         </Helmet>
-      ) :
-      (
+      ) : (
         ""
       )}
 
       <div className="font-semibold ">
         <p style={{ fontSize: "14px", fontWeight: "bold" }}>
-          {matchDetails?.title} , {matchDetails?.subtitle} - Live Cricket Score,
-          Commentary
+          {(matchDetails?.title && matchDetails?.title + ",") || ""}{" "}
+          {matchDetails?.subtitle || ""}
+          {matchDetails?.title
+            ? `${matchDetails.title} - Live Cricket Score, Commentary`
+            : ""}
           {matchDetails?.statue === 3
             ? "Live"
             : matchDetails?.statue === 1
@@ -221,24 +222,30 @@ const Commentarynavbar = () => {
           className="text-slate-500 text-sm font-bold cursor-pointer hover:underline"
         >
           Series:{" "}
-          {matchDetails?.competition?.title +
+          {(matchDetails?.competition?.title || "") +
             "," +
             " " +
-            matchDetails?.competition?.season}
+            (matchDetails?.competition?.season || "")}
         </div>
 
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
           className="text-slate-500"
         >
-          Venue: {matchDetails?.venue?.name}
-          {","} {matchDetails?.venue?.location}
+          venue: {matchDetails?.venue?.name || ""}
+          {matchDetails?.venue?.name && matchDetails?.venue?.location
+            ? ","
+            : ""}
+          {matchDetails?.venue?.location || ""}
+          {/* {","} {matchDetails?.venue?.location || ""} */}
         </div>
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
           className="text-slate-500"
         >
-          Date: {formatDate(matchDetails?.date_start)}
+          Date: 
+          {matchDetails?.date_start &&
+            formatDate(matchDetails?.date_start || "")}
         </div>
       </div>
       <div className="topBarCommentary">
@@ -521,7 +528,6 @@ const Commentarynavbar = () => {
                 {matchDetails?.teama?.overs && (
                   <> ({matchDetails?.teama.overs})</>
                 )}{" "}
-                {console.log(matchData1)}
                 {matchDetails?.status === 3 &&
                   matchData1?.live_inning?.batting_team_id ===
                     matchDetails?.teama?.team_id && (
