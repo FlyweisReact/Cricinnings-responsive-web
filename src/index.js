@@ -7,6 +7,7 @@ import { ReactNotifications } from "react-notifications-component";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-notifications-component/dist/theme.css";
+import 'react-quill/dist/quill.snow.css';
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>

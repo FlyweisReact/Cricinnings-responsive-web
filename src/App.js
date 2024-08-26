@@ -219,6 +219,10 @@ const router = createBrowserRouter([
         element: <AboutPage />,
       },
       {
+        path: "/single-blog/:blogId/:blogName",
+        element: <SingleBlogPage />,
+      },
+      {
         path: "/livescore/:id",
         element: <LivescroreById />,
       },

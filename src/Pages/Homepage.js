@@ -327,19 +327,27 @@ const Homepage = () => {
   };
 
   const getAllSpecialBanners = () => {
-    GetData("userAuth/getSpecials").then((res) => {
+    GetData(`${baseUrl}admin/getAllPosts`).then((res) => {
+      console.log(res);
       setSpecialBanner(res?.data);
     });
   };
 
   const getAllFeacturePosts = () => {
-    GetData("userAuth/getFeaturePost").then((res) => {
-      setFeacturePosts(res?.data);
+    GetData(`admin/getAllPosts`).then((res) => {
+      const filteredData = res?.data?.filter(
+        (item) => item.title === "FeacturePost"
+      );
+      console.log(res);
+      setFeacturePosts(filteredData);
     });
   };
   const getAllTopPosts = () => {
-    GetData("userAuth/getTopStories").then((res) => {
-      setTopStories(res?.data);
+    GetData("admin/getAllPosts").then((res) => {
+      const filteredData = res?.data?.filter(
+        (item) => item.title === "TopStories"
+      );
+      setTopStories(filteredData);
     });
   };
 
@@ -686,16 +694,35 @@ const Homepage = () => {
             <div className="feacturePosts">
               {feacturePosts?.map((item) => (
                 <div key={item?._id} className="feacturePosts_div">
-                  <div className="flex gap-2">
-                    <div>
-                      <img src={cric} alt="" />
+                  <div
+                    onClick={() =>
+                      navigate(
+                        `/single-blog/${item?._id}/${formatTitle(
+                          item?.subtitle
+                        )}`
+                      )
+                    }
+                    className="w-[300px] flex gap-2 cursor-pointer"
+                  >
+                    <div style={{ width: "130px" }}>
+                      <img
+                        style={{
+                          height: "100px",
+                          borderRadius: "10px",
+                          maxWidth: "100%",
+                        }}
+                        src={item?.image || cric}
+                        alt=""
+                      />
                     </div>
 
                     <div className="text-sm">
                       <div>{item?.subtitle}</div>
 
                       <span className="text-[#929394]">
-                        {timeAgo(item?.createdAt)} {item?.description}
+                        {timeAgo(item?.createdAt)}
+
+                        {/* {item?.description?.slice(0, 100) + "..."} */}
                       </span>
                     </div>
                   </div>

@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
-import ipl from "../Assets/Homepage/ipl.svg";
 import {
   GetData,
   GetDataWithToken,
   formatTitle,
 } from "../Components/Integration/ApiIntegration";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Helmet } from "react-helmet";
 
 const SingleBlogPage = () => {
   const [fantasyBanner, setFantasyBanner] = useState([]);
+  const { blogId } = useParams();
   const getAllData = async () => {
-    GetData("userAuth/getPostByTitle/CRICKET_NEWS").then((res) => {
-      setFantasyBanner(res?.data);
+    GetData(`admin/getAllPosts`).then((res) => {
+      const filteredData = res?.data?.filter((item) => item._id === blogId);
+      setFantasyBanner(filteredData);
     });
+    GetData("userAuth/getPostByTitle/CRICKET_NEWS").then((res) => {});
   };
 
   useEffect(() => {
@@ -202,35 +204,10 @@ const SingleBlogPage = () => {
                 {fantasyBanner &&
                   fantasyBanner?.map((item) => (
                     <>
-                      <div>
-                        <div className="fantasyTips">
-                          <div>
-                            <img
-                              alt=""
-                              style={{ width: "650px", height: "300px" }}
-                              src={item?.image || ipl}
-                              className="w-[650px]"
-                            />
-                          </div>
-                          <div>
-                            <div className="text-slate-400">{item?.name}</div>
-                            <div className="text-[#0F19AF] font-semibold ">
-                              {item?.subtitle}
-                            </div>
-                            <div>{item?.description}</div>
-                            <div className="text-slate-400">
-                              {formattedDate(item?.createdAt)}{" "}
-                              {item?.uploadedBy}
-                            </div>
-                          </div>
-                        </div>
-                        <hr
-                          style={{
-                            color: "1px solid black",
-                            paddingBottom: "1rem",
-                          }}
-                        />
-                      </div>
+                      <div
+                        style={{ padding: "0.5rem" }}
+                        dangerouslySetInnerHTML={{ __html: item?.description }}
+                      ></div>
                     </>
                   ))}
               </div>
