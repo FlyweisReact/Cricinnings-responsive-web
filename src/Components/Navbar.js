@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import logo from "../Assets/logo.svg";
 import { FaSearch } from "react-icons/fa";
 import { FaRegUserCircle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FaAnglesRight } from "react-icons/fa6";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { GetDataWithToken } from "./Integration/ApiIntegration";
 
 const Navbar = () => {
   const [isSeriesOpen, setIsSeriesOpen] = useState(false);
@@ -25,8 +23,6 @@ const Navbar = () => {
     setIccpopup(false);
   };
 
-
- 
   return (
     <div>
       <div className="bg-[#B3B3B3] w-[1000px] h-[96px] flex items-center justify-center text-[white]">

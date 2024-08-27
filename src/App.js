@@ -30,6 +30,8 @@ import AboutPage from "./Pages/AboutPage";
 import PlayerProfile from "./Pages/PlayerProfile";
 import SeriesById from "./Pages/SeriesById";
 import SingleBlogPage from "./Pages/singleBlogPage";
+import DisclaimerPage from "./Pages/DisclaimerPage";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -249,6 +251,10 @@ const router = createBrowserRouter([
       {
         path: "/cricket-series/:seriesId/:seriesName/venues",
         element: <SeriesById />,
+      },
+      {
+        path: "/disclaimer",
+        element: <DisclaimerPage />,
       },
     ],
   },

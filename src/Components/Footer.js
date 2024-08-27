@@ -6,7 +6,12 @@ const Footer = () => {
     <div className="Footer_Div">
       <div className="d-flex justify-between">
         <div className="footer_logo_div">
-          <img onClick={() => navigate("/")} className="footer_logo" src={"/logo.png"} alt="Logo" />
+          <img
+            onClick={() => navigate("/")}
+            className="footer_logo"
+            src={"/logo.png"}
+            alt="Logo"
+          />
         </div>
         <div>
           <p>MOBILE SITE & APPS</p>
@@ -51,10 +56,30 @@ const Footer = () => {
           <p>USEFUL LINKS</p>
           <div className="d-flex flex-col gap-2">
             <p className="d-flex flex-col gap-2 text-left">
-              <span className="cursor-pointer" onClick={() => navigate("/about-us")}>About</span>
-              <span className="cursor-pointer" onClick={() => navigate("/")}>Careers</span>
-              <span className="cursor-pointer" onClick={() => navigate("/privacy-policy")}>Privacy Policy</span>
-              <span className="cursor-pointer" onClick={() => navigate("/terms-conditions")}>Terms of use</span>
+              <span
+                className="cursor-pointer"
+                onClick={() => navigate("/about-us")}
+              >
+                About
+              </span>
+              <span
+                className="cursor-pointer"
+                onClick={() => navigate("/disclaimer")}
+              >
+                Disclaimer
+              </span>
+              <span
+                className="cursor-pointer"
+                onClick={() => navigate("/privacy-policy")}
+              >
+                Privacy Policy
+              </span>
+              <span
+                className="cursor-pointer"
+                onClick={() => navigate("/terms-conditions")}
+              >
+                Terms of use
+              </span>
               {/* <span className="cursor-pointer" onClick={() => navigate("/about")}>About</span> */}
             </p>
           </div>
@@ -82,7 +107,6 @@ const Footer = () => {
                   style={{ color: "#fcf8f8", cursor: "pointer" }}
                 />
               </Link>
-
             </span>
             <span>
               <Link to="https://www.instagram.com/cricinningsofficial/">
@@ -96,12 +120,22 @@ const Footer = () => {
             </span>
             <span>
               <Link to="https://news.google.com/publications/CAAqBwgKMKzLvQswuebUAw?hl=en-IN&gl=IN&ceid=IN%3Aen">
-                <Icon icon="simple-icons:googlenews" width="1.2rem" height="1.2rem" style={{ color: "#fcf8f8", cursor: "pointer" }} />
+                <Icon
+                  icon="simple-icons:googlenews"
+                  width="1.2rem"
+                  height="1.2rem"
+                  style={{ color: "#fcf8f8", cursor: "pointer" }}
+                />
               </Link>
             </span>
             <span>
               <Link to="https://t.me/cricinnings">
-                <Icon icon="mingcute:telegram-fill" width="1.2rem" height="1.2rem" style={{ color: "#fcf8f8", cursor: "pointer" }} />
+                <Icon
+                  icon="mingcute:telegram-fill"
+                  width="1.2rem"
+                  height="1.2rem"
+                  style={{ color: "#fcf8f8", cursor: "pointer" }}
+                />
               </Link>
             </span>
           </p>

@@ -197,9 +197,11 @@ const Commentarynavbar = () => {
         <p style={{ fontSize: "14px", fontWeight: "bold" }}>
           {(matchDetails?.title && matchDetails?.title + ",") || ""}{" "}
           {matchDetails?.subtitle || ""}
-          {matchDetails?.title
-            ? `${matchDetails.title} - Live Cricket Score, Commentary`
-            : ""}
+          {/* {matchDetails?.title
+            ? `${matchDetails.title}  */}
+          - Live Cricket Score, Commentary
+          {/* ` 
+          : ""} */}
           {matchDetails?.statue === 3
             ? "Live"
             : matchDetails?.statue === 1

@@ -156,9 +156,9 @@ const Nav = () => {
                   </p>
                 </a>
                 {/* <a href="/Livescrore/Allseries"> */}
-                <p onClick={() => navigate("/fantasy-cricket-tips")}>
+                {/* <p onClick={() => navigate("/fantasy-cricket-tips")}>
                   Fantasy Tips
-                </p>
+                </p> */}
                 {/* </a> */}
                 <p>
                   <p onClick={handleToggle1} style={{ cursor: "pointer" }}>
@@ -201,7 +201,7 @@ const Nav = () => {
                     </Dropdown.Menu>
                   </Dropdown>
                 </p>
-                <p onClick={() => navigate("/cricket-news")}>Cricket News</p>
+                {/* <p onClick={() => navigate("/cricket-news")}>Cricket News</p> */}
                 <p>
                   <p onClick={handleToggle} style={{ cursor: "pointer" }}>
                     ICC Ranking
@@ -231,8 +231,8 @@ const Nav = () => {
                     </Dropdown.Menu>
                   </Dropdown>
                 </p>
-                <p onClick={() => navigate("/cric-special")}>Cricspecial</p>
-                <p onClick={() => navigate("/pitch-report")}>Pitch Report</p>
+                {/* <p onClick={() => navigate("/cric-special")}>Cricspecial</p>
+                <p onClick={() => navigate("/pitch-report")}>Pitch Report</p> */}
               </div>
               <div className="navBar_icons">
                 <p>{/* <Icon icon="iconamoon:search" /> */}</p>
