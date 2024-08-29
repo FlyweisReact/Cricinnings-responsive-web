@@ -555,7 +555,9 @@ const Homepage = () => {
                               width: "100%",
                             }}
                           >
-                            <span>{item?.teama?.short_name}</span>
+                            <span className="text-sm">
+                              {item?.teama?.short_name}
+                            </span>
                             <span>
                               {item?.teama?.scores_full?.slice(0, 17)}
                             </span>
@@ -577,7 +579,7 @@ const Homepage = () => {
                               width: "100%",
                             }}
                           >
-                            <span>{item?.teamb?.short_name}</span>
+                            <span className="text-sm">{item?.teamb?.short_name}</span>
                             <span>
                               {item?.teamb?.scores_full?.slice(0, 17)}
                             </span>
@@ -682,7 +684,7 @@ const Homepage = () => {
       )}
 
       <div className="bg-[#EEEEEE] pb-5  ">
-        <Livescrore/>
+        <Livescrore />
         {hideItems && (
           <div className="flex justify-center pt-2 gap-5 main-div">
             <div>

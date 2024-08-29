@@ -532,18 +532,15 @@ const Nav = () => {
                 item?.competition?.title
               )}-${item?.competition?.season?.toLowerCase()}`}
             >
-              <div
-                // onClick={() => navigate(`/Scorecard/${match?.match_id}`)}
-                className="matchList"
-              >
-                <p>
+              <div className="matchList">
+                <h1 className="text-base">
                   {item?.short_title}
                   <span style={{ fontSize: "10px" }}>
                     {item?.status === 2
                       ? `   - ${item?.result?.split(" ")?.[0]} WON `
                       : ""}
                   </span>
-                </p>
+                </h1>
               </div>
             </a>
           ))}

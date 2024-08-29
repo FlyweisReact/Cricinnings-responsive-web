@@ -42,6 +42,7 @@ const Fullcommentary = () => {
   const [matchStatus, setMatchStatus] = useState("");
   const [commantryInning1Data, setCommantryInning1Data] = useState([]);
   const [commantryInning2Data, setCommantryInning2Data] = useState([]);
+  const [currentInnings, setCurrentInnings] = useState(1);
 
   const getAllCommentary = async () => {
     try {
@@ -88,6 +89,15 @@ const Fullcommentary = () => {
   useEffect(() => {
     getMatchDetails();
   }, []);
+  useEffect(() => {
+    if (matchDetails?.status === 3) {
+      const intervalId = setInterval(() => {
+        getMatchDetails();
+      }, 3000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [matchDetails]);
   const convertCommentaryToSymbol = (commentaryItem) => {
     if (commentaryItem.six) return "6";
     if (commentaryItem.four) return "4";
@@ -105,52 +115,54 @@ const Fullcommentary = () => {
         <div>
           <div>
             <div></div>
+            {console.log(matchDetails?.live_inning_number)}
             {matchStatus !== 2 ? (
-              commantryInning === 1 ? (
+              matchDetails?.live_inning_number === 1 ? (
                 <div>
-                  {commantryInning1Data?.commentaries
-                    ?.slice(0, itemsToShow)
-                    .map((item, index) => (
-                      <div key={index}>
-                        {item?.event === "overend" ? (
-                          <p
-                            style={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              padding: "1rem",
-                              backgroundColor: "#E1E0E1",
-                              color: "700",
-                            }}
-                          >
-                            <p>
-                              Overs {item?.over} Runs {item?.runs}
-                            </p>
-                            <p>{item?.commentary}</p>
-                          </p>
-                        ) : (
-                          <p
-                            style={{
-                              display: "flex",
-                              gap: "2.5rem",
-                              alignItems: "center",
-                            }}
-                          >
-                            <span
+                  <div>
+                    {commantryInning1Data?.commentaries
+                      ?.slice(0, itemsToShow)
+                      .map((item, index) => (
+                        <div key={index}>
+                          {item?.event === "overend" ? (
+                            <p
                               style={{
-                                color: "black",
-                                fontSize: "18px",
+                                fontSize: "15px",
                                 fontWeight: "bold",
                                 padding: "1rem",
+                                backgroundColor: "#E1E0E1",
+                                color: "700",
                               }}
                             >
-                              {item?.over}
-                              {"."}
-                              {item?.ball}
-                            </span>
-                            <span>{highlightKeywords(item?.commentary)}</span>
-                          </p>
-                        )}
-                        {/* {item?.six ||
+                              <p>
+                                Overs {item?.over} Runs {item?.runs}
+                              </p>
+                              <p>{item?.commentary}</p>
+                            </p>
+                          ) : (
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "2.5rem",
+                                alignItems: "center",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  color: "black",
+                                  fontSize: "18px",
+                                  fontWeight: "bold",
+                                  padding: "1rem",
+                                }}
+                              >
+                                {item?.over}
+                                {"."}
+                                {item?.ball}
+                              </span>
+                              <span>{highlightKeywords(item?.commentary)}</span>
+                            </p>
+                          )}
+                          {/* {item?.six ||
                           (item?.four && (
                             <p
                               style={{
@@ -173,62 +185,146 @@ const Fullcommentary = () => {
                               </span>
                             </p>
                           ))} */}
+                        </div>
+                      ))}
+                    {itemsToShow <
+                      commantryInning1Data?.commentaries?.length && (
+                      <div
+                        className="pl-2 cursor-pointer"
+                        onClick={handleViewMore}
+                      >
+                        <p>Load More Data..</p>
                       </div>
-                    ))}
-                  {itemsToShow < commantryInning1Data?.commentaries?.length && (
-                    <div
-                      className="pl-2 cursor-pointer"
-                      onClick={handleViewMore}
-                    >
-                      <p>Load More Data..</p>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  <div>
+                  {  matchDetails?.status!==1 && <h4 className="text-center">2nd Inning</h4>}
+                  </div>
+                  <div style={{ borderTop: "1px solid #000" }}>
+                    {commantryInning2Data?.commentaries
+                      ?.slice(0, itemsToShow)
+                      ?.map((item, index) => (
+                        <div key={index}>
+                          {item?.event === "overend" ? (
+                            <p
+                              style={{
+                                fontSize: "15px",
+                                fontWeight: "bold",
+                                padding: "1rem",
+                                backgroundColor: "#E1E0E1",
+                                color: "700",
+                              }}
+                            >
+                              <p>
+                                Overs {item?.over} Runs {item?.runs}
+                              </p>
+                              <p>{item?.commentary}</p>
+                            </p>
+                          ) : (
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "2.5rem",
+                                alignItems: "center",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  color: "black",
+                                  fontSize: "18px",
+                                  fontWeight: "bold",
+                                  padding: "1rem",
+                                }}
+                              >
+                                {item?.over}
+                                {"."}
+                                {item?.ball}
+                              </span>
+                              <span>{highlightKeywords(item?.commentary)}</span>
+                            </p>
+                          )}
+                          {/* {item?.six ||
+                          (item?.four && (
+                            <p
+                              style={{
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                width: "30px",
+                                height: "30px",
+
+                                backgroundColor: "#D15CEF",
+                                color: "white",
+                                borderRadius: "50%",
+                                textAlign: "center",
+                                display: "grid",
+                                placeItems: "center",
+                                marginLeft: "1rem",
+                              }}
+                            >
+                              <span>
+                                {item?.six ? "6" : item?.four ? "4" : ""}
+                              </span>
+                            </p>
+                          ))} */}
+                        </div>
+                      ))}
+                    {commantryInning2Data?.commentaries?.length >
+                      itemsToShow && (
+                      <div
+                        className="pl-2 cursor-pointer"
+                        onClick={handleViewMore}
+                      >
+                        <p>Load More Data..</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ) : (
-                <div style={{ borderTop: "1px solid #000" }}>
-                  {commantryInning2Data?.commentaries
-                    ?.slice(0, itemsToShow)
-                    ?.map((item, index) => (
-                      <div key={index}>
-                        {item?.event === "overend" ? (
-                          <p
-                            style={{
-                              fontSize: "15px",
-                              fontWeight: "bold",
-                              padding: "1rem",
-                              backgroundColor: "#E1E0E1",
-                              color: "700",
-                            }}
-                          >
-                            <p>
-                              Overs {item?.over} Runs {item?.runs}
-                            </p>
-                            <p>{item?.commentary}</p>
-                          </p>
-                        ) : (
-                          <p
-                            style={{
-                              display: "flex",
-                              gap: "2.5rem",
-                              alignItems: "center",
-                            }}
-                          >
-                            <span
+                <div>
+                  <div style={{ borderTop: "1px solid #000" }}>
+                    {commantryInning2Data?.commentaries
+                      ?.slice(0, itemsToShow)
+                      ?.map((item, index) => (
+                        <div key={index}>
+                          {item?.event === "overend" ? (
+                            <p
                               style={{
-                                color: "black",
-                                fontSize: "18px",
+                                fontSize: "15px",
                                 fontWeight: "bold",
                                 padding: "1rem",
+                                backgroundColor: "#E1E0E1",
+                                color: "700",
                               }}
                             >
-                              {item?.over}
-                              {"."}
-                              {item?.ball}
-                            </span>
-                            <span>{highlightKeywords(item?.commentary)}</span>
-                          </p>
-                        )}
-                        {/* {item?.six ||
+                              <p>
+                                Overs {item?.over} Runs {item?.runs}
+                              </p>
+                              <p>{item?.commentary}</p>
+                            </p>
+                          ) : (
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "2.5rem",
+                                alignItems: "center",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  color: "black",
+                                  fontSize: "18px",
+                                  fontWeight: "bold",
+                                  padding: "1rem",
+                                }}
+                              >
+                                {item?.over}
+                                {"."}
+                                {item?.ball}
+                              </span>
+                              <span>{highlightKeywords(item?.commentary)}</span>
+                            </p>
+                          )}
+                          {/* {item?.six ||
                           (item?.four && (
                             <p
                               style={{
@@ -251,16 +347,99 @@ const Fullcommentary = () => {
                               </span>
                             </p>
                           ))} */}
+                        </div>
+                      ))}
+                    {commantryInning2Data?.commentaries?.length >
+                      itemsToShow && (
+                      <div
+                        className="pl-2 cursor-pointer"
+                        onClick={handleViewMore}
+                      >
+                        <p>Load More Data..</p>
                       </div>
-                    ))}
-                  {commantryInning2Data?.commentaries?.length > itemsToShow && (
-                    <div
-                      className="pl-2 cursor-pointer"
-                      onClick={handleViewMore}
-                    >
-                      <p>Load More Data..</p>
-                    </div>
-                  )}
+                    )}
+                  </div>
+                  <div>
+                 {  matchDetails?.status!==1 &&   <h4 className="text-center">1st Inning</h4>}
+                  </div>
+                  <div>
+                    {commantryInning1Data?.commentaries
+                      ?.slice(0, itemsToShow)
+                      .map((item, index) => (
+                        <div key={index}>
+                          {item?.event === "overend" ? (
+                            <p
+                              style={{
+                                fontSize: "15px",
+                                fontWeight: "bold",
+                                padding: "1rem",
+                                backgroundColor: "#E1E0E1",
+                                color: "700",
+                              }}
+                            >
+                              <p>
+                                Overs {item?.over} Runs {item?.runs}
+                              </p>
+                              <p>{item?.commentary}</p>
+                            </p>
+                          ) : (
+                            <p
+                              style={{
+                                display: "flex",
+                                gap: "2.5rem",
+                                alignItems: "center",
+                              }}
+                            >
+                              <span
+                                style={{
+                                  color: "black",
+                                  fontSize: "18px",
+                                  fontWeight: "bold",
+                                  padding: "1rem",
+                                }}
+                              >
+                                {item?.over}
+                                {"."}
+                                {item?.ball}
+                              </span>
+                              <span>{highlightKeywords(item?.commentary)}</span>
+                            </p>
+                          )}
+                          {/* {item?.six ||
+                          (item?.four && (
+                            <p
+                              style={{
+                                fontSize: "14px",
+                                fontWeight: "bold",
+                                width: "30px",
+                                height: "30px",
+
+                                backgroundColor: "#D15CEF",
+                                color: "white",
+                                borderRadius: "50%",
+                                textAlign: "center",
+                                display: "grid",
+                                placeItems: "center",
+                                marginLeft: "1rem",
+                              }}
+                            >
+                              <span>
+                                {item?.six ? "6" : item?.four ? "4" : ""}
+                              </span>
+                            </p>
+                          ))} */}
+                        </div>
+                      ))}
+                    {itemsToShow <
+                      commantryInning1Data?.commentaries?.length && (
+                      <div
+                        className="pl-2 cursor-pointer"
+                        onClick={handleViewMore}
+                      >
+                        <p>Load More Data..</p>
+                      </div>
+                    )}
+                  </div>
                 </div>
               )
             ) : (

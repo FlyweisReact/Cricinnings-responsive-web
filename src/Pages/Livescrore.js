@@ -12,7 +12,7 @@ import axios from "axios";
 import { useLocation, useNavigate } from "react-router-dom";
 import { Table } from "react-bootstrap";
 import { Helmet } from "react-helmet";
-const Livescrore = () => {
+const Livescrore = ({initialValue}) => {
   const location = useLocation();
 
   const initialLocation =
@@ -554,6 +554,10 @@ const Livescrore = () => {
   const { pathname } = useLocation();
 
   useEffect(() => {
+    if(pathname==="/"){
+      setSelectedDiv("Match Day By Day");
+      setCategory("international");
+    }
     if (pathname.includes("/cricket-match/live-scores/upcoming-matches")) {
       setSelectedDiv("Current Matches");
       setLiveCategory("1");

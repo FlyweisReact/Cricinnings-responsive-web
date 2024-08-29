@@ -78,6 +78,17 @@ const Commentarynavbar = () => {
     getMatchData1();
   }, [pathname]);
 
+
+  useEffect(() => {
+    if (matchDetails?.status === 3) {
+      const intervalId = setInterval(() => {
+        getMatchDetails();
+      }, 3000);
+
+      return () => clearInterval(intervalId);
+    }
+  }, [matchDetails]);
+
   const [commentaryData, setCommentaryData] = useState({});
 
   return (
@@ -194,20 +205,15 @@ const Commentarynavbar = () => {
       )}
 
       <div className="font-semibold ">
-        <p style={{ fontSize: "14px", fontWeight: "bold" }}>
+        <h1 style={{ fontSize: "14px", fontWeight: "bold" }}>
           {(matchDetails?.title && matchDetails?.title + ",") || ""}{" "}
-          {matchDetails?.subtitle || ""}
-          {/* {matchDetails?.title
-            ? `${matchDetails.title}  */}
-          - Live Cricket Score, Commentary
-          {/* ` 
-          : ""} */}
+          {matchDetails?.subtitle || ""}- Live Cricket Score, Commentary
           {matchDetails?.statue === 3
             ? "Live"
             : matchDetails?.statue === 1
             ? "Match Not Started Yet"
             : ""}{" "}
-        </p>
+        </h1>
       </div>
       <div className="flex justify-between mt-3">
         <div
@@ -223,22 +229,27 @@ const Commentarynavbar = () => {
           }
           className="text-slate-500 text-sm font-bold cursor-pointer hover:underline"
         >
-          Series:{" "}
-          {(matchDetails?.competition?.title || "") +
-            "," +
-            " " +
-            (matchDetails?.competition?.season || "")}
+          <h1 className="text-sm">
+            Series:{" "}
+            {(matchDetails?.competition?.title || "") +
+              "," +
+              " " +
+              (matchDetails?.competition?.season || "")}
+          </h1>
         </div>
 
         <div
           style={{ fontSize: "14px", fontWeight: "bold", color: "#7E7F7E" }}
           className="text-slate-500"
         >
-          venue: {matchDetails?.venue?.name || ""}
-          {matchDetails?.venue?.name && matchDetails?.venue?.location
-            ? ","
-            : ""}
-          {matchDetails?.venue?.location || ""}
+          {" "}
+          <h1 className="text-sm">
+            venue: {matchDetails?.venue?.name || ""}
+            {matchDetails?.venue?.name && matchDetails?.venue?.location
+              ? ","
+              : ""}
+            {matchDetails?.venue?.location || ""}
+          </h1>
           {/* {","} {matchDetails?.venue?.location || ""} */}
         </div>
         <div

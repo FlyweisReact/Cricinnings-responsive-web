@@ -80,6 +80,12 @@ const Footer = () => {
               >
                 Terms of use
               </span>
+              <span
+                className="cursor-pointer"
+                onClick={() => navigate("/contact-us")}
+              >
+                Contact Us
+              </span>
               {/* <span className="cursor-pointer" onClick={() => navigate("/about")}>About</span> */}
             </p>
           </div>

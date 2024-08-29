@@ -31,6 +31,7 @@ import PlayerProfile from "./Pages/PlayerProfile";
 import SeriesById from "./Pages/SeriesById";
 import SingleBlogPage from "./Pages/singleBlogPage";
 import DisclaimerPage from "./Pages/DisclaimerPage";
+import ContactUsPage from "./Pages/ContactUs";
 
 const router = createBrowserRouter([
   {
@@ -256,6 +257,14 @@ const router = createBrowserRouter([
         path: "/disclaimer",
         element: <DisclaimerPage />,
       },
+      {
+        path: "/contact-us",
+        element: <ContactUsPage />,
+      },
+      {
+        path:"*",
+        element: <Homepage />,
+      }
     ],
   },
 ]);
