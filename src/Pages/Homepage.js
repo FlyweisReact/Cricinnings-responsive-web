@@ -16,6 +16,7 @@ import {
 import axios from "axios";
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Helmet } from "react-helmet";
+import Livescrore from "./Livescrore";
 
 const Homepage = () => {
   const CustomNextArrow = (props) => {
@@ -459,6 +460,7 @@ const Homepage = () => {
       setCurrentSlide(newIndex);
     },
   };
+  const [hideItems, setHideItems] = useState(false);
 
   return (
     <div className="">
@@ -680,498 +682,503 @@ const Homepage = () => {
       )}
 
       <div className="bg-[#EEEEEE] pb-5  ">
-        <div className="flex justify-center pt-2 gap-5 main-div">
-          <div>
-            <div className="flex justify-between m-2">
-              <div className="font-semibold">FEATURE POSTS</div>
-              <div
-                className="text-[#0F19AF] font-semibold cursor-pointer"
-                onClick={() => navigate("/cricket-news")}
-              >
-                SEE ALL
-              </div>
-            </div>
-            <div className="feacturePosts">
-              {feacturePosts?.map((item) => (
-                <div key={item?._id} className="feacturePosts_div">
-                  <div
-                    onClick={() =>
-                      navigate(
-                        `/single-blog/${item?._id}/${formatTitle(
-                          item?.subtitle
-                        )}`
-                      )
-                    }
-                    className="w-[300px] flex gap-2 cursor-pointer"
-                  >
-                    <div style={{ width: "130px" }}>
-                      <img
-                        style={{
-                          height: "100px",
-                          borderRadius: "10px",
-                          maxWidth: "100%",
-                        }}
-                        src={item?.image || cric}
-                        alt=""
-                      />
-                    </div>
-
-                    <div className="text-sm">
-                      <div>{item?.subtitle}</div>
-
-                      <span className="text-[#929394]">
-                        {timeAgo(item?.createdAt)}
-
-                        {/* {item?.description?.slice(0, 100) + "..."} */}
-                      </span>
-                    </div>
-                  </div>
+        <Livescrore/>
+        {hideItems && (
+          <div className="flex justify-center pt-2 gap-5 main-div">
+            <div>
+              <div className="flex justify-between m-2">
+                <div className="font-semibold">FEATURE POSTS</div>
+                <div
+                  className="text-[#0F19AF] font-semibold cursor-pointer"
+                  onClick={() => navigate("/cricket-news")}
+                >
+                  SEE ALL
                 </div>
-              ))}
-            </div>
-
-            {hompageBanner4 && (
-              <img
-                style={{ width: "100%", height: "96px", marginTop: "2rem" }}
-                src={hompageBanner4}
-                alt="middleBanner"
-              />
-            )}
-            {hompageBanner5 && (
-              <div className="w-[650px] mt-2">
-                <img
-                  src={hompageBanner5}
-                  style={{ width: "100%", height: "150px" }}
-                  alt=""
-                />
               </div>
-            )}
-            <div className="flex justify-between m-2">
-              <div className="font-semibold mt-2">TOP STORIES</div>
-              <div
-                className="text-[#0F19AF] font-semibold cursor-pointer"
-                onClick={() => navigate("/feature-posts")}
-              >
-                {/* Sell All */}
-              </div>
-            </div>
-            <div className="feacturePosts">
-              {topStories &&
-                topStories?.map((item) => (
-                  <div className="feacturePosts_div">
-                    <div className="flex gap-2">
-                      <div>
-                        <img src={cric} alt="" />
+              <div className="feacturePosts">
+                {feacturePosts?.map((item) => (
+                  <div key={item?._id} className="feacturePosts_div">
+                    <div
+                      onClick={() =>
+                        navigate(
+                          `/single-blog/${item?._id}/${formatTitle(
+                            item?.subtitle
+                          )}`
+                        )
+                      }
+                      className="w-[300px] flex gap-2 cursor-pointer"
+                    >
+                      <div style={{ width: "130px" }}>
+                        <img
+                          style={{
+                            height: "100px",
+                            borderRadius: "10px",
+                            maxWidth: "100%",
+                          }}
+                          src={item?.image || cric}
+                          alt=""
+                        />
                       </div>
 
                       <div className="text-sm">
                         <div>{item?.subtitle}</div>
 
                         <span className="text-[#929394]">
-                          {timeAgo(item?.createdAt)} {item?.description}
+                          {timeAgo(item?.createdAt)}
+
+                          {/* {item?.description?.slice(0, 100) + "..."} */}
                         </span>
                       </div>
                     </div>
                   </div>
                 ))}
-            </div>
-            {hompageBanner6 && (
-              <div className="middleBannerBig">
-                <p>{hompageBanner6?.name}</p>
-                <div>
-                  <p className="middleBannerImage">
-                    <img src={hompageBanner6?.image} alt="middleBanner" />
-                  </p>
-                  <p className="middleBannerText">
-                    <p>{hompageBanner6?.subtitle}</p>
-                    <p>{hompageBanner6?.description}</p>
-                  </p>
-                </div>
               </div>
-            )}
 
-            <div className="text-sm mt-2 font-semibold">Editors Pick</div>
+              {hompageBanner4 && (
+                <img
+                  style={{ width: "100%", height: "96px", marginTop: "2rem" }}
+                  src={hompageBanner4}
+                  alt="middleBanner"
+                />
+              )}
+              {hompageBanner5 && (
+                <div className="w-[650px] mt-2">
+                  <img
+                    src={hompageBanner5}
+                    style={{ width: "100%", height: "150px" }}
+                    alt=""
+                  />
+                </div>
+              )}
+              <div className="flex justify-between m-2">
+                <div className="font-semibold mt-2">TOP STORIES</div>
+                <div
+                  className="text-[#0F19AF] font-semibold cursor-pointer"
+                  onClick={() => navigate("/feature-posts")}
+                ></div>
+              </div>
+              <div className="feacturePosts">
+                {topStories &&
+                  topStories?.map((item) => (
+                    <div className="feacturePosts_div">
+                      <div className="flex gap-2">
+                        <div>
+                          <img src={cric} alt="" />
+                        </div>
 
-            <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
-              <Slider {...editorsettings}>
-                {editorpicks?.map((item) => (
-                  <div className="editorPick">
-                    <img
-                      style={{
-                        width: "100%",
-                        height: "200px",
-                        borderRadius: "10px 10px 0 0",
-                        overflow: "hidden",
-                      }}
-                      src={item?.image || editorpick}
-                      alt=""
-                    />
-                    <div
-                      style={{
-                        width: "90%",
-                        margin: "auto",
-                        lineHeight: "normal",
-                        fontSize: "12px",
-                      }}
-                    >
-                      <p
+                        <div className="text-sm">
+                          <div>{item?.subtitle}</div>
+
+                          <span className="text-[#929394]">
+                            {timeAgo(item?.createdAt)} {item?.description}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+              {hompageBanner6 && (
+                <div className="middleBannerBig">
+                  <p>{hompageBanner6?.name}</p>
+                  <div>
+                    <p className="middleBannerImage">
+                      <img src={hompageBanner6?.image} alt="middleBanner" />
+                    </p>
+                    <p className="middleBannerText">
+                      <p>{hompageBanner6?.subtitle}</p>
+                      <p>{hompageBanner6?.description}</p>
+                    </p>
+                  </div>
+                </div>
+              )}
+
+              <div className="text-sm mt-2 font-semibold">Editors Pick</div>
+
+              <div className="w-[650px] h-[300px]  mt-2 pt-4 bg-white rounded-lg  shadow-lg ">
+                <Slider {...editorsettings}>
+                  {editorpicks?.map((item) => (
+                    <div className="editorPick">
+                      <img
                         style={{
-                          fontWeight: "bold",
-                          color: "black",
-                          paddingTop: "0.2rem",
+                          width: "100%",
+                          height: "200px",
+                          borderRadius: "10px 10px 0 0",
+                          overflow: "hidden",
+                        }}
+                        src={item?.image || editorpick}
+                        alt=""
+                      />
+                      <div
+                        style={{
+                          width: "90%",
+                          margin: "auto",
                           lineHeight: "normal",
+                          fontSize: "12px",
                         }}
                       >
-                        {item?.subtitle}
-                      </p>
-                      <p style={{ color: "gray", fontSize: "10px" }}>
-                        {item?.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </Slider>
-            </div>
-          </div>
-
-          <div className="w-[250px]  mt-10">
-            {allSeries?.length > 0 && (
-              <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
-                <span className="text-black font-bold text-sm pl-2">
-                  CURRENT SERIES
-                </span>
-                <div className="flex flex-col mt-4 gap-2">
-                  {allSeries?.map((item, index) => {
-                    if (index >= 4) return null;
-                    return (
-                      <div
-                        key={item?._id}
-                        className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
-                        onClick={() =>
-                          navigate(
-                            `/cricket-series/${item?.cid}/${formatTitle(
-                              item?.title
-                            )}-${item?.season}/matches`
-                          )
-                        }
-                      >
-                        <p className="text-left text-sm font-medium text-gray-800">
-                          {item?.title}
-                          {}
+                        <p
+                          style={{
+                            fontWeight: "bold",
+                            color: "black",
+                            paddingTop: "0.2rem",
+                            lineHeight: "normal",
+                          }}
+                        >
+                          {item?.subtitle}
+                        </p>
+                        <p style={{ color: "gray", fontSize: "10px" }}>
+                          {item?.description}
                         </p>
                       </div>
-                    );
-                  })}
-                </div>
-              </div>
-            )}
-
-            {hompageBanner7?.image && (
-              <img
-                style={{
-                  width: "100%",
-                  height: "550px",
-                  borderRadius: "10px",
-                }}
-                className="mb-3"
-                src={hompageBanner7?.image}
-                alt="middleBanner"
-              />
-            )}
-
-            <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-              <div className="flex justify-between p-2">
-                <div
-                  className="text-sm font-semibold"
-                  style={{ fontSize: "12px" }}
-                >
-                  RANKING’s
-                </div>
-                <div>
-                  <button
-                    onClick={() => navigate("/icc-rankings/men/batting")}
-                    className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                  >
-                    View all
-                  </button>
-                </div>
-              </div>
-              <div className="flex justify-between ml-2 mr-2">
-                <button
-                  onClick={() => setTeamSelector("test")}
-                  className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor:
-                      teamSelector === "test" ? "#0F19AF" : "black",
-                    color: teamSelector === "test" ? "white" : "black",
-                    fontWeight: teamSelector === "test" ? "bold" : "normal",
-                  }}
-                >
-                  Test
-                </button>
-                <button
-                  onClick={() => setTeamSelector("odi")}
-                  className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor: teamSelector === "odi" ? "#0F19AF" : null,
-                    color: teamSelector === "odi" ? "white" : "black",
-                    fontWeight: teamSelector === "odi" ? "bold" : "normal",
-                  }}
-                >
-                  ODI
-                </button>
-                <button
-                  onClick={() => setTeamSelector("t20")}
-                  className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
-                  style={{
-                    cursor: "pointer",
-                    backgroundColor: teamSelector === "t20" ? "#0F19AF" : null,
-                    color: teamSelector === "t20" ? "white" : "black",
-                    fontWeight: teamSelector === "t20" ? "bold" : "normal",
-                  }}
-                >
-                  T20
-                </button>
-              </div>
-              <div className="flex justify-between m-2">
-                <div
-                  style={{
-                    cursor: "pointer",
-                    textDecoration:
-                      mainCategory === "teams" ? "underline" : "none",
-                    fontWeight: mainCategory === "teams" ? "bold" : "normal",
-                    color: "black",
-                    textDecorationColor: "#0F19AF",
-                  }}
-                  onClick={() => setMainCategory("teams")}
-                  className="text-[#0F19AF]"
-                >
-                  Teams
-                </div>
-                <div
-                  style={{
-                    cursor: "pointer",
-                    textDecoration:
-                      mainCategory === "batting" ? "underline" : "none",
-                    fontWeight: mainCategory === "batting" ? "bold" : "normal",
-
-                    textDecorationColor: "#0F19AF",
-                  }}
-                  onClick={() => setMainCategory("batting")}
-                >
-                  Batting
-                </div>
-                <div
-                  style={{
-                    cursor: "pointer",
-                    textDecoration:
-                      mainCategory === "bowling" ? "underline" : "none",
-                    fontWeight: mainCategory === "bowling" ? "bold" : "normal",
-
-                    textDecorationColor: "#0F19AF",
-                  }}
-                  onClick={() => setMainCategory("bowling")}
-                >
-                  Bowling
-                </div>
-                <div
-                  style={{
-                    cursor: "pointer",
-                    textDecoration:
-                      mainCategory === "alr" ? "underline" : "none",
-                    fontWeight: mainCategory === "alr" ? "bold" : "normal",
-
-                    textDecorationColor: "#0F19AF",
-                  }}
-                  onClick={() => setMainCategory("alr")}
-                >
-                  ALR
-                </div>
-              </div>
-              <table>
-                <thead style={{ textAlign: "center" }}>
-                  {mainCategory === "teams" && (
-                    <tr>
-                      <th className="w-[100px]">Rank</th>
-                      <th className="w-[100px]">Team</th>
-                      <th className="w-[100px]">Rating</th>
-                    </tr>
-                  )}
-
-                  {mainCategory === "batting" && (
-                    <tr>
-                      <th className="w-[100px]">Rank</th>
-                      <th className="w-[100px]">Player</th>
-                      <th className="w-[100px]">Rating</th>
-                    </tr>
-                  )}
-                  {mainCategory === "bowling" && (
-                    <tr>
-                      <th className="w-[100px]">Rank</th>
-                      <th className="w-[100px]">Player</th>
-                      <th className="w-[100px]">Rating</th>
-                    </tr>
-                  )}
-                  {mainCategory === "alr" && (
-                    <tr>
-                      <th className="w-[100px]">Rank</th>
-                      <th className="w-[100px]">Player</th>
-                      <th className="w-[100px]">Rating</th>
-                    </tr>
-                  )}
-                </thead>
-                <tbody>
-                  {mainCategory === "teams" && (
-                    <>
-                      {teamSelector === "test" &&
-                        test?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "t20" &&
-                        t20s?.slice(0, 6).map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-
-                      {teamSelector === "odi" &&
-                        odis?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.team}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                    </>
-                  )}
-                  {mainCategory === "batting" && (
-                    <>
-                      {teamSelector === "test" &&
-                        testBestman?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "t20" &&
-                        t20Bestman?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "odi" &&
-                        odiBestman?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                    </>
-                  )}
-                  {mainCategory === "bowling" && (
-                    <>
-                      {teamSelector === "test" &&
-                        testBolling?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "t20" &&
-                        t20Bolling?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "odi" &&
-                        odiBolling?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                    </>
-                  )}
-                  {mainCategory === "alr" && (
-                    <>
-                      {teamSelector === "test" &&
-                        testAlr?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "t20" &&
-                        odiAlr?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                      {teamSelector === "odi" &&
-                        odiAlr?.slice(0, 6)?.map((item, index) => (
-                          <tr key={index} style={{ textAlign: "center" }}>
-                            <td className="text-center">{item?.rank}</td>
-                            <td className="text-center">{item?.player}</td>
-                            <td className="text-center">{item?.rating}</td>
-                          </tr>
-                        ))}
-                    </>
-                  )}
-                </tbody>
-              </table>
-              <div className="text-center text-[10px] mt-2">
-                Latest Updated On {new Date().toLocaleDateString()}
+                    </div>
+                  ))}
+                </Slider>
               </div>
             </div>
 
-            {hompageBanner8?.image && (
-              <img
-                src={hompageBanner8?.image}
-                style={{
-                  height: "550px",
-                  borderRadius: "10px",
-                  marginTop: "2rem",
-                }}
-                alt="images"
-              />
-            )}
-            <div className="bg-[white] rounded-lg mt-2">
-              <div className="p-1">
-                <span className="font-semibold text-sm ml-4">SPECIALS</span>
-                {specialBanner?.map((item, index) => (
-                  <>
-                    <img src={item?.image} alt="" />
-                    <span className="font-semibold text-sm ml-4">
-                      {item?.subtitle}
-                    </span>
-                    <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                      {item?.description}
-                    </p>
-                  </>
-                ))}
+            <div className="w-[250px]  mt-10">
+              {allSeries?.length > 0 && (
+                <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
+                  <span className="text-black font-bold text-sm pl-2">
+                    CURRENT SERIES
+                  </span>
+                  <div className="flex flex-col mt-4 gap-2">
+                    {allSeries?.map((item, index) => {
+                      if (index >= 4) return null;
+                      return (
+                        <div
+                          key={item?._id}
+                          className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
+                          onClick={() =>
+                            navigate(
+                              `/cricket-series/${item?.cid}/${formatTitle(
+                                item?.title
+                              )}-${item?.season}/matches`
+                            )
+                          }
+                        >
+                          <p className="text-left text-sm font-medium text-gray-800">
+                            {item?.title}
+                            {}
+                          </p>
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {hompageBanner7?.image && (
+                <img
+                  style={{
+                    width: "100%",
+                    height: "550px",
+                    borderRadius: "10px",
+                  }}
+                  className="mb-3"
+                  src={hompageBanner7?.image}
+                  alt="middleBanner"
+                />
+              )}
+
+              <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
+                <div className="flex justify-between p-2">
+                  <div
+                    className="text-sm font-semibold"
+                    style={{ fontSize: "12px" }}
+                  >
+                    RANKING’s
+                  </div>
+                  <div>
+                    <button
+                      onClick={() => navigate("/icc-rankings/men/batting")}
+                      className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                    >
+                      View all
+                    </button>
+                  </div>
+                </div>
+                <div className="flex justify-between ml-2 mr-2">
+                  <button
+                    onClick={() => setTeamSelector("test")}
+                    className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        teamSelector === "test" ? "#0F19AF" : "black",
+                      color: teamSelector === "test" ? "white" : "black",
+                      fontWeight: teamSelector === "test" ? "bold" : "normal",
+                    }}
+                  >
+                    Test
+                  </button>
+                  <button
+                    onClick={() => setTeamSelector("odi")}
+                    className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        teamSelector === "odi" ? "#0F19AF" : null,
+                      color: teamSelector === "odi" ? "white" : "black",
+                      fontWeight: teamSelector === "odi" ? "bold" : "normal",
+                    }}
+                  >
+                    ODI
+                  </button>
+                  <button
+                    onClick={() => setTeamSelector("t20")}
+                    className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                    style={{
+                      cursor: "pointer",
+                      backgroundColor:
+                        teamSelector === "t20" ? "#0F19AF" : null,
+                      color: teamSelector === "t20" ? "white" : "black",
+                      fontWeight: teamSelector === "t20" ? "bold" : "normal",
+                    }}
+                  >
+                    T20
+                  </button>
+                </div>
+                <div className="flex justify-between m-2">
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      textDecoration:
+                        mainCategory === "teams" ? "underline" : "none",
+                      fontWeight: mainCategory === "teams" ? "bold" : "normal",
+                      color: "black",
+                      textDecorationColor: "#0F19AF",
+                    }}
+                    onClick={() => setMainCategory("teams")}
+                    className="text-[#0F19AF]"
+                  >
+                    Teams
+                  </div>
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      textDecoration:
+                        mainCategory === "batting" ? "underline" : "none",
+                      fontWeight:
+                        mainCategory === "batting" ? "bold" : "normal",
+
+                      textDecorationColor: "#0F19AF",
+                    }}
+                    onClick={() => setMainCategory("batting")}
+                  >
+                    Batting
+                  </div>
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      textDecoration:
+                        mainCategory === "bowling" ? "underline" : "none",
+                      fontWeight:
+                        mainCategory === "bowling" ? "bold" : "normal",
+
+                      textDecorationColor: "#0F19AF",
+                    }}
+                    onClick={() => setMainCategory("bowling")}
+                  >
+                    Bowling
+                  </div>
+                  <div
+                    style={{
+                      cursor: "pointer",
+                      textDecoration:
+                        mainCategory === "alr" ? "underline" : "none",
+                      fontWeight: mainCategory === "alr" ? "bold" : "normal",
+
+                      textDecorationColor: "#0F19AF",
+                    }}
+                    onClick={() => setMainCategory("alr")}
+                  >
+                    ALR
+                  </div>
+                </div>
+                <table>
+                  <thead style={{ textAlign: "center" }}>
+                    {mainCategory === "teams" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Team</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+
+                    {mainCategory === "batting" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Player</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+                    {mainCategory === "bowling" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Player</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+                    {mainCategory === "alr" && (
+                      <tr>
+                        <th className="w-[100px]">Rank</th>
+                        <th className="w-[100px]">Player</th>
+                        <th className="w-[100px]">Rating</th>
+                      </tr>
+                    )}
+                  </thead>
+                  <tbody>
+                    {mainCategory === "teams" && (
+                      <>
+                        {teamSelector === "test" &&
+                          test?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "t20" &&
+                          t20s?.slice(0, 6).map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+
+                        {teamSelector === "odi" &&
+                          odis?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.team}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                      </>
+                    )}
+                    {mainCategory === "batting" && (
+                      <>
+                        {teamSelector === "test" &&
+                          testBestman?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "t20" &&
+                          t20Bestman?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "odi" &&
+                          odiBestman?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                      </>
+                    )}
+                    {mainCategory === "bowling" && (
+                      <>
+                        {teamSelector === "test" &&
+                          testBolling?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "t20" &&
+                          t20Bolling?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "odi" &&
+                          odiBolling?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                      </>
+                    )}
+                    {mainCategory === "alr" && (
+                      <>
+                        {teamSelector === "test" &&
+                          testAlr?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "t20" &&
+                          odiAlr?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                        {teamSelector === "odi" &&
+                          odiAlr?.slice(0, 6)?.map((item, index) => (
+                            <tr key={index} style={{ textAlign: "center" }}>
+                              <td className="text-center">{item?.rank}</td>
+                              <td className="text-center">{item?.player}</td>
+                              <td className="text-center">{item?.rating}</td>
+                            </tr>
+                          ))}
+                      </>
+                    )}
+                  </tbody>
+                </table>
+                <div className="text-center text-[10px] mt-2">
+                  Latest Updated On {new Date().toLocaleDateString()}
+                </div>
+              </div>
+
+              {hompageBanner8?.image && (
+                <img
+                  src={hompageBanner8?.image}
+                  style={{
+                    height: "550px",
+                    borderRadius: "10px",
+                    marginTop: "2rem",
+                  }}
+                  alt="images"
+                />
+              )}
+              <div className="bg-[white] rounded-lg mt-2">
+                <div className="p-1">
+                  <span className="font-semibold text-sm ml-4">SPECIALS</span>
+                  {specialBanner?.map((item, index) => (
+                    <>
+                      <img src={item?.image} alt="" />
+                      <span className="font-semibold text-sm ml-4">
+                        {item?.subtitle}
+                      </span>
+                      <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
+                        {item?.description}
+                      </p>
+                    </>
+                  ))}
+                </div>
               </div>
             </div>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );
