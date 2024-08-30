@@ -8,18 +8,23 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-notifications-component/dist/theme.css";
 import 'react-quill/dist/quill.snow.css';
-import { hydrate, render } from "react-dom";
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
-  <>
-    <ReactNotifications />
-    <App />
-  </>
-);
+
 const rootElement = document.getElementById("root");
+
 if (rootElement.hasChildNodes()) {
-  hydrate(<App />, rootElement);
+  ReactDOM.hydrateRoot(rootElement, 
+    <>
+      <ReactNotifications />
+      <App />
+    </>
+  );
 } else {
-  render(<App />, rootElement);
+  ReactDOM.createRoot(rootElement).render(
+    <>
+      <ReactNotifications />
+      <App />
+    </>
+  );
 }
+
 reportWebVitals();
