@@ -689,7 +689,6 @@ const Livescrore = ({initialValue}) => {
           >
             Series Archive
           </div>
-            
         </div>
         <hr className="mt-2" />
         {selectedDiv === "Match Day By Day" ? (
@@ -883,10 +882,12 @@ const Livescrore = ({initialValue}) => {
                       }
                       className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer"
                     >
-                      {comp1[0]?.competition?.title}
-                      {","} {}
-                      {comp1[0]?.competition?.season ||
-                        comp1[0]?.matches?.[0]?.match?.competition?.season}
+                      <h1 className="text-base font-semibold">
+                        {comp1[0]?.competition?.title}
+                        {","}
+                        {comp1[0]?.competition?.season ||
+                          comp1[0]?.matches?.[0]?.match?.competition?.season}
+                      </h1>
                     </div>
                   </>
                 )}
@@ -905,8 +906,10 @@ const Livescrore = ({initialValue}) => {
                               <div className="flex">
                                 <span className="font-semibold"></span>
                                 <span className="text-slate-400">
-                                  {item?.match?.title}
-                                  {","} {item?.match?.subtitle}{" "}
+                                  <h1 className="text-base">
+                                    {item?.match?.title}
+                                    {","} {item?.match?.subtitle}{" "}
+                                  </h1>
                                 </span>
                               </div>
                               <div className="text-slate-400">
@@ -1049,11 +1052,13 @@ const Livescrore = ({initialValue}) => {
                                   }
                                   className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer"
                                 >
-                                  {item?.competition?.title}
-                                  {","}{" "}
-                                  {item?.competition?.season ||
-                                    item?.matches?.[0]?.match?.competition
-                                      ?.season}
+                                  <h1 className="text-base font-semibold">
+                                    {item?.competition?.title}
+                                    {","}{" "}
+                                    {item?.competition?.season ||
+                                      item?.matches?.[0]?.match?.competition
+                                        ?.season}
+                                  </h1>
                                 </div>
                               </>
                             )}
@@ -1068,8 +1073,10 @@ const Livescrore = ({initialValue}) => {
                                     <div className="flex">
                                       <span className="font-semibold"></span>
                                       <span className="text-slate-400">
-                                        {item?.match?.title}
-                                        {","} {item?.match?.subtitle}{" "}
+                                        <h1 className="text-base">
+                                          {item?.match?.title}
+                                          {","} {item?.match?.subtitle}{" "}
+                                        </h1>
                                       </span>
                                     </div>
                                     <div className="text-slate-400">
@@ -1761,23 +1768,25 @@ const Livescrore = ({initialValue}) => {
                                         key={index}
                                       >
                                         <span>
-                                          {competition?.title}{" "}
-                                          {competition?.datestart?.slice(
-                                            0,
-                                            4
-                                          ) ===
-                                          competition?.dateend?.slice(0, 4)
-                                            ? `${competition?.datestart?.slice(
-                                                0,
-                                                4
-                                              )}`
-                                            : `${competition?.datestart?.slice(
-                                                0,
-                                                4
-                                              )}-${competition?.dateend?.slice(
-                                                2,
-                                                4
-                                              )}`}
+                                          <h1 className="text-base">
+                                            {competition?.title}{" "}
+                                            {competition?.datestart?.slice(
+                                              0,
+                                              4
+                                            ) ===
+                                            competition?.dateend?.slice(0, 4)
+                                              ? `${competition?.datestart?.slice(
+                                                  0,
+                                                  4
+                                                )}`
+                                              : `${competition?.datestart?.slice(
+                                                  0,
+                                                  4
+                                                )}-${competition?.dateend?.slice(
+                                                  2,
+                                                  4
+                                                )}`}
+                                          </h1>
                                         </span>
                                         <span>
                                           {formatDateRangeR(
@@ -1844,9 +1853,11 @@ const Livescrore = ({initialValue}) => {
                                   }
                                   className="font-bold text-black pl-1 cursor-pointer hover:underline"
                                 >
-                                  {item?.competition?.title},{" "}
-                                  {item?.competition?.season}-
-                                  {item?.competition?.dateend?.slice(2, 4)}
+                                  <h1 className="text-base font-bold">
+                                    {item?.competition?.title},{" "}
+                                    {item?.competition?.season}-
+                                    {item?.competition?.dateend?.slice(2, 4)}
+                                  </h1>
                                 </p>
 
                                 <p>
@@ -1883,12 +1894,14 @@ const Livescrore = ({initialValue}) => {
                                     }}
                                   >
                                     <span className="text-black hover:underline hover:cursor-pointer">
-                                      {item?.teama?.name && item?.teamb?.name
-                                        ? `${item.teama.name} vs ${item.teamb.name}`
-                                        : "Match details not available"}
-                                      , {item?.subtitle}{" "}
-                                      {item?.format_str === "Test" &&
-                                        `, Day ${item?.day}`}
+                                      <h1 className="text-base">
+                                        {item?.teama?.name && item?.teamb?.name
+                                          ? `${item.teama.name} vs ${item.teamb.name}`
+                                          : "Match details not available"}
+                                        , {item?.subtitle}{" "}
+                                        {item?.format_str === "Test" &&
+                                          `, Day ${item?.day}`}
+                                      </h1>
                                     </span>
 
                                     <span style={{ color: "#707071" }}>
@@ -1979,6 +1992,7 @@ const Livescrore = ({initialValue}) => {
                                         color: "#000",
                                         fontWeight: "bold",
                                         cursor: "pointer",
+                                        display: "flex",
                                       }}
                                       onClick={() =>
                                         navigate(
@@ -1990,8 +2004,12 @@ const Livescrore = ({initialValue}) => {
                                         )
                                       }
                                     >
-                                      {item?.title}
-                                      {","} {item?.season}
+                                      <span>
+                                        <h1 className="text-base font-bold hover:underline hover:cursor-pointer">
+                                          {item?.title}
+                                          {","} {item?.season}
+                                        </h1>
+                                      </span>
                                       <span
                                         style={{
                                           marginLeft: "2rem",

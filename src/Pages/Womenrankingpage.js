@@ -112,6 +112,7 @@ const Womenrankingpage = () => {
     <div className="">
       <div className="bg-[white] pl-2 pt-2">
         <div className="font-semibold">
+        <h1 className="text-lg font-bold">
           ICC Cricket Rankings-Women's{" "}
           {mainCategory === "batting"
             ? "Batsmen"
@@ -120,6 +121,7 @@ const Womenrankingpage = () => {
               : mainCategory === "all-rounder"
                 ? "All-rounders"
                 : "Team"}{" "}
+                </h1>
         </div>
         <div className="flex gap-5 mt-3">
           <div

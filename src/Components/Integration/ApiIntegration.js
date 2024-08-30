@@ -45,7 +45,7 @@ export const LoginHandler = async ({ email, setOtpSent }) => {
   }
 };
 
-export const VerifyOtp = async ({ email, otp }) => {
+export const VerifyOtp = async ({ email, otp, navigate }) => {
   const payload = {
     email,
     otp: +otp,
@@ -59,9 +59,10 @@ export const VerifyOtp = async ({ email, otp }) => {
     localStorage.setItem("token", res?.data?.token);
 
     showMsg("success", "Login Successful", res?.data?.message);
+    navigate("/");
     return;
   } catch (error) {
-    showMsg("error", "Error", error?.response?.data?.message);
+    showMsg("danger", "Error", error?.response?.data?.message);
   }
 };
 

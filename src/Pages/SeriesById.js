@@ -607,9 +607,11 @@ const SeriesById = () => {
             }}
           >
             <span>
-              {seriesDetails?.title}
-              {", "}
-              {seriesDetails?.season}
+             <h1 className="text-lg">
+                {seriesDetails?.title}
+                {", "}
+                {seriesDetails?.season}
+             </h1>
             </span>
             <span style={{ color: "#676766" }}>
               {formatDate22(seriesDetails?.datestart)}-
@@ -803,9 +805,11 @@ const SeriesById = () => {
                                     }}
                                   >
                                     <span className="hover:underline">
-                                      {item?.title +
-                                        "," +
-                                        formatTitle(item?.subtitle)}
+                                      <h1 className="text-base">
+                                        {item?.title +
+                                          "," +
+                                          formatTitle(item?.subtitle)}
+                                      </h1>
                                     </span>
 
                                     <span style={{ color: "gray" }}>

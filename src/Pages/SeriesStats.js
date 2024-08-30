@@ -63,13 +63,15 @@ const SeriesStats = () => {
     <div className="">
       <div className="bg-[white] pl-2 pt-2 pr-2">
         {/* <Commentarynavbar /> */}
-        <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
-          <img
-            style={{ height: "96px", width: "100%" }}
-            src={banner1?.image}
-            alt=""
-          />
-        </div>
+        {banner1?.image && (
+          <div className="bg-[#B3B3B3] h-[96px] mt-2 text-white flex justify-center items-center">
+            <img
+              style={{ height: "96px", width: "100%" }}
+              src={banner1?.image}
+              alt=""
+            />
+          </div>
+        )}
         {formatType?.length > 0 && (
           <div style={{ width: "150px", marginLeft: "2rem" }}>
             <Form.Select

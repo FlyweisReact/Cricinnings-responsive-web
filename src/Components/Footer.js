@@ -55,40 +55,55 @@ const Footer = () => {
         <div>
           <p>USEFUL LINKS</p>
           <div className="d-flex flex-col gap-2">
-            <p className="d-flex flex-col gap-2 text-left">
-              <span
-                className="cursor-pointer"
-                onClick={() => navigate("/about-us")}
-              >
-                About
-              </span>
-              <span
-                className="cursor-pointer"
-                onClick={() => navigate("/disclaimer")}
-              >
-                Disclaimer
-              </span>
-              <span
-                className="cursor-pointer"
-                onClick={() => navigate("/privacy-policy")}
-              >
-                Privacy Policy
-              </span>
-              <span
-                className="cursor-pointer"
-                onClick={() => navigate("/terms-conditions")}
-              >
-                Terms of use
-              </span>
-              <span
-                className="cursor-pointer"
-                onClick={() => navigate("/contact-us")}
-              >
-                Contact Us
-              </span>
-              {/* <span className="cursor-pointer" onClick={() => navigate("/about")}>About</span> */}
-            </p>
-          </div>
+  <p className="d-flex flex-col gap-2 text-left">
+    <span
+      className="cursor-pointer"
+      onClick={() => {
+        navigate("/about-us");
+        window.scrollTo(0, 0); 
+      }}
+    >
+      About
+    </span>
+    <span
+      className="cursor-pointer"
+      onClick={() => {
+        navigate("/disclaimer");
+        window.scrollTo(0, 0); 
+      }}
+    >
+      Disclaimer
+    </span>
+    <span
+      className="cursor-pointer"
+      onClick={() => {
+        navigate("/privacy-policy");
+        window.scrollTo(0, 0);  
+      }}
+    >
+      Privacy Policy
+    </span>
+    <span
+      className="cursor-pointer"
+      onClick={() => {
+        navigate("/terms-conditions");
+        window.scrollTo(0, 0);
+      }}
+    >
+      Terms of use
+    </span>
+    <span
+      className="cursor-pointer"
+      onClick={() => {
+        navigate("/contact-us");
+        window.scrollTo(0, 0); 
+      }}
+    >
+      Contact Us
+    </span>
+  </p>
+</div>
+
         </div>
         <div>
           <p>FOLLOW US ON</p>

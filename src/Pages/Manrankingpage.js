@@ -90,14 +90,16 @@ const Manrankingpage = () => {
       </Helmet>
       <div className="bg-[white] pl-2 pt-2">
         <div className="font-semibold">
-          ICC Cricket Rankings-Men’s{" "}
-          {mainCategory === "batting"
-            ? "Batsmen"
-            : mainCategory === "bowling"
-            ? "Bowling"
-            : mainCategory === "all-rounder"
-            ? "All-rounders"
-            : "Team"}{" "}
+          <h1 className="text-lg font-bold">
+            ICC Cricket Rankings-Men’s{" "}
+            {mainCategory === "batting"
+              ? "Batsmen"
+              : mainCategory === "bowling"
+              ? "Bowling"
+              : mainCategory === "all-rounder"
+              ? "All-rounders"
+              : "Team"}{" "}
+          </h1>
         </div>
         <div className="flex gap-5 mt-3">
           <div

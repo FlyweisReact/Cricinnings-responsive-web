@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { LoginHandler, showMsg, VerifyOtp } from "./Integration/ApiIntegration";
 import OTPInput, { ResendOTP } from "otp-input-react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [btnChecked, setBtnChecked] = useState(false);
@@ -10,6 +10,7 @@ const Login = () => {
   const [phone, setPhone] = useState("");
   const [otpSent, setOtpSent] = useState(false);
   const [otp, setOtp] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -24,8 +25,7 @@ const Login = () => {
 
   const veriFyOtp = (e) => {
     e.preventDefault();
-    VerifyOtp({ email, otp });
-    // alert(otp);
+    VerifyOtp({ email, otp ,navigate});
   };
   const renderButton = (buttonProps) => {
     return (
@@ -37,7 +37,6 @@ const Login = () => {
     );
   };
   const renderTime = () => React.Fragment;
-  const navigate = useNavigate();
   return (
     <div className="h-[700px]">
       <div className="text-center font-semibold text-3xl  mt-10">Log In</div>
@@ -135,15 +134,14 @@ const Login = () => {
           </button>
         </div>
       </Form>
-      {/* <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5">
         Don't have an account?{" "}
-        <Link to="/signup">
+        <Link  to="/signup">
           <span className="text-[#1866DB] underline">Sign Up</span>{" "}
         </Link>
-      </div> */}
-
-      {/* <div className="flex justify-center mt-10">OR</div>
-      <div className="flex flex-col items-center gap-4 justify-center mt-5">
+      </div>
+      {/* <div className="flex justify-center mt-10">OR</div> */}
+      {/* <div className="flex flex-col items-center gap-4 justify-center mt-5">
         <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
           <FcGoogle /> Continue with Google
         </button>

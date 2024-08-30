@@ -78,7 +78,10 @@ const SeriesSquad = () => {
                       onClick={() => setFilterByteamId(item?.team?.tid)}
                       className="statsDivSpantag"
                     >
-                      {item?.title} {item?.format_str}
+                      <h1 className="text-sm">
+                        {" "}
+                        {item?.title} {item?.format_str}
+                      </h1>
                     </span>
                   );
                 })}
