@@ -343,6 +343,7 @@ const Homepage = () => {
       setFeacturePosts(filteredData);
     });
   };
+  
   const getAllTopPosts = () => {
     GetData("admin/getAllPosts").then((res) => {
       const filteredData = res?.data?.filter(

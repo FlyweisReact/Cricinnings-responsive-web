@@ -8,6 +8,7 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "react-notifications-component/dist/theme.css";
 import 'react-quill/dist/quill.snow.css';
+import { hydrate, render } from "react-dom";
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <>
@@ -15,5 +16,10 @@ root.render(
     <App />
   </>
 );
-
+const rootElement = document.getElementById("root");
+if (rootElement.hasChildNodes()) {
+  hydrate(<App />, rootElement);
+} else {
+  render(<App />, rootElement);
+}
 reportWebVitals();
