@@ -1,0 +1,18 @@
+/** @format */
+
+.ad-banner {
+  max-width: 1100px;
+  text-align: center;
+  padding: 1.5rem;
+  height: auto;
+}
+.ad-banner .banner-img {
+  max-width: 80%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
+

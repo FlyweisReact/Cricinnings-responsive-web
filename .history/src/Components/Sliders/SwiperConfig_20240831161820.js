@@ -1,0 +1,1 @@
+import { Autoplay, EffectFade, Navigation, Pagination } from "swiper/modules";
