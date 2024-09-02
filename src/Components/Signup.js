@@ -1,7 +1,10 @@
+/** @format */
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl, showMsg } from "./Integration/ApiIntegration";
 import axios from "axios";
+
 const Signup = () => {
   const [buttonChecked, setButtonChecked] = useState(false);
   const [email, setEmail] = useState("");
@@ -23,21 +26,22 @@ const Signup = () => {
       showMsg("danger", "Please accept terms and conditions");
     }
   };
+
   return (
-    <div className="h-[700px]">
-      <div className="text-center font-semibold text-3xl  mt-10">Sign Up</div>
-      <div className=" flex justify-center  mt-5">
-        <div className="flex items-center gap-2 ">
-          <input
-            type="checkbox"
-            onChange={(e) => setButtonChecked(e.target.checked)}
-            checked={buttonChecked}
-          />
-          I agree to the
-          <span className="text-[#1866DB] underline">Privacy Policy</span>and
-          <span className="text-[#1866DB] underline">T & C</span>
-        </div>
+    <div className="Login-Section">
+      <p className="heading large-text">Sign Up</p>
+
+      <div className="term-conditions small-text">
+        <input
+          type="checkbox"
+          onChange={(e) => setButtonChecked(e.target.checked)}
+          checked={buttonChecked}
+        />
+        I agree to the
+        <span className="text-[#1866DB] underline">Privacy Policy</span>and
+        <span className="text-[#1866DB] underline">T & C</span>
       </div>
+
       <div className="flex justify-center mt-5">
         <input
           onChange={(e) => setEmail(e.target.value)}
@@ -55,22 +59,12 @@ const Signup = () => {
           Continue
         </button>
       </div>
-      <div className="flex justify-center mt-5">
+      <div className="flex justify-center mt-5 gap-[5px] small-text bold-font">
         Already have an account?
         <Link to="/login">
-          <span className="text-[#1866DB] underline">Log In</span>{" "}
+          <span className="text-[#1866DB] underline bold-font">Log In</span>{" "}
         </Link>
       </div>
-
-      {/* <div className="flex justify-center mt-10">OR</div>
-      <div className="flex flex-col items-center gap-4 justify-center mt-5">
-        <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
-          <FcGoogle /> Continue with Google
-        </button>
-        <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
-          <FaApple /> Continue with Apple
-        </button>
-      </div> */}
     </div>
   );
 };

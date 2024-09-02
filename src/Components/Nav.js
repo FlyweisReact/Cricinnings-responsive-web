@@ -95,16 +95,16 @@ const Nav = () => {
             alt=""
           />
           <div className="links hide-on-mobile">
-            <a href="/cricket-match/live-scores">
+            <Link to="/cricket-match/live-scores">
               <span className="score-span">
                 <img src="/dot.svg" alt="" />
                 Live Scores
               </span>
-            </a>
+            </Link>
 
-            <a href="/cricket-schedule/upcoming-series/international">
+            <Link to="/cricket-schedule/upcoming-series/international">
               Schedule
-            </a>
+            </Link>
 
             <a href="#" onClick={handleToggle1}>
               Series

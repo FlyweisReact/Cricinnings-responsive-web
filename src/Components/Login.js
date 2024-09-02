@@ -1,3 +1,5 @@
+/** @format */
+
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { LoginHandler, showMsg, VerifyOtp } from "./Integration/ApiIntegration";
@@ -25,7 +27,7 @@ const Login = () => {
 
   const veriFyOtp = (e) => {
     e.preventDefault();
-    VerifyOtp({ email, otp ,navigate});
+    VerifyOtp({ email, otp, navigate });
   };
   const renderButton = (buttonProps) => {
     return (
@@ -37,32 +39,33 @@ const Login = () => {
     );
   };
   const renderTime = () => React.Fragment;
+
   return (
-    <div className="h-[700px]">
-      <div className="text-center font-semibold text-3xl  mt-10">Log In</div>
-      <div className=" flex justify-center  mt-5">
-        <div className="flex items-center gap-2 ">
-          <input
-            type="checkbox"
-            onChange={() => setBtnChecked(!btnChecked)}
-            checked={btnChecked}
-          />
-          I agree to the{" "}
-          <span
-            className="text-[#1866DB] underline cursor-pointer"
-            onClick={() => navigate("/privacy-policy")}
-          >
-            Privacy Policy
-          </span>{" "}
-          and{" "}
-          <span
-            className="text-[#1866DB] underline cursor-pointer"
-            onClick={() => navigate("/terms-conditions")}
-          >
-            T & C
-          </span>{" "}
-        </div>
+    <section className="Login-Section">
+      <p className="heading large-text">Log In</p>
+
+      <div className="term-conditions small-text">
+        <input
+          type="checkbox"
+          onChange={() => setBtnChecked(!btnChecked)}
+          checked={btnChecked}
+        />
+        I agree to the{" "}
+        <span
+          className="text-[#1866DB] underline cursor-pointer"
+          onClick={() => navigate("/privacy-policy")}
+        >
+          Privacy Policy
+        </span>{" "}
+        and{" "}
+        <span
+          className="text-[#1866DB] underline cursor-pointer"
+          onClick={() => navigate("/terms-conditions")}
+        >
+          T & C
+        </span>{" "}
       </div>
+
       <Form onSubmit={otpSent ? veriFyOtp : handleLogin}>
         <div className="flex justify-center mt-5">
           {!otpSent ? (
@@ -125,6 +128,7 @@ const Login = () => {
             type="email"
           /> */}
         </div>
+
         <div className="flex justify-center mt-10">
           <button
             type="submit"
@@ -134,22 +138,14 @@ const Login = () => {
           </button>
         </div>
       </Form>
-      <div className="flex justify-center mt-5">
+
+      <div className="flex justify-center mt-5 small-text gap-[5px] bold-font">
         Don't have an account?{" "}
-        <Link  to="/signup">
-          <span className="text-[#1866DB] underline">Sign Up</span>{" "}
+        <Link to="/signup">
+          <span className="text-[#1866DB] underline bold-font">Sign Up</span>{" "}
         </Link>
       </div>
-      {/* <div className="flex justify-center mt-10">OR</div> */}
-      {/* <div className="flex flex-col items-center gap-4 justify-center mt-5">
-        <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
-          <FcGoogle /> Continue with Google
-        </button>
-        <button className="bg-[white] h-[40px] w-[400px] gap-2 border rounded flex justify-center items-center">
-          <FaApple /> Continue with Apple
-        </button>
-      </div> */}
-    </div>
+    </section>
   );
 };
 

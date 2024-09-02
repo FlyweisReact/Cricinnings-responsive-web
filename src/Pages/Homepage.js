@@ -321,10 +321,6 @@ const Homepage = () => {
                         ?.toLowerCase()
                         .split(" ")
                         .join("-");
-                      const matchNumber =
-                        item?.match_number ||
-                        item?.subtitle?.split("Match")?.[1];
-                      console.log(item?.subtitle?.split("Match")?.[1]);
                       const matchSuffix = convertStringFormat(
                         item?.subtitle
                       )?.toLowerCase();

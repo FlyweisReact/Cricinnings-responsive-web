@@ -532,8 +532,10 @@ const Livescrore = () => {
             </button>
           </div>
         )}
+
         {selectedDiv && (
           <div>
+            {/* --Done-- */}
             {selectedDiv === "Current Matches" && (
               <>
                 <div
@@ -576,12 +578,14 @@ const Livescrore = () => {
                     Upcoming
                   </p>
                 </div>
+
                 {comp1?.length === 0 && (
-                  <div className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4">
+                  <div className="match-heading-div">
                     {" "}
                     There are no matches at the moment. Please check back later.{" "}
                   </div>
                 )}
+
                 {comp1[0]?.competition?.title && (
                   <>
                     <div
@@ -594,47 +598,81 @@ const Livescrore = () => {
                           }/matches`
                         )
                       }
-                      className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer"
+                      className="match-heading-div cursor-pointer"
                     >
-                      <h1 className="text-base font-semibold">
-                        {comp1[0]?.competition?.title}
-                        {","}
-                        {comp1[0]?.competition?.season ||
-                          comp1[0]?.matches?.[0]?.match?.competition?.season}
-                      </h1>
+                      {comp1[0]?.competition?.title}
+                      {","}
+                      {comp1[0]?.competition?.season ||
+                        comp1[0]?.matches?.[0]?.match?.competition?.season}
                     </div>
                   </>
                 )}
 
-                <div className="flex mt-5 justify-center pb-5">
-                  <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[700px]  ">
-                      <div className="flex flex-col gap-5">
-                        {comp1[0]?.matches?.map((item, index) => {
-                          return (
+                <div className="match-score-detail-container margin-div">
+                  <div className="all-container">
+                    <div className="left-section">
+                      {comp1[0]?.matches?.map((item, index) => {
+                        return (
+                          <div key={index} className="custom-card">
+                            <p className="heading">
+                              {" "}
+                              {item?.match?.title}
+                              {","} {item?.match?.subtitle}
+                            </p>
+
+                            <p className="venue">
+                              {formatDateStringRkt(item?.match?.date_start_ist)}{" "}
+                              at {item?.match?.venue?.name}
+                              {" ,"}
+                              {item?.match?.venue?.location}
+                            </p>
+
                             <div
-                              key={index}
-                              style={{ borderRadius: "10px" }}
-                              className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer"
+                              onClick={() =>
+                                navigate(
+                                  `/live-cricket-scores/${
+                                    item?.match?.match_id
+                                  }/${formatTitle(
+                                    item?.match?.short_title
+                                  )}-${convertStringFormat(
+                                    item?.match?.subtitle
+                                  )}-${formatTitle(
+                                    item?.match?.competition?.title
+                                  )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                )
+                              }
+                              className="blank-screen cursor-pointer"
                             >
-                              <div className="flex">
-                                <span className="font-semibold"></span>
-                                <span className="text-slate-400">
-                                  <h1 className="text-base">
-                                    {item?.match?.title}
-                                    {","} {item?.match?.subtitle}{" "}
-                                  </h1>
-                                </span>
+                              <div className="content">
+                                <div className="main">
+                                  <div className="flex gap-5 text-white text-here">
+                                    <span>{item?.match?.teama?.name}</span>
+                                    <span>
+                                      {item?.match?.teama?.scores_full}
+                                    </span>
+                                  </div>
+                                  <div className="flex gap-7 text-white text-here">
+                                    <span>{item?.match?.teamb?.name}</span>
+                                    <span>
+                                      {item?.match?.teamb?.scores_full}
+                                    </span>
+                                  </div>
+                                  <div className="text-slate-300 text-here">
+                                    {getWinningTeamName(item)}{" "}
+                                    {item?.match?.win_margin
+                                      ? ` won by ${item?.match?.win_margin}`
+                                      : ""}
+                                  </div>
+                                </div>
+
+                                <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                  <IoCaretForwardOutline />
+                                </div>
                               </div>
-                              <div className="text-slate-400">
-                                {formatDateStringRkt(
-                                  item?.match?.date_start_ist
-                                )}{" "}
-                                at {item?.match?.venue?.name}
-                                {" ,"}
-                                {item?.match?.venue?.location}
-                              </div>
-                              <div
+                            </div>
+
+                            <ul className="links">
+                              <li
                                 onClick={() =>
                                   navigate(
                                     `/live-cricket-scores/${
@@ -648,105 +686,52 @@ const Livescrore = () => {
                                     )}-${item?.match?.competition?.season?.toLowerCase()}`
                                   )
                                 }
-                                className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                               >
-                                <div
-                                  style={{ padding: "0.5rem 1rem" }}
-                                  className="flex items-center gap-[6rem] "
-                                >
-                                  <div>
-                                    <div className="flex gap-5 text-white">
-                                      <span>{item?.match?.teama?.name}</span>
-                                      <span>
-                                        {item?.match?.teama?.scores_full}
-                                      </span>
-                                    </div>
-                                    <div className="flex gap-7 text-white">
-                                      <span>{item?.match?.teamb?.name}</span>
-                                      <span>
-                                        {item?.match?.teamb?.scores_full}
-                                      </span>
-                                    </div>
-                                    <div className="text-slate-300">
-                                      {getWinningTeamName(item)}{" "}
-                                      {item?.match?.win_margin
-                                        ? ` won by ${item?.match?.win_margin}`
-                                        : ""}
-                                    </div>
-                                  </div>
-                                  <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                    <IoCaretForwardOutline />
-                                  </div>
-                                </div>
-                              </div>
-                              <div className="flex ">
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scores/${
-                                        item?.match?.match_id
-                                      }/${formatTitle(
-                                        item?.match?.short_title
-                                      )}-${convertStringFormat(
-                                        item?.match?.subtitle
-                                      )}-${formatTitle(
-                                        item?.match?.competition?.title
-                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
-                                >
-                                  Live Score
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-scorecard/${
-                                        item?.match?.match_id
-                                      }/${formatTitle(
-                                        item?.match?.short_title
-                                      )}-${convertStringFormat(
-                                        item?.match?.subtitle
-                                      )}-${formatTitle(
-                                        item?.match?.competition?.title
-                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                >
-                                  Scorecard
-                                </div>
-                                <div
-                                  onClick={() =>
-                                    navigate(
-                                      `/live-cricket-full-commentary/${
-                                        item?.match?.match_id
-                                      }/${formatTitle(
-                                        item?.match?.short_title
-                                      )}-${convertStringFormat(
-                                        item?.match?.subtitle
-                                      )}-${formatTitle(
-                                        item?.match?.competition?.title
-                                      )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                    )
-                                  }
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                >
-                                  Full Commentary
-                                </div>
-                                <div
-                                  onClick={() => navigate(`/cricket-news`)}
-                                  className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                >
-                                  News
-                                </div>
-                              </div>
-                            </div>
-                          );
-                        })}
-                      </div>
+                                Live Score
+                              </li>
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scorecard/${
+                                      item?.match?.match_id
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${convertStringFormat(
+                                      item?.match?.subtitle
+                                    )}-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
+                              >
+                                Scorecard
+                              </li>
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-full-commentary/${
+                                      item?.match?.match_id
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${convertStringFormat(
+                                      item?.match?.subtitle
+                                    )}-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
+                              >
+                                Full Commentary
+                              </li>
+                              <li onClick={() => navigate(`/cricket-news`)}>
+                                News
+                              </li>
+                            </ul>
+                          </div>
+                        );
+                      })}
 
-                      {comp1?.slice(1)?.map((item, index) => {
+                      {comp1?.slice(1)?.map((item) => {
                         return (
                           <>
                             {item?.competition?.title && (
@@ -764,44 +749,91 @@ const Livescrore = () => {
                                       }/matches`
                                     )
                                   }
-                                  className="bg-[#E6E6E7] font-semibold h-[70px] flex justify-start items-center pl-5 mt-4 cursor-pointer"
+                                  className="match-heading-div cursor-pointer"
                                 >
-                                  <h1 className="text-base font-semibold">
-                                    {item?.competition?.title}
-                                    {","}{" "}
-                                    {item?.competition?.season ||
-                                      item?.matches?.[0]?.match?.competition
-                                        ?.season}
-                                  </h1>
+                                  {item?.competition?.title}
+                                  {","}{" "}
+                                  {item?.competition?.season ||
+                                    item?.matches?.[0]?.match?.competition
+                                      ?.season}
                                 </div>
                               </>
                             )}
-                            <div className="flex flex-col gap-5">
-                              {item?.matches?.map((item, index) => {
-                                return (
+
+                            {item?.matches?.map((item, index) => {
+                              return (
+                                <div key={index} className="custom-card">
+                                  <p className="heading">
+                                    {" "}
+                                    {item?.match?.title}
+                                    {","} {item?.match?.subtitle}
+                                  </p>
+
+                                  <p className="venue">
+                                    {formatDateStringRkt(
+                                      item?.match?.date_start_ist
+                                    )}{" "}
+                                    at {item?.match?.venue?.name}
+                                    {" ,"}
+                                    {item?.match?.venue?.location}
+                                  </p>
+
                                   <div
-                                    key={index}
-                                    style={{ borderRadius: "10px" }}
-                                    className=" h-[300px] pt-2 pl-2 shadow-2xl flex flex-col gap-2 cursor-pointer"
+                                    onClick={() =>
+                                      navigate(
+                                        `/live-cricket-scores/${
+                                          item?.match?.match_id
+                                        }/${formatTitle(
+                                          item?.match?.short_title
+                                        )}-${
+                                          item?.match?.competition?.type ===
+                                          "tournament"
+                                            ? `match-${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}`
+                                            : `${getOrdinalSuffix(
+                                                item?.match?.match_number
+                                              )}-${item?.match?.format_str
+                                                ?.toLowerCase()
+                                                ?.split(" ")
+                                                ?.join("-")}`
+                                        }-${formatTitle(
+                                          item?.match?.competition?.title
+                                        )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                      )
+                                    }
+                                    className="blank-screen cursor-pointer"
                                   >
-                                    <div className="flex">
-                                      <span className="font-semibold"></span>
-                                      <span className="text-slate-400">
-                                        <h1 className="text-base">
-                                          {item?.match?.title}
-                                          {","} {item?.match?.subtitle}{" "}
-                                        </h1>
-                                      </span>
+                                    <div className="content">
+                                      <div className="main">
+                                        <div className="flex gap-5 text-white text-here">
+                                          <span>
+                                            {item?.match?.teama?.name}
+                                          </span>
+                                          <span>
+                                            {item?.match?.teama?.scores_full}
+                                          </span>
+                                        </div>
+                                        <div className="flex gap-7 text-white text-here">
+                                          <span>
+                                            {item?.match?.teamb?.name}
+                                          </span>
+                                          <span>
+                                            {item?.match?.teamb?.scores_full}
+                                          </span>
+                                        </div>
+                                        <div className="text-slate-300 text-here">
+                                          {getWinningTeamName(item)} won by{" "}
+                                          {item?.match?.win_margin}
+                                        </div>
+                                      </div>
+                                      <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                        <IoCaretForwardOutline />
+                                      </div>
                                     </div>
-                                    <div className="text-slate-400">
-                                      {formatDateStringRkt(
-                                        item?.match?.date_start_ist
-                                      )}{" "}
-                                      at {item?.match?.venue?.name}
-                                      {" ,"}
-                                      {item?.match?.venue?.location}
-                                    </div>
-                                    <div
+                                  </div>
+                                  <ul className="links">
+                                    <li
                                       onClick={() =>
                                         navigate(
                                           `/live-cricket-scores/${
@@ -825,73 +857,43 @@ const Livescrore = () => {
                                           )}-${item?.match?.competition?.season?.toLowerCase()}`
                                         )
                                       }
-                                      className="bg-[#858584] rounded-lg h-[150px] w-[400px] flex justify-center items-center"
                                     >
-                                      {}
-                                      <div
-                                        style={{ padding: "0.5rem 1rem" }}
-                                        className="flex items-center gap-[6rem] "
-                                      >
-                                        <div>
-                                          <div className="flex gap-5 text-white">
-                                            <span>
-                                              {item?.match?.teama?.name}
-                                            </span>
-                                            <span>
-                                              {item?.match?.teama?.scores_full}
-                                            </span>
-                                          </div>
-                                          <div className="flex gap-7 text-white">
-                                            <span>
-                                              {item?.match?.teamb?.name}
-                                            </span>
-                                            <span>
-                                              {item?.match?.teamb?.scores_full}
-                                            </span>
-                                          </div>
-                                          <div className="text-slate-300">
-                                            {getWinningTeamName(item)} won by{" "}
-                                            {item?.match?.win_margin}
-                                          </div>
-                                        </div>
-                                        <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
-                                          <IoCaretForwardOutline />
-                                        </div>
-                                      </div>
-                                    </div>
-                                    <div className="flex ">
-                                      <div
-                                        onClick={() =>
+                                      Live Score
+                                    </li>
+                                    <li
+                                      onClick={() => {
+                                        navigate(
+                                          `/live-cricket-scorecard/${
+                                            item?.match?.match_id
+                                          }/${formatTitle(
+                                            item?.match?.teama?.short_name
+                                          )}-vs-${formatTitle(
+                                            item?.match?.teamb?.short_name
+                                          )}-${
+                                            item?.match?.competition?.type ===
+                                            "tournament"
+                                              ? `match-${getOrdinalSuffix(
+                                                  item?.match?.match_number
+                                                )}`
+                                              : `${getOrdinalSuffix(
+                                                  item?.match?.match_number
+                                                )}-${item?.match?.format_str
+                                                  ?.toLowerCase()
+                                                  ?.split(" ")
+                                                  ?.join("-")}`
+                                          }-${formatTitle(
+                                            item?.match?.competition?.title
+                                          )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                        );
+                                      }}
+                                    >
+                                      Scorecard
+                                    </li>
+                                    <li
+                                      onClick={() => {
+                                        item?.match?.match_id &&
                                           navigate(
-                                            `/live-cricket-scores/${
-                                              item?.match?.match_id
-                                            }/${formatTitle(
-                                              item?.match?.short_title
-                                            )}-${
-                                              item?.match?.competition?.type ===
-                                              "tournament"
-                                                ? `match-${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}`
-                                                : `${getOrdinalSuffix(
-                                                    item?.match?.match_number
-                                                  )}-${item?.match?.format_str
-                                                    ?.toLowerCase()
-                                                    ?.split(" ")
-                                                    ?.join("-")}`
-                                            }-${formatTitle(
-                                              item?.match?.competition?.title
-                                            )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                          )
-                                        }
-                                        className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px]  flex justify-center items-center cursor-pointer"
-                                      >
-                                        Live Score
-                                      </div>
-                                      <div
-                                        onClick={() => {
-                                          navigate(
-                                            `/live-cricket-scorecard/${
+                                            `/live-cricket-full-commentary/${
                                               item?.match?.match_id
                                             }/${formatTitle(
                                               item?.match?.teama?.short_name
@@ -913,64 +915,28 @@ const Livescrore = () => {
                                               item?.match?.competition?.title
                                             )}-${item?.match?.competition?.season?.toLowerCase()}`
                                           );
-                                        }}
-                                        className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                      >
-                                        Scorecard
-                                      </div>
-                                      <div
-                                        onClick={() => {
-                                          item?.match?.match_id &&
-                                            navigate(
-                                              `/live-cricket-full-commentary/${
-                                                item?.match?.match_id
-                                              }/${formatTitle(
-                                                item?.match?.teama?.short_name
-                                              )}-vs-${formatTitle(
-                                                item?.match?.teamb?.short_name
-                                              )}-${
-                                                item?.match?.competition
-                                                  ?.type === "tournament"
-                                                  ? `match-${getOrdinalSuffix(
-                                                      item?.match?.match_number
-                                                    )}`
-                                                  : `${getOrdinalSuffix(
-                                                      item?.match?.match_number
-                                                    )}-${item?.match?.format_str
-                                                      ?.toLowerCase()
-                                                      ?.split(" ")
-                                                      ?.join("-")}`
-                                              }-${formatTitle(
-                                                item?.match?.competition?.title
-                                              )}-${item?.match?.competition?.season?.toLowerCase()}`
-                                            );
-                                        }}
-                                        className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                      >
-                                        Full Commentary
-                                      </div>
-                                      <div
-                                        onClick={() =>
-                                          navigate(`/cricket-news`)
-                                        }
-                                        className="text-[#0F19AF] w-[150px] h-[40px] border-r-[2px] flex justify-center items-center cursor-pointer"
-                                      >
-                                        News
-                                      </div>
-                                    </div>
-                                  </div>
-                                );
-                              })}
-                            </div>
+                                      }}
+                                    >
+                                      Full Commentary
+                                    </li>
+                                    <li
+                                      onClick={() => navigate(`/cricket-news`)}
+                                    >
+                                      News
+                                    </li>
+                                  </ul>
+                                </div>
+                              );
+                            })}
                           </>
                         );
                       })}
                     </div>
 
-                    <div className="w-[250px]">
+                    <div className="right-section">
                       {allSeries?.length > 0 && (
-                        <div className="bg-white p-4 rounded-lg mb-4 shadow-lg">
-                          <span className="text-black font-bold text-sm pl-2">
+                        <div className="card-container">
+                          <span className="text-black font-bold text-sm">
                             CURRENT SERIES
                           </span>
                           <div className="flex flex-col mt-4 gap-2">
@@ -992,7 +958,6 @@ const Livescrore = () => {
                                 >
                                   <p className="text-left text-sm font-medium text-gray-800">
                                     {item?.title}
-                                    {}
                                   </p>
                                 </div>
                               );
@@ -1014,15 +979,8 @@ const Livescrore = () => {
                         />
                       )}
 
-                      <div className="bg-[white] pt-3 pb-3 rounded-lg mt-2">
-                        <div
-                          style={{
-                            boxShadow:
-                              "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                            padding: "10px",
-                          }}
-                          className="flex justify-between p-2"
-                        >
+                      <div className="card-container">
+                        <div className="flex justify-between p-2">
                           <div
                             className="text-sm font-semibold"
                             style={{ fontSize: "12px" }}
@@ -1040,7 +998,7 @@ const Livescrore = () => {
                             </button>
                           </div>
                         </div>
-                        <div className="flex justify-between ml-2 mr-2">
+                        <div className="flex justify-between ml-2 mr-2 gap-[10px]">
                           <button
                             onClick={() => setTeamSelector("test")}
                             className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
@@ -1408,247 +1366,796 @@ const Livescrore = () => {
                           alt="images"
                         />
                       )}
-                      <div
-                        style={{
-                          boxShadow:
-                            "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px",
-                        }}
-                        className="bg-[white] rounded-lg mt-2 mb-3"
-                      >
-                        <div className="p-1">
-                          <span className="font-semibold text-sm ml-4">
-                            SPECIALS
-                          </span>
-                          {specialBanner?.map((item, index) => (
-                            <>
-                              <img src={item?.image} alt="" />
-                              <span className="font-semibold text-sm ml-4">
-                                {item?.subtitle}
-                              </span>
-                              <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
-                                {item?.description}
-                              </p>
-                            </>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
-            )}
-            {selectedDiv === "Current & Future Series" && (
-              <>
-                <div className="bg-[#E6E6E7] h-[70px] flex items-center mt-5  ">
-                  <div className="w-[700px] flex items-center gap-[13.5rem] pl-5 ">
-                    <div className="font-semibold">Month</div>
-                    <div className="font-semibold">Series Name</div>
-                  </div>
-                </div>
-                <div className="flex mt-2 justify-center pb-5">
-                  <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[950px]  ">
-                      <div className="flex flex-col gap-5">
-                        {competationsType?.map((item) => (
-                          <div className="flex gap-[5rem]">
-                            <div
-                              style={{ width: "150px" }}
-                              className="font-semibold"
-                            >
-                              {convertMonthAndYearR(item?.monthAndYear)}
-                            </div>
-                            <div
-                              style={{ width: "650px" }}
-                              className="text-slate-400"
-                            >
-                              <span>
-                                {item?.competitions?.map(
-                                  (competition, index) => {
-                                    return (
-                                      //   <Link
-                                      //   to={``}
-                                      // >
-                                      <p
-                                        onClick={() =>
-                                          navigate(
-                                            `/cricket-series/${
-                                              competition?.cid
-                                            }/${formatTitle(
-                                              competition?.title
-                                            )}-${competition?.season}/matches`
-                                          )
-                                        }
-                                        className="cursor-pointer flex flex-col text-black hover:underline"
-                                        key={index}
-                                      >
-                                        <span>
-                                          <h1 className="text-base">
-                                            {competition?.title}{" "}
-                                            {competition?.datestart?.slice(
-                                              0,
-                                              4
-                                            ) ===
-                                            competition?.dateend?.slice(0, 4)
-                                              ? `${competition?.datestart?.slice(
-                                                  0,
-                                                  4
-                                                )}`
-                                              : `${competition?.datestart?.slice(
-                                                  0,
-                                                  4
-                                                )}-${competition?.dateend?.slice(
-                                                  2,
-                                                  4
-                                                )}`}
-                                          </h1>
-                                        </span>
-                                        <span>
-                                          {formatDateRangeR(
-                                            competition?.datestart,
-                                            competition?.dateend
-                                          )}
-                                        </span>
-                                      </p>
-                                      // </Link>
-                                    );
-                                  }
-                                )}
-                              </span>
-
-                              <hr className="mt-2" />
-                            </div>
-                          </div>
+                      <div className="card-container">
+                        <span className="font-semibold text-sm">SPECIALS</span>
+                        {specialBanner?.map((item) => (
+                          <>
+                            <img src={item?.image} alt="" />
+                            <span className="font-semibold text-sm ml-4">
+                              {item?.subtitle}
+                            </span>
+                            <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
+                              {item?.description}
+                            </p>
+                          </>
                         ))}
                       </div>
                     </div>
                   </div>
                 </div>
-              </>
-            )}
-            {selectedDiv === "Match Day By Day" && (
-              <>
-                <div className="flex mt-2 justify-center pb-5">
-                  <div className="w-[950px] pb-5 bg-[white] flex justify-center gap-5 pt-5">
-                    <div className="left w-[950px]  ">
-                      <div>
-                        {Object?.keys(groupedMatches).map((date, index) => (
-                          <div key={index}>
+
+                <div className="match-score-detail-container margin-div">
+                  <div className="all-container">
+                    <div className="left-section">
+                      {comp1[0]?.matches?.map((item, index) => {
+                        return (
+                          <div key={index} className="custom-card">
+                            <p className="heading">
+                              {item?.match?.title}
+                              {","} {item?.match?.subtitle}{" "}
+                            </p>
+
+                            <p className="venue">
+                              {formatDateStringRkt(item?.match?.date_start_ist)}{" "}
+                              at {item?.match?.venue?.name}
+                              {" ,"}
+                              {item?.match?.venue?.location}
+                            </p>
+
                             <div
-                              style={{
-                                padding: "5px 0px",
-                                backgroundColor: "#E7E7E7",
-                                fontWeight: "bold",
-                              }}
+                              onClick={() =>
+                                navigate(
+                                  `/live-cricket-scores/${
+                                    item?.match?.match_id
+                                  }/${formatTitle(
+                                    item?.match?.short_title
+                                  )}-${convertStringFormat(
+                                    item?.match?.subtitle
+                                  )}-${formatTitle(
+                                    item?.match?.competition?.title
+                                  )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                )
+                              }
+                              className="blank-screen cursor-pointer"
                             >
-                              <p style={{ fontWeight: "bold", padding: "5px" }}>
-                                {date}
-                              </p>
+                              <div className="content">
+                                <div className="main">
+                                  <div className="flex gap-5 text-white text-here">
+                                    <span>{item?.match?.teama?.name}</span>
+                                    <span>
+                                      {item?.match?.teama?.scores_full}
+                                    </span>
+                                  </div>
+                                  <div className="flex gap-7 text-white text-here">
+                                    <span>{item?.match?.teamb?.name}</span>
+                                    <span>
+                                      {item?.match?.teamb?.scores_full}
+                                    </span>
+                                  </div>
+                                  <div className="text-slate-300 text-here">
+                                    {getWinningTeamName(item)}{" "}
+                                    {item?.match?.win_margin
+                                      ? ` won by ${item?.match?.win_margin}`
+                                      : ""}
+                                  </div>
+                                </div>
+                                <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                  <IoCaretForwardOutline />
+                                </div>
+                              </div>
                             </div>
-                            {groupedMatches[date]?.map((item, index) => (
-                              <div
-                                key={index}
-                                style={{
-                                  display: "grid",
-                                  gridTemplateColumns: "25% 50% 25%",
-                                  gap: "20px",
-                                  marginTop: "10px",
-                                  marginBottom: "10px",
-                                }}
+
+                            <ul className="links">
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scores/${
+                                      item?.match?.match_id
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${convertStringFormat(
+                                      item?.match?.subtitle
+                                    )}-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
                               >
-                                <p
+                                Live Score
+                              </li>
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-scorecard/${
+                                      item?.match?.match_id
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${convertStringFormat(
+                                      item?.match?.subtitle
+                                    )}-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
+                              >
+                                Scorecard
+                              </li>
+                              <li
+                                onClick={() =>
+                                  navigate(
+                                    `/live-cricket-full-commentary/${
+                                      item?.match?.match_id
+                                    }/${formatTitle(
+                                      item?.match?.short_title
+                                    )}-${convertStringFormat(
+                                      item?.match?.subtitle
+                                    )}-${formatTitle(
+                                      item?.match?.competition?.title
+                                    )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                  )
+                                }
+                              >
+                                Full Commentary
+                              </li>
+                              <li onClick={() => navigate(`/cricket-news`)}>
+                                News
+                              </li>
+                            </ul>
+                          </div>
+                        );
+                      })}
+
+                      {comp1?.slice(1)?.map((item) => {
+                        return (
+                          <>
+                            {item?.competition?.title && (
+                              <>
+                                <div
                                   onClick={() =>
                                     navigate(
                                       `/cricket-series/${
                                         item?.competition?.cid
                                       }/${formatTitle(
                                         item?.competition?.title
-                                      )}-${item?.competition?.season}/matches`
+                                      )}-${
+                                        item?.matches?.[0]?.match?.competition
+                                          ?.season
+                                      }/matches`
                                     )
                                   }
-                                  className="font-bold text-black pl-1 cursor-pointer hover:underline"
+                                  className="match-heading-div cursor-pointer"
                                 >
-                                  <h1 className="text-base font-bold">
-                                    {item?.competition?.title},{" "}
-                                    {item?.competition?.season}-
-                                    {item?.competition?.dateend?.slice(2, 4)}
-                                  </h1>
-                                </p>
+                                  {item?.competition?.title}
+                                  {","}{" "}
+                                  {item?.competition?.season ||
+                                    item?.matches?.[0]?.match?.competition
+                                      ?.season}
+                                </div>
+                              </>
+                            )}
 
-                                <p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "column",
-                                    }}
-                                    onClick={() => {
-                                      navigate(
-                                        `/live-cricket-scores/${
-                                          item?.match_id
-                                        }/${formatTitle(
-                                          item?.teama?.short_name
-                                        )}-vs-${item?.teamb?.short_name
-                                          ?.toLowerCase()
-                                          .split(" ")
-                                          .join("-")}-${
-                                          item?.competition?.type ===
-                                          "tournament"
-                                            ? `match-${getOrdinalSuffix(
-                                                item?.match_number
-                                              )}`
-                                            : `${getOrdinalSuffix(
-                                                item?.match_number
-                                              )}-${item?.format_str
-                                                ?.toLowerCase()
-                                                ?.split(" ")
-                                                ?.join("-")}`
-                                        }-${formatTitle(
-                                          item?.competition?.title
-                                        )}-${item?.competition?.season?.toLowerCase()}`
-                                      );
-                                    }}
-                                  >
-                                    <span className="text-black hover:underline hover:cursor-pointer">
-                                      <h1 className="text-base">
-                                        {item?.teama?.name && item?.teamb?.name
-                                          ? `${item.teama.name} vs ${item.teamb.name}`
-                                          : "Match details not available"}
-                                        , {item?.subtitle}{" "}
-                                        {item?.format_str === "Test" &&
-                                          `, Day ${item?.day}`}
-                                      </h1>
-                                    </span>
+                            <div className="flex flex-col gap-5">
+                              {item?.matches?.map((item, index) => {
+                                return (
+                                  <div key={index} className="custom-card">
+                                    <p className="heading">
+                                      {item?.match?.title}
+                                      {","} {item?.match?.subtitle}{" "}
+                                    </p>
 
-                                    <span style={{ color: "#707071" }}>
-                                      {item?.venue?.name?.split(",")?.[0]},{" "}
-                                      {item?.venue?.location}
-                                    </span>
-                                  </div>
-                                </p>
-                                <p>
-                                  <div
-                                    style={{
-                                      display: "flex",
-                                      flexDirection: "column",
-                                      paddingRight: "3rem",
-                                    }}
-                                  >
-                                    <span style={{ color: "black" }}>
-                                      {formatTime11(item?.date_start_ist)}
-                                    </span>
-                                    <span
-                                      style={{
-                                        color: "#707071",
-                                        fontSize: "15px",
-                                      }}
+                                    <p className="venue">
+                                      {formatDateStringRkt(
+                                        item?.match?.date_start_ist
+                                      )}{" "}
+                                      at {item?.match?.venue?.name}
+                                      {" ,"}
+                                      {item?.match?.venue?.location}
+                                    </p>
+
+                                    <div
+                                      onClick={() =>
+                                        navigate(
+                                          `/live-cricket-scores/${
+                                            item?.match?.match_id
+                                          }/${formatTitle(
+                                            item?.match?.short_title
+                                          )}-${
+                                            item?.match?.competition?.type ===
+                                            "tournament"
+                                              ? `match-${getOrdinalSuffix(
+                                                  item?.match?.match_number
+                                                )}`
+                                              : `${getOrdinalSuffix(
+                                                  item?.match?.match_number
+                                                )}-${item?.match?.format_str
+                                                  ?.toLowerCase()
+                                                  ?.split(" ")
+                                                  ?.join("-")}`
+                                          }-${formatTitle(
+                                            item?.match?.competition?.title
+                                          )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                        )
+                                      }
+                                      className="blank-screen cursor-pointer"
                                     >
-                                      {formatTime11(item?.date_start)} GMT /{" "}
-                                      {formatTime11(item?.date_start_ist)} Local
-                                    </span>
+                                      <div className="content">
+                                        <div className="main">
+                                          <div className="flex gap-5 text-white text-here">
+                                            <span>
+                                              {item?.match?.teama?.name}
+                                            </span>
+                                            <span>
+                                              {item?.match?.teama?.scores_full}
+                                            </span>
+                                          </div>
+                                          <div className="flex gap-7 text-white text-here">
+                                            <span>
+                                              {item?.match?.teamb?.name}
+                                            </span>
+                                            <span>
+                                              {item?.match?.teamb?.scores_full}
+                                            </span>
+                                          </div>
+                                          <div className="text-slate-300 text-here">
+                                            {getWinningTeamName(item)} won by{" "}
+                                            {item?.match?.win_margin}
+                                          </div>
+                                        </div>
+                                        <div className="bg-[white] w-[35px] h-[35px] rounded flex justify-center items-center">
+                                          <IoCaretForwardOutline />
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                    <ul className="links">
+                                      <li
+                                        onClick={() =>
+                                          navigate(
+                                            `/live-cricket-scores/${
+                                              item?.match?.match_id
+                                            }/${formatTitle(
+                                              item?.match?.short_title
+                                            )}-${
+                                              item?.match?.competition?.type ===
+                                              "tournament"
+                                                ? `match-${getOrdinalSuffix(
+                                                    item?.match?.match_number
+                                                  )}`
+                                                : `${getOrdinalSuffix(
+                                                    item?.match?.match_number
+                                                  )}-${item?.match?.format_str
+                                                    ?.toLowerCase()
+                                                    ?.split(" ")
+                                                    ?.join("-")}`
+                                            }-${formatTitle(
+                                              item?.match?.competition?.title
+                                            )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                          )
+                                        }
+                                      >
+                                        Live Score
+                                      </li>
+                                      <li
+                                        onClick={() => {
+                                          navigate(
+                                            `/live-cricket-scorecard/${
+                                              item?.match?.match_id
+                                            }/${formatTitle(
+                                              item?.match?.teama?.short_name
+                                            )}-vs-${formatTitle(
+                                              item?.match?.teamb?.short_name
+                                            )}-${
+                                              item?.match?.competition?.type ===
+                                              "tournament"
+                                                ? `match-${getOrdinalSuffix(
+                                                    item?.match?.match_number
+                                                  )}`
+                                                : `${getOrdinalSuffix(
+                                                    item?.match?.match_number
+                                                  )}-${item?.match?.format_str
+                                                    ?.toLowerCase()
+                                                    ?.split(" ")
+                                                    ?.join("-")}`
+                                            }-${formatTitle(
+                                              item?.match?.competition?.title
+                                            )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                          );
+                                        }}
+                                      >
+                                        Scorecard
+                                      </li>
+                                      <li
+                                        onClick={() => {
+                                          item?.match?.match_id &&
+                                            navigate(
+                                              `/live-cricket-full-commentary/${
+                                                item?.match?.match_id
+                                              }/${formatTitle(
+                                                item?.match?.teama?.short_name
+                                              )}-vs-${formatTitle(
+                                                item?.match?.teamb?.short_name
+                                              )}-${
+                                                item?.match?.competition
+                                                  ?.type === "tournament"
+                                                  ? `match-${getOrdinalSuffix(
+                                                      item?.match?.match_number
+                                                    )}`
+                                                  : `${getOrdinalSuffix(
+                                                      item?.match?.match_number
+                                                    )}-${item?.match?.format_str
+                                                      ?.toLowerCase()
+                                                      ?.split(" ")
+                                                      ?.join("-")}`
+                                              }-${formatTitle(
+                                                item?.match?.competition?.title
+                                              )}-${item?.match?.competition?.season?.toLowerCase()}`
+                                            );
+                                        }}
+                                      >
+                                        Full Commentary
+                                      </li>
+                                      <li
+                                        onClick={() =>
+                                          navigate(`/cricket-news`)
+                                        }
+                                      >
+                                        News
+                                      </li>
+                                    </ul>
                                   </div>
-                                </p>
-                              </div>
-                            ))}
+                                );
+                              })}
+                            </div>
+                          </>
+                        );
+                      })}
+                    </div>
+
+                    <div className="right-section">
+                      {allSeries?.length > 0 && (
+                        <div className="card-container">
+                          <span className="text-black font-bold text-sm pl-2">
+                            CURRENT SERIES
+                          </span>
+                          <div className="flex flex-col mt-4 gap-2">
+                            {allSeries?.map((item, index) => {
+                              if (index >= 4) return null;
+                              return (
+                                <div
+                                  key={item?._id}
+                                  className="pt-1 pl-1 pb-0 rounded-md cursor-pointer hover:underline hover:text-[#0F19AF] transition duration-300"
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${
+                                        item?.cid
+                                      }/${formatTitle(item?.title)}-${
+                                        item?.season
+                                      }/matches`
+                                    )
+                                  }
+                                >
+                                  <p className="text-left text-sm font-medium text-gray-800">
+                                    {item?.title}
+                                  </p>
+                                </div>
+                              );
+                            })}
                           </div>
+                        </div>
+                      )}
+
+                      {middleBanner2 && (
+                        <img
+                          style={{
+                            width: "100%",
+                            height: "550px",
+                            borderRadius: "10px",
+                          }}
+                          className="mb-3"
+                          src={middleBanner2}
+                          alt="middleBanner"
+                        />
+                      )}
+
+                      <div className="card-container">
+                        <div className="flex justify-between p-2">
+                          <div
+                            className="text-sm font-semibold"
+                            style={{ fontSize: "12px" }}
+                          >
+                            RANKING’s
+                          </div>
+                          <div>
+                            <button
+                              onClick={() =>
+                                navigate("/icc-rankings/men/batting")
+                              }
+                              className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                            >
+                              View all
+                            </button>
+                          </div>
+                        </div>
+                        <div className="flex justify-between ml-2 mr-2 gap-[10px]">
+                          <button
+                            onClick={() => setTeamSelector("test")}
+                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0F19AF] text-[10px] text-white"
+                            style={{
+                              cursor: "pointer",
+                              backgroundColor:
+                                teamSelector === "test" ? "#0F19AF" : "black",
+                              color:
+                                teamSelector === "test" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "test" ? "bold" : "normal",
+                            }}
+                          >
+                            Test
+                          </button>
+                          <button
+                            onClick={() => setTeamSelector("odi")}
+                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                            style={{
+                              cursor: "pointer",
+                              backgroundColor:
+                                teamSelector === "odi" ? "#0F19AF" : null,
+                              color: teamSelector === "odi" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "odi" ? "bold" : "normal",
+                            }}
+                          >
+                            ODI
+                          </button>
+                          <button
+                            onClick={() => setTeamSelector("t20")}
+                            className="w-[70px] rounded-3xl h-[25px] flex justify-center items-center bg-[#0D121A] text-[10px] text-white"
+                            style={{
+                              cursor: "pointer",
+                              backgroundColor:
+                                teamSelector === "t20" ? "#0F19AF" : null,
+                              color: teamSelector === "t20" ? "white" : "black",
+                              fontWeight:
+                                teamSelector === "t20" ? "bold" : "normal",
+                            }}
+                          >
+                            T20
+                          </button>
+                        </div>
+                        <div className="flex justify-between m-2">
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              textDecoration:
+                                mainCategory === "teams" ? "underline" : "none",
+                              fontWeight:
+                                mainCategory === "teams" ? "bold" : "normal",
+                              color: "black",
+                              textDecorationColor: "#0F19AF",
+                            }}
+                            onClick={() => setMainCategory("teams")}
+                            className="text-[#0F19AF]"
+                          >
+                            Teams
+                          </div>
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              textDecoration:
+                                mainCategory === "batting"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "batting" ? "bold" : "normal",
+
+                              textDecorationColor: "#0F19AF",
+                            }}
+                            onClick={() => setMainCategory("batting")}
+                          >
+                            Batting
+                          </div>
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              textDecoration:
+                                mainCategory === "bowling"
+                                  ? "underline"
+                                  : "none",
+                              fontWeight:
+                                mainCategory === "bowling" ? "bold" : "normal",
+
+                              textDecorationColor: "#0F19AF",
+                            }}
+                            onClick={() => setMainCategory("bowling")}
+                          >
+                            Bowling
+                          </div>
+                          <div
+                            style={{
+                              cursor: "pointer",
+                              textDecoration:
+                                mainCategory === "alr" ? "underline" : "none",
+                              fontWeight:
+                                mainCategory === "alr" ? "bold" : "normal",
+
+                              textDecorationColor: "#0F19AF",
+                            }}
+                            onClick={() => setMainCategory("alr")}
+                          >
+                            ALR
+                          </div>
+                        </div>
+                        <table>
+                          <thead style={{ textAlign: "center" }}>
+                            <tr>
+                              <th className="w-[100px]">Rank</th>
+                              <th className="w-[100px]">Team</th>
+                              <th className="w-[100px]">Rating</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {mainCategory === "teams" && (
+                              <>
+                                {teamSelector === "test" &&
+                                  test?.slice(0, 6)?.map((item, index) => (
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                {teamSelector === "t20" &&
+                                  t20s?.slice(0, 6)?.map((item, index) => (
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
+                                    </tr>
+                                  ))}
+
+                                {teamSelector === "odi" &&
+                                  odis?.slice(0, 6)?.map((item, index) => (
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
+                                    </tr>
+                                  ))}
+                              </>
+                            )}
+                            {mainCategory === "batting" && (
+                              <>
+                                {teamSelector === "test" &&
+                                  testBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                {teamSelector === "t20" &&
+                                  t20Bestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                {teamSelector === "odi" &&
+                                  odiBestman
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
+                              </>
+                            )}
+                            {mainCategory === "bowling" && (
+                              <>
+                                {teamSelector === "test" &&
+                                  testBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                {teamSelector === "t20" &&
+                                  t20Bolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
+                                {teamSelector === "odi" &&
+                                  odiBolling
+                                    ?.slice(0, 6)
+                                    ?.map((item, index) => (
+                                      <tr
+                                        key={index}
+                                        style={{ textAlign: "center" }}
+                                      >
+                                        <td className="text-center">
+                                          {item?.rank}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.team}
+                                        </td>
+                                        <td className="text-center">
+                                          {item?.rating}
+                                        </td>
+                                      </tr>
+                                    ))}
+                              </>
+                            )}
+                            {mainCategory === "alr" && (
+                              <>
+                                {teamSelector === "test" &&
+                                  testAlr?.slice(0, 6)?.map((item, index) => (
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                {teamSelector === "t20" &&
+                                  odiAlr?.slice(0, 6)?.map((item, index) => (
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
+                                    </tr>
+                                  ))}
+                                {teamSelector === "odi" &&
+                                  odiAlr?.slice(0, 6)?.map((item, index) => (
+                                    <tr
+                                      key={index}
+                                      style={{ textAlign: "center" }}
+                                    >
+                                      <td className="text-center">
+                                        {item?.rank}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.team}
+                                      </td>
+                                      <td className="text-center">
+                                        {item?.rating}
+                                      </td>
+                                    </tr>
+                                  ))}
+                              </>
+                            )}
+                          </tbody>
+                        </table>
+                        <div className="text-center text-[10px] mt-2">
+                          Latest Updated On {new Date().toLocaleDateString()}
+                        </div>
+                      </div>
+
+                      {bottomBanner1 && (
+                        <img
+                          src={bottomBanner1}
+                          style={{
+                            height: "550px",
+                            borderRadius: "10px",
+                            marginTop: "2rem",
+                          }}
+                          alt="images"
+                        />
+                      )}
+                      <div className="card-container">
+                        <span className="font-semibold text-sm">SPECIALS</span>
+                        {specialBanner?.map((item) => (
+                          <>
+                            <img src={item?.image} alt="" />
+                            <span className="font-semibold text-sm ml-4">
+                              {item?.subtitle}
+                            </span>
+                            <p className="ml-4 mt-2 text-sm text-[#8B8C8D]">
+                              {item?.description}
+                            </p>
+                          </>
                         ))}
                       </div>
                     </div>
@@ -1656,6 +2163,193 @@ const Livescrore = () => {
                 </div>
               </>
             )}
+            {/* ---- */}
+
+            {selectedDiv === "Current & Future Series" && (
+              <>
+                <div className="future-series-container-head">
+                  <div className="w-[700px] flex items-center gap-[13.5rem] pl-5 ">
+                    <div className="font-semibold">Month</div>
+                    <div className="font-semibold">Series Name</div>
+                  </div>
+                </div>
+
+                <div className="future-series-container-boxes-container">
+                  <div className="boxes">
+                    {competationsType?.map((item) => (
+                      <div className="box">
+                        <div className="month-container">
+                          {convertMonthAndYearR(item?.monthAndYear)}
+                        </div>
+                        <div className="text-slate-400 series-container">
+                          <span>
+                            {item?.competitions?.map((competition, index) => {
+                              return (
+                                <p
+                                  onClick={() =>
+                                    navigate(
+                                      `/cricket-series/${
+                                        competition?.cid
+                                      }/${formatTitle(competition?.title)}-${
+                                        competition?.season
+                                      }/matches`
+                                    )
+                                  }
+                                  className="cursor-pointer flex flex-col text-black hover:underline"
+                                  key={index}
+                                >
+                                  <span>
+                                    <h1 className="text-base">
+                                      {competition?.title}{" "}
+                                      {competition?.datestart?.slice(0, 4) ===
+                                      competition?.dateend?.slice(0, 4)
+                                        ? `${competition?.datestart?.slice(
+                                            0,
+                                            4
+                                          )}`
+                                        : `${competition?.datestart?.slice(
+                                            0,
+                                            4
+                                          )}-${competition?.dateend?.slice(
+                                            2,
+                                            4
+                                          )}`}
+                                    </h1>
+                                  </span>
+                                  <span>
+                                    {formatDateRangeR(
+                                      competition?.datestart,
+                                      competition?.dateend
+                                    )}
+                                  </span>
+                                </p>
+                                // </Link>
+                              );
+                            })}
+                          </span>
+
+                          <hr className="mt-2" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
+            {selectedDiv === "Match Day By Day" && (
+              <>
+                <div className="cricket-schedule-day-container">
+                  <div className="main-section">
+                    {Object?.keys(groupedMatches).map((date, index) => (
+                      <div key={index}>
+                        <div className="match-heading-div">{date}</div>
+
+                        {groupedMatches[date]?.map((item, index) => (
+                          <div key={index} className="grid-card">
+                            <div className="item-content">
+                              <h1
+                                className="text-base font-bold text-black pl-1 cursor-pointer hover:underline first-head small-text"
+                                onClick={() =>
+                                  navigate(
+                                    `/cricket-series/${
+                                      item?.competition?.cid
+                                    }/${formatTitle(
+                                      item?.competition?.title
+                                    )}-${item?.competition?.season}/matches`
+                                  )
+                                }
+                              >
+                                {item?.competition?.title},{" "}
+                                {item?.competition?.season}-
+                                {item?.competition?.dateend?.slice(2, 4)}
+                              </h1>
+
+                              <div
+                                style={{
+                                  display: "flex",
+                                  flexDirection: "column",
+                                }}
+                                onClick={() => {
+                                  navigate(
+                                    `/live-cricket-scores/${
+                                      item?.match_id
+                                    }/${formatTitle(
+                                      item?.teama?.short_name
+                                    )}-vs-${item?.teamb?.short_name
+                                      ?.toLowerCase()
+                                      .split(" ")
+                                      .join("-")}-${
+                                      item?.competition?.type === "tournament"
+                                        ? `match-${getOrdinalSuffix(
+                                            item?.match_number
+                                          )}`
+                                        : `${getOrdinalSuffix(
+                                            item?.match_number
+                                          )}-${item?.format_str
+                                            ?.toLowerCase()
+                                            ?.split(" ")
+                                            ?.join("-")}`
+                                    }-${formatTitle(
+                                      item?.competition?.title
+                                    )}-${item?.competition?.season?.toLowerCase()}`
+                                  );
+                                }}
+                              >
+                                <span className="text-black hover:underline hover:cursor-pointer">
+                                  <h1 className="text-base location-name">
+                                    {item?.teama?.name && item?.teamb?.name
+                                      ? `${item.teama.name} vs ${item.teamb.name}`
+                                      : "Match details not available"}
+                                    , {item?.subtitle}{" "}
+                                    {item?.format_str === "Test" &&
+                                      `, Day ${item?.day}`}
+                                  </h1>
+                                </span>
+
+                                <span
+                                  style={{ color: "#707071" }}
+                                  className="xs-small-text"
+                                >
+                                  {item?.venue?.name?.split(",")?.[0]},{" "}
+                                  {item?.venue?.location}
+                                </span>
+                              </div>
+                            </div>
+
+                            <div
+                              style={{
+                                display: "flex",
+                                flexDirection: "column",
+                                paddingRight: "3rem",
+                              }}
+                            >
+                              <span
+                                style={{ color: "black" }}
+                                className="xs-small-text"
+                              >
+                                {formatTime11(item?.date_start_ist)}
+                              </span>
+                              <span
+                                style={{
+                                  color: "#707071",
+                                  fontSize: "15px",
+                                }}
+                                className="xs-small-text"
+                              >
+                                {formatTime11(item?.date_start)} GMT /{" "}
+                                {formatTime11(item?.date_start_ist)} Local
+                              </span>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </>
+            )}
+
             {selectedDiv === "Teams" && (
               <>
                 <div className="flex mt-2 justify-center pb-5">
@@ -1672,255 +2366,230 @@ const Livescrore = () => {
                 </div>
               </>
             )}
+
             {selectedDiv === "Series Archive" && (
-              <>
-                {/* <div className="bg-[#E6E6E7] h-[70px] flex items-center mt-5  ">
-                  <div className="w-[700px] flex items-center gap-[13.5rem] pl-5 ">
-                    <div className="font-semibold">Month</div>
-                    <div className="font-semibold">Series Name</div>
-                  </div>
-                </div> */}
-                <div className=" mt-2    pb-5">
-                  <div className="w-[960px] pb-5 bg-[white]  pt-5">
-                    <div>
-                      <div>
-                        <Table className="mb-2" responsive>
-                          <thead>
-                            <tr>
-                              <th
-                                style={{
-                                  color: "#028062",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                International
-                              </th>
-                              <th></th>
-                            </tr>
-                            <tr>
-                              <th></th>
-                              <th style={{ color: "#000", fontWeight: "bold" }}>
-                                {" "}
-                                {seriesArchiveInternation?.map(
-                                  (item, index) => (
-                                    <p
-                                      key={index}
-                                      style={{
-                                        color: "#000",
-                                        fontWeight: "bold",
-                                        cursor: "pointer",
-                                        display: "flex",
-                                      }}
-                                      onClick={() =>
-                                        navigate(
-                                          `/cricket-series/${
-                                            item?.cid
-                                          }/${formatTitle(item?.title)}-${
-                                            item?.season
-                                          }/matches`
-                                        )
-                                      }
-                                    >
-                                      <span>
-                                        <h1 className="text-base font-bold hover:underline hover:cursor-pointer">
-                                          {item?.title}
-                                          {","} {item?.season}
-                                        </h1>
-                                      </span>
-                                      <span
-                                        style={{
-                                          marginLeft: "2rem",
-                                          color: "gray",
-                                          fontWeight: "normal",
-                                        }}
-                                      >
-                                        {formatDate22(item?.datestart)}-
-                                        {formatDate22(item?.dateend)}
-                                      </span>
-                                    </p>
-                                  )
-                                )}
-                              </th>
-                            </tr>
-                          </thead>
-                        </Table>
-                        <Table className="mb-2" responsive>
-                          <thead>
-                            <tr>
-                              <th
-                                style={{
-                                  color: "#028062",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                Domestic
-                              </th>
-                              <th></th>
-                            </tr>
-                            <tr>
-                              <th></th>
-                              <th style={{ color: "#000", fontWeight: "bold" }}>
-                                {" "}
-                                {seriesArchiveDomestic?.map((item, index) => (
-                                  <p
-                                    key={index}
-                                    style={{
-                                      color: "#000",
-                                      fontWeight: "bold",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={() =>
-                                      navigate(
-                                        `/cricket-series/${
-                                          item?.cid
-                                        }/${formatTitle(item?.title)}-${
-                                          item?.season
-                                        }/matches`
-                                      )
-                                    }
-                                  >
-                                    {item?.title}
-                                    {","} {item?.season}
-                                    <span
-                                      style={{
-                                        marginLeft: "2rem",
-                                        color: "gray",
-                                        fontWeight: "normal",
-                                      }}
-                                    >
-                                      {formatDate22(item?.datestart)}-
-                                      {formatDate22(item?.dateend)}
-                                    </span>
-                                  </p>
-                                ))}
-                              </th>
-                            </tr>
-                          </thead>
-                        </Table>
-                        <Table className="mb-2" responsive>
-                          <thead>
-                            <tr>
-                              <th
-                                style={{
-                                  color: "#028062",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                League
-                              </th>
-                              <th></th>
-                            </tr>
-                            <tr>
-                              <th></th>
-                              <th
-                                style={{
-                                  color: "#000",
-                                  fontWeight: "bold",
-                                  cursor: "pointer",
-                                }}
-                                // onClick={() =>
-                                //   navigate(
-                                //     `/cricket-series/${item?.cid}/${item?.title
-                                //       ?.toLowerCase()
-                                //       ?.split(" ")
-                                //       ?.join("-")}/matches`
-                                //   )
-                                // }
-                              >
-                                {" "}
-                                {seriesArchiveYouth?.map((item, index) => (
-                                  <p
-                                    key={index}
-                                    style={{
-                                      color: "#000",
-                                      fontWeight: "bold",
-                                    }}
-                                    onClick={() =>
-                                      navigate(
-                                        `/cricket-series/${
-                                          item?.cid
-                                        }/${formatTitle(item?.title)}-${
-                                          item?.season
-                                        }/matches`
-                                      )
-                                    }
-                                  >
-                                    {item?.title}
-                                    {","} {item?.season}
-                                    <span
-                                      style={{
-                                        marginLeft: "2rem",
-                                        color: "gray",
-                                        fontWeight: "normal",
-                                      }}
-                                    >
-                                      {formatDate22(item?.datestart)}-
-                                      {formatDate22(item?.dateend)}
-                                    </span>
-                                  </p>
-                                ))}
-                              </th>
-                            </tr>
-                          </thead>
-                        </Table>
-                        <Table className="mb-2" responsive>
-                          <thead>
-                            <tr>
-                              <th
-                                style={{
-                                  color: "#028062",
-                                  fontWeight: "bold",
-                                }}
-                              >
-                                Women
-                              </th>
-                              <th></th>
-                            </tr>
-                            <tr>
-                              <th></th>
-                              <th style={{ color: "#000", fontWeight: "bold" }}>
-                                {" "}
-                                {seriesArchiveWomen?.map((item, index) => (
-                                  <p
-                                    key={index}
-                                    style={{
-                                      color: "#000",
-                                      fontWeight: "bold",
-                                      cursor: "pointer",
-                                    }}
-                                    onClick={() =>
-                                      navigate(
-                                        `/cricket-series/${
-                                          item?.cid
-                                        }/${formatTitle(item?.title)}-${
-                                          item?.season
-                                        }/matches`
-                                      )
-                                    }
-                                  >
-                                    {item?.title}
-                                    {","} {item?.season}
-                                    <span
-                                      style={{
-                                        marginLeft: "2rem",
-                                        color: "gray",
-                                        fontWeight: "normal",
-                                      }}
-                                    >
-                                      {formatDate22(item?.datestart)}-
-                                      {formatDate22(item?.dateend)}
-                                    </span>
-                                  </p>
-                                ))}
-                              </th>
-                            </tr>
-                          </thead>
-                        </Table>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </>
+              <div className="series-archieve-container">
+                <Table className="mb-2" responsive>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          color: "#028062",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        International
+                      </th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th style={{ color: "#000", fontWeight: "bold" }}>
+                        {" "}
+                        {seriesArchiveInternation?.map((item, index) => (
+                          <p
+                            key={index}
+                            style={{
+                              color: "#000",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                              display: "flex",
+                            }}
+                            onClick={() =>
+                              navigate(
+                                `/cricket-series/${item?.cid}/${formatTitle(
+                                  item?.title
+                                )}-${item?.season}/matches`
+                              )
+                            }
+                          >
+                            <span>
+                              <h1 className="text-base font-bold hover:underline hover:cursor-pointer xs-small-text">
+                                {item?.title}
+                                {","} {item?.season}
+                              </h1>
+                            </span>
+                            <span
+                              style={{
+                                marginLeft: "2rem",
+                                color: "gray",
+                                fontWeight: "normal",
+                              }}
+                              className="xs-small-text"
+                            >
+                              {formatDate22(item?.datestart)}-
+                              {formatDate22(item?.dateend)}
+                            </span>
+                          </p>
+                        ))}
+                      </th>
+                    </tr>
+                  </thead>
+                </Table>
+
+                <Table className="mb-2" responsive>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          color: "#028062",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Domestic
+                      </th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th style={{ color: "#000", fontWeight: "bold" }}>
+                        {" "}
+                        {seriesArchiveDomestic?.map((item, index) => (
+                          <p
+                            key={index}
+                            style={{
+                              color: "#000",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                            }}
+                            onClick={() =>
+                              navigate(
+                                `/cricket-series/${item?.cid}/${formatTitle(
+                                  item?.title
+                                )}-${item?.season}/matches`
+                              )
+                            }
+                            className='xs-small-text'
+                          >
+                            {item?.title}
+                            {","} {item?.season}
+                            <span
+                              style={{
+                                marginLeft: "2rem",
+                                color: "gray",
+                                fontWeight: "normal",
+                              }}
+                            >
+                              {formatDate22(item?.datestart)}-
+                              {formatDate22(item?.dateend)}
+                            </span>
+                          </p>
+                        ))}
+                      </th>
+                    </tr>
+                  </thead>
+                </Table>
+                <Table className="mb-2" responsive>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          color: "#028062",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        League
+                      </th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th
+                        style={{
+                          color: "#000",
+                          fontWeight: "bold",
+                          cursor: "pointer",
+                        }}
+                 
+                      >
+                        {" "}
+                        {seriesArchiveYouth?.map((item, index) => (
+                          <p
+                            key={index}
+                            style={{
+                              color: "#000",
+                              fontWeight: "bold",
+                            }}
+                            onClick={() =>
+                              navigate(
+                                `/cricket-series/${item?.cid}/${formatTitle(
+                                  item?.title
+                                )}-${item?.season}/matches`
+                              )
+                            }
+                            className='xs-small-text'
+                          >
+                            {item?.title}
+                            {","} {item?.season}
+                            <span
+                              style={{
+                                marginLeft: "2rem",
+                                color: "gray",
+                                fontWeight: "normal",
+                              }}
+                            >
+                              {formatDate22(item?.datestart)}-
+                              {formatDate22(item?.dateend)}
+                            </span>
+                          </p>
+                        ))}
+                      </th>
+                    </tr>
+                  </thead>
+                </Table>
+                <Table className="mb-2" responsive>
+                  <thead>
+                    <tr>
+                      <th
+                        style={{
+                          color: "#028062",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        Women
+                      </th>
+                      <th></th>
+                    </tr>
+                    <tr>
+                      <th></th>
+                      <th style={{ color: "#000", fontWeight: "bold" }}>
+                        {" "}
+                        {seriesArchiveWomen?.map((item, index) => (
+                          <p
+                            key={index}
+                            style={{
+                              color: "#000",
+                              fontWeight: "bold",
+                              cursor: "pointer",
+                            }}
+                            onClick={() =>
+                              navigate(
+                                `/cricket-series/${item?.cid}/${formatTitle(
+                                  item?.title
+                                )}-${item?.season}/matches`
+                              )
+                            }
+                            className='xs-small-text'
+                          >
+                            {item?.title}
+                            {","} {item?.season}
+                            <span
+                              style={{
+                                marginLeft: "2rem",
+                                color: "gray",
+                                fontWeight: "normal",
+                              }}
+                            >
+                              {formatDate22(item?.datestart)}-
+                              {formatDate22(item?.dateend)}
+                            </span>
+                          </p>
+                        ))}
+                      </th>
+                    </tr>
+                  </thead>
+                </Table>
+              </div>
             )}
           </div>
         )}
