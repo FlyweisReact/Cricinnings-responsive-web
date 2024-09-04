@@ -1,0 +1,36 @@
+/** @format */
+
+import { useEffect, useState } from "react";
+import { GetData } from "./Integration/ApiIntegration";
+
+export const AdSideBanner = ({ img }) => {
+  return img && <img src={img} alt="" className="ad-side-banner" />;
+};
+
+export const SpecialBox = () => {
+  const [specialBanner, setSpecialBanner] = useState([]);
+
+  const getAllSpecialBanners = () => {
+    GetData("userAuth/getSpecials").then((res) => {
+      setSpecialBanner(res?.data);
+    });
+  };
+
+  useEffect(() => {
+    
+  })
+  return (
+    <div className="special-box-container">
+      <p className="heading">SPECIALS</p>
+      <div className="box-cont">
+        {specialBanner?.map((item, index) => (
+          <div className="box" key={index}>
+            <img src={item?.image} alt="" />
+            <p className="title">{item?.subtitle}</p>
+            <p className="description">{item?.description}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+};
